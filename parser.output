@@ -2,15 +2,14 @@ Grammar
 
     0 $accept: stmt $end
 
-    1 stmt: %empty
-    2     | IF
+    1 stmt: IF
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    IF (258) 2
+    IF (258) 1
 
 
 Nonterminals, with rules where they appear
@@ -18,7 +17,7 @@ Nonterminals, with rules where they appear
     $accept (4)
         on left: 0
     stmt (5)
-        on left: 1 2
+        on left: 1
         on right: 0
 
 
@@ -28,16 +27,14 @@ State 0
 
     IF  shift, and go to state 1
 
-    $default  reduce using rule 1 (stmt)
-
     stmt  go to state 2
 
 
 State 1
 
-    2 stmt: IF .
+    1 stmt: IF .
 
-    $default  reduce using rule 2 (stmt)
+    $default  reduce using rule 1 (stmt)
 
 
 State 2

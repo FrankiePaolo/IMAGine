@@ -370,7 +370,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  3
+#define YYNRULES  2
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  4
 
@@ -418,7 +418,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,     9,     9,    12
+       0,     9,     9
 };
 #endif
 
@@ -462,7 +462,7 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     3,     0,     1
+       0,     2,     0,     1
 };
 
   /* YYPGOTO[NTERM-NUM].  */
@@ -500,13 +500,13 @@ static const yytype_uint8 yystos[] =
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,     4,     5,     5
+       0,     4,     5
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     1
+       0,     2,     1
 };
 
 
@@ -1190,8 +1190,8 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 3:
-#line 12 "parser.y"
+  case 2:
+#line 9 "parser.y"
     {printf("Command if");}
 #line 1197 "parser.tab.c"
     break;
@@ -1429,7 +1429,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 14 "parser.y"
+#line 11 "parser.y"
 
 
 int main(int argc, char** argv) {

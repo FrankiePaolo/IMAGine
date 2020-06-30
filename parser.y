@@ -6,9 +6,6 @@
 %token IF
 
 %%
-stmt:
-;
-
 stmt: IF    {printf("Command if");}
 ;
 %%
