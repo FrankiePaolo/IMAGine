@@ -2,32 +2,14 @@
 # include <stdio.h>
 %}
 
-%token NUMERO
-%token SOMMA SOTTRAZIONE PRODOTTO DIVISIONE VAL_ASSOLUTO
-%token OP CP
-%token EOL
-
+%token IF
 
 %%
-calclist: /* niente */
-| calclist exp EOL { printf("=%d\n>",$2);}
-| calclist EOL { printf(">"); } /* linea vuota o commento */
+stmt:
+| stmt{;}
 ;
 
-exp: factor
-| exp SOMMA exp {$$ = $1 + $3;}
-| exp SOTTRAZIONE factor {$$ = $1 - $3;}
-| exp VAL_ASSOLUTO factor {$$ = $1 | $3;}
-;
-
-factor: term
-| factor PRODOTTO term {$$ = $1 * $3;}
-| factor DIVISIONE term {$$ = $1 / $3;}
-;
-
-term: NUMERO
-| VAL_ASSOLUTO term {$$ = $2 >=0? $2: -$2;}
-| OP exp CP { $$ = $2;}
+stmt: IF    {printf("Command if");}
 ;
 %%
 
