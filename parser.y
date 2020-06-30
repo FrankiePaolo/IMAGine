@@ -1,12 +1,12 @@
 %{
 # include <stdio.h>
+# include <vips/vips.h>
 %}
 
 %token IF
 
 %%
 stmt:
-| stmt{;}
 ;
 
 stmt: IF    {printf("Command if");}
