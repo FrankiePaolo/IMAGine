@@ -39,16 +39,11 @@ EXP	([Ee][-+]?[0-9]+)
 "do"    { return DO; }
 "let"   { return LET;}
 
- /* built in functions */
-"sqrt"  { yylval.fn = B_sqrt; return FUNC; }
-"exp"   { yylval.fn = B_exp; return FUNC; }
-"log"   { yylval.fn = B_log; return FUNC; }
-"print" { yylval.fn = B_print; return FUNC; }
-
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 
  /* names */
+.+\.(png|jpg|jpeg)    { yylval.s = lookup(yytext); return PATH; }
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
 [0-9]+"."[0-9]*{EXP}? |

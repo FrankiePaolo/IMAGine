@@ -17,6 +17,7 @@
 /* declare tokens */
 %token <d> NUMBER
 %token <s> NAME
+%token <s> PATH
 %token <fn> FUNC
 %token EOL
 
@@ -61,6 +62,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | NUMBER               { $$ = newnum($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
+   | PATH                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;

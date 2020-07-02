@@ -199,7 +199,6 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
   name->func = func;
 }
 
-// static double callbuiltin(struct fncall *);
 static double calluser(struct ufncall *);
 
 double
@@ -266,38 +265,12 @@ eval(struct ast *a)
 	              
   case 'L': eval(a->l); v = eval(a->r); break;
 
-  // case 'F': v = callbuiltin((struct fncall *)a); break;
-
   case 'C': v = calluser((struct ufncall *)a); break;
 
   default: printf("internal error: bad node %c\n", a->nodetype);
   }
   return v;
 }
-
-/*
-static double
-callbuiltin(struct fncall *f)
-{
-  enum bifs functype = f->functype;
-  double v = eval(f->l);
-
- switch(functype) {
- case B_sqrt:
-   return sqrt(v);
- case B_exp:
-   return exp(v);
- case B_log:
-   return log(v);
- case B_print:
-   printf("= %4.4g\n", v);
-   return v;
- default:
-   yyerror("Unknown built-in function %d", functype);
-   return 0.0;
- }
-}
-*/
 
 static double
 calluser(struct ufncall *f)

@@ -35,13 +35,6 @@ void symlistfree(struct symlist *sl);
  *  C user function call
  */ 
 
-enum bifs {			/* built-in functions */
-  B_sqrt = 1,
-  B_exp,
-  B_log,
-  B_print
-};
-
 /* nodes in the Abstract Syntax Tree */
 /* all have common initial nodetype */
 

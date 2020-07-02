@@ -51,16 +51,17 @@ extern int yydebug;
   {
     NUMBER = 258,
     NAME = 259,
-    FUNC = 260,
-    EOL = 261,
-    IF = 262,
-    THEN = 263,
-    ELSE = 264,
-    WHILE = 265,
-    DO = 266,
-    LET = 267,
-    CMP = 268,
-    UMINUS = 269
+    PATH = 260,
+    FUNC = 261,
+    EOL = 262,
+    IF = 263,
+    THEN = 264,
+    ELSE = 265,
+    WHILE = 266,
+    DO = 267,
+    LET = 268,
+    CMP = 269,
+    UMINUS = 270
   };
 #endif
 
@@ -76,7 +77,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			/* which function */
 
-#line 80 "parser.tab.h"
+#line 81 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
