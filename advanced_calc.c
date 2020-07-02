@@ -199,7 +199,7 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
   name->func = func;
 }
 
-static double callbuiltin(struct fncall *);
+// static double callbuiltin(struct fncall *);
 static double calluser(struct ufncall *);
 
 double
@@ -266,7 +266,7 @@ eval(struct ast *a)
 	              
   case 'L': eval(a->l); v = eval(a->r); break;
 
-  case 'F': v = callbuiltin((struct fncall *)a); break;
+  // case 'F': v = callbuiltin((struct fncall *)a); break;
 
   case 'C': v = calluser((struct ufncall *)a); break;
 
@@ -275,6 +275,7 @@ eval(struct ast *a)
   return v;
 }
 
+/*
 static double
 callbuiltin(struct fncall *f)
 {
@@ -296,6 +297,7 @@ callbuiltin(struct fncall *f)
    return 0.0;
  }
 }
+*/
 
 static double
 calluser(struct ufncall *f)

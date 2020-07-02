@@ -3,7 +3,6 @@
 %{
 #  include <stdio.h>
 #  include <stdlib.h>
-#  include <vips/vips.h>
 #  include "advanced_calc.h"
 %}
 
