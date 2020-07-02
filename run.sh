@@ -1,5 +1,14 @@
 #!/bin/bash
-bison -d -v --graph parser.y
-flex fileFlex.l
-cc parser.tab.c lex.yy.c $(pkg-config --cflags --libs glib-2.0) -lfl 
-./a.out
+
+if [ "$s" = "--compile" ] || [ "$2" = "-c" ]; then
+	bison -d parser.y
+	flex lexer.l
+	gcc -o $1 *.c -lfl 
+elif [ "$2"="--erase" ] || [ "$2"="-e" ]; then
+	rm lex.yy.c parser.tab.* $1
+else 
+	rm lex.yy.c parser.tab.* $1
+	bison -d parser.y
+	flex lexer.l
+	gcc -o $1 *.c -lfl
+fi

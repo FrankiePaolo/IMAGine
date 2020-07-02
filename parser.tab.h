@@ -49,9 +49,18 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    IF = 258,
-    EOL = 259,
-    PATH = 260
+    NUMBER = 258,
+    NAME = 259,
+    FUNC = 260,
+    EOL = 261,
+    IF = 262,
+    THEN = 263,
+    ELSE = 264,
+    WHILE = 265,
+    DO = 266,
+    LET = 267,
+    CMP = 268,
+    UMINUS = 269
   };
 #endif
 
@@ -59,11 +68,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 6 "parser.y"
+#line 9 "parser.y"
 
-    char * str;
+  struct ast *a;
+  double d;
+  struct symbol *s;		/* which symbol */
+  struct symlist *sl;
+  int fn;			/* which function */
 
-#line 67 "parser.tab.h"
+#line 80 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
