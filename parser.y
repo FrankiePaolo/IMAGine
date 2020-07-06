@@ -3,12 +3,14 @@
 %{
 #  include <stdio.h>
 #  include <stdlib.h>
+#  include <vips/vips.h>
 #  include "advanced_calc.h"
 %}
 
 %union {
   struct ast *a;
   double d;
+  char * p;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
@@ -17,10 +19,11 @@
 /* declare tokens */
 %token <d> NUMBER
 %token <s> NAME
+%token <p> PATH
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO LET NUM 
+%token IF THEN ELSE WHILE DO LET NUM IMG
 
 
 %nonassoc <fn> CMP
@@ -59,9 +62,11 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | NUMBER               { $$ = newnum($1); }
+   | PATH                 { $$ = newimg($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
+   | IMG NAME exp         { $$ = newasgn($2,$3); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 

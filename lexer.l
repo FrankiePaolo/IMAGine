@@ -39,6 +39,7 @@ EXP	([Ee][-+]?[0-9]+)
 "do"    { return DO; }
 "let"   { return LET;}
 "num"   { return NUM; }
+"img"   { return IMG; }
 
  /* built in functions */
 "sqrt"  { yylval.fn = B_sqrt; return FUNC; }
@@ -51,6 +52,8 @@ EXP	([Ee][-+]?[0-9]+)
 
  /* names */
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
+
+.+\.(png|jpg|jpeg)    {yylval.p=yytext; return PATH; }
 
 [0-9]+"."[0-9]*{EXP}? |
 "."?[0-9]+{EXP}? { yylval.d = atof(yytext); return NUMBER; }

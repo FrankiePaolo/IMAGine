@@ -3,7 +3,9 @@
 #  include <stdarg.h>
 #  include <string.h>
 #  include <math.h>
+#  include <vips/vips.h>
 #  include "advanced_calc.h"
+
 
 /* symbol table */
 /* hash a symbol */
@@ -70,6 +72,20 @@ newnum(double d)
   }
   a->nodetype = 'K';
   a->number = d;
+  return (struct ast *)a;
+}
+
+struct ast *
+newimg(VipsImage img)
+{
+  struct image *a = malloc(sizeof(struct image));
+  
+  if(!a) {
+    yyerror("out of space");
+    exit(0);
+  }
+  a->nodetype = 'G';
+  a->img = img;
   return (struct ast *)a;
 }
 

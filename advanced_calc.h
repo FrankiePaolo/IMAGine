@@ -1,3 +1,5 @@
+#  include <vips/vips.h>
+
 /* symbol table */
 struct symbol {		/* a variable name */
   char *name;
@@ -73,6 +75,11 @@ struct flow {
 struct numval {
   int nodetype;			/* type K */
   double number;
+};
+
+struct image {
+  int nodetype;
+  VipsImage img;
 };
 
 struct symref {
