@@ -20,7 +20,7 @@
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO LET
+%token IF THEN ELSE WHILE DO LET NUM 
 
 
 %nonassoc <fn> CMP
@@ -61,7 +61,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | NUMBER               { $$ = newnum($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
-   | NAME '=' exp         { $$ = newasgn($1, $3); }
+   | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 
