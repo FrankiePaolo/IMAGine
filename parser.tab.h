@@ -59,6 +59,7 @@ extern int yydebug;
     ELSE = 265,
     WHILE = 266,
     DO = 267,
+<<<<<<< HEAD
     LET = 268,
 <<<<<<< HEAD
     CMP = 269,
@@ -68,6 +69,14 @@ extern int yydebug;
     IMG = 270,
     CMP = 271,
     UMINUS = 272
+>>>>>>> master
+=======
+    DEF = 268,
+    NUM = 269,
+    IMG = 270,
+    INFO = 271,
+    CMP = 272,
+    UMINUS = 273
 >>>>>>> master
   };
 #endif
@@ -80,15 +89,19 @@ union YYSTYPE
 
   struct ast *a;
   double d;
-  char * p;
+  char * str;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #line 81 "parser.tab.h"
 =======
 #line 84 "parser.tab.h"
+>>>>>>> master
+=======
+#line 85 "parser.tab.h"
 >>>>>>> master
 
 };

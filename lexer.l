@@ -37,7 +37,7 @@ EXP	([Ee][-+]?[0-9]+)
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"let"   { return LET;}
+"def"   { return DEF;}
 "num"   { return NUM; }
 "img"   { return IMG; }
 
@@ -48,7 +48,7 @@ EXP	([Ee][-+]?[0-9]+)
 .+\.(png|jpg|jpeg)    { yylval.s = lookup(yytext); return PATH; }
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
-.+\.(png|jpg|jpeg)    {yylval.p=yytext; return PATH; }
+.+\.(png|jpg|jpeg)    {yylval.s=lookup(yytext); return PATH; }
 
 [0-9]+"."[0-9]*{EXP}? |
 "."?[0-9]+{EXP}? { yylval.d = atof(yytext); return NUMBER; }

@@ -5,6 +5,7 @@
 #  include <math.h>
 #  include <vips/vips.h>
 #  include "advanced_calc.h"
+#  include "img_ops.c"
 
 
 /* symbol table */
@@ -76,7 +77,7 @@ newnum(double d)
 }
 
 struct ast *
-newimg(VipsImage img)
+newimg(struct symbol *s)
 {
   struct image *a = malloc(sizeof(struct image));
   
@@ -84,6 +85,10 @@ newimg(VipsImage img)
     yyerror("out of space");
     exit(0);
   }
+  VipsImage * img;
+  char * path=s->name;
+  img= vips_image_new_from_file(path);
+
   a->nodetype = 'G';
   a->img = img;
   return (struct ast *)a;
@@ -414,8 +419,14 @@ yyerror(char *s, ...)
 }
 
 int
-main()
+main(int argc, char *argv[])
 {
+  if( VIPS_INIT( argv[0] ) ) {
+  /* This shows the vips error buffer and quits with a fail exit
+         * code.
+         */
+    vips_error_exit( NULL ); 
+  }
   printf("> "); 
   return yyparse();
 }
