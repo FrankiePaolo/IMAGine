@@ -122,7 +122,7 @@ extern int yydebug;
     ELSE = 265,
     WHILE = 266,
     DO = 267,
-    LET = 268,
+    DEF = 268,
     NUM = 269,
     IMG = 270,
     CMP = 271,
@@ -463,7 +463,7 @@ static const yytype_uint8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NUMBER", "NAME", "PATH", "FUNC", "EOL",
-  "IF", "THEN", "ELSE", "WHILE", "DO", "LET", "NUM", "IMG", "CMP", "'='",
+  "IF", "THEN", "ELSE", "WHILE", "DO", "DEF", "NUM", "IMG", "CMP", "'='",
   "'+'", "'-'", "'*'", "'/'", "'|'", "UMINUS", "';'", "'('", "')'", "','",
   "$accept", "stmt", "list", "exp", "explist", "symlist", "calclist", YY_NULLPTR
 };

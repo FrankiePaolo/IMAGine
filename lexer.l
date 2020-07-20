@@ -37,7 +37,7 @@ EXP	([Ee][-+]?[0-9]+)
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"let"   { return LET;}
+"def"   { return DEF;}
 "num"   { return NUM; }
 "img"   { return IMG; }
 

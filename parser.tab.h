@@ -59,7 +59,7 @@ extern int yydebug;
     ELSE = 265,
     WHILE = 266,
     DO = 267,
-    LET = 268,
+    DEF = 268,
     NUM = 269,
     IMG = 270,
     CMP = 271,

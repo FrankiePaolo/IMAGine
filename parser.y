@@ -23,7 +23,7 @@
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO LET NUM IMG
+%token IF THEN ELSE WHILE DO DEF NUM IMG
 
 
 %nonassoc <fn> CMP
@@ -83,7 +83,7 @@ calclist: /* nothing */
      printf("= %4.4g\n> ", eval($2));
      treefree($2);
     }
-  | calclist LET NAME '(' symlist ')' '=' list EOL {
+  | calclist DEF NAME '(' symlist ')' '=' list EOL {
                        dodef($3, $5, $8);
                        printf("Defined %s\n> ", $3->name); }
 
