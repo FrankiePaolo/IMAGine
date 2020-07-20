@@ -38,6 +38,8 @@ EXP	([Ee][-+]?[0-9]+)
 "while" { return WHILE; }
 "do"    { return DO; }
 "let"   { return LET;}
+"num"   { return NUM; }
+"img"   { return IMG; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
@@ -45,6 +47,8 @@ EXP	([Ee][-+]?[0-9]+)
  /* names */
 .+\.(png|jpg|jpeg)    { yylval.s = lookup(yytext); return PATH; }
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
+
+.+\.(png|jpg|jpeg)    {yylval.p=yytext; return PATH; }
 
 [0-9]+"."[0-9]*{EXP}? |
 "."?[0-9]+{EXP}? { yylval.d = atof(yytext); return NUMBER; }

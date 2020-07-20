@@ -60,8 +60,15 @@ extern int yydebug;
     WHILE = 266,
     DO = 267,
     LET = 268,
+<<<<<<< HEAD
     CMP = 269,
     UMINUS = 270
+=======
+    NUM = 269,
+    IMG = 270,
+    CMP = 271,
+    UMINUS = 272
+>>>>>>> master
   };
 #endif
 
@@ -69,15 +76,20 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 9 "parser.y"
+#line 10 "parser.y"
 
   struct ast *a;
   double d;
+  char * p;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 
+<<<<<<< HEAD
 #line 81 "parser.tab.h"
+=======
+#line 84 "parser.tab.h"
+>>>>>>> master
 
 };
 typedef union YYSTYPE YYSTYPE;
