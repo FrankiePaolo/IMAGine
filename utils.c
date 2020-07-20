@@ -4,7 +4,7 @@
 #  include <string.h>
 #  include <math.h>
 #  include <vips/vips.h>
-#  include "advanced_calc.h"
+#  include "utils.h"
 #  include "img_ops.c"
 
 
@@ -63,7 +63,7 @@ newast(int nodetype, struct ast *l, struct ast *r)
 }
 
 struct ast *
-newnum(double d)
+newnum(struct utils * d)
 {
   struct numval *a = malloc(sizeof(struct numval));
   
@@ -71,11 +71,12 @@ newnum(double d)
     yyerror("out of space");
     exit(0);
   }
-  a->nodetype = 'K';
-  a->number = d;
+
+  d=a;
   return (struct ast *)a;
 }
 
+/*
 struct ast *
 newimg(struct symbol *s)
 {
@@ -93,6 +94,7 @@ newimg(struct symbol *s)
   a->img = img;
   return (struct ast *)a;
 }
+*/
 
 struct ast *
 newcmp(int cmptype, struct ast *l, struct ast *r)
