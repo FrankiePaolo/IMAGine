@@ -10,7 +10,7 @@
 %union {
   struct ast *a;
   double d;
-  char * p;
+  char * str;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
@@ -19,11 +19,11 @@
 /* declare tokens */
 %token <d> NUMBER
 %token <s> NAME
-%token <p> PATH
+%token <s> PATH
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO DEF NUM IMG
+%token IF THEN ELSE WHILE DO DEF NUM IMG INFO
 
 
 %nonassoc <fn> CMP
@@ -62,11 +62,12 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | NUMBER               { $$ = newnum($1); }
-   | PATH                 { $$ = newimg($1); }
+   | PATH                 { $$ = newref($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
    | IMG NAME exp         { $$ = newasgn($2,$3); }
+   | INFO NAME            {   }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 

@@ -79,7 +79,7 @@ struct numval {
 
 struct image {
   int nodetype;
-  VipsImage img;
+  VipsImage * img;
 };
 
 struct symref {
