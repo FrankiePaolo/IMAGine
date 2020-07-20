@@ -2,7 +2,7 @@
 
 %option noyywrap nodefault yylineno
 %{
-# include "advanced_calc.h"
+# include "utils.h"
 # include "parser.tab.h"
 %}
 
@@ -56,7 +56,7 @@ EXP	([Ee][-+]?[0-9]+)
 "//".*  
 [ \t]   /* ignore white space */ 
 \\\n    printf("c> "); /* ignore line continuation */
-"\n"    { return EOL; }
+"\n"    {  }
 
 .	{ yyerror("Mystery character %c\n", *yytext); }
 %%

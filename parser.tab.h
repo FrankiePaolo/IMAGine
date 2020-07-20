@@ -53,6 +53,7 @@ extern int yydebug;
     NAME = 259,
     PATH = 260,
     FUNC = 261,
+<<<<<<< HEAD
     EOL = 262,
     IF = 263,
     THEN = 264,
@@ -78,6 +79,19 @@ extern int yydebug;
     CMP = 272,
     UMINUS = 273
 >>>>>>> master
+=======
+    IF = 262,
+    THEN = 263,
+    ELSE = 264,
+    WHILE = 265,
+    DO = 266,
+    DEF = 267,
+    NUM = 268,
+    IMG = 269,
+    INFO = 270,
+    CMP = 271,
+    UMINUS = 272
+>>>>>>> master
   };
 #endif
 
@@ -96,12 +110,16 @@ union YYSTYPE
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #line 81 "parser.tab.h"
 =======
 #line 84 "parser.tab.h"
 >>>>>>> master
 =======
 #line 85 "parser.tab.h"
+>>>>>>> master
+=======
+#line 84 "parser.tab.h"
 >>>>>>> master
 
 };

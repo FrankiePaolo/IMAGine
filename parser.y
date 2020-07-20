@@ -4,7 +4,7 @@
 #  include <stdio.h>
 #  include <stdlib.h>
 #  include <vips/vips.h>
-#  include "advanced_calc.h"
+#  include "utils.h"
 %}
 
 %union {
@@ -29,7 +29,6 @@
 %token <s> PATH
 >>>>>>> master
 %token <fn> FUNC
-%token EOL
 
 %token IF THEN ELSE WHILE DO DEF NUM IMG INFO
 
@@ -43,7 +42,7 @@
 %type <a> exp stmt list explist
 %type <sl> symlist
 
-%start calclist
+%start program
 
 %%
 
@@ -63,7 +62,7 @@ list: /* nothing */ { $$ = NULL; }
 
 exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '+' exp          { $$ = newast('+', $1,$3); }
-   | exp '-' exp          { $$ = newast('-', $1,$3);}
+   | exp '-' exp          { $$ = newast('-', $1,$3); }
    | exp '*' exp          { $$ = newast('*', $1,$3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
    | '|' exp              { $$ = newast('|', $2, NULL); }
@@ -80,9 +79,13 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
    | IMG NAME exp         { $$ = newasgn($2,$3); }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> master
 =======
    | INFO NAME            {   }
+>>>>>>> master
+=======
+   | INFO NAME            { ;}
 >>>>>>> master
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
@@ -94,16 +97,16 @@ symlist: NAME       { $$ = newsymlist($1, NULL); }
  | NAME ',' symlist { $$ = newsymlist($1, $3); }
 ;
 
-calclist: /* nothing */
-  | calclist stmt EOL {
+program: /* nothing */
+  | program stmt  {
     if(debug) dumpast($2, 0);
      printf("= %4.4g\n> ", eval($2));
      treefree($2);
     }
-  | calclist DEF NAME '(' symlist ')' '=' list EOL {
+  | program DEF NAME '(' symlist ')' '=' list  {
                        dodef($3, $5, $8);
                        printf("Defined %s\n> ", $3->name); }
 
-  | calclist error EOL { yyerrok; printf("> "); }
+  | program error '\n' { yyerrok; printf("> "); }
  ;
 %%

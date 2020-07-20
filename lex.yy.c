@@ -686,7 +686,7 @@ char *yytext;
 #line 1 "lexer.l"
 /* recognize tokens for the calculator */
 #line 5 "lexer.l"
-# include "advanced_calc.h"
+# include "utils.h"
 # include "parser.tab.h"
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1233,7 +1233,7 @@ case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
 #line 65 "lexer.l"
-{ return EOL; }
+{  }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
