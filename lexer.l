@@ -50,13 +50,13 @@ EXP	([Ee][-+]?[0-9]+)
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 
- /* names */
-[a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
+ /* strings */
+[a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return STRING; }
 
 .+\.(png|jpg|jpeg)    {yylval.s=lookup(yytext); return PATH; }
 
 [0-9]+"."[0-9]*{EXP}? |
-"."?[0-9]+{EXP}? { yylval.d = atof(yytext); return NUMBER; }
+"."?[0-9]+{EXP}? { yylval.d = atof(yytext); return INT; }
 
 "//".*  
 [ \t]   /* ignore white space */ 

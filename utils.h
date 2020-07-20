@@ -1,33 +1,9 @@
 #  include <vips/vips.h>
 
-struct int
-{
-  char label;
-  int i;
-};
-
-struct double
-{
-  char label;
-  double d;
-};
- 
-struct str
-{
-  char label;
-  char * str;
-};
-
-struct img
-{
-  char label;
-  VipsImage * img;
-};
-
 /* symbol table */
 struct symbol {		/* a variable name */
   char *name;
-  struct utils *value;
+  struct utils *value;    /* RIVEDERE */
   struct ast *func;	/* stmt for the function */
   struct symlist *syms; /* list of dummy args */
 };
@@ -96,9 +72,28 @@ struct flow {
   struct ast *el;		/* optional else list */
 };
 
-struct numval {
-  int nodetype;			/* type K */
-  struct utils * number;
+struct int
+{
+  int nodetype;   /* type T */
+  int i;
+};
+
+struct double
+{
+  int nodetype;    /* type K */
+  double d;
+};
+ 
+struct str
+{
+  int nodetype;
+  char * str;
+};
+
+struct img
+{
+  int nodetype;  
+  VipsImage * img;
 };
 
 struct symref {
@@ -117,9 +112,9 @@ struct ast *newast(int nodetype, struct ast *l, struct ast *r);
 struct ast *newcmp(int cmptype, struct ast *l, struct ast *r);
 struct ast *newfunc(int functype, struct ast *l);
 struct ast *newcall(struct symbol *s, struct ast *l);
-struct ast *newref(void v);
+struct ast *newref(struct symbol *s);
 struct ast *newasgn(struct symbol *s, struct ast *v);
-struct ast *newnum(struct utils * d);
+struct ast *newint(int i);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *tl, struct ast *tr);
 
 /* define a function */

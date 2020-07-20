@@ -45,8 +45,6 @@ lookup(char* sym)
 
 }
 
-
-
 struct ast *
 newast(int nodetype, struct ast *l, struct ast *r)
 {
@@ -62,19 +60,24 @@ newast(int nodetype, struct ast *l, struct ast *r)
   return a;
 }
 
+
 struct ast *
-newnum(struct utils * d)
+newint(int i)
 {
-  struct numval *a = malloc(sizeof(struct numval));
+
+  struct int *a = malloc(sizeof(struct int));
   
   if(!a) {
     yyerror("out of space");
     exit(0);
   }
 
-  d=a;
+  a->nodetype='T';
+  a->i=i;
+  
   return (struct ast *)a;
 }
+
 
 /*
 struct ast *
