@@ -10,17 +10,19 @@
 %union {
   struct ast *a;
   double d;
+  int i;
   char * str;
+  VipsImage img;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 }
 
 /* declare tokens */
-%token <d> NUMBER
-%token <s> NAME
-<<<<<<< HEAD
-<<<<<<< HEAD
+%token <i> INT
+%token <d> DOUBLE
+%token <s> STRING
+%token <img> IMG
 %token <s> PATH
 =======
 %token <p> PATH
@@ -68,7 +70,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '|' exp              { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
-   | NUMBER               { $$ = newnum($1); }
+   | INT                  { $$ = newint($1); }
    | PATH                 { $$ = newref($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
@@ -77,16 +79,6 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
 =======
    | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
-   | IMG NAME exp         { $$ = newasgn($2,$3); }
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> master
-=======
-   | INFO NAME            {   }
->>>>>>> master
-=======
-   | INFO NAME            { ;}
->>>>>>> master
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 
