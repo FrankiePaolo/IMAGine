@@ -187,8 +187,6 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
   name->func = func;
 }
 
-static double calluser(struct ufncall *);
-
 struct utils *
 eval(struct ast *a)
 {
@@ -303,43 +301,44 @@ eval(struct ast *a)
   case 'I': 
     if( eval( ((struct flow *)a)->cond) != 0) {
       if( ((struct flow *)a)->tl) {
-	v = eval( ((struct flow *)a)->tl);
+	      v = eval( ((struct flow *)a)->tl);
       } else
-	v = 0.0;		/* a default value */
-    } else {
+	      ((struct doublePrecision *)v)->d = 0.0;		/* a default value */
+      } else {
       if( ((struct flow *)a)->el) {
         v = eval(((struct flow *)a)->el);
-      } else
-	v = 0.0;		/* a default value */
-    }
+      } else {
+	      ((struct doublePrecision *)v)->d = 0.0;		/* a default value */
+      }
     break;
 
+
   case 'W':
-    v = 0.0;		/* a default value */
-    
+    ((struct doublePrecision *)v)->d = 0.0;		/* a default value */
     if( ((struct flow *)a)->tl) {
-      while( eval(((struct flow *)a)->cond) != 0)
-	v = eval(((struct flow *)a)->tl);
-    }
+      while (eval(((struct flow *)a)->cond) != 0){
+	      v = eval(((struct flow *)a)->tl);
+      }
     break;			/* last value is value */
 	              
   case 'L': eval(a->l); v = eval(a->r); break;
 
-  case 'C': v = calluser((struct ufncall *)a); break;
+  case 'C': ((struct doublePrecision *)v)->d = calluser((struct ufncall *)a); break;
 
   default: printf("internal error: bad node %c\n", a->nodetype);
   }
+  
   return v;
 }
 
-static double
+static struct utils *
 calluser(struct ufncall *f)
 {
   struct symbol *fn = f->s;	/* function name */
   struct symlist *sl;		/* dummy arguments */
   struct ast *args = f->l;	/* actual arguments */
-  double *oldval, *newval;	/* saved arg values */
-  double v;
+  struct utils *oldval, *newval;	/* saved arg values */
+  struct utils v;
   int nargs;
   int i;
 

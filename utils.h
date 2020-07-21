@@ -115,6 +115,9 @@ void dodef(struct symbol *name, struct symlist *syms, struct ast *stmts);
 /* evaluate an AST */
 struct utils *eval(struct ast *);
 
+/* call user */
+static struct utils * calluser(struct ufncall *);
+
 /* delete and free an AST */
 void treefree(struct ast *);
 
