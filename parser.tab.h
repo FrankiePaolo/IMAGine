@@ -49,49 +49,22 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NUMBER = 258,
-    NAME = 259,
-    PATH = 260,
-    FUNC = 261,
-<<<<<<< HEAD
-    EOL = 262,
-    IF = 263,
-    THEN = 264,
-    ELSE = 265,
-    WHILE = 266,
-    DO = 267,
-<<<<<<< HEAD
-    LET = 268,
-<<<<<<< HEAD
-    CMP = 269,
-    UMINUS = 270
-=======
-    NUM = 269,
-    IMG = 270,
-    CMP = 271,
-    UMINUS = 272
->>>>>>> master
-=======
-    DEF = 268,
-    NUM = 269,
-    IMG = 270,
-    INFO = 271,
-    CMP = 272,
     UMINUS = 273
->>>>>>> master
-=======
-    IF = 262,
-    THEN = 263,
-    ELSE = 264,
-    WHILE = 265,
-    DO = 266,
-    DEF = 267,
-    NUM = 268,
-    IMG = 269,
-    INFO = 270,
-    CMP = 271,
-    UMINUS = 272
->>>>>>> master
+    CMP = 272,
+    NUM = 271,
+    WHILE = 268,
+    ELSE = 267,
+    DEF = 270,
+    DO = 269,
+    THEN = 266,
+    PATH = 262,
+    FUNC = 264,
+    NAME = 263,
+    IF = 265,
+    STRING = 260,
+    DOUBLE = 259,
+    INT = 258,
+    IMG = 261,
   };
 #endif
 
@@ -103,24 +76,14 @@ union YYSTYPE
 
   struct ast *a;
   double d;
+  int i;
   char * str;
+  VipsImage img;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-#line 81 "parser.tab.h"
-=======
 #line 84 "parser.tab.h"
->>>>>>> master
-=======
-#line 85 "parser.tab.h"
->>>>>>> master
-=======
-#line 84 "parser.tab.h"
->>>>>>> master
 
 };
 typedef union YYSTYPE YYSTYPE;

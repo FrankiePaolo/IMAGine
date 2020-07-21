@@ -32,7 +32,7 @@ lookup(char* sym)
 
     if(!sp->name) {		/* new entry */
       sp->name = strdup(sym);
-      sp->value = 0;
+      // sp->value = 0; 
       sp->func = NULL;
       sp->syms = NULL;
       return sp;
@@ -240,6 +240,9 @@ eval(struct ast *a)
   switch(a->nodetype) {
     /* constant */
   case 'K': v = ((struct numval *)a)->number; break;
+
+    /* int */
+  case 'T': v = ((struct int *)a)->i; break;
 
     /* name reference */
   case 'N': v = ((struct symref *)a)->s->value; break;

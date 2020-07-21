@@ -21,18 +21,13 @@
 /* declare tokens */
 %token <i> INT
 %token <d> DOUBLE
-%token <s> STRING
+%token <str> STRING
 %token <img> IMG
-%token <s> PATH
-=======
-%token <p> PATH
->>>>>>> master
-=======
-%token <s> PATH
->>>>>>> master
+%token <str> PATH
+%token <s> NAME
 %token <fn> FUNC
 
-%token IF THEN ELSE WHILE DO DEF NUM IMG INFO
+%token IF THEN ELSE WHILE DO DEF NUM
 
 
 %nonassoc <fn> CMP

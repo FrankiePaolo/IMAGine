@@ -50,7 +50,7 @@ EXP	([Ee][-+]?[0-9]+)
 .+\.(png|jpg|jpeg)    {yylval.s=lookup(yytext); return PATH; }
 
 [0-9]+"."[0-9]*{EXP}? |
-"."?[0-9]+{EXP}? { yylval.d = atof(yytext); return INT; }
+"."?[0-9]+{EXP}? { yylval.i = atof(yytext); return INT; }
 
 "//".*  
 [ \t]   /* ignore white space */ 

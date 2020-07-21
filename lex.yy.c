@@ -1183,11 +1183,11 @@ YY_RULE_SETUP
 #line 52 "lexer.l"
 { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 	YY_BREAK
-/* names */
+/* strings */
 case 30:
 YY_RULE_SETUP
 #line 55 "lexer.l"
-{ yylval.s = lookup(yytext); return NAME; }
+{ yylval.s = lookup(yytext); return STRING; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
@@ -1199,7 +1199,7 @@ case 32:
 case 33:
 YY_RULE_SETUP
 #line 60 "lexer.l"
-{ yylval.d = atof(yytext); return NUMBER; }
+{ yylval.i = atof(yytext); return INT; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
