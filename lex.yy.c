@@ -373,8 +373,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 34
-#define YY_END_OF_BUFFER 35
+#define YY_NUM_RULES 33
+#define YY_END_OF_BUFFER 34
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -384,7 +384,7 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[74] =
     {   0,
-        0,    0,   35,   33,   30,   32,    9,   10,    3,    1,
+        0,    0,   34,   33,   30,   32,    9,   10,    3,    1,
         7,    2,    4,   27,    8,   12,    5,   11,   25,   33,
        25,   25,   25,   25,   25,    6,    0,    0,   29,    0,
        27,   16,   13,   14,   15,   25,   31,   25,   21,   25,
@@ -511,10 +511,10 @@ static const flex_int16_t yy_chk[201] =
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[35] =
+static const flex_int32_t yy_rule_can_match_eol[34] =
     {   0,
 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,     };
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -970,14 +970,9 @@ YY_RULE_SETUP
 case 33:
 YY_RULE_SETUP
 #line 64 "lexer.l"
-{ yyerror("Mystery character %c\n", *yytext); }
-	YY_BREAK
-case 34:
-YY_RULE_SETUP
-#line 65 "lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 981 "lex.yy.c"
+#line 976 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1994,6 +1989,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 65 "lexer.l"
+#line 64 "lexer.l"
 
 

@@ -60,5 +60,4 @@ EXP	([Ee][-+]?[0-9]+)
 \\\n    printf("c> "); /* ignore line continuation */
 "\n"    {  }
 
-.	{ yyerror("Mystery character %c\n", *yytext); }
 %%

@@ -30,6 +30,7 @@ lookup(char* sym)
 
     if(!sp->name) {		/* new entry */
       sp->name = strdup(sym);
+      // TO BE FIXED
       // sp->value = 0; 
       sp->func = NULL;
       sp->syms = NULL;
@@ -195,7 +196,7 @@ eval(struct ast *a)
 
   if(!a) {
     yyerror("internal error, null eval");
-    return ((struct integer *)v)->i = 0;
+    // add return condition
   }
 
   switch(a->nodetype) {
@@ -216,27 +217,87 @@ eval(struct ast *a)
     /* expressions */
   case '+': 
     if (v->nodetype=='T'){
-        ((struct integer *)v)->i = eval(a->l) + eval(a->r); break;
+        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
 
-    }else{
-        ((struct doublePrecision *)v)->d = eval(a->l) + eval(a->r); break;
+    }else if(v->nodetype=='K'){
+        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
     }
   
+  case '-': 
+    if (v->nodetype=='T'){
+        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i - ((struct integer *)eval(a->r))->i; break;
+
+    }else if(v->nodetype=='K'){
+        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d - ((struct doublePrecision *)eval(a->r))->d; break;
+    }
+
+  case '*': 
+    if (v->nodetype=='T'){
+        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i * ((struct integer *)eval(a->r))->i; break;
+
+    }else if(v->nodetype=='K'){
+        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d * ((struct doublePrecision *)eval(a->r))->d; break;
+    }
+
+  case '/': 
+    if (v->nodetype=='T'){
+        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i / ((struct integer *)eval(a->r))->i; break;
+
+    }else if(v->nodetype=='K'){
+        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d / ((struct doublePrecision *)eval(a->r))->d; break;
+    }  
     
-  case '-': v = eval(a->l) - eval(a->r); break;
-  case '*': v = eval(a->l) * eval(a->r); break;
-  case '/': v = eval(a->l) / eval(a->r); break;
-  case '|': v = fabs(eval(a->l)); break;
-  case 'M': v = -eval(a->l); break;
+  case '|':
+   if (v->nodetype=='T'){
+        fabs(((struct integer *)eval(a->l))->i); break;
+
+    }else if(v->nodetype=='K'){
+        fabs(((struct doublePrecision *)eval(a->l))->d); break;
+    }  
 
     /* comparisons */
-  case '1': v = (eval(a->l) > eval(a->r))? 1 : 0; break;
-  case '2': v = (eval(a->l) < eval(a->r))? 1 : 0; break;
-  case '3': v = (eval(a->l) != eval(a->r))? 1 : 0; break;
-  case '4': v = (eval(a->l) == eval(a->r))? 1 : 0; break;
-  case '5': v = (eval(a->l) >= eval(a->r))? 1 : 0; break;
-  case '6': v = (eval(a->l) <= eval(a->r))? 1 : 0; break;
+  case '1': 
+    if (v->nodetype=='T'){
+     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i > ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
+    }else if(v->nodetype=='K'){
+     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d > ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
+    }  
 
+  case '2': 
+    if (v->nodetype=='T'){
+     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i < ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
+    }else if(v->nodetype=='K'){
+     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d < ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
+    }  
+  
+  case '3': 
+    if (v->nodetype=='T'){
+     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i != ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
+    }else if(v->nodetype=='K'){
+     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d != ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
+    }  
+    
+  case '4': 
+    if (v->nodetype=='T'){
+     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i == ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
+    }else if(v->nodetype=='K'){
+     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d == ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
+    }  
+
+  case '5': 
+    if (v->nodetype=='T'){
+     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i >= ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
+    }else if(v->nodetype=='K'){
+     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d >= ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
+    }  
+
+  case '6': 
+    if (v->nodetype=='T'){
+     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i <= ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
+    }else if(v->nodetype=='K'){
+     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d <= ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
+    }  
+  
   /* control flow */
   /* null if/else/do expressions allowed in the grammar, so check for them */
   case 'I': 

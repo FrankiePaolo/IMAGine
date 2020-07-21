@@ -113,7 +113,7 @@ struct ast *newflow(int nodetype, struct ast *cond, struct ast *tl, struct ast *
 void dodef(struct symbol *name, struct symlist *syms, struct ast *stmts);
 
 /* evaluate an AST */
-struct utils eval(struct ast *);
+struct utils *eval(struct ast *);
 
 /* delete and free an AST */
 void treefree(struct ast *);
