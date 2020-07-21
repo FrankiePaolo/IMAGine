@@ -38,7 +38,6 @@ EXP	([Ee][-+]?[0-9]+)
 "while" { return WHILE; }
 "do"    { return DO; }
 "def"   { return DEF;}
-"num"   { return NUM; }
 "img"   { return IMG; }
 
  /* debug hack */
@@ -48,11 +47,13 @@ EXP	([Ee][-+]?[0-9]+)
 [a-zA-Z][a-zA-Z0-9]*  { yylval.str = lookup(yytext); return STRING; }
 
  /* path */
-.+\.(png|jpg|jpeg)    {yylval.s=lookup(yytext); return PATH; }
+.+\.(png|jpg|jpeg)    {yylval.str=lookup(yytext); return PATH; }
 
-[0-9]+"."[0-9]*{EXP}? |
-"."?[0-9]+{EXP}? { yylval.i = atof(yytext); return INT; }
-[0-9]\.{1}[0-9]+ { yylval.d = atof(yytext); return DOUBLE; }
+ /* int */
+[0-9]+              { yylval.i = atof(yytext); return INT; }
+
+ /* double */
+[0-9]\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
 
 "//".*  
 [ \t]   /* ignore white space */ 

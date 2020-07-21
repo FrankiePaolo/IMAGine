@@ -5,10 +5,8 @@
 #  include <math.h>
 #  include <vips/vips.h>
 #  include "utils.h"
-#  include "img_ops.c"
 
 
-/* symbol table */
 /* hash a symbol */
 static unsigned
 symhash(char *sym)
@@ -64,8 +62,7 @@ newast(int nodetype, struct ast *l, struct ast *r)
 struct ast *
 newint(int i)
 {
-
-  struct int *a = malloc(sizeof(struct int));
+  struct integer *a = malloc(sizeof(struct integer));
   
   if(!a) {
     yyerror("out of space");
@@ -77,27 +74,6 @@ newint(int i)
   
   return (struct ast *)a;
 }
-
-
-/*
-struct ast *
-newimg(struct symbol *s)
-{
-  struct image *a = malloc(sizeof(struct image));
-  
-  if(!a) {
-    yyerror("out of space");
-    exit(0);
-  }
-  VipsImage * img;
-  char * path=s->name;
-  img= vips_image_new_from_file(path);
-
-  a->nodetype = 'G';
-  a->img = img;
-  return (struct ast *)a;
-}
-*/
 
 struct ast *
 newcmp(int cmptype, struct ast *l, struct ast *r)
@@ -112,21 +88,6 @@ newcmp(int cmptype, struct ast *l, struct ast *r)
   a->l = l;
   a->r = r;
   return a;
-}
-
-struct ast *
-newfunc(int functype, struct ast *l)
-{
-  struct fncall *a = malloc(sizeof(struct fncall));
-  
-  if(!a) {
-    yyerror("out of space");
-    exit(0);
-  }
-  a->nodetype = 'F';
-  a->l = l;
-  a->functype = functype;
-  return (struct ast *)a;
 }
 
 struct ast *
@@ -227,25 +188,26 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
 
 static double calluser(struct ufncall *);
 
-double
+struct utils *
 eval(struct ast *a)
 {
-  double v;
+  struct utils *v;
 
   if(!a) {
     yyerror("internal error, null eval");
-    return 0.0;
+    return ((struct integer *)v)->i = 0;
   }
 
   switch(a->nodetype) {
-    /* constant */
-  case 'K': v = ((struct numval *)a)->number; break;
 
     /* int */
-  case 'T': v = ((struct int *)a)->i; break;
+  case 'T': ((struct integer *)v)->i = ((struct integer *)a)->i; break;
+
+    /* double */
+  case 'K': ((struct doublePrecision *)v)->d= ((struct doublePrecision *)a)->d; break;
 
     /* name reference */
-  case 'N': v = ((struct symref *)a)->s->value; break;
+  case 'N': ((struct symref *)v)->s->value = ((struct symref *)a)->s->value; break;
 
     /* assignment */
   case '=': v = ((struct symasgn *)a)->s->value =
@@ -485,11 +447,6 @@ dumpast(struct ast *a, int level)
       dumpast( ((struct flow *)a)->tl, level);
     if( ((struct flow *)a)->el)
       dumpast( ((struct flow *)a)->el, level);
-    return;
-	              
-  case 'F':
-    printf("builtin %d\n", ((struct fncall *)a)->functype);
-    dumpast(a->l, level);
     return;
 
   case 'C': printf("call %s\n", ((struct ufncall *)a)->s->name);

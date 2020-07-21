@@ -49,22 +49,21 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    UMINUS = 273
-    CMP = 272,
-    NUM = 271,
-    WHILE = 268,
-    ELSE = 267,
-    DEF = 270,
-    DO = 269,
-    THEN = 266,
-    PATH = 262,
-    FUNC = 264,
-    NAME = 263,
-    IF = 265,
-    STRING = 260,
-    DOUBLE = 259,
     INT = 258,
-    IMG = 261,
+    DOUBLE = 259,
+    STRING = 260,
+    PATH = 261,
+    IMG = 262,
+    NAME = 263,
+    FUNC = 264,
+    IF = 265,
+    THEN = 266,
+    ELSE = 267,
+    WHILE = 268,
+    DO = 269,
+    DEF = 270,
+    CMP = 271,
+    UMINUS = 272
   };
 #endif
 
@@ -75,15 +74,15 @@ union YYSTYPE
 #line 10 "parser.y"
 
   struct ast *a;
-  double d;
   int i;
+  double d;
   char * str;
   VipsImage img;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 
-#line 84 "parser.tab.h"
+#line 86 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -9,8 +9,8 @@
 
 %union {
   struct ast *a;
-  double d;
   int i;
+  double d;
   char * str;
   VipsImage img;
   struct symbol *s;		/* which symbol */
@@ -22,12 +22,12 @@
 %token <i> INT
 %token <d> DOUBLE
 %token <str> STRING
-%token <img> IMG
 %token <str> PATH
+%token <img> IMG
 %token <s> NAME
 %token <fn> FUNC
 
-%token IF THEN ELSE WHILE DO DEF NUM
+%token IF THEN ELSE WHILE DO DEF
 
 
 %nonassoc <fn> CMP
@@ -69,7 +69,6 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
-   | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 
