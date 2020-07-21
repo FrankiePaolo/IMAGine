@@ -66,13 +66,9 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | INT                  { $$ = newint($1); }
-   | PATH                 { $$ = newref($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
-<<<<<<< HEAD
-   | PATH                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
-=======
    | NUM NAME '=' exp     { $$ = newasgn($2, $4); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
