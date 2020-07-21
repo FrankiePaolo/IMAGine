@@ -214,7 +214,15 @@ eval(struct ast *a)
       eval(((struct symasgn *)a)->v); break;
 
     /* expressions */
-  case '+': v = eval(a->l) + eval(a->r); break;
+  case '+': 
+    if (v->nodetype=='T'){
+        ((struct integer *)v)->i = eval(a->l) + eval(a->r); break;
+
+    }else{
+        ((struct doublePrecision *)v)->d = eval(a->l) + eval(a->r); break;
+    }
+  
+    
   case '-': v = eval(a->l) - eval(a->r); break;
   case '*': v = eval(a->l) * eval(a->r); break;
   case '/': v = eval(a->l) / eval(a->r); break;
