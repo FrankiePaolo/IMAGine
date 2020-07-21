@@ -3,7 +3,7 @@
 /* symbol table */
 struct symbol {		/* a variable name */
   char *name;
-  struct utils *value;    /* RIVEDERE */
+  struct utils *value;    
   struct ast *func;	/* stmt for the function */
   struct symlist *syms; /* list of dummy args */
 };
@@ -72,9 +72,14 @@ struct flow {
   struct ast *el;		/* optional else list */
 };
 
+struct utils
+{
+  int nodetype;
+};
+
 struct int
 {
-  int nodetype;   /* type T */
+  int nodetype;    /* type T */
   int i;
 };
 
@@ -86,13 +91,13 @@ struct double
  
 struct str
 {
-  int nodetype;
+  int nodetype;   /* type R */
   char * str;
 };
 
 struct img
 {
-  int nodetype;  
+  int nodetype;  /* type I */
   VipsImage * img;
 };
 

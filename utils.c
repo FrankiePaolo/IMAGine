@@ -242,6 +242,9 @@ eval(struct ast *a)
     /* constant */
   case 'K': v = ((struct numval *)a)->number; break;
 
+    /* int */
+  case 'T': v = ((struct int *)a)->i; break;
+
     /* name reference */
   case 'N': v = ((struct symref *)a)->s->value; break;
 
