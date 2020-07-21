@@ -77,13 +77,13 @@ struct utils
   int nodetype;
 };
 
-struct int
+struct integer
 {
   int nodetype;    /* type T */
   int i;
 };
 
-struct double
+struct doublePrecision
 {
   int nodetype;    /* type K */
   double d;
