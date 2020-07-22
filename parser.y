@@ -46,7 +46,7 @@
 stmt: IF exp THEN list           { $$ = newflow('I', $2, $4, NULL); }
    | IF exp THEN list ELSE list  { $$ = newflow('I', $2, $4, $6); }
    | WHILE exp DO list           { $$ = newflow('W', $2, $4, NULL); }
-   | exp
+   | exp ';'                   
 ;
 
 list: /* nothing */ { $$ = NULL; }
@@ -58,8 +58,10 @@ list: /* nothing */ { $$ = NULL; }
    ;
 
 exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
-   | exp '+' exp          { printf("new ast");$$ = newast('+', $1,$3); }
-   | INT                  { printf("INTEGER DETECTED");$$ = newint($1); }
+   | exp '+' exp          { $$ = newast('+', $1,$3); }
+   | INT                  { $$ = newint($1); }
+   | DOUBLE               { $$ = newdouble($1); }
+   | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
 ;
 
 explist: exp
@@ -70,10 +72,14 @@ symlist: NAME       { $$ = newsymlist($1, NULL); }
 ;
 
 program: /* nothing */
-  | program stmt  {
-    if(debug) dumpast($2, 0);
-     treefree($2);
-    }
+  | program stmt {
+      if(debug) {
+         dumpast($2, 0);
+      }
+   
+   eval($2);
+   treefree($2);
+   }
   | program DEF NAME '(' symlist ')' '=' list  {
                        dodef($3, $5, $8);
                        printf("Defined %s\n> ", $3->name); }

@@ -40,24 +40,27 @@ EXP	([Ee][-+]?[0-9]+)
 "def"   { return DEF;}
 "img"   { return IMG; }
 
+ /* built in functions */
+"print" { yylval.fn = B_print; return FUNC; }
+
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 
  /* strings */
-[a-zA-Z][a-zA-Z]*  { yylval.str = lookup(yytext); return STRING; }
+[a-zA-Z]*             { yylval.str = lookup(yytext); return STRING; }
 
  /* path */
 .+\.(png|jpg|jpeg)    {yylval.str=lookup(yytext); return PATH; }
 
  /* int */
-[0-9]+              { yylval.i = atof(yytext); return INT; }
+[0-9]+              { yylval.i = atoi(yytext); return INT; }
 
  /* double */
 [0-9]\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
 
 "//".*  
 [ \t]   /* ignore white space */ 
-\\\n    printf("c> "); /* ignore line continuation */
-"\n"    {  }
+\\\n    printf("> "); /* ignore line continuation */
+"\n"    {printf("> ");}
 
 %%

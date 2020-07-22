@@ -6,6 +6,7 @@
 #  include <vips/vips.h>
 #  include "utils.h"
 
+static struct utils * callbuiltin(struct fncall *f);
 
 /* hash a symbol */
 static unsigned
@@ -70,8 +71,24 @@ newint(int i)
     exit(0);
   }
 
-  a->nodetype='T';
+  a->nodetype='i';
   a->i=i;
+  
+  return (struct ast *)a;
+}
+
+struct ast *
+newdouble(double d)
+{
+  struct doublePrecision *a = malloc(sizeof(struct doublePrecision));
+  
+  if(!a) {
+    yyerror("out of space");
+    exit(0);
+  }
+
+  a->nodetype='D';
+  a->d=d;
   
   return (struct ast *)a;
 }
@@ -89,6 +106,21 @@ newcmp(int cmptype, struct ast *l, struct ast *r)
   a->l = l;
   a->r = r;
   return a;
+}
+
+struct ast *
+newfunc(int functype, struct ast *l)
+{
+  struct fncall *a = malloc(sizeof(struct fncall));
+  
+  if(!a) {
+    yyerror("out of space");
+    exit(0);
+  }
+  a->nodetype = 'F';
+  a->l = l;
+  a->functype = functype;
+  return (struct ast *)a;
 }
 
 struct ast *
@@ -187,6 +219,34 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
   name->func = func;
 }
 
+
+struct utils *  
+setNodeType(struct utils * v,struct ast * l, struct ast * r){
+
+  if(l->nodetype == 'i' && r->nodetype == 'i'){
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->nodetype='i';
+  }
+  return v;
+
+}
+
+struct utils * 
+operation(char op,struct utils * v,struct ast * l, struct ast * r){
+  if (v->nodetype=='i'){
+    switch (op)
+    {
+    case '+':
+      ((struct integer *)v)->i = ((struct integer *)eval(l))->i + ((struct integer *)eval(r))->i; break;
+      return v;
+      break;
+    default:
+      break;
+    }
+  }
+  
+}
+
 struct utils *
 eval(struct ast *a)
 {
@@ -200,10 +260,14 @@ eval(struct ast *a)
   switch(a->nodetype) {
 
     /* int */
-  case 'T': ((struct integer *)v)->i = ((struct integer *)a)->i; break;
+  case 'i': 
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->i = ((struct integer *)a)->i; break;
 
     /* double */
-  case 'K': ((struct doublePrecision *)v)->d= ((struct doublePrecision *)a)->d; break;
+  case 'D': 
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; break;
 
     /* name reference */
   case 'N': ((struct symref *)v)->s->value = ((struct symref *)a)->s->value; break;
@@ -214,12 +278,8 @@ eval(struct ast *a)
 
     /* expressions */
   case '+': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
-    }
+    v=setNodeType(v,a->l,a->r);
+    v=operation('+',v,a->l,a->r);
   
   case '-': 
     if (v->nodetype=='T'){
@@ -316,6 +376,7 @@ eval(struct ast *a)
     }
     break;
     
+  case 'F': v = callbuiltin((struct fncall *)a); break;
 
   case 'W':
 
@@ -336,6 +397,31 @@ eval(struct ast *a)
   }
   
   return v;
+}
+
+static struct utils *
+callbuiltin(struct fncall *f)
+{
+  enum bifs functype = f->functype;
+  struct utils * v = eval(f->l);
+
+ switch(functype) {
+ case B_print:
+   print_B(v);
+   return v;
+ default:
+   yyerror("Unknown built-in function %d", functype);
+   return NULL;
+ }
+}
+
+void 
+print_B(struct utils * v){
+  if (v->nodetype=='i'){
+    printf("%d\n",((struct integer *)v)->i);  
+  }else if (v->nodetype=='D'){
+    printf("%f\n",((struct doublePrecision *)v)->d);  
+  }
 }
 
 double
@@ -428,11 +514,11 @@ treefree(struct ast *a)
 
     /* one subtree */
   case '|':
-  case 'M': case 'C': case 'F':
+  case 'M': case 'C': case 'F': 
     treefree(a->l);
 
     /* no subtree */
-  case 'K': case 'N':
+  case 'i': case 'N': case 'D':
     break;
 
   case '=':

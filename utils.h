@@ -40,6 +40,10 @@ void symlistfree(struct symlist *sl);
 /* nodes in the Abstract Syntax Tree */
 /* all have common initial nodetype */
 
+enum bifs {			/* built-in functions */
+  B_print = 1
+};
+
 struct ast {
   int nodetype;
   struct ast *l;
@@ -50,6 +54,12 @@ struct ufncall {		/* user function */
   int nodetype;			/* type C */
   struct ast *l;		/* list of arguments */
   struct symbol *s;
+};
+
+struct fncall {			/* built-in function */
+  int nodetype;			/* type F */
+  struct ast *l;
+  enum bifs functype;
 };
 
 struct flow {
@@ -66,25 +76,25 @@ struct utils
 
 struct integer
 {
-  int nodetype;    /* type T */
+  int nodetype;    /* type I */
   int i;
 };
 
 struct doublePrecision
 {
-  int nodetype;    /* type K */
+  int nodetype;    /* type D */
   double d;
 };
  
 struct str
 {
-  int nodetype;   /* type R */
+  int nodetype;   /* type S */
   char * str;
 };
 
 struct img
 {
-  int nodetype;  /* type I */
+  int nodetype;  /* type M */
   VipsImage * img;
 };
 
@@ -117,6 +127,9 @@ struct utils *eval(struct ast *);
 
 /* call user */
 double calluser(struct ufncall *);
+
+/* built-in functions */
+void print_B(struct utils * v);
 
 /* delete and free an AST */
 void treefree(struct ast *);
