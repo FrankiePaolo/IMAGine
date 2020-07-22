@@ -300,25 +300,32 @@ eval(struct ast *a)
   /* null if/else/do expressions allowed in the grammar, so check for them */
   case 'I': 
     if( eval( ((struct flow *)a)->cond) != 0) {
+
       if( ((struct flow *)a)->tl) {
 	      v = eval( ((struct flow *)a)->tl);
-      } else
+      } else{
 	      ((struct doublePrecision *)v)->d = 0.0;		/* a default value */
-      } else {
+      } 
+
       if( ((struct flow *)a)->el) {
         v = eval(((struct flow *)a)->el);
       } else {
 	      ((struct doublePrecision *)v)->d = 0.0;		/* a default value */
       }
-    break;
 
+    }
+    break;
+    
 
   case 'W':
+
     ((struct doublePrecision *)v)->d = 0.0;		/* a default value */
+
     if( ((struct flow *)a)->tl) {
       while (eval(((struct flow *)a)->cond) != 0){
 	      v = eval(((struct flow *)a)->tl);
       }
+    }
     break;			/* last value is value */
 	              
   case 'L': eval(a->l); v = eval(a->r); break;
@@ -331,14 +338,14 @@ eval(struct ast *a)
   return v;
 }
 
-static struct utils *
+double
 calluser(struct ufncall *f)
 {
   struct symbol *fn = f->s;	/* function name */
   struct symlist *sl;		/* dummy arguments */
   struct ast *args = f->l;	/* actual arguments */
-  struct utils *oldval, *newval;	/* saved arg values */
-  struct utils v;
+  double *oldval, *newval;	/* saved arg values */
+  double v;
   int nargs;
   int i;
 
@@ -356,7 +363,7 @@ calluser(struct ufncall *f)
   oldval = (double *)malloc(nargs * sizeof(double));
   newval = (double *)malloc(nargs * sizeof(double));
   if(!oldval || !newval) {
-    yyerror("Out of space in %s", fn->name); return 0.0;
+    yyerror("Out of space in %s", fn->name);
   }
   
   /* evaluate the arguments */
@@ -368,10 +375,10 @@ calluser(struct ufncall *f)
     }
 
     if(args->nodetype == 'L') {	/* if this is a list node */
-      newval[i] = eval(args->l);
+      newval[i] = ((struct doublePrecision *)eval(args->l))->d;
       args = args->r;
     } else {			/* if it's the end of the list */
-      newval[i] = eval(args);
+      newval[i] = ((struct doublePrecision *)eval(args))->d;
       args = NULL;
     }
   }
@@ -381,22 +388,22 @@ calluser(struct ufncall *f)
   for(i = 0; i < nargs; i++) {
     struct symbol *s = sl->sym;
 
-    oldval[i] = s->value;
-    s->value = newval[i];
+    oldval[i] = ((struct doublePrecision *)s->value)->d;
+    ((struct doublePrecision *)s->value)->d = newval[i];
     sl = sl->next;
   }
 
   free(newval);
 
   /* evaluate the function */
-  v = eval(fn->func);
+  v = ((struct doublePrecision *)eval(fn->func))->d;
 
   /* put the dummies back */
   sl = fn->syms;
   for(i = 0; i < nargs; i++) {
     struct symbol *s = sl->sym;
 
-    s->value = oldval[i];
+    ((struct doublePrecision *)s->value)->d = oldval[i];
     sl = sl->next;
   }
 
@@ -484,8 +491,8 @@ dumpast(struct ast *a, int level)
   }
 
   switch(a->nodetype) {
-    /* constant */
-  case 'K': printf("number %4.4g\n", ((struct numval *)a)->number); break;
+    /* double precision */
+  case 'K': printf("number %4.4g\n", ((struct doublePrecision *)a)->d); break;
 
     /* name reference */
   case 'N': printf("ref %s\n", ((struct symref *)a)->s->name); break;
@@ -523,5 +530,6 @@ dumpast(struct ast *a, int level)
 
   default: printf("bad %c\n", a->nodetype);
     return;
+    
   }
 }

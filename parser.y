@@ -66,7 +66,6 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | INT                  { $$ = newint($1); }
-   | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
@@ -82,7 +81,6 @@ symlist: NAME       { $$ = newsymlist($1, NULL); }
 program: /* nothing */
   | program stmt  {
     if(debug) dumpast($2, 0);
-     printf("= %4.4g\n> ", eval($2));
      treefree($2);
     }
   | program DEF NAME '(' symlist ')' '=' list  {
