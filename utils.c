@@ -223,14 +223,23 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
 struct utils *  
 setNodeType(struct utils * v,struct ast * l, struct ast * r){
 
+  if(l->nodetype=='+'){
+    v= malloc
+    setNodeType(v,l->l,l->r);
+  }
+
   if(l->nodetype == 'i' && r->nodetype == 'i'){
     v = malloc(sizeof(struct integer));
     ((struct integer *)v)->nodetype='i';
+  }else if (l->nodetype == 'D' && r->nodetype == 'D'){
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
   }
   return v;
 
 }
 
+/*
 struct utils * 
 operation(char op,struct utils * v,struct ast * l, struct ast * r){
   if (v->nodetype=='i'){
@@ -246,6 +255,7 @@ operation(char op,struct utils * v,struct ast * l, struct ast * r){
   }
   
 }
+*/
 
 struct utils *
 eval(struct ast *a)
@@ -262,11 +272,13 @@ eval(struct ast *a)
     /* int */
   case 'i': 
     v = malloc(sizeof(struct integer));
+    v->nodetype='i';
     ((struct integer *)v)->i = ((struct integer *)a)->i; break;
 
     /* double */
   case 'D': 
     v = malloc(sizeof(struct doublePrecision));
+    v->nodetype='D';
     ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; break;
 
     /* name reference */
@@ -279,8 +291,12 @@ eval(struct ast *a)
     /* expressions */
   case '+': 
     v=setNodeType(v,a->l,a->r);
-    v=operation('+',v,a->l,a->r);
-  
+    if (v->nodetype=='i'){
+      ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
+    }else if (v->nodetype=='D'){
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
+    }
+
   case '-': 
     if (v->nodetype=='T'){
         ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i - ((struct integer *)eval(a->r))->i; break;
@@ -577,8 +593,10 @@ dumpast(struct ast *a, int level)
   }
 
   switch(a->nodetype) {
+  case 'i': printf("number %4.4g\n", ((struct integer *)a)->i); break;
+  
     /* double precision */
-  case 'K': printf("number %4.4g\n", ((struct doublePrecision *)a)->d); break;
+  case 'D': printf("number %4.4g\n", ((struct doublePrecision *)a)->d); break;
 
     /* name reference */
   case 'N': printf("ref %s\n", ((struct symref *)a)->s->name); break;

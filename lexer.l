@@ -56,7 +56,7 @@ EXP	([Ee][-+]?[0-9]+)
 [0-9]+              { yylval.i = atoi(yytext); return INT; }
 
  /* double */
-[0-9]\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
+[0-9]+\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
 
 "//".*  
 [ \t]   /* ignore white space */ 
