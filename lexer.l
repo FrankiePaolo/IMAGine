@@ -44,7 +44,7 @@ EXP	([Ee][-+]?[0-9]+)
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 
  /* strings */
-[a-zA-Z][a-zA-Z0-9]*  { yylval.str = lookup(yytext); return STRING; }
+[a-zA-Z][a-zA-Z]*  { yylval.str = lookup(yytext); return STRING; }
 
  /* path */
 .+\.(png|jpg|jpeg)    {yylval.str=lookup(yytext); return PATH; }

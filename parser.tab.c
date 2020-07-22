@@ -1403,7 +1403,7 @@ yyreduce:
 
   case 9:
 #line 61 "parser.y"
-                          { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
+                          { printf("new ast");(yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
 #line 1408 "parser.tab.c"
     break;
 
@@ -1445,7 +1445,7 @@ yyreduce:
 
   case 16:
 #line 68 "parser.y"
-                          { (yyval.a) = newint((yyvsp[0].i)); }
+                          { printf("INTEGER DETECTED");(yyval.a) = newint((yyvsp[0].i)); }
 #line 1450 "parser.tab.c"
     break;
 
