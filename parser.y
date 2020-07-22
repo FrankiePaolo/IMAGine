@@ -59,16 +59,7 @@ list: /* nothing */ { $$ = NULL; }
 
 exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '+' exp          { printf("new ast");$$ = newast('+', $1,$3); }
-   | exp '-' exp          { $$ = newast('-', $1,$3); }
-   | exp '*' exp          { $$ = newast('*', $1,$3); }
-   | exp '/' exp          { $$ = newast('/', $1,$3); }
-   | '|' exp              { $$ = newast('|', $2, NULL); }
-   | '(' exp ')'          { $$ = $2; }
-   | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | INT                  { printf("INTEGER DETECTED");$$ = newint($1); }
-   | NAME                 { $$ = newref($1); }
-   | NAME '=' exp         { $$ = newasgn($1, $3); }
-   | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 
 explist: exp
