@@ -223,11 +223,6 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
 struct utils *  
 setNodeType(struct utils * v,struct ast * l, struct ast * r){
 
-  if(l->nodetype=='+'){
-    v= malloc
-    setNodeType(v,l->l,l->r);
-  }
-
   if(l->nodetype == 'i' && r->nodetype == 'i'){
     v = malloc(sizeof(struct integer));
     ((struct integer *)v)->nodetype='i';
@@ -298,28 +293,13 @@ eval(struct ast *a)
     }
 
   case '-': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i - ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d - ((struct doublePrecision *)eval(a->r))->d; break;
-    }
+    break;
 
   case '*': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i * ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d * ((struct doublePrecision *)eval(a->r))->d; break;
-    }
+    break;
 
   case '/': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i / ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d / ((struct doublePrecision *)eval(a->r))->d; break;
-    }  
+    break;  
     
   case '|':
    if (v->nodetype=='T'){

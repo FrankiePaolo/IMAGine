@@ -38,7 +38,6 @@ EXP	([Ee][-+]?[0-9]+)
 "while" { return WHILE; }
 "do"    { return DO; }
 "def"   { return DEF;}
-"img"   { return IMG; }
 
  /* built in functions */
 "print" { yylval.fn = B_print; return FUNC; }
