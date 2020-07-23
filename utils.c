@@ -211,8 +211,7 @@ symlistfree(struct symlist *sl)
 
 /* define a function */
 void
-dodef(struct symbol *name, struct symlist *syms, struct ast *func)
-{
+dodef(struct symbol *name, struct symlist *syms, struct ast *func){
   if(name->syms) symlistfree(name->syms);
   if(name->func) treefree(name->func);
   name->syms = syms;
@@ -221,41 +220,32 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func)
 
 
 struct utils *  
-setNodeType(struct utils * v,struct ast * l, struct ast * r){
-
+setNodeType(struct ast * l, struct ast * r){
+  struct utils * v;
   if(l->nodetype == 'i' && r->nodetype == 'i'){
     v = malloc(sizeof(struct integer));
     ((struct integer *)v)->nodetype='i';
   }else if (l->nodetype == 'D' && r->nodetype == 'D'){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
+  }else{
+    yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
+  }
+
+  if(v==NULL){
+    yyerror("out of space");
+    exit(0);
   }
   return v;
-
 }
-
-/*
-struct utils * 
-operation(char op,struct utils * v,struct ast * l, struct ast * r){
-  if (v->nodetype=='i'){
-    switch (op)
-    {
-    case '+':
-      ((struct integer *)v)->i = ((struct integer *)eval(l))->i + ((struct integer *)eval(r))->i; break;
-      return v;
-      break;
-    default:
-      break;
-    }
-  }
-  
-}
-*/
 
 struct utils *
 eval(struct ast *a)
 {
   struct utils *v;
+
+  struct utils *temp1;
+  struct utils *temp2;
 
   if(!a) {
     yyerror("internal error, null eval");
@@ -285,7 +275,10 @@ eval(struct ast *a)
 
     /* expressions */
   case '+': 
-    v=setNodeType(v,a->l,a->r);
+    temp1=eval(a->l);
+    temp2=eval(a->r);
+
+    v=setNodeType(temp1,temp2);
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
     }else if (v->nodetype=='D'){
