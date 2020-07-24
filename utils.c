@@ -321,7 +321,23 @@ biggerThan(struct utils *v,struct utils *l,struct utils *r){
   }  
 }
 
+void
+smallerThan(struct utils *v,struct utils *l,struct utils *r){
+  if (v->nodetype=='i'){
+    ((struct integer *)v)->i = ((struct integer *)l)->i < ((struct integer *)r)->i ? 1 : 0; 
+  }else if(v->nodetype=='D'){
+    ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d < ((struct doublePrecision *)r)->d) ? 1 : 0; 
+  }  
+}
 
+void
+unequal(struct utils *v,struct utils *l,struct utils *r){
+  if (v->nodetype=='i'){
+    ((struct integer *)v)->i = ((struct integer *)l)->i != ((struct integer *)r)->i ? 1 : 0; 
+  }else if(v->nodetype=='D'){
+    ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d != ((struct doublePrecision *)r)->d) ? 1 : 0; 
+  }  
+}
 
 
 struct utils *
@@ -409,20 +425,21 @@ eval(struct ast *a)
     biggerThan(v,temp1,temp2);
     break;
    
-
   case '2': 
-    if (v->nodetype=='T'){
-     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i < ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
-    }else if(v->nodetype=='K'){
-     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d < ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
-    }  
+    temp1=eval(a->l);
+    temp2=eval(a->r);
+
+    v=setNodeType(temp1,temp2);
+    smallerThan(v,temp1,temp2);
+    break;
   
   case '3': 
-    if (v->nodetype=='T'){
-     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i != ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
-    }else if(v->nodetype=='K'){
-     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d != ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
-    }  
+    temp1=eval(a->l);
+    temp2=eval(a->r);
+
+    v=setNodeType(temp1,temp2);
+    unequal(v,temp1,temp2);
+    break; 
     
   case '4': 
     if (v->nodetype=='T'){
