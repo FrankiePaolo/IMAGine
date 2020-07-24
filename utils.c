@@ -370,7 +370,6 @@ struct utils *
 eval(struct ast *a)
 {
   struct utils *v;
-
   struct utils *temp1;
   struct utils *temp2;
 
@@ -380,7 +379,6 @@ eval(struct ast *a)
   }
 
   switch(a->nodetype) {
-
     /* int */
   case 'i': 
     v = malloc(sizeof(struct integer));
