@@ -223,9 +223,16 @@ struct utils *
 setNodeType(struct utils * l, struct utils * r){
   struct utils * v;
   if(l->nodetype == 'i' && r->nodetype == 'i'){
+    printf("inside\n");
     v = malloc(sizeof(struct integer));
     ((struct integer *)v)->nodetype='i';
   }else if (l->nodetype == 'D' && r->nodetype == 'D'){
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
+  }else if(l->nodetype=='i' && r==NULL){
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->nodetype='i';
+  }else if(l->nodetype=='D' && r==NULL){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
   }else{
@@ -297,6 +304,15 @@ divide(struct utils *v,struct utils *l,struct utils *r){
     }
 }
 
+void 
+absoluteValue(struct utils *v,struct utils *l){
+    if (v->nodetype=='i'){
+        ((struct integer *)v)->i=abs(((struct integer *)l)->i); 
+    }else if(v->nodetype=='D'){
+        ((struct doublePrecision *)v)->d=fabs(((struct doublePrecision *)l)->d); 
+    }  
+}
+
 
 struct utils *
 eval(struct ast *a)
@@ -317,7 +333,8 @@ eval(struct ast *a)
   case 'i': 
     v = malloc(sizeof(struct integer));
     v->nodetype='i';
-    ((struct integer *)v)->i = ((struct integer *)a)->i; break;
+    ((struct integer *)v)->i = ((struct integer *)a)->i; 
+    break;
 
     /* double */
   case 'D': 
@@ -365,13 +382,14 @@ eval(struct ast *a)
     divide(v,temp1,temp2);
     break;
     
-  case '|':
-   if (v->nodetype=='T'){
-        fabs(((struct integer *)eval(a->l))->i); break;
+  case '|':  
+    temp1=eval(a->l);
+    printf("%p\n",temp1);
+    temp2=NULL;
 
-    }else if(v->nodetype=='K'){
-        fabs(((struct doublePrecision *)eval(a->l))->d); break;
-    }  
+    v=setNodeType(temp1,temp2);
+    absoluteValue(v,temp1);
+    break;
 
     /* comparisons */
   case '1': 

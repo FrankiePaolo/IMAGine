@@ -52,10 +52,10 @@ EXP	([Ee][-+]?[0-9]+)
 .+\.(png|jpg|jpeg)    {yylval.str=lookup(yytext); return PATH; }
 
  /* int */
-[0-9]+              { yylval.i = atoi(yytext); return INT; }
+[-]*[0-9]+              { yylval.i = atoi(yytext); return INT; }
 
  /* double */
-[0-9]+\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
+[-]*[0-9]+\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
 
 "//".*  
 [ \t]   /* ignore white space */ 
