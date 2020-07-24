@@ -251,11 +251,47 @@ sum(struct ast *v,struct ast *l,struct ast *r){
 }
 
 void
-multipy(struct ast *v,struct ast *l,struct ast *r){
+subtract(struct ast *v,struct ast *l,struct ast *r){
+    if (v->nodetype=='i'){
+      ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
+    }else if (v->nodetype=='D'){
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)r)->d;
+    }else{
+      yyerror("Unexpected type, %i",v->nodetype); 
+    }
+}
+
+void
+multiply(struct ast *v,struct ast *l,struct ast *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i * ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d * ((struct doublePrecision *)r)->d;
+    }else{
+      yyerror("Unexpected type, %i",v->nodetype); 
+    }
+}
+
+void
+divide(struct ast *v,struct ast *l,struct ast *r){
+    if (v->nodetype=='i'){
+      int temp=((struct integer *)r)->i;
+      if (temp!=0)
+      {
+        ((struct integer *)v)->i = ((struct integer *)l)->i / ((struct integer *)r)->i;
+      }else{
+        yyerror("Cannot divide by zero\n");
+        exit(0);      
+      }
+    }else if (v->nodetype=='D'){
+      double temp=((struct doublePrecision *)r)->d;
+      if (temp!=0)
+      {
+        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d / ((struct doublePrecision *)r)->d;
+      }else{
+        yyerror("Cannot divide by zero\n");
+        exit(0);      
+      }    
     }else{
       yyerror("Unexpected type, %i",v->nodetype); 
     }
@@ -303,8 +339,14 @@ eval(struct ast *a)
 
     v=setNodeType(temp1,temp2);
     sum(v,temp1,temp2);
+    break;
 
   case '-': 
+    temp1=eval(a->l);
+    temp2=eval(a->r);
+
+    v=setNodeType(temp1,temp2);
+    subtract(v,temp1,temp2);
     break;
 
   case '*': 
@@ -312,10 +354,16 @@ eval(struct ast *a)
     temp2=eval(a->r);
 
     v=setNodeType(temp1,temp2);
-    multipy(v,temp1,temp2);
-    
+    multiply(v,temp1,temp2);
+    break;
+
   case '/': 
-    break;  
+    temp1=eval(a->l);
+    temp2=eval(a->r);
+
+    v=setNodeType(temp1,temp2);
+    divide(v,temp1,temp2);
+    break;
     
   case '|':
    if (v->nodetype=='T'){
