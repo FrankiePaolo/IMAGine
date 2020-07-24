@@ -339,6 +339,14 @@ unequal(struct utils *v,struct utils *l,struct utils *r){
   }  
 }
 
+void
+equal(struct utils *v,struct utils *l,struct utils *r){
+  if (v->nodetype=='i'){
+    ((struct integer *)v)->i = ((struct integer *)l)->i == ((struct integer *)r)->i ? 1 : 0; 
+  }else if(v->nodetype=='D'){
+    ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d == ((struct doublePrecision *)r)->d) ? 1 : 0; 
+  }  
+}
 
 struct utils *
 eval(struct ast *a)
@@ -442,11 +450,12 @@ eval(struct ast *a)
     break; 
     
   case '4': 
-    if (v->nodetype=='T'){
-     ((struct integer *)v)->i = (((struct integer *)eval(a->l))->i == ((struct integer *)eval(a->r))->i)? 1 : 0; break; 
-    }else if(v->nodetype=='K'){
-     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)eval(a->l))->d == ((struct doublePrecision *)eval(a->r))->d)? 1 : 0; break; 
-    }  
+     temp1=eval(a->l);
+    temp2=eval(a->r);
+
+    v=setNodeType(temp1,temp2);
+    equal(v,temp1,temp2);
+    break;  
 
   case '5': 
     if (v->nodetype=='T'){
