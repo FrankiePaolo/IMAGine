@@ -240,11 +240,24 @@ setNodeType(struct ast * l, struct ast * r){
 }
 
 void
-sum(int nodetype,struct ast *l,struct ast *r){
-    if (nodetype=='i'){
-      ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
-    }else if (nodetype=='D'){
-      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
+sum(struct ast *v,struct ast *l,struct ast *r){
+    if (v->nodetype=='i'){
+      ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
+    }else if (v->nodetype=='D'){
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d + ((struct doublePrecision *)r)->d;
+    }else{
+      yyerror("Unexpected type, %i",v->nodetype); 
+    }
+}
+
+void
+multipy(struct ast *v,struct ast *l,struct ast *r){
+    if (v->nodetype=='i'){
+      ((struct integer *)v)->i = ((struct integer *)l)->i * ((struct integer *)r)->i;
+    }else if (v->nodetype=='D'){
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d * ((struct doublePrecision *)r)->d;
+    }else{
+      yyerror("Unexpected type, %i",v->nodetype); 
     }
 }
 
@@ -259,7 +272,7 @@ eval(struct ast *a)
 
   if(!a) {
     yyerror("internal error, null eval");
-    // add return condition
+    exit(0);
   }
 
   switch(a->nodetype) {
@@ -289,14 +302,18 @@ eval(struct ast *a)
     temp2=eval(a->r);
 
     v=setNodeType(temp1,temp2);
-    sum(v->nodetype,temp1,temp2);
+    sum(v,temp1,temp2);
 
   case '-': 
     break;
 
   case '*': 
-    break;
+    temp1=eval(a->l);
+    temp2=eval(a->r);
 
+    v=setNodeType(temp1,temp2);
+    multipy(v,temp1,temp2);
+    
   case '/': 
     break;  
     
