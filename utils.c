@@ -239,6 +239,16 @@ setNodeType(struct ast * l, struct ast * r){
   return v;
 }
 
+void
+sum(int nodetype,struct ast *l,struct ast *r){
+    if (nodetype=='i'){
+      ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
+    }else if (nodetype=='D'){
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
+    }
+}
+
+
 struct utils *
 eval(struct ast *a)
 {
@@ -279,11 +289,7 @@ eval(struct ast *a)
     temp2=eval(a->r);
 
     v=setNodeType(temp1,temp2);
-    if (v->nodetype=='i'){
-      ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
-    }else if (v->nodetype=='D'){
-      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
-    }
+    sum(v->nodetype,temp1,temp2);
 
   case '-': 
     break;
