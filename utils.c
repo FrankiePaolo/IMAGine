@@ -6,6 +6,7 @@
 #  include <vips/vips.h>
 #  include "utils.h"
 
+static struct utils * callbuiltin(struct fncall *f);
 
 /* hash a symbol */
 static unsigned
@@ -70,8 +71,24 @@ newint(int i)
     exit(0);
   }
 
-  a->nodetype='T';
+  a->nodetype='i';
   a->i=i;
+  
+  return (struct ast *)a;
+}
+
+struct ast *
+newdouble(double d)
+{
+  struct doublePrecision *a = malloc(sizeof(struct doublePrecision));
+  
+  if(!a) {
+    yyerror("out of space");
+    exit(0);
+  }
+
+  a->nodetype='D';
+  a->d=d;
   
   return (struct ast *)a;
 }
@@ -89,6 +106,21 @@ newcmp(int cmptype, struct ast *l, struct ast *r)
   a->l = l;
   a->r = r;
   return a;
+}
+
+struct ast *
+newfunc(int functype, struct ast *l)
+{
+  struct fncall *a = malloc(sizeof(struct fncall));
+  
+  if(!a) {
+    yyerror("out of space");
+    exit(0);
+  }
+  a->nodetype = 'F';
+  a->l = l;
+  a->functype = functype;
+  return (struct ast *)a;
 }
 
 struct ast *
@@ -179,18 +211,41 @@ symlistfree(struct symlist *sl)
 
 /* define a function */
 void
-dodef(struct symbol *name, struct symlist *syms, struct ast *func)
-{
+dodef(struct symbol *name, struct symlist *syms, struct ast *func){
   if(name->syms) symlistfree(name->syms);
   if(name->func) treefree(name->func);
   name->syms = syms;
   name->func = func;
 }
 
+
+struct utils *  
+setNodeType(struct ast * l, struct ast * r){
+  struct utils * v;
+  if(l->nodetype == 'i' && r->nodetype == 'i'){
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->nodetype='i';
+  }else if (l->nodetype == 'D' && r->nodetype == 'D'){
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
+  }else{
+    yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
+  }
+
+  if(v==NULL){
+    yyerror("out of space");
+    exit(0);
+  }
+  return v;
+}
+
 struct utils *
 eval(struct ast *a)
 {
   struct utils *v;
+
+  struct utils *temp1;
+  struct utils *temp2;
 
   if(!a) {
     yyerror("internal error, null eval");
@@ -200,10 +255,16 @@ eval(struct ast *a)
   switch(a->nodetype) {
 
     /* int */
-  case 'T': ((struct integer *)v)->i = ((struct integer *)a)->i; break;
+  case 'i': 
+    v = malloc(sizeof(struct integer));
+    v->nodetype='i';
+    ((struct integer *)v)->i = ((struct integer *)a)->i; break;
 
     /* double */
-  case 'K': ((struct doublePrecision *)v)->d= ((struct doublePrecision *)a)->d; break;
+  case 'D': 
+    v = malloc(sizeof(struct doublePrecision));
+    v->nodetype='D';
+    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; break;
 
     /* name reference */
   case 'N': ((struct symref *)v)->s->value = ((struct symref *)a)->s->value; break;
@@ -214,36 +275,24 @@ eval(struct ast *a)
 
     /* expressions */
   case '+': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
+    temp1=eval(a->l);
+    temp2=eval(a->r);
 
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
+    v=setNodeType(temp1,temp2);
+    if (v->nodetype=='i'){
+      ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i + ((struct integer *)eval(a->r))->i; break;
+    }else if (v->nodetype=='D'){
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d + ((struct doublePrecision *)eval(a->r))->d; break;
     }
-  
+
   case '-': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i - ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d - ((struct doublePrecision *)eval(a->r))->d; break;
-    }
+    break;
 
   case '*': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i * ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d * ((struct doublePrecision *)eval(a->r))->d; break;
-    }
+    break;
 
   case '/': 
-    if (v->nodetype=='T'){
-        ((struct integer *)v)->i = ((struct integer *)eval(a->l))->i / ((struct integer *)eval(a->r))->i; break;
-
-    }else if(v->nodetype=='K'){
-        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)eval(a->l))->d / ((struct doublePrecision *)eval(a->r))->d; break;
-    }  
+    break;  
     
   case '|':
    if (v->nodetype=='T'){
@@ -316,6 +365,7 @@ eval(struct ast *a)
     }
     break;
     
+  case 'F': v = callbuiltin((struct fncall *)a); break;
 
   case 'W':
 
@@ -336,6 +386,31 @@ eval(struct ast *a)
   }
   
   return v;
+}
+
+static struct utils *
+callbuiltin(struct fncall *f)
+{
+  enum bifs functype = f->functype;
+  struct utils * v = eval(f->l);
+
+ switch(functype) {
+ case B_print:
+   print_B(v);
+   return v;
+ default:
+   yyerror("Unknown built-in function %d", functype);
+   return NULL;
+ }
+}
+
+void 
+print_B(struct utils * v){
+  if (v->nodetype=='i'){
+    printf("%d\n",((struct integer *)v)->i);  
+  }else if (v->nodetype=='D'){
+    printf("%f\n",((struct doublePrecision *)v)->d);  
+  }
 }
 
 double
@@ -428,11 +503,11 @@ treefree(struct ast *a)
 
     /* one subtree */
   case '|':
-  case 'M': case 'C': case 'F':
+  case 'M': case 'C': case 'F': 
     treefree(a->l);
 
     /* no subtree */
-  case 'K': case 'N':
+  case 'i': case 'N': case 'D':
     break;
 
   case '=':
@@ -491,8 +566,10 @@ dumpast(struct ast *a, int level)
   }
 
   switch(a->nodetype) {
+  case 'i': printf("number %4.4g\n", ((struct integer *)a)->i); break;
+  
     /* double precision */
-  case 'K': printf("number %4.4g\n", ((struct doublePrecision *)a)->d); break;
+  case 'D': printf("number %4.4g\n", ((struct doublePrecision *)a)->d); break;
 
     /* name reference */
   case 'N': printf("ref %s\n", ((struct symref *)a)->s->name); break;

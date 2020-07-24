@@ -12,7 +12,6 @@
   int i;
   double d;
   char * str;
-  VipsImage img;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
@@ -23,7 +22,6 @@
 %token <d> DOUBLE
 %token <str> STRING
 %token <str> PATH
-%token <img> IMG
 %token <s> NAME
 %token <fn> FUNC
 
@@ -46,7 +44,7 @@
 stmt: IF exp THEN list           { $$ = newflow('I', $2, $4, NULL); }
    | IF exp THEN list ELSE list  { $$ = newflow('I', $2, $4, $6); }
    | WHILE exp DO list           { $$ = newflow('W', $2, $4, NULL); }
-   | exp
+   | exp ';'                   
 ;
 
 list: /* nothing */ { $$ = NULL; }
@@ -58,14 +56,16 @@ list: /* nothing */ { $$ = NULL; }
    ;
 
 exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
-   | exp '+' exp          { printf("new ast");$$ = newast('+', $1,$3); }
-   | exp '-' exp          { $$ = newast('-', $1,$3); }
+   | exp '+' exp          { $$ = newast('+', $1,$3); }
+   | exp '-' exp          { $$ = newast('-', $1,$3);}
    | exp '*' exp          { $$ = newast('*', $1,$3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
    | '|' exp              { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
-   | INT                  { printf("INTEGER DETECTED");$$ = newint($1); }
+   | INT                  { $$ = newint($1); }
+   | DOUBLE               { $$ = newdouble($1); }
+   | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
@@ -79,10 +79,14 @@ symlist: NAME       { $$ = newsymlist($1, NULL); }
 ;
 
 program: /* nothing */
-  | program stmt  {
-    if(debug) dumpast($2, 0);
-     treefree($2);
-    }
+  | program stmt {
+      if(debug) {
+         dumpast($2, 0);
+      }
+   
+   eval($2);
+   treefree($2);
+   }
   | program DEF NAME '(' symlist ')' '=' list  {
                        dodef($3, $5, $8);
                        printf("Defined %s\n> ", $3->name); }

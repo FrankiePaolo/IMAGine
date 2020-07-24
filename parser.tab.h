@@ -53,17 +53,16 @@ extern int yydebug;
     DOUBLE = 259,
     STRING = 260,
     PATH = 261,
-    IMG = 262,
-    NAME = 263,
-    FUNC = 264,
-    IF = 265,
-    THEN = 266,
-    ELSE = 267,
-    WHILE = 268,
-    DO = 269,
-    DEF = 270,
-    CMP = 271,
-    UMINUS = 272
+    NAME = 262,
+    FUNC = 263,
+    IF = 264,
+    THEN = 265,
+    ELSE = 266,
+    WHILE = 267,
+    DO = 268,
+    DEF = 269,
+    CMP = 270,
+    UMINUS = 271
   };
 #endif
 
@@ -77,12 +76,11 @@ union YYSTYPE
   int i;
   double d;
   char * str;
-  VipsImage img;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 
-#line 86 "parser.tab.h"
+#line 84 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
