@@ -76,7 +76,7 @@ struct utils
 
 struct integer
 {
-  int nodetype;    /* type I */
+  int nodetype;    /* type i */
   int i;
 };
 

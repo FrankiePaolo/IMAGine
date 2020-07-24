@@ -240,7 +240,7 @@ setNodeType(struct ast * l, struct ast * r){
 }
 
 void
-sum(struct ast *v,struct ast *l,struct ast *r){
+sum(struct utils *v,struct ast *l,struct ast *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
@@ -251,7 +251,7 @@ sum(struct ast *v,struct ast *l,struct ast *r){
 }
 
 void
-subtract(struct ast *v,struct ast *l,struct ast *r){
+subtract(struct utils *v,struct ast *l,struct ast *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
@@ -262,7 +262,7 @@ subtract(struct ast *v,struct ast *l,struct ast *r){
 }
 
 void
-multiply(struct ast *v,struct ast *l,struct ast *r){
+multiply(struct utils *v,struct ast *l,struct ast *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i * ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
@@ -273,7 +273,7 @@ multiply(struct ast *v,struct ast *l,struct ast *r){
 }
 
 void
-divide(struct ast *v,struct ast *l,struct ast *r){
+divide(struct utils *v,struct ast *l,struct ast *r){
     if (v->nodetype=='i'){
       int temp=((struct integer *)r)->i;
       if (temp!=0)
