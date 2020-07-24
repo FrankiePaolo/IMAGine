@@ -222,17 +222,16 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func){
 struct utils *  
 setNodeType(struct utils * l, struct utils * r){
   struct utils * v;
-  if(l->nodetype == 'i' && r->nodetype == 'i'){
-    printf("inside\n");
-    v = malloc(sizeof(struct integer));
-    ((struct integer *)v)->nodetype='i';
-  }else if (l->nodetype == 'D' && r->nodetype == 'D'){
-    v = malloc(sizeof(struct doublePrecision));
-    ((struct doublePrecision *)v)->nodetype='D';
-  }else if(l->nodetype=='i' && r==NULL){
+  if(l->nodetype=='i' && r==NULL){
     v = malloc(sizeof(struct integer));
     ((struct integer *)v)->nodetype='i';
   }else if(l->nodetype=='D' && r==NULL){
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
+  }else if(l->nodetype == 'i' && r->nodetype == 'i'){
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->nodetype='i';
+  }else if (l->nodetype == 'D' && r->nodetype == 'D'){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
   }else{
@@ -384,7 +383,6 @@ eval(struct ast *a)
     
   case '|':  
     temp1=eval(a->l);
-    printf("%p\n",temp1);
     temp2=NULL;
 
     v=setNodeType(temp1,temp2);
