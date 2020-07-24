@@ -220,7 +220,7 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func){
 
 
 struct utils *  
-setNodeType(struct ast * l, struct ast * r){
+setNodeType(struct utils * l, struct utils * r){
   struct utils * v;
   if(l->nodetype == 'i' && r->nodetype == 'i'){
     v = malloc(sizeof(struct integer));
@@ -240,7 +240,7 @@ setNodeType(struct ast * l, struct ast * r){
 }
 
 void
-sum(struct utils *v,struct ast *l,struct ast *r){
+sum(struct utils *v,struct utils *l,struct utils *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
@@ -251,7 +251,7 @@ sum(struct utils *v,struct ast *l,struct ast *r){
 }
 
 void
-subtract(struct utils *v,struct ast *l,struct ast *r){
+subtract(struct utils *v,struct utils *l,struct utils *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
@@ -262,7 +262,7 @@ subtract(struct utils *v,struct ast *l,struct ast *r){
 }
 
 void
-multiply(struct utils *v,struct ast *l,struct ast *r){
+multiply(struct utils *v,struct utils *l,struct utils *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i * ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
@@ -273,7 +273,7 @@ multiply(struct utils *v,struct ast *l,struct ast *r){
 }
 
 void
-divide(struct utils *v,struct ast *l,struct ast *r){
+divide(struct utils *v,struct utils *l,struct utils *r){
     if (v->nodetype=='i'){
       int temp=((struct integer *)r)->i;
       if (temp!=0)
