@@ -278,7 +278,7 @@ subtract(struct utils *v,struct utils *l,struct utils *r){
     if (v->nodetype=='i'){
       ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
     }else if (v->nodetype=='D'){
-      checkDifferentTypes(l, r);
+      checkDifferentTypes(l, r); 
       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)r)->d;
     }else{
       yyerror("Unexpected type, %i",v->nodetype); 
