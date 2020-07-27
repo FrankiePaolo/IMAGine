@@ -916,39 +916,40 @@ YY_RULE_SETUP
 #line 53 "lexer.l"
 { yylval.d = atof(yytext); return DOUBLE; }
 	YY_BREAK
+/* image */
 case 28:
 YY_RULE_SETUP
-#line 55 "lexer.l"
+#line 57 "lexer.l"
 
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 56 "lexer.l"
+#line 58 "lexer.l"
 /* ignore white space */ 
 	YY_BREAK
 case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
-#line 57 "lexer.l"
+#line 59 "lexer.l"
 printf("> "); /* ignore line continuation */
 	YY_BREAK
 case 31:
 /* rule 31 can match eol */
 YY_RULE_SETUP
-#line 58 "lexer.l"
+#line 60 "lexer.l"
 printf("> ");
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 60 "lexer.l"
+#line 62 "lexer.l"
 { yyerror("Mystery character %c\n", *yytext); }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 61 "lexer.l"
+#line 63 "lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 952 "lex.yy.c"
+#line 953 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1965,6 +1966,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 61 "lexer.l"
+#line 63 "lexer.l"
 
 

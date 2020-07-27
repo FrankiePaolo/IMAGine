@@ -702,7 +702,7 @@ treefree(struct ast *a)
     treefree(a->l);
 
     /* no subtree */
-  case 'i': case 'N': case 'D':
+  case 'i': case 'D': case 'N':
     break;
 
   case '=':
@@ -736,14 +736,23 @@ yyerror(char *s, ...)
 int
 main(int argc, char *argv[])
 {
+  /*
+  VipsImage *in;
   if( VIPS_INIT( argv[0] ) ) {
-  /* This shows the vips error buffer and quits with a fail exit
-         * code.
-         */
-    vips_error_exit( NULL ); 
+    //This shows the vips error buffer and quits with a fail exit code.
+    vips_error_exit("unable to start VIPS"); 
   }
+  */
   printf("> "); 
+  /*
+  if( !(in = vips_image_new_from_file("/home/frank/Desktop/prova.jpg", NULL )) ){
+    vips_error_exit( NULL );
+  }
+  printf( "image width = %d\n", vips_image_get_width(in));
+  */
   return yyparse();
+  //vips_shutdown ();
+  return 0;
 }
 
 /* debugging: dump out an AST */
