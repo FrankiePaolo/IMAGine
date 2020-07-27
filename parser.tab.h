@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.6.3.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,9 +31,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -45,48 +44,41 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    INT = 258,                     /* INT  */
-    DOUBLE = 259,                  /* DOUBLE  */
-    STRING = 260,                  /* STRING  */
-    PATH = 261,                    /* PATH  */
-    NAME = 262,                    /* NAME  */
-    FUNC = 263,                    /* FUNC  */
-    IF = 264,                      /* IF  */
-    THEN = 265,                    /* THEN  */
-    ELSE = 266,                    /* ELSE  */
-    WHILE = 267,                   /* WHILE  */
-    DO = 268,                      /* DO  */
-    DEF = 269,                     /* DEF  */
-    CMP = 270,                     /* CMP  */
-    UMINUS = 271                   /* UMINUS  */
+    INT = 258,
+    DOUBLE = 259,
+    NAME = 260,
+    FUNC = 261,
+    EOL = 262,
+    IF = 263,
+    THEN = 264,
+    ELSE = 265,
+    WHILE = 266,
+    DO = 267,
+    LET = 268,
+    CMP = 269,
+    UMINUS = 270
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 10 "parser.y"
+#line 9 "parser.y"
 
   struct ast *a;
   int i;
   double d;
-  char * str;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
 
-#line 90 "parser.tab.h"
+#line 82 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

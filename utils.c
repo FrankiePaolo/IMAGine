@@ -229,10 +229,8 @@ setNodeType(struct utils * l, struct utils * r){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
   }else if( (l->nodetype == 'i' && r->nodetype == 'D') || (l->nodetype == 'D' && r->nodetype == 'i') ){
-
-     v = malloc(sizeof(struct doublePrecision));
-     ((struct doublePrecision *)v)->nodetype='D';
-
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
   }else if(l->nodetype == 'i' && r->nodetype == 'i'){
     v = malloc(sizeof(struct integer));
     ((struct integer *)v)->nodetype='i';
@@ -252,13 +250,12 @@ setNodeType(struct utils * l, struct utils * r){
 
 void
 checkDifferentTypes(struct utils *l, struct utils *r){
-         if ( l -> nodetype == 'i'){
+        if ( l -> nodetype == 'i'){
               ((struct doublePrecision *)l)->d = ((struct integer *)l)->i;
         }
         if ( r -> nodetype == 'i'){
               ((struct doublePrecision *)r)->d = ((struct integer *)r)->i;
         }
-
 }
 
 void

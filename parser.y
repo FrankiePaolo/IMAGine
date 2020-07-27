@@ -1,5 +1,3 @@
-/* calculator with AST */
-
 %{
 #  include <stdio.h>
 #  include <stdlib.h>
@@ -7,11 +5,11 @@
 #  include "utils.h"
 %}
 
+
 %union {
   struct ast *a;
   int i;
   double d;
-  char * str;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
@@ -20,12 +18,11 @@
 /* declare tokens */
 %token <i> INT
 %token <d> DOUBLE
-%token <str> STRING
-%token <str> PATH
 %token <s> NAME
 %token <fn> FUNC
+%token EOL
 
-%token IF THEN ELSE WHILE DO DEF
+%token IF THEN ELSE WHILE DO LET
 
 
 %nonassoc <fn> CMP
@@ -44,7 +41,7 @@
 stmt: IF exp THEN list           { $$ = newflow('I', $2, $4, NULL); }
    | IF exp THEN list ELSE list  { $$ = newflow('I', $2, $4, $6); }
    | WHILE exp DO list           { $$ = newflow('W', $2, $4, NULL); }
-   | exp ';'                   
+   | exp 
 ;
 
 list: /* nothing */ { $$ = NULL; }
@@ -79,15 +76,15 @@ symlist: NAME       { $$ = newsymlist($1, NULL); }
 ;
 
 program: /* nothing */
-  | program stmt {
-      if(debug) {
-         dumpast($2, 0);
-      }
-   
+  | program stmt ';' {
+   if(debug){
+      dumpast($2, 0);
+   }
    eval($2);
    treefree($2);
    }
-  | program DEF NAME '(' symlist ')' '=' list  {
+    
+  | program LET NAME '(' symlist ')' '=' list EOL {
                        dodef($3, $5, $8);
                        printf("Defined %s\n> ", $3->name); }
 

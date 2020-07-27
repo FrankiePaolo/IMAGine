@@ -1,13 +1,10 @@
-/* recognize tokens for the calculator */
+/* recognize tokens */
 
 %option noyywrap nodefault yylineno
 %{
 # include "utils.h"
 # include "parser.tab.h"
 %}
-
-/* float exponent */
-EXP	([Ee][-+]?[0-9]+)
 
 %%
  /* single character ops */
@@ -37,7 +34,7 @@ EXP	([Ee][-+]?[0-9]+)
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"def"   { return DEF;}
+"let"   { return LET;}
 
  /* built in functions */
 "print" { yylval.fn = B_print; return FUNC; }
@@ -45,21 +42,19 @@ EXP	([Ee][-+]?[0-9]+)
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 
- /* strings */
-[a-zA-Z]*             { yylval.str = lookup(yytext); return STRING; }
-
- /* path */
-.+\.(png|jpg|jpeg)    {yylval.str=lookup(yytext); return PATH; }
+ /* names */
+[a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
  /* int */
-[-]*[0-9]+              { yylval.i = atoi(yytext); return INT; }
+[0-9]+                { yylval.i = atoi(yytext); return INT; }
 
  /* double */
-[-]*[0-9]+\.{1}[0-9]+    { yylval.d = atof(yytext); return DOUBLE; }
+[0-9]+\.{1}[0-9]+     { yylval.d = atof(yytext); return DOUBLE; }
 
 "//".*  
 [ \t]   /* ignore white space */ 
 \\\n    printf("> "); /* ignore line continuation */
-"\n"    {printf("> ");}
+"\n"    printf("> ");
 
+.	{ yyerror("Mystery character %c\n", *yytext); }
 %%
