@@ -27,18 +27,21 @@ lookup(char* sym)
   int scount = NHASH;		/* how many have we looked at */
 
   while(--scount >= 0) {
-    if(sp->name && !strcmp(sp->name, sym)) { return sp; }
+    if(sp->name && !strcmp(sp->name, sym)) { 
+      return sp; 
+    }
 
     if(!sp->name) {		/* new entry */
       sp->name = strdup(sym);
-      // TO BE FIXED
-      // sp->value = 0; 
+      sp->value = NULL;
       sp->func = NULL;
       sp->syms = NULL;
       return sp;
     }
 
-    if(++sp >= symtab+NHASH) sp = symtab; /* try the next entry */
+    if(++sp >= symtab+NHASH) {
+      sp = symtab; /* try the next entry */
+    } 
   }
   yyerror("symbol table overflow\n");
   abort(); /* tried them all, table is full */
@@ -164,6 +167,7 @@ newasgn(struct symbol *s, struct ast *v)
   a->nodetype = '=';
   a->s = s;
   a->v = v;
+  s->value=((struct utils *)v);
   return (struct ast *)a;
 }
 
@@ -415,14 +419,25 @@ eval(struct ast *a)
   case 'D': 
     v = malloc(sizeof(struct doublePrecision));
     v->nodetype='D';
-    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; break;
+    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; 
+    break;
 
     /* name reference */
-  case 'N': ((struct symref *)v)->s->value = ((struct symref *)a)->s->value; break;
+  case 'N': 
+    v=malloc(sizeof(struct symref));
+    v->nodetype='N';
+
+    ((struct symref *)v)->s=((struct symref *)a)->s;
+    break;
 
     /* assignment */
-  case '=': v = ((struct symasgn *)a)->s->value =
-      eval(((struct symasgn *)a)->v); break;
+  case '=': 
+    v=malloc(sizeof(struct symasgn));
+    v->nodetype='=';
+
+    ((struct symasgn *)v)->s=((struct symasgn *)a)->s;
+    ((struct symasgn *)v)->v=((struct symasgn *)a)->v;
+    break;
 
     /* expressions */
   case '+': 
@@ -575,10 +590,21 @@ callbuiltin(struct fncall *f)
 
 void 
 print_B(struct utils * v){
+  struct utils * temp1;
+
   if (v->nodetype=='i'){
     printf("%d\n",((struct integer *)v)->i);  
   }else if (v->nodetype=='D'){
     printf("%f\n",((struct doublePrecision *)v)->d);  
+  }else if(v->nodetype=='N' ){
+    temp1=((struct symref *)v)->s->value;
+    if(((struct symref *)v)->s->value->nodetype=='i'){
+      printf("%i\n",((struct integer *)temp1)->i);
+    }else{
+      printf("%f\n",((struct doublePrecision *)temp1)->d);
+    }
+  }else{
+    printf("Node not found\n");
   }
 }
 
@@ -735,7 +761,7 @@ dumpast(struct ast *a, int level)
   }
 
   switch(a->nodetype) {
-  case 'i': printf("number %4.4g\n", ((struct integer *)a)->i); break;
+  case 'i': printf("number %4.4i\n", ((struct integer *)a)->i); break;
   
     /* double precision */
   case 'D': printf("number %4.4g\n", ((struct doublePrecision *)a)->d); break;

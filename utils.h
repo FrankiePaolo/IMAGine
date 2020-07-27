@@ -76,25 +76,25 @@ struct utils
 
 struct integer
 {
-  int nodetype;    /* type i */
+  int nodetype;      /* type i */
   int i;
 };
 
 struct doublePrecision
 {
-  int nodetype;    /* type D */
+  int nodetype;      /* type D */
   double d;
 };
  
 struct str
 {
-  int nodetype;   /* type S */
+  int nodetype;     /* type S */
   char * str;
 };
 
 struct img
 {
-  int nodetype;  /* type M */
+  int nodetype;     /* type P */
   VipsImage * img;
 };
 
