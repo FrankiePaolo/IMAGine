@@ -22,7 +22,7 @@
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO LET
+%token IF THEN ELSE WHILE DO DEF
 
 
 %nonassoc <fn> CMP
@@ -84,7 +84,7 @@ program: /* nothing */
    treefree($2);
    }
     
-  | program LET NAME '(' symlist ')' '=' list EOL {
+  | program DEF NAME '(' symlist ')' '=' list EOL {
                        dodef($3, $5, $8);
                        printf("Defined %s\n> ", $3->name); }
 

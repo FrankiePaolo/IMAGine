@@ -34,7 +34,7 @@
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"let"   { return LET;}
+"def"   { return DEF;}
 
  /* built in functions */
 "print" { yylval.fn = B_print; return FUNC; }
