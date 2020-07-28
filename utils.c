@@ -591,7 +591,7 @@ callbuiltin(struct fncall *f)
 void 
 print_B(struct utils * v){
   struct utils * temp1;
-
+  
   if (v->nodetype=='i'){
     printf("%d\n",((struct integer *)v)->i);  
   }else if (v->nodetype=='D'){
