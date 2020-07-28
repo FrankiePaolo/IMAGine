@@ -33,7 +33,7 @@
 %left '*' '/'
 %nonassoc '|' UMINUS
 
-%type <a> exp stmt list explist
+%type <a> exp stmt list explist img
 %type <sl> symlist
 
 %start program
@@ -63,13 +63,15 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | INT                  { $$ = newint($1); }
-   | PATH                 { $$ = newimg($1); }      
-   | IMG NAME '=' exp     { $$ = newasgn($2,$4); }                   
+   | IMG NAME '=' img     { $$ = newasgn($2,$4); }                   
    | DOUBLE               { $$ = newdouble($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
+;
+
+img:  PATH  { $$ = newimg($1); } 
 ;
 
 explist: exp

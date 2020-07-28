@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.6.3.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,9 +31,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -45,12 +44,11 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-<<<<<<< HEAD
     INT = 258,
     DOUBLE = 259,
     PATH = 260,
@@ -66,27 +64,7 @@ extern int yydebug;
     IMG = 270,
     CMP = 271,
     UMINUS = 272
-=======
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    INT = 258,                     /* INT  */
-    DOUBLE = 259,                  /* DOUBLE  */
-    NAME = 260,                    /* NAME  */
-    FUNC = 261,                    /* FUNC  */
-    EOL = 262,                     /* EOL  */
-    IF = 263,                      /* IF  */
-    THEN = 264,                    /* THEN  */
-    ELSE = 265,                    /* ELSE  */
-    WHILE = 266,                   /* WHILE  */
-    DO = 267,                      /* DO  */
-    DEF = 268,                     /* DEF  */
-    CMP = 269,                     /* CMP  */
-    UMINUS = 270                   /* UMINUS  */
->>>>>>> master
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
@@ -103,11 +81,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			/* which function */
 
-<<<<<<< HEAD
 #line 85 "parser.tab.h"
-=======
-#line 88 "parser.tab.h"
->>>>>>> master
 
 };
 typedef union YYSTYPE YYSTYPE;

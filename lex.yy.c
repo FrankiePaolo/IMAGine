@@ -971,7 +971,7 @@ printf("> ");
 case 35:
 YY_RULE_SETUP
 #line 67 "lexer.l"
-{ yyerror("Mystery character %c\n", *yytext); }
+{ yyerror("Unknown character %c\n", *yytext); }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP

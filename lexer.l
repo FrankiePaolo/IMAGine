@@ -63,5 +63,5 @@
 \\\n    printf("> "); /* ignore line continuation */
 "\n"    printf("> ");
 
-.	{ yyerror("Mystery character %c\n", *yytext); }
+.	{ yyerror("Unknown character %c\n", *yytext); }
 %%
