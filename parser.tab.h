@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.5.1.  */
+/* A Bison parser, made by GNU Bison 3.6.3.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,8 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -44,25 +45,30 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    INT = 258,
-    DOUBLE = 259,
-    NAME = 260,
-    FUNC = 261,
-    EOL = 262,
-    IF = 263,
-    THEN = 264,
-    ELSE = 265,
-    WHILE = 266,
-    DO = 267,
-    DEF = 268,
-    CMP = 269,
-    UMINUS = 270
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    INT = 258,                     /* INT  */
+    DOUBLE = 259,                  /* DOUBLE  */
+    NAME = 260,                    /* NAME  */
+    FUNC = 261,                    /* FUNC  */
+    EOL = 262,                     /* EOL  */
+    IF = 263,                      /* IF  */
+    THEN = 264,                    /* THEN  */
+    ELSE = 265,                    /* ELSE  */
+    WHILE = 266,                   /* WHILE  */
+    DO = 267,                      /* DO  */
+    DEF = 268,                     /* DEF  */
+    CMP = 269,                     /* CMP  */
+    UMINUS = 270                   /* UMINUS  */
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
@@ -78,7 +84,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			/* which function */
 
-#line 82 "parser.tab.h"
+#line 88 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

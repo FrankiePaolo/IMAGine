@@ -81,7 +81,7 @@ program: /* nothing */
       dumpast($2, 0);
    }
    eval($2);
-   treefree($2);
+   //treefree($2);
    }
     
   | program DEF NAME '(' symlist ')' '=' list EOL {
