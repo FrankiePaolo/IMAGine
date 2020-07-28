@@ -35,15 +35,20 @@
 "while" { return WHILE; }
 "do"    { return DO; }
 "def"   { return DEF;}
+"img"   { return IMG;}
 
  /* built in functions */
 "print" { yylval.fn = B_print; return FUNC; }
+"width" { yylval.fn = I_width; return FUNC; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 
  /* names */
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
+
+ /* path */
+#{1}.+(png|jpeg|jpg|bpm) {yylval.path=(yytext); return PATH; }
 
  /* int */
 [0-9]+                { yylval.i = atoi(yytext); return INT; }

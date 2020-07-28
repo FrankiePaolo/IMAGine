@@ -41,7 +41,8 @@ void symlistfree(struct symlist *sl);
 /* all have common initial nodetype */
 
 enum bifs {			/* built-in functions */
-  B_print = 1
+  B_print = 1,
+  I_width
 };
 
 struct ast {
@@ -95,6 +96,7 @@ struct str
 struct img
 {
   int nodetype;     /* type P */
+  char * path;      //Image path
   VipsImage * img;
 };
 
@@ -117,6 +119,7 @@ struct ast *newcall(struct symbol *s, struct ast *l);
 struct ast *newref(struct symbol *s);
 struct ast *newasgn(struct symbol *s, struct ast *v);
 struct ast *newint(int i);
+struct ast *newimg(char * path);
 struct ast *newdouble(double i);
 struct ast *newflow(int nodetype, struct ast *cond, struct ast *tl, struct ast *tr);
 
@@ -131,6 +134,7 @@ double calluser(struct ufncall *);
 
 /* built-in functions */
 void print_B(struct utils * v);
+void getWidth(struct utils * v);
 
 /* delete and free an AST */
 void treefree(struct ast *);

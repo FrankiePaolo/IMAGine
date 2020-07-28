@@ -10,6 +10,7 @@
   struct ast *a;
   int i;
   double d;
+  char * path;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			/* which function */
@@ -18,11 +19,12 @@
 /* declare tokens */
 %token <i> INT
 %token <d> DOUBLE
+%token <path> PATH
 %token <s> NAME
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO DEF
+%token IF THEN ELSE WHILE DO DEF IMG
 
 
 %nonassoc <fn> CMP
@@ -61,6 +63,8 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | INT                  { $$ = newint($1); }
+   | PATH                 { $$ = newimg($1); }      
+   | IMG NAME '=' exp     { $$ = newasgn($2,$4); }                   
    | DOUBLE               { $$ = newdouble($1); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
@@ -81,7 +85,7 @@ program: /* nothing */
       dumpast($2, 0);
    }
    eval($2);
-   treefree($2);
+   //treefree($2);
    }
     
   | program DEF NAME '(' symlist ')' '=' list EOL {

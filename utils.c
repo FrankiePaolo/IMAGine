@@ -63,6 +63,31 @@ newast(int nodetype, struct ast *l, struct ast *r)
   return a;
 }
 
+struct ast *
+newimg(char * path){
+  struct img *a=malloc(sizeof(struct img));
+  VipsImage *in;
+  /*
+  char * correctPath;
+  strncpy(correctPath,path,strlen(path)-1);*/
+
+  if(!a){
+    yyerror("out of space");
+    exit(0);
+  }
+
+  a->nodetype='P'; //P as in picture
+  path++;
+  a->path=path;
+
+  if( !(in = vips_image_new_from_file(path, NULL))){
+    vips_error_exit( NULL );
+  }
+
+  return (struct ast *)a;
+
+}
+
 
 struct ast *
 newint(int i)
@@ -158,6 +183,7 @@ newref(struct symbol *s)
 struct ast *
 newasgn(struct symbol *s, struct ast *v)
 {
+  //add a method to only assign images
   struct symasgn *a = malloc(sizeof(struct symasgn));
   
   if(!a) {
@@ -582,10 +608,23 @@ callbuiltin(struct fncall *f)
  case B_print:
    print_B(v);
    return v;
+ case I_width:
+   getWidth(v);
+   return v;
+   printf("prova\n");
  default:
    yyerror("Unknown built-in function %d", functype);
    return NULL;
  }
+}
+
+void
+getWidth(struct utils * v){
+  VipsImage * in;
+  struct utils * temp1;
+  temp1=((struct symref *)v)->s->value;
+  in=((struct img *)temp1)->img;
+  printf( "image width = %d\n", vips_image_get_width(in) ); 
 }
 
 void 
@@ -736,22 +775,17 @@ yyerror(char *s, ...)
 int
 main(int argc, char *argv[])
 {
-  /*
-  VipsImage *in;
   if( VIPS_INIT( argv[0] ) ) {
     //This shows the vips error buffer and quits with a fail exit code.
     vips_error_exit("unable to start VIPS"); 
   }
-  */
+
   printf("> "); 
   /*
-  if( !(in = vips_image_new_from_file("/home/frank/Desktop/prova.jpg", NULL )) ){
-    vips_error_exit( NULL );
-  }
   printf( "image width = %d\n", vips_image_get_width(in));
   */
   return yyparse();
-  //vips_shutdown ();
+  vips_shutdown ();
   return 0;
 }
 
