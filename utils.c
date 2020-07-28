@@ -267,6 +267,9 @@ setNodeType(struct utils * l, struct utils * r){
   }else if (l->nodetype == 'D' && r->nodetype == 'D'){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
+  }else if ( ( l->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype=='i' ) || (((struct symref *)l)->s->value->nodetype=='i' && r->nodetype == 'i' ) || (  ((struct symref *)l)->s->value->nodetype=='i' && ((struct symref *)r)->s->value->nodetype=='i' ) ){
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->nodetype='i';
   }else{
     yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
   }
@@ -290,8 +293,28 @@ checkDifferentTypes(struct utils *l, struct utils *r){
 
 void
 sum(struct utils *v,struct utils *l,struct utils *r){
+
+  struct utils *tempName;
     if (v->nodetype=='i'){
-      ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
+          if (((struct integer *)l)->i != NULL && ((struct integer *)r)->i != NULL){
+               ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
+          }else{
+                if ( ((struct integer *)l)->i == NULL && ((struct integer *)r)->i != NULL){
+                 
+                  tempName=((struct symref *)l)->s->value;
+                    ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)r)->i;
+                }else if(((struct integer *)r)->i == NULL && ((struct integer *)l)->i != NULL) {
+                 
+                  tempName=((struct symref *)r)->s->value;
+                  ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)tempName)->i ;
+                }else{
+                      tempName=((struct symref *)l)->s->value;
+                      struct utils *tempName2;
+                      tempName2 =  ((struct symref *)r)->s->value;
+                      ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)tempName2)->i;
+                }
+              
+          }
     }else if (v->nodetype=='D'){
        checkDifferentTypes(l, r);     
       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d + ((struct doublePrecision *)r)->d;
@@ -302,8 +325,27 @@ sum(struct utils *v,struct utils *l,struct utils *r){
 
 void
 subtract(struct utils *v,struct utils *l,struct utils *r){
+   struct utils *tempName;
     if (v->nodetype=='i'){
-      ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
+          if (((struct integer *)l)->i != NULL && ((struct integer *)r)->i != NULL){
+               ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
+          }else{
+                if ( ((struct integer *)l)->i == NULL && ((struct integer *)r)->i != NULL){
+                 
+                  tempName=((struct symref *)l)->s->value;
+                    ((struct integer *)v)->i = ((struct integer *)tempName)->i - ((struct integer *)r)->i;
+                }else if(((struct integer *)r)->i == NULL && ((struct integer *)l)->i != NULL) {
+                 
+                  tempName=((struct symref *)r)->s->value;
+                  ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)tempName)->i ;
+                }else{
+                      tempName=((struct symref *)l)->s->value;
+                      struct utils *tempName2;
+                      tempName2 =  ((struct symref *)r)->s->value;
+                      ((struct integer *)v)->i = ((struct integer *)tempName)->i - ((struct integer *)tempName2)->i;
+                }
+              
+          }
     }else if (v->nodetype=='D'){
       checkDifferentTypes(l, r); 
       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)r)->d;
@@ -447,7 +489,7 @@ eval(struct ast *a)
     v->nodetype='D';
     ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; 
     break;
-
+    printf("temp 2 raggiunto\n");
     /* name reference */
   case 'N': 
     v=malloc(sizeof(struct symref));
@@ -469,7 +511,6 @@ eval(struct ast *a)
   case '+': 
     temp1=eval(a->l);
     temp2=eval(a->r);
-
     v=setNodeType(temp1,temp2);
     sum(v,temp1,temp2);
     break;
