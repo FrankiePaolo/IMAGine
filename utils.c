@@ -184,7 +184,6 @@ newref(struct symbol *s)
 struct ast *
 newasgn(struct symbol *s, struct ast *v)
 {
-  //add a method to only assign images
   struct symasgn *a = malloc(sizeof(struct symasgn));
   
   if(!a) {
