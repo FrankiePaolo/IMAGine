@@ -1,821 +1,226 @@
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-==8434== Memcheck, a memory error detector
-==8434== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==8434== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
-==8434== Command: ./IMAGine
-==8434== Parent PID: 5194
-==8434== 
---8434-- 
---8434-- Valgrind options:
---8434--    --leak-check=full
---8434--    --show-leak-kinds=all
---8434--    --track-origins=yes
---8434--    --verbose
---8434--    --log-file=valgrind-out.txt
---8434-- Contents of /proc/version:
---8434--   Linux version 5.4.0-42-generic (buildd@lgw01-amd64-038) (gcc version 9.3.0 (Ubuntu 9.3.0-10ubuntu2)) #46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020
---8434-- 
---8434-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
---8434-- Page sizes: currently 4096, max supported 4096
---8434-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
---8434-- Reading syms from /home/frank/Documents/IMAGine/IMAGine
---8434-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
---8434--   Considering /usr/lib/x86_64-linux-gnu/ld-2.31.so ..
---8434--   .. CRC mismatch (computed 387b17ea wanted d28cf5ef)
---8434--   Considering /lib/x86_64-linux-gnu/ld-2.31.so ..
---8434--   .. CRC mismatch (computed 387b17ea wanted d28cf5ef)
---8434--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so ..
---8434--   .. CRC is valid
---8434-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
---8434--    object doesn't have a symbol table
---8434--    object doesn't have a dynamic symbol table
---8434-- Scheduler: using generic scheduler lock implementation.
---8434-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
-==8434== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-8434-by-frank-on-???
-==8434== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-8434-by-frank-on-???
-==8434== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-8434-by-frank-on-???
-==8434== 
-==8434== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==8434== don't want to do, unless you know exactly what you're doing,
-==8434== or are doing some strange experiment):
-==8434==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=8434 ...command...
-==8434== 
-==8434== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==8434==   /path/to/gdb ./IMAGine
-==8434== and then give GDB the following command
-==8434==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=8434
-==8434== --pid is optional if only one valgrind process is running
-==8434== 
---8434-- REDIR: 0x4022d80 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
---8434-- REDIR: 0x4022b50 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
---8434-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
---8434--    object doesn't have a symbol table
---8434-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
---8434--    object doesn't have a symbol table
-==8434== WARNING: new redirection conflicts with existing -- ignoring it
---8434--     old: 0x04022d80 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
---8434--     new: 0x04022d80 (strlen              ) R-> (2007.0) 0x0483f060 strlen
---8434-- REDIR: 0x401f560 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
---8434-- REDIR: 0x40232e0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
---8434-- Reading syms from /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
---8434--   Considering /usr/lib/debug/.build-id/77/5cbbfff814456660786780b0b3b40096b4c05e.debug ..
---8434--   .. build-id is valid
---8434-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
---8434--   Considering /usr/lib/x86_64-linux-gnu/libc-2.31.so ..
---8434--   .. CRC mismatch (computed a6f43087 wanted 6555436e)
---8434--   Considering /lib/x86_64-linux-gnu/libc-2.31.so ..
---8434--   .. CRC mismatch (computed a6f43087 wanted 6555436e)
---8434--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.31.so ..
---8434--   .. CRC is valid
---8434-- REDIR: 0x4922600 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921900 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922930 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921220 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921960 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4923dd0 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x493ee60 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x493e9a0 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922760 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922590 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921890 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49212d0 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49226c0 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x493e960 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49217f0 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49213b0 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922980 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921350 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922ad0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49400d0 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x493e9e0 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49219a0 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921280 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49217b0 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x492ad20 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49229d0 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922550 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x493eab0 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4921c60 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x49228d0 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922870 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4923e10 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4922a20 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
---8434-- REDIR: 0x4a0a300 (libc.so.6:__strrchr_avx2) redirected to 0x483ea10 (rindex)
---8434-- REDIR: 0x4a0a110 (libc.so.6:__strchrnul_avx2) redirected to 0x4843540 (strchrnul)
---8434-- REDIR: 0x491c260 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
---8434-- REDIR: 0x4a0d960 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x48428e0 (memset)
-==8434== 
-==8434== Process terminating with default action of signal 2 (SIGINT)
-==8434==    at 0x498FFB2: read (read.c:26)
-==8434==    by 0x4912D1E: _IO_file_underflow@@GLIBC_2.2.5 (fileops.c:517)
-==8434==    by 0x4914105: _IO_default_uflow (genops.c:362)
-==8434==    by 0x109EDE: yy_get_next_buffer (lex.yy.c:1184)
-==8434==    by 0x109AA8: yylex (lex.yy.c:1024)
-==8434==    by 0x10B6D2: yyparse (parser.tab.c:1288)
-==8434==    by 0x10DC74: main (utils.c:753)
---8434-- REDIR: 0x491c850 (libc.so.6:free) redirected to 0x483c9d0 (free)
-==8434== 
-==8434== HEAP SUMMARY:
-==8434==     in use at exit: 16,458 bytes in 3 blocks
-==8434==   total heap usage: 5 allocs, 2 frees, 18,506 bytes allocated
-==8434== 
-==8434== Searching for pointers to 3 not-freed blocks
-==8434== Checked 414,848 bytes
-==8434== 
-==8434== 8 bytes in 1 blocks are still reachable in loss record 1 of 3
-==8434==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==8434==    by 0x10B35C: yyalloc (lex.yy.c:1946)
-==8434==    by 0x10AE1B: yyensure_buffer_stack (lex.yy.c:1641)
-==8434==    by 0x1094E3: yylex (lex.yy.c:724)
-==8434==    by 0x10B6D2: yyparse (parser.tab.c:1288)
-==8434==    by 0x10DC74: main (utils.c:753)
-==8434== 
-==8434== 64 bytes in 1 blocks are still reachable in loss record 2 of 3
-==8434==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==8434==    by 0x10B35C: yyalloc (lex.yy.c:1946)
-==8434==    by 0x10A990: yy_create_buffer (lex.yy.c:1481)
-==8434==    by 0x10950D: yylex (lex.yy.c:726)
-==8434==    by 0x10B6D2: yyparse (parser.tab.c:1288)
-==8434==    by 0x10DC74: main (utils.c:753)
-==8434== 
-==8434== 16,386 bytes in 1 blocks are still reachable in loss record 3 of 3
-==8434==    at 0x483B7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-==8434==    by 0x10B35C: yyalloc (lex.yy.c:1946)
-==8434==    by 0x10A9C5: yy_create_buffer (lex.yy.c:1490)
-==8434==    by 0x10950D: yylex (lex.yy.c:726)
-==8434==    by 0x10B6D2: yyparse (parser.tab.c:1288)
-==8434==    by 0x10DC74: main (utils.c:753)
-==8434== 
-==8434== LEAK SUMMARY:
-==8434==    definitely lost: 0 bytes in 0 blocks
-==8434==    indirectly lost: 0 bytes in 0 blocks
-==8434==      possibly lost: 0 bytes in 0 blocks
-==8434==    still reachable: 16,458 bytes in 3 blocks
-==8434==         suppressed: 0 bytes in 0 blocks
-==8434== 
-==8434== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-=======
-==2829== Memcheck, a memory error detector
-==2829== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==2829== Using Valgrind-3.16.1-36d6727e1d-20200622X and LibVEX; rerun with -h for copyright info
-==2829== Command: ./IMAGine
-==2829== Parent PID: 2254
-==2829== 
---2829-- 
---2829-- Valgrind options:
---2829--    --leak-check=full
---2829--    --show-leak-kinds=all
---2829--    --track-origins=yes
---2829--    --verbose
---2829--    --log-file=valgrind-out.txt
---2829-- Contents of /proc/version:
---2829--   Linux version 5.4.0-kali3-amd64 (devel@kali.org) (gcc version 9.2.1 20200104 (Debian 9.2.1-22)) #1 SMP Debian 5.4.13-1kali1 (2020-01-20)
---2829-- 
---2829-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-rdrand
---2829-- Page sizes: currently 4096, max supported 4096
---2829-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
---2829-- Reading syms from /home/kali/Desktop/Linguaggi e Traduttori/Progetto/IMAGine/IMAGine
---2829-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.30.so
---2829--   Considering /usr/lib/debug/.build-id/a5/7f5fd51ff26337171bbbf6e8303528722c7136.debug ..
---2829--   .. build-id is valid
---2829-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
---2829--   Considering /usr/lib/debug/.build-id/54/299c4aec0e5e5f3d7b8135341351d0e1dbfc64.debug ..
---2829--   .. build-id is valid
---2829--    object doesn't have a dynamic symbol table
---2829-- Scheduler: using generic scheduler lock implementation.
---2829-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
-==2829== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-2829-by-kali-on-???
-==2829== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-2829-by-kali-on-???
-==2829== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-2829-by-kali-on-???
-==2829== 
-==2829== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==2829== don't want to do, unless you know exactly what you're doing,
-==2829== or are doing some strange experiment):
-==2829==   /usr/bin/vgdb --pid=2829 ...command...
-==2829== 
-==2829== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==2829==   /path/to/gdb ./IMAGine
-==2829== and then give GDB the following command
-==2829==   target remote | /usr/bin/vgdb --pid=2829
-==2829== --pid is optional if only one valgrind process is running
-==2829== 
---2829-- REDIR: 0x401e5b0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580ca5f2 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---2829-- REDIR: 0x401e390 (ld-linux-x86-64.so.2:index) redirected to 0x580ca60c (vgPlain_amd64_linux_REDIR_FOR_index)
---2829-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
---2829--   Considering /usr/lib/debug/.build-id/f2/7641e081d3c37b410d7f31da4e2bf21040f356.debug ..
---2829--   .. build-id is valid
---2829-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
---2829--   Considering /usr/lib/debug/.build-id/25/7cdcdf80e04f91ca9e3b185ee3b52995e89946.debug ..
---2829--   .. build-id is valid
-==2829== WARNING: new redirection conflicts with existing -- ignoring it
---2829--     old: 0x0401e5b0 (strlen              ) R-> (0000.0) 0x580ca5f2 vgPlain_amd64_linux_REDIR_FOR_strlen
---2829--     new: 0x0401e5b0 (strlen              ) R-> (2007.0) 0x04839da0 strlen
---2829-- REDIR: 0x401add0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ac90 (strcmp)
---2829-- REDIR: 0x401eaf0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x483e740 (mempcpy)
---2829-- Reading syms from /usr/lib/x86_64-linux-gnu/libpthread-2.30.so
---2829--   Considering /usr/lib/debug/.build-id/ba/dd1a7bd49e6807223f5455aa02dcc47d475ebf.debug ..
---2829--   .. build-id is valid
---2829-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.30.so
---2829--   Considering /usr/lib/debug/.build-id/85/03b2a6ce9ceecf5795f86b3b20a90fcb5efb77.debug ..
---2829--   .. build-id is valid
---2829-- REDIR: 0x490a740 (libc.so.6:memmove) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909b00 (libc.so.6:strncpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490aa60 (libc.so.6:strcasecmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909450 (libc.so.6:strcat) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909b60 (libc.so.6:rindex) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490bde0 (libc.so.6:rawmemchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4924010 (libc.so.6:wmemchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4923bd0 (libc.so.6:wcscmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490a8a0 (libc.so.6:mempcpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490a6d0 (libc.so.6:bcmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909aa0 (libc.so.6:strncmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909500 (libc.so.6:strcmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490a800 (libc.so.6:memset) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4923b90 (libc.so.6:wcschr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909a00 (libc.so.6:strnlen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x49095d0 (libc.so.6:strcspn) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490aab0 (libc.so.6:strncasecmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909570 (libc.so.6:strcpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490ac00 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x49251f0 (libc.so.6:wcsnlen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4923c10 (libc.so.6:wcscpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909ba0 (libc.so.6:strpbrk) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x49094b0 (libc.so.6:index) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x49099c0 (libc.so.6:strlen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4910190 (libc.so.6:memrchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490ab00 (libc.so.6:strcasecmp_l) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490a690 (libc.so.6:memchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4923cb0 (libc.so.6:wcslen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x4909e40 (libc.so.6:strspn) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490aa00 (libc.so.6:stpncpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490a9a0 (libc.so.6:stpcpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490be20 (libc.so.6:strchrnul) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x490ab50 (libc.so.6:strncasecmp_l) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---2829-- REDIR: 0x49da530 (libc.so.6:__strrchr_avx2) redirected to 0x48397b0 (rindex)
---2829-- REDIR: 0x49da340 (libc.so.6:__strchrnul_avx2) redirected to 0x483e2b0 (strchrnul)
---2829-- REDIR: 0x4905a40 (libc.so.6:malloc) redirected to 0x4836710 (malloc)
---2829-- REDIR: 0x49ddb70 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x483d650 (memset)
---2829-- REDIR: 0x49da700 (libc.so.6:__strlen_avx2) redirected to 0x4839c80 (strlen)
---2829-- REDIR: 0x49dd6f0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x483d760 (memmove)
---2829-- REDIR: 0x4906080 (libc.so.6:free) redirected to 0x4837940 (free)
---2829-- REDIR: 0x49dd6d0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x483e3c0 (mempcpy)
---2829-- REDIR: 0x49d5c40 (libc.so.6:__strcmp_avx2) redirected to 0x483ab90 (strcmp)
-==2829== Invalid read of size 4
-==2829==    at 0x10D218: print_B (utils.c:601)
-==2829==    by 0x10D16C: callbuiltin (utils.c:583)
-==2829==    by 0x10D076: eval (utils.c:552)
-==2829==    by 0x10B909: yyparse (parser.y:83)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Address 0x4a46a30 is 0 bytes inside a block of size 8 free'd
-==2829==    at 0x48379AB: free (vg_replace_malloc.c:538)
-==2829==    by 0x10D5A0: treefree (utils.c:709)
-==2829==    by 0x10B91C: yyparse (parser.y:84)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Block was alloc'd at
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10BEB3: newint (utils.c:70)
-==2829==    by 0x10B79B: yyparse (parser.y:63)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== Invalid read of size 4
-==2829==    at 0x10D223: print_B (utils.c:602)
-==2829==    by 0x10D16C: callbuiltin (utils.c:583)
-==2829==    by 0x10D076: eval (utils.c:552)
-==2829==    by 0x10B909: yyparse (parser.y:83)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Address 0x4a46a34 is 4 bytes inside a block of size 8 free'd
-==2829==    at 0x48379AB: free (vg_replace_malloc.c:538)
-==2829==    by 0x10D5A0: treefree (utils.c:709)
-==2829==    by 0x10B91C: yyparse (parser.y:84)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Block was alloc'd at
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10BEB3: newint (utils.c:70)
-==2829==    by 0x10B79B: yyparse (parser.y:63)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 
-==2829== HEAP SUMMARY:
-==2829==     in use at exit: 16,503 bytes in 6 blocks
-==2829==   total heap usage: 12 allocs, 6 frees, 18,623 bytes allocated
-==2829== 
-==2829== Searching for pointers to 6 not-freed blocks
-==2829== Checked 413,904 bytes
-==2829== 
-==2829== 5 bytes in 1 blocks are still reachable in loss record 1 of 6
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x490971A: strdup (strdup.c:42)
-==2829==    by 0x10BDBD: lookup (utils.c:35)
-==2829==    by 0x1096F2: yylex (lexer.l:47)
-==2829==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 8 bytes in 1 blocks are still reachable in loss record 2 of 6
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10B133: yyalloc (lex.yy.c:1946)
-==2829==    by 0x10AC36: yyensure_buffer_stack (lex.yy.c:1641)
-==2829==    by 0x10933B: yylex (lex.yy.c:724)
-==2829==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 16 bytes in 1 blocks are definitely lost in loss record 3 of 6
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10CBB0: eval (utils.c:427)
-==2829==    by 0x10D156: callbuiltin (utils.c:579)
-==2829==    by 0x10D076: eval (utils.c:552)
-==2829==    by 0x10B909: yyparse (parser.y:83)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 24 bytes in 1 blocks are definitely lost in loss record 4 of 6
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10CBDD: eval (utils.c:435)
-==2829==    by 0x10B909: yyparse (parser.y:83)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 64 bytes in 1 blocks are still reachable in loss record 5 of 6
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10B133: yyalloc (lex.yy.c:1946)
-==2829==    by 0x10A7C3: yy_create_buffer (lex.yy.c:1481)
-==2829==    by 0x109365: yylex (lex.yy.c:726)
-==2829==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 16,386 bytes in 1 blocks are still reachable in loss record 6 of 6
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10B133: yyalloc (lex.yy.c:1946)
-==2829==    by 0x10A7F8: yy_create_buffer (lex.yy.c:1490)
-==2829==    by 0x109365: yylex (lex.yy.c:726)
-==2829==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== LEAK SUMMARY:
-==2829==    definitely lost: 40 bytes in 2 blocks
-==2829==    indirectly lost: 0 bytes in 0 blocks
-==2829==      possibly lost: 0 bytes in 0 blocks
-==2829==    still reachable: 16,463 bytes in 4 blocks
-==2829==         suppressed: 0 bytes in 0 blocks
-==2829== 
-==2829== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
-==2829== 
-==2829== 1 errors in context 1 of 4:
-==2829== Invalid read of size 4
-==2829==    at 0x10D223: print_B (utils.c:602)
-==2829==    by 0x10D16C: callbuiltin (utils.c:583)
-==2829==    by 0x10D076: eval (utils.c:552)
-==2829==    by 0x10B909: yyparse (parser.y:83)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Address 0x4a46a34 is 4 bytes inside a block of size 8 free'd
-==2829==    at 0x48379AB: free (vg_replace_malloc.c:538)
-==2829==    by 0x10D5A0: treefree (utils.c:709)
-==2829==    by 0x10B91C: yyparse (parser.y:84)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Block was alloc'd at
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10BEB3: newint (utils.c:70)
-==2829==    by 0x10B79B: yyparse (parser.y:63)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== 
-==2829== 1 errors in context 2 of 4:
-==2829== Invalid read of size 4
-==2829==    at 0x10D218: print_B (utils.c:601)
-==2829==    by 0x10D16C: callbuiltin (utils.c:583)
-==2829==    by 0x10D076: eval (utils.c:552)
-==2829==    by 0x10B909: yyparse (parser.y:83)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Address 0x4a46a30 is 0 bytes inside a block of size 8 free'd
-==2829==    at 0x48379AB: free (vg_replace_malloc.c:538)
-==2829==    by 0x10D5A0: treefree (utils.c:709)
-==2829==    by 0x10B91C: yyparse (parser.y:84)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829==  Block was alloc'd at
-==2829==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==2829==    by 0x10BEB3: newint (utils.c:70)
-==2829==    by 0x10B79B: yyparse (parser.y:63)
-==2829==    by 0x10D724: main (utils.c:753)
-==2829== 
-==2829== ERROR SUMMARY: 4 errors from 4 contexts (suppressed: 0 from 0)
->>>>>>> master
-=======
-==9279== Memcheck, a memory error detector
-==9279== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==9279== Using Valgrind-3.16.1-36d6727e1d-20200622X and LibVEX; rerun with -h for copyright info
-==9279== Command: ./IMAGine
-==9279== Parent PID: 2254
-==9279== 
---9279-- 
---9279-- Valgrind options:
---9279--    --leak-check=full
---9279--    --show-leak-kinds=all
---9279--    --track-origins=yes
---9279--    --verbose
---9279--    --log-file=valgrind-out.txt
---9279-- Contents of /proc/version:
---9279--   Linux version 5.4.0-kali3-amd64 (devel@kali.org) (gcc version 9.2.1 20200104 (Debian 9.2.1-22)) #1 SMP Debian 5.4.13-1kali1 (2020-01-20)
---9279-- 
---9279-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-rdrand
---9279-- Page sizes: currently 4096, max supported 4096
---9279-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
---9279-- Reading syms from /home/kali/Desktop/Linguaggi e Traduttori/Progetto/IMAGine/IMAGine
---9279-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.30.so
---9279--   Considering /usr/lib/debug/.build-id/a5/7f5fd51ff26337171bbbf6e8303528722c7136.debug ..
---9279--   .. build-id is valid
---9279-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
---9279--   Considering /usr/lib/debug/.build-id/54/299c4aec0e5e5f3d7b8135341351d0e1dbfc64.debug ..
---9279--   .. build-id is valid
---9279--    object doesn't have a dynamic symbol table
---9279-- Scheduler: using generic scheduler lock implementation.
---9279-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
-==9279== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-9279-by-kali-on-???
-==9279== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-9279-by-kali-on-???
-==9279== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-9279-by-kali-on-???
-==9279== 
-==9279== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==9279== don't want to do, unless you know exactly what you're doing,
-==9279== or are doing some strange experiment):
-==9279==   /usr/bin/vgdb --pid=9279 ...command...
-==9279== 
-==9279== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==9279==   /path/to/gdb ./IMAGine
-==9279== and then give GDB the following command
-==9279==   target remote | /usr/bin/vgdb --pid=9279
-==9279== --pid is optional if only one valgrind process is running
-==9279== 
---9279-- REDIR: 0x401e5b0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580ca5f2 (vgPlain_amd64_linux_REDIR_FOR_strlen)
---9279-- REDIR: 0x401e390 (ld-linux-x86-64.so.2:index) redirected to 0x580ca60c (vgPlain_amd64_linux_REDIR_FOR_index)
---9279-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
---9279--   Considering /usr/lib/debug/.build-id/f2/7641e081d3c37b410d7f31da4e2bf21040f356.debug ..
---9279--   .. build-id is valid
---9279-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
---9279--   Considering /usr/lib/debug/.build-id/25/7cdcdf80e04f91ca9e3b185ee3b52995e89946.debug ..
---9279--   .. build-id is valid
-==9279== WARNING: new redirection conflicts with existing -- ignoring it
---9279--     old: 0x0401e5b0 (strlen              ) R-> (0000.0) 0x580ca5f2 vgPlain_amd64_linux_REDIR_FOR_strlen
---9279--     new: 0x0401e5b0 (strlen              ) R-> (2007.0) 0x04839da0 strlen
---9279-- REDIR: 0x401add0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ac90 (strcmp)
---9279-- REDIR: 0x401eaf0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x483e740 (mempcpy)
---9279-- Reading syms from /usr/lib/x86_64-linux-gnu/libpthread-2.30.so
---9279--   Considering /usr/lib/debug/.build-id/ba/dd1a7bd49e6807223f5455aa02dcc47d475ebf.debug ..
---9279--   .. build-id is valid
---9279-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.30.so
---9279--   Considering /usr/lib/debug/.build-id/85/03b2a6ce9ceecf5795f86b3b20a90fcb5efb77.debug ..
---9279--   .. build-id is valid
---9279-- REDIR: 0x490a740 (libc.so.6:memmove) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909b00 (libc.so.6:strncpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490aa60 (libc.so.6:strcasecmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909450 (libc.so.6:strcat) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909b60 (libc.so.6:rindex) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490bde0 (libc.so.6:rawmemchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4924010 (libc.so.6:wmemchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4923bd0 (libc.so.6:wcscmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490a8a0 (libc.so.6:mempcpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490a6d0 (libc.so.6:bcmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909aa0 (libc.so.6:strncmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909500 (libc.so.6:strcmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490a800 (libc.so.6:memset) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4923b90 (libc.so.6:wcschr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909a00 (libc.so.6:strnlen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x49095d0 (libc.so.6:strcspn) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490aab0 (libc.so.6:strncasecmp) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909570 (libc.so.6:strcpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490ac00 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x49251f0 (libc.so.6:wcsnlen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4923c10 (libc.so.6:wcscpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909ba0 (libc.so.6:strpbrk) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x49094b0 (libc.so.6:index) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x49099c0 (libc.so.6:strlen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4910190 (libc.so.6:memrchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490ab00 (libc.so.6:strcasecmp_l) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490a690 (libc.so.6:memchr) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4923cb0 (libc.so.6:wcslen) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x4909e40 (libc.so.6:strspn) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490aa00 (libc.so.6:stpncpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490a9a0 (libc.so.6:stpcpy) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490be20 (libc.so.6:strchrnul) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x490ab50 (libc.so.6:strncasecmp_l) redirected to 0x482c1b0 (_vgnU_ifunc_wrapper)
---9279-- REDIR: 0x49da530 (libc.so.6:__strrchr_avx2) redirected to 0x48397b0 (rindex)
---9279-- REDIR: 0x49da340 (libc.so.6:__strchrnul_avx2) redirected to 0x483e2b0 (strchrnul)
---9279-- REDIR: 0x4905a40 (libc.so.6:malloc) redirected to 0x4836710 (malloc)
---9279-- REDIR: 0x49ddb70 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x483d650 (memset)
---9279-- REDIR: 0x49da700 (libc.so.6:__strlen_avx2) redirected to 0x4839c80 (strlen)
---9279-- REDIR: 0x49dd6f0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x483d760 (memmove)
---9279-- REDIR: 0x49dd6d0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x483e3c0 (mempcpy)
---9279-- REDIR: 0x49d5c40 (libc.so.6:__strcmp_avx2) redirected to 0x483ab90 (strcmp)
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C683: subtract (utils.c:304)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C6B5: subtract (utils.c:307)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C6C0: subtract (utils.c:307)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEB9: eval (utils.c:494)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C6F7: subtract (utils.c:311)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEB9: eval (utils.c:494)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C702: subtract (utils.c:311)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 
-==9279== Process terminating with default action of signal 1 (SIGHUP)
-==9279==    at 0x496A671: write (write.c:26)
-==9279==    by 0x48FBF14: _IO_file_write@@GLIBC_2.2.5 (fileops.c:1185)
-==9279==    by 0x48FB2A5: new_do_write (fileops.c:453)
-==9279==    by 0x48FC61D: _IO_new_file_xsputn (fileops.c:1259)
-==9279==    by 0x48FC61D: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1201)
-==9279==    by 0x48E87A8: buffered_vfprintf (vfprintf-internal.c:2395)
-==9279==    by 0x48E58F3: __vfprintf_internal (vfprintf-internal.c:1346)
-==9279==    by 0x48D2445: fprintf (fprintf.c:32)
-==9279==    by 0x10AF60: yy_fatal_error (lex.yy.c:1765)
-==9279==    by 0x109DA3: yy_get_next_buffer (lex.yy.c:1184)
-==9279==    by 0x1098FF: yylex (lex.yy.c:1024)
-==9279==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==9279==    by 0x10D94E: main (utils.c:794)
---9279-- REDIR: 0x4906080 (libc.so.6:free) redirected to 0x4837940 (free)
-==9279== 
-==9279== HEAP SUMMARY:
-==9279==     in use at exit: 16,820 bytes in 25 blocks
-==9279==   total heap usage: 27 allocs, 2 frees, 18,868 bytes allocated
-==9279== 
-==9279== Searching for pointers to 25 not-freed blocks
-==9279== Checked 414,424 bytes
-==9279== 
-==9279== 8 bytes in 1 blocks are still reachable in loss record 1 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10B133: yyalloc (lex.yy.c:1946)
-==9279==    by 0x10AC36: yyensure_buffer_stack (lex.yy.c:1641)
-==9279==    by 0x10933B: yylex (lex.yy.c:724)
-==9279==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 10 bytes in 2 blocks are still reachable in loss record 2 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x490971A: strdup (strdup.c:42)
-==9279==    by 0x10BDAA: lookup (utils.c:35)
-==9279==    by 0x1096F2: yylex (lexer.l:47)
-==9279==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 16 bytes in 2 blocks are still reachable in loss record 3 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10BEA0: newint (utils.c:70)
-==9279==    by 0x10B79B: yyparse (parser.y:63)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 16 bytes in 2 blocks are definitely lost in loss record 4 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10C443: setNodeType (utils.c:245)
-==9279==    by 0x10CED0: eval (utils.c:496)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 24 bytes in 1 blocks are still reachable in loss record 5 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10BE3E: newast (utils.c:54)
-==9279==    by 0x10B6CB: yyparse (parser.y:57)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 24 bytes in 1 blocks are still reachable in loss record 6 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10BFC1: newfunc (utils.c:117)
-==9279==    by 0x10B7E3: yyparse (parser.y:65)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 24 bytes in 1 blocks are indirectly lost in loss record 7 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10BE3E: newast (utils.c:54)
-==9279==    by 0x10B6CB: yyparse (parser.y:57)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 32 bytes in 2 blocks are still reachable in loss record 8 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10C08B: newref (utils.c:147)
-==9279==    by 0x10B7FE: yyparse (parser.y:66)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 32 bytes in 2 blocks are indirectly lost in loss record 9 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10C08B: newref (utils.c:147)
-==9279==    by 0x10B7FE: yyparse (parser.y:66)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 32 bytes in 2 blocks are definitely lost in loss record 10 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 32 bytes in 2 blocks are definitely lost in loss record 11 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEB9: eval (utils.c:494)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 48 bytes in 2 blocks are definitely lost in loss record 12 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10C0E7: newasgn (utils.c:161)
-==9279==    by 0x10B827: yyparse (parser.y:67)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 48 bytes in 2 blocks are definitely lost in loss record 13 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CE07: eval (utils.c:477)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 64 bytes in 1 blocks are still reachable in loss record 14 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10B133: yyalloc (lex.yy.c:1946)
-==9279==    by 0x10A7C3: yy_create_buffer (lex.yy.c:1481)
-==9279==    by 0x109365: yylex (lex.yy.c:726)
-==9279==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 80 (24 direct, 56 indirect) bytes in 1 blocks are definitely lost in loss record 15 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10BFC1: newfunc (utils.c:117)
-==9279==    by 0x10B7E3: yyparse (parser.y:65)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 16,386 bytes in 1 blocks are still reachable in loss record 16 of 16
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10B133: yyalloc (lex.yy.c:1946)
-==9279==    by 0x10A7F8: yy_create_buffer (lex.yy.c:1490)
-==9279==    by 0x109365: yylex (lex.yy.c:726)
-==9279==    by 0x10B3CC: yyparse (parser.tab.c:1117)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== LEAK SUMMARY:
-==9279==    definitely lost: 200 bytes in 11 blocks
-==9279==    indirectly lost: 56 bytes in 3 blocks
-==9279==      possibly lost: 0 bytes in 0 blocks
-==9279==    still reachable: 16,564 bytes in 11 blocks
-==9279==         suppressed: 0 bytes in 0 blocks
-==9279== 
-==9279== ERROR SUMMARY: 16 errors from 11 contexts (suppressed: 0 from 0)
-==9279== 
-==9279== 2 errors in context 1 of 11:
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C702: subtract (utils.c:311)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 
-==9279== 2 errors in context 2 of 11:
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C6F7: subtract (utils.c:311)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEB9: eval (utils.c:494)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 
-==9279== 2 errors in context 3 of 11:
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C6C0: subtract (utils.c:307)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEB9: eval (utils.c:494)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 
-==9279== 2 errors in context 4 of 11:
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C6B5: subtract (utils.c:307)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== 
-==9279== 2 errors in context 5 of 11:
-==9279== Conditional jump or move depends on uninitialised value(s)
-==9279==    at 0x10C683: subtract (utils.c:304)
-==9279==    by 0x10CEEB: eval (utils.c:497)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279==  Uninitialised value was created by a heap allocation
-==9279==    at 0x483677F: malloc (vg_replace_malloc.c:307)
-==9279==    by 0x10CDDA: eval (utils.c:469)
-==9279==    by 0x10CEA5: eval (utils.c:493)
-==9279==    by 0x10D380: callbuiltin (utils.c:620)
-==9279==    by 0x10D2A0: eval (utils.c:593)
-==9279==    by 0x10B909: yyparse (parser.y:83)
-==9279==    by 0x10D94E: main (utils.c:794)
-==9279== 
-==9279== ERROR SUMMARY: 16 errors from 11 contexts (suppressed: 0 from 0)
->>>>>>> Stashed changes
+==27199== Memcheck, a memory error detector
+==27199== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==27199== Using Valgrind-3.15.0-608cb11914-20190413 and LibVEX; rerun with -h for copyright info
+==27199== Command: ./IMAGine
+==27199== Parent PID: 4164
+==27199== 
+--27199-- 
+--27199-- Valgrind options:
+--27199--    --leak-check=full
+--27199--    --show-leak-kinds=all
+--27199--    --track-origins=yes
+--27199--    --verbose
+--27199--    --log-file=valgrind-out.txt
+--27199-- Contents of /proc/version:
+--27199--   Linux version 5.4.0-42-generic (buildd@lgw01-amd64-038) (gcc version 9.3.0 (Ubuntu 9.3.0-10ubuntu2)) #46-Ubuntu SMP Fri Jul 10 00:24:02 UTC 2020
+--27199-- 
+--27199-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand
+--27199-- Page sizes: currently 4096, max supported 4096
+--27199-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
+--27199-- Reading syms from /home/frank/Documents/IMAGine/IMAGine
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-2.31.so
+--27199--   Considering /usr/lib/x86_64-linux-gnu/ld-2.31.so ..
+--27199--   .. CRC mismatch (computed 387b17ea wanted d28cf5ef)
+--27199--   Considering /lib/x86_64-linux-gnu/ld-2.31.so ..
+--27199--   .. CRC mismatch (computed 387b17ea wanted d28cf5ef)
+--27199--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.31.so ..
+--27199--   .. CRC is valid
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/memcheck-amd64-linux
+--27199--    object doesn't have a symbol table
+--27199--    object doesn't have a dynamic symbol table
+--27199-- Scheduler: using generic scheduler lock implementation.
+--27199-- Reading suppressions file: /usr/lib/x86_64-linux-gnu/valgrind/default.supp
+==27199== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-27199-by-frank-on-???
+==27199== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-27199-by-frank-on-???
+==27199== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-27199-by-frank-on-???
+==27199== 
+==27199== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==27199== don't want to do, unless you know exactly what you're doing,
+==27199== or are doing some strange experiment):
+==27199==   /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=27199 ...command...
+==27199== 
+==27199== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==27199==   /path/to/gdb ./IMAGine
+==27199== and then give GDB the following command
+==27199==   target remote | /usr/lib/x86_64-linux-gnu/valgrind/../../bin/vgdb --pid=27199
+==27199== --pid is optional if only one valgrind process is running
+==27199== 
+--27199-- REDIR: 0x4022d80 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c9ce2 (???)
+--27199-- REDIR: 0x4022b50 (ld-linux-x86-64.so.2:index) redirected to 0x580c9cfc (???)
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_core-amd64-linux.so
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so
+--27199--    object doesn't have a symbol table
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x04022d80 (strlen              ) R-> (0000.0) 0x580c9ce2 ???
+--27199--     new: 0x04022d80 (strlen              ) R-> (2007.0) 0x0483f060 strlen
+--27199-- REDIR: 0x401f560 (ld-linux-x86-64.so.2:strcmp) redirected to 0x483ffd0 (strcmp)
+--27199-- REDIR: 0x40232e0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4843a20 (mempcpy)
+--27199-- Reading syms from /usr/local/lib/libvips.so.42.12.2
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6400.3
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libpthread-2.31.so
+--27199--   Considering /usr/lib/debug/.build-id/77/5cbbfff814456660786780b0b3b40096b4c05e.debug ..
+--27199--   .. build-id is valid
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libc-2.31.so
+--27199--   Considering /usr/lib/x86_64-linux-gnu/libc-2.31.so ..
+--27199--   .. CRC mismatch (computed a6f43087 wanted 6555436e)
+--27199--   Considering /lib/x86_64-linux-gnu/libc-2.31.so ..
+--27199--   .. CRC mismatch (computed a6f43087 wanted 6555436e)
+--27199--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.31.so ..
+--27199--   .. CRC is valid
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libtiff.so.5.5.0
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libjpeg.so.8.2.2
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libgmodule-2.0.so.0.6400.3
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libexpat.so.1.6.11
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libgsf-1.so.114.0.46
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.6400.3
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libm-2.31.so
+--27199--   Considering /usr/lib/x86_64-linux-gnu/libm-2.31.so ..
+--27199--   .. CRC mismatch (computed 327d785f wanted 751f5509)
+--27199--   Considering /lib/x86_64-linux-gnu/libm-2.31.so ..
+--27199--   .. CRC mismatch (computed 327d785f wanted 751f5509)
+--27199--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libm-2.31.so ..
+--27199--   .. CRC is valid
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libpcre.so.3.13.3
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libwebp.so.6.0.2
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libzstd.so.1.4.4
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/liblzma.so.5.2.4
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libjbig.so.0
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libz.so.1.2.11
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libdl-2.31.so
+--27199--   Considering /usr/lib/x86_64-linux-gnu/libdl-2.31.so ..
+--27199--   .. CRC mismatch (computed 4fd191ca wanted df8dd39a)
+--27199--   Considering /lib/x86_64-linux-gnu/libdl-2.31.so ..
+--27199--   .. CRC mismatch (computed 4fd191ca wanted df8dd39a)
+--27199--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libdl-2.31.so ..
+--27199--   .. CRC is valid
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libgio-2.0.so.0.6400.3
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libxml2.so.2.9.10
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libbz2.so.1.0.4
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libffi.so.7.1.0
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libmount.so.1.1.0
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libselinux.so.1
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libresolv-2.31.so
+--27199--   Considering /usr/lib/x86_64-linux-gnu/libresolv-2.31.so ..
+--27199--   .. CRC mismatch (computed 5c5a0ea5 wanted 7eb6f788)
+--27199--   Considering /lib/x86_64-linux-gnu/libresolv-2.31.so ..
+--27199--   .. CRC mismatch (computed 5c5a0ea5 wanted 7eb6f788)
+--27199--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libresolv-2.31.so ..
+--27199--   .. CRC is valid
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libicuuc.so.66.1
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libblkid.so.1.1.0
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libpcre2-8.so.0.9.0
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libicudata.so.66.1
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+--27199--    object doesn't have a symbol table
+--27199-- Reading syms from /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+--27199--    object doesn't have a symbol table
+--27199-- REDIR: 0x4f1b600 (libc.so.6:memmove) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a900 (libc.so.6:strncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b930 (libc.so.6:strcasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a220 (libc.so.6:strcat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a960 (libc.so.6:rindex) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1cdd0 (libc.so.6:rawmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f37e60 (libc.so.6:wmemchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f379a0 (libc.so.6:wcscmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b760 (libc.so.6:mempcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b590 (libc.so.6:bcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a890 (libc.so.6:strncmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a2d0 (libc.so.6:strcmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b6c0 (libc.so.6:memset) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f37960 (libc.so.6:wcschr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a7f0 (libc.so.6:strnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a3b0 (libc.so.6:strcspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b980 (libc.so.6:strncasecmp) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a350 (libc.so.6:strcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1bad0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f390d0 (libc.so.6:wcsnlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f379e0 (libc.so.6:wcscpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a9a0 (libc.so.6:strpbrk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a280 (libc.so.6:index) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a7b0 (libc.so.6:strlen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f23d20 (libc.so.6:memrchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b9d0 (libc.so.6:strcasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b550 (libc.so.6:memchr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f37ab0 (libc.so.6:wcslen) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1ac60 (libc.so.6:strspn) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b8d0 (libc.so.6:stpncpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b870 (libc.so.6:stpcpy) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1ce10 (libc.so.6:strchrnul) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1ba20 (libc.so.6:strncasecmp_l) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1b470 (libc.so.6:strstr) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4f1a830 (libc.so.6:strncat) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4fa8810 (libc.so.6:__memmove_chk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+--27199-- REDIR: 0x4fa8750 (libc.so.6:__memcpy_chk) redirected to 0x48311d0 (_vgnU_ifunc_wrapper)
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+==27199== WARNING: new redirection conflicts with existing -- ignoring it
+--27199--     old: 0x050064d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x048434d0 __memmove_chk
+--27199--     new: 0x050064d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04843b10 __memcpy_chk
+--27199-- REDIR: 0x5003300 (libc.so.6:__strrchr_avx2) redirected to 0x483ea10 (rindex)
+--27199-- REDIR: 0x4f15260 (libc.so.6:malloc) redirected to 0x483b780 (malloc)
+--27199-- REDIR: 0x4f1b120 (libc.so.6:__GI_strstr) redirected to 0x4843ca0 (__strstr_sse2)
+--27199-- REDIR: 0x4fff330 (libc.so.6:__memchr_avx2) redirected to 0x4840050 (memchr)
+--27199-- REDIR: 0x50064e0 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x48429f0 (memmove)
+--27199-- REDIR: 0x4f36560 (libc.so.6:__strstr_sse2_unaligned) redirected to 0x4843c20 (strstr)
+--27199-- REDIR: 0x4f15850 (libc.so.6:free) redirected to 0x483c9d0 (free)
+--27199-- REDIR: 0x50034d0 (libc.so.6:__strlen_avx2) redirected to 0x483ef40 (strlen)
+--27199-- REDIR: 0x4f16c90 (libc.so.6:calloc) redirected to 0x483dce0 (calloc)
+--27199-- REDIR: 0x4f16000 (libc.so.6:realloc) redirected to 0x483df30 (realloc)
+--27199-- REDIR: 0x4ffe9d0 (libc.so.6:__strcmp_avx2) redirected to 0x483fed0 (strcmp)
+--27199-- REDIR: 0x5002ee0 (libc.so.6:__strchr_avx2) redirected to 0x483ebf0 (index)
+--27199-- REDIR: 0x5003990 (libc.so.6:__strcat_avx2) redirected to 0x483ec20 (strcat)
+--27199-- REDIR: 0x5006960 (libc.so.6:__memset_avx2_unaligned_erms) redirected to 0x48428e0 (memset)
+--27199-- REDIR: 0x4ffee10 (libc.so.6:__strncmp_avx2) redirected to 0x483f670 (strncmp)
+--27199-- REDIR: 0x5004da0 (libc.so.6:__strncpy_avx2) redirected to 0x483f230 (strncpy)
+--27199-- REDIR: 0x5005700 (libc.so.6:__stpcpy_avx2) redirected to 0x4842300 (stpcpy)
+--27199-- REDIR: 0x4ffe8a0 (libc.so.6:__strspn_sse42) redirected to 0x4843ef0 (strspn)
+--27199-- REDIR: 0x4ffe620 (libc.so.6:__strcspn_sse42) redirected to 0x4843e10 (strcspn)
+--27199-- REDIR: 0x5003110 (libc.so.6:__strchrnul_avx2) redirected to 0x4843540 (strchrnul)
+--27199-- REDIR: 0x50064c0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4843660 (mempcpy)
+--27199-- REDIR: 0x4ec1670 (libc.so.6:setenv) redirected to 0x4844480 (setenv)

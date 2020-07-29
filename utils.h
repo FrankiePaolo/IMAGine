@@ -134,7 +134,7 @@ double calluser(struct ufncall *);
 
 /* built-in functions */
 void print_B(struct utils * v);
-void getWidth(struct utils * v);
+void getWidth(struct symref * v);
 
 /* delete and free an AST */
 void treefree(struct ast *);

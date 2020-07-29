@@ -84,6 +84,7 @@ newimg(char * path){
     vips_error_exit( NULL );
   }
 
+  a->img=in;
   return (struct ast *)a;
 
 }
@@ -194,6 +195,7 @@ newasgn(struct symbol *s, struct ast *v)
   a->s = s;
   a->v = v;
   s->value=((struct utils *)v);
+
   return (struct ast *)a;
 }
 
@@ -650,9 +652,8 @@ callbuiltin(struct fncall *f)
    print_B(v);
    return v;
  case I_width:
-   getWidth(v);
+   getWidth(((struct symref *)v));
    return v;
-   printf("prova\n");
  default:
    yyerror("Unknown built-in function %d", functype);
    return NULL;
@@ -660,12 +661,9 @@ callbuiltin(struct fncall *f)
 }
 
 void
-getWidth(struct utils * v){
-  VipsImage * in;
-  struct utils * temp1;
-  temp1=((struct symref *)v)->s->value;
-  in=((struct img *)temp1)->img;
-  printf( "image width = %d\n", vips_image_get_width(in) ); 
+getWidth(struct symref * v){
+  struct utils * temp1 = v->s->value;
+  printf( "image width = %d\n", vips_image_get_width(((struct img * )temp1)->img)); 
 }
 
 void 
