@@ -31,7 +31,7 @@
 %right '='
 %left '+' '-'
 %left '*' '/'
-%nonassoc '|' UMINUS
+%nonassoc '|' 
 
 %type <a> exp stmt list explist img
 %type <sl> symlist
@@ -61,7 +61,6 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
    | '|' exp              { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
-   | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | INT                  { $$ = newint($1); }
    | IMG NAME '=' img     { $$ = newasgn($2,$4); }                   
    | DOUBLE               { $$ = newdouble($1); }

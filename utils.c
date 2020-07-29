@@ -683,17 +683,51 @@ callbuiltin(struct fncall *f)
   enum bifs functype = f->functype;
   struct utils * v = eval(f->l);
 
- switch(functype) {
- case B_print:
-   print_B(v);
-   return v;
- case I_width:
-   getWidth(((struct symref *)v));
-   return v;
- default:
+switch(functype) {
+  case B_print:
+    print_B(v);
+    return v;
+  case I_width:
+    getWidth(((struct symref *)v));
+    return v;
+  case I_invert:
+    invert(((struct symref *)v));
+    return v;
+  case I_average:
+    average(((struct symref *)v));
+    return v;
+  default:
    yyerror("Unknown built-in function %d", functype);
    return NULL;
  }
+}
+
+void
+average(struct symref * v){
+  double mean;
+  struct utils * temp1 = v->s->value;
+  if( vips_avg( (((struct img * )temp1)->img), &mean, NULL )){
+    vips_error_exit( NULL );
+  }
+
+  printf( "mean pixel value = %g\n", mean ); 
+}
+
+void
+invert(struct symref * v){
+  VipsImage * out;
+  char path[500];
+  struct utils * temp1 = v->s->value;
+  if(vips_invert((((struct img * )temp1)->img), &out, NULL )){
+    vips_error_exit( NULL );
+  }
+
+  printf( "Please enter the path of the output image :\n");
+  scanf("%s",path);
+  if( vips_image_write_to_file(out,path, NULL )){
+    vips_error_exit( NULL );
+  }
+  printf("Image saved\n");
 }
 
 void
@@ -856,9 +890,6 @@ main(int argc, char *argv[])
   }
 
   printf("> "); 
-  /*
-  printf( "image width = %d\n", vips_image_get_width(in));
-  */
   return yyparse();
   vips_shutdown ();
   return 0;

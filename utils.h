@@ -42,7 +42,9 @@ void symlistfree(struct symlist *sl);
 
 enum bifs {			/* built-in functions */
   B_print = 1,
-  I_width
+  I_width,
+  I_invert,
+  I_average
 };
 
 struct ast {
@@ -135,6 +137,9 @@ double calluser(struct ufncall *);
 /* built-in functions */
 void print_B(struct utils * v);
 void getWidth(struct symref * v);
+void invert(struct symref * v);
+void average(struct symref * v);
+
 
 /* delete and free an AST */
 void treefree(struct ast *);

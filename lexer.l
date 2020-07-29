@@ -40,6 +40,8 @@
  /* built in functions */
 "print" { yylval.fn = B_print; return FUNC; }
 "width" { yylval.fn = I_width; return FUNC; }
+"invert" { yylval.fn = I_invert; return FUNC; }
+"average" { yylval.fn = I_average; return FUNC; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
@@ -51,10 +53,10 @@
 #{1}.+(png|jpeg|jpg|bpm) {yylval.path=(yytext); return PATH; }
 
  /* int */
-[0-9]+                { yylval.i = atoi(yytext); return INT; }
+\-?[0-9]+                { yylval.i = atoi(yytext); return INT; }
 
  /* double */
-[0-9]+\.{1}[0-9]+     { yylval.d = atof(yytext); return DOUBLE; }
+\-?[0-9]+\.{1}[0-9]+     { yylval.d = atof(yytext); return DOUBLE; }
 
  /* image */
 
