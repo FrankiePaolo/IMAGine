@@ -952,7 +952,7 @@ YY_RULE_SETUP
 case 30:
 YY_RULE_SETUP
 #line 54 "lexer.l"
-{yylval.path=(yytext); return PATH; }
+{ yylval.path=(yytext); return PATH; }
 	YY_BREAK
 /* int */
 case 31:

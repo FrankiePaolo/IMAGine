@@ -243,8 +243,18 @@ symlistfree(struct symlist *sl)
 /* define a function */
 void
 dodef(struct symbol *name, struct symlist *syms, struct ast *func){
-  if(name->syms) symlistfree(name->syms);
-  if(name->func) treefree(name->func);
+
+  
+  if(name->syms) {
+    symlistfree(name->syms);
+  }
+
+  /*
+  if(name->func){ 
+  treefree(name->func);
+  }
+  */
+
   name->syms = syms;
   name->func = func;
 }
@@ -667,7 +677,10 @@ eval(struct ast *a)
     }
     break;			/* last value is value */
 	              
-  case 'L': eval(a->l); v = eval(a->r); break;
+  case 'L': 
+    eval(a->l); 
+    v = eval(a->r); 
+    break;
 
   case 'C': ((struct doublePrecision *)v)->d = calluser((struct ufncall *)a); break;
 

@@ -50,7 +50,7 @@
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
  /* path */
-#{1}.+(png|jpeg|jpg|bpm) {yylval.path=(yytext); return PATH; }
+#{1}.+(png|jpeg|jpg|bpm) { yylval.path=(yytext); return PATH; }
 
  /* int */
 \-?[0-9]+                { yylval.i = atoi(yytext); return INT; }
@@ -65,5 +65,5 @@
 \\\n    printf("> "); /* ignore line continuation */
 "\n"    printf("> ");
 
-.	{ yyerror("Unknown character %c\n", *yytext); }
+.	    { yyerror("Unknown character %c\n", *yytext); }
 %%
