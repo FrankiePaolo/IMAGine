@@ -7,6 +7,7 @@
 #  include "utils.h"
 
 static struct utils * callbuiltin(struct fncall *f);
+static struct utils * calluser(struct ufncall *f);
 
 /* hash a symbol */
 static unsigned
@@ -664,7 +665,9 @@ eval(struct ast *a)
     }
     break;
     
-  case 'F': v = callbuiltin((struct fncall *)a); break;
+  case 'F': 
+    v = callbuiltin((struct fncall *)a); 
+    break;
 
   case 'W':
 
@@ -682,7 +685,9 @@ eval(struct ast *a)
     v = eval(a->r); 
     break;
 
-  case 'C': ((struct doublePrecision *)v)->d = calluser((struct ufncall *)a); break;
+  case 'C': 
+    v = calluser((struct ufncall *)a); 
+    break;
 
   default: printf("internal error: bad node %c\n", a->nodetype);
   }
@@ -769,14 +774,14 @@ print_B(struct utils * v){
   }
 }
 
-double
+static struct utils *
 calluser(struct ufncall *f)
 {
   struct symbol *fn = f->s;	/* function name */
   struct symlist *sl;		/* dummy arguments */
   struct ast *args = f->l;	/* actual arguments */
-  double *oldval, *newval;	/* saved arg values */
-  double v;
+  struct utils ** oldval, ** newval;	/* saved arg values */
+  struct utils * v;
   int nargs;
   int i;
 
@@ -787,12 +792,31 @@ calluser(struct ufncall *f)
 
   /* count the arguments */
   sl = fn->syms;
-  for(nargs = 0; sl; sl = sl->next)
+  for(nargs = 0; sl; sl = sl->next){
     nargs++;
+  }
+
+  oldval=malloc(sizeof(struct utils * ) * nargs);
+  newval=malloc(sizeof(struct utils * ) * nargs);
+
+
+
+  /* properly allocate memory */
+  for(i = 0; i < nargs; i++) {
+    if(args->nodetype == 'L') {	/* if this is a list node */
+      if(args->l->nodetype=='i'){
+        newval[i]=malloc(sizeof(struct integer));
+      }
+      args=args->r;
+    }else{
+      if(args->l->nodetype=='i'){
+        newval[i]=malloc(sizeof(struct integer));
+      }
+      args=NULL;
+    }
+  }
 
   /* prepare to save them */
-  oldval = (double *)malloc(nargs * sizeof(double));
-  newval = (double *)malloc(nargs * sizeof(double));
   if(!oldval || !newval) {
     yyerror("Out of space in %s", fn->name);
   }
@@ -806,10 +830,10 @@ calluser(struct ufncall *f)
     }
 
     if(args->nodetype == 'L') {	/* if this is a list node */
-      newval[i] = ((struct doublePrecision *)eval(args->l))->d;
+      newval[i] = eval(args->l);
       args = args->r;
     } else {			/* if it's the end of the list */
-      newval[i] = ((struct doublePrecision *)eval(args))->d;
+      newval[i] = eval(args);
       args = NULL;
     }
   }
@@ -819,22 +843,22 @@ calluser(struct ufncall *f)
   for(i = 0; i < nargs; i++) {
     struct symbol *s = sl->sym;
 
-    oldval[i] = ((struct doublePrecision *)s->value)->d;
-    ((struct doublePrecision *)s->value)->d = newval[i];
+    oldval[i] = s->value;
+    s->value = newval[i];
     sl = sl->next;
   }
 
   free(newval);
 
   /* evaluate the function */
-  v = ((struct doublePrecision *)eval(fn->func))->d;
+  v = eval(fn->func);
 
   /* put the dummies back */
   sl = fn->syms;
   for(i = 0; i < nargs; i++) {
     struct symbol *s = sl->sym;
 
-    ((struct doublePrecision *)s->value)->d = oldval[i];
+    s->value = oldval[i];
     sl = sl->next;
   }
 

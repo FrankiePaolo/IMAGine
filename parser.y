@@ -13,7 +13,7 @@
   char * path;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
-  int fn;			/* which function */
+  int fn;			      /* which function */
 }
 
 /* declare tokens */
@@ -60,7 +60,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
-   | NAME '(' explist ')' { $$ = newcall($1, $3); }
+   | NAME '(' explist ')' { printf("HERE\n");$$ = newcall($1, $3); }
 ;
 
 img:  PATH  { $$ = newimg($1); } 
@@ -70,7 +70,7 @@ explist: exp
    | exp ',' explist  { $$ = newast('L', $1, $3); }
 ;
 
-symlist: NAME       { $$ = newsymlist($1, NULL); }
+symlist: NAME         { $$ = newsymlist($1, NULL); }
    | NAME ',' symlist { $$ = newsymlist($1, $3); }
 ;
 

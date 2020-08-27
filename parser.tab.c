@@ -1461,7 +1461,7 @@ yyreduce:
 
   case 19:
 #line 63 "parser.y"
-                          { (yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
+                          { printf("HERE\n");(yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
 #line 1466 "parser.tab.c"
     break;
 
@@ -1479,7 +1479,7 @@ yyreduce:
 
   case 23:
 #line 73 "parser.y"
-                    { (yyval.sl) = newsymlist((yyvsp[0].s), NULL); }
+                      { (yyval.sl) = newsymlist((yyvsp[0].s), NULL); }
 #line 1484 "parser.tab.c"
     break;
 

@@ -131,9 +131,6 @@ void dodef(struct symbol *name, struct symlist *syms, struct ast *stmts);
 /* evaluate an AST */
 struct utils *eval(struct ast *);
 
-/* call user */
-double calluser(struct ufncall *);
-
 /* built-in functions */
 void print_B(struct utils * v);
 void getWidth(struct symref * v);
