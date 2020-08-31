@@ -26,7 +26,6 @@ void symlistfree(struct symlist *sl);
 /* node types
  *  + - * / |
  *  0-7 comparison ops, bit coded 04 equal, 02 less, 01 greater
- *  M unary minus
  *  L statement list
  *  I IF statement
  *  W WHILE statement
@@ -136,6 +135,9 @@ void print_B(struct utils * v);
 void getWidth(struct symref * v);
 void invert(struct symref * v);
 void average(struct symref * v);
+
+
+struct utils * calluser(struct ufncall *f);
 
 
 /* delete and free an AST */

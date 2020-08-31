@@ -150,7 +150,7 @@ union YYSTYPE
   char * path;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
-  int fn;			/* which function */
+  int fn;			      /* which function */
 
 #line 156 "parser.tab.c"
 
@@ -1461,7 +1461,7 @@ yyreduce:
 
   case 19:
 #line 63 "parser.y"
-                          { printf("HERE\n");(yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
+                          { (yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
 #line 1466 "parser.tab.c"
     break;
 

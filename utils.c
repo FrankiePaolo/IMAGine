@@ -7,7 +7,6 @@
 #  include "utils.h"
 
 static struct utils * callbuiltin(struct fncall *f);
-static struct utils * calluser(struct ufncall *f);
 
 /* hash a symbol */
 static unsigned
@@ -194,8 +193,12 @@ newasgn(struct symbol *s, struct ast *v)
   a->nodetype = '=';
   a->s = s;
   a->v = v;
-  s->value=((struct utils *)v);
-
+  if(v->nodetype=='C'){
+    printf("HERE: %i\n",((struct ufncall *)v)->s->value);
+    s->value=((struct ufncall *)v)->s->value;
+  }else{
+    s->value=((struct utils *)v);
+  }
   return (struct ast *)a;
 }
 
@@ -279,25 +282,25 @@ setNodeType(struct utils * l, struct utils * r){
   }else if (l->nodetype == 'D' && r->nodetype == 'D'){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
+  }else if ( ( l->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i' ) || 
+           ( ((struct symref *)l)->s->value->nodetype=='i' && r->nodetype == 'i' )     || 
+           ( ((struct symref *)l)->s->value->nodetype=='i' && ((struct symref *)r)->s->value->nodetype=='i' )) {
+    v = malloc(sizeof(struct integer));
+    ((struct integer *)v)->nodetype='i';
+    printf("%d %d\n",l->nodetype,r->nodetype);
   }else if (  ( l->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype=='D' )  || 
               ( l->nodetype == 'D' && ((struct symref *)r)->s->value->nodetype=='D' ) || 
               (  ((struct symref *)l)->s->value->nodetype=='D' && ((struct symref *)r)->s->value->nodetype=='i' ) || 
               (  ((struct symref *)l)->s->value->nodetype=='i' && ((struct symref *)r)->s->value->nodetype=='D' ) || 
-              ( r->nodetype == 'i' && ((struct symref *)l)->s->value->nodetype=='D' ) ||        
-              ( ((struct symref *)l)->s->value->nodetype=='D' && r->nodetype == 'D' ) || 
-              (  ((struct symref *)l)->s->value->nodetype=='D' && ((struct symref *)r)->s->value->nodetype=='D') ){
+              (  ((struct symref *)l)->s->value->nodetype=='D' && ((struct symref *)r)->s->value->nodetype=='D')  ||
+              (  ((struct symref *)l)->s->value->nodetype=='D' && r->nodetype == 'i' ) ||        
+              (  ((struct symref *)l)->s->value->nodetype=='D' && r->nodetype == 'D' ) ){
     printf("test set node type"); //non eliminarmi
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
-  }else if ( ( l->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i' ) || 
-           ( ((struct symref *)l)->s->value->nodetype=='i' && r->nodetype == 'i' ) || 
-           (  ((struct symref *)l)->s->value->nodetype=='i' && ((struct symref *)r)->s->value->nodetype=='i' ) ){
-    v = malloc(sizeof(struct integer));
-    ((struct integer *)v)->nodetype='i';
   }else{
     yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
   }
-
   if(v==NULL){
     yyerror("out of space");
     exit(0);
@@ -330,16 +333,13 @@ void
 sum(struct utils *v,struct utils *l,struct utils *r){
   struct utils *tempName;
     if (v->nodetype=='i'){
-          if (((struct integer *)l)->nodetype == 'i' && ((struct integer *)r)->nodetype == 'i'){
-            
+          if (((struct integer *)l)->nodetype == 'i' && ((struct integer *)r)->nodetype == 'i'){          
             ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
           }else{
-                if ( ((struct integer *)l)->nodetype == 'N' && ((struct integer *)r)->nodetype == 'i'){
-                 
+                if ( ((struct integer *)l)->nodetype == 'N' && ((struct integer *)r)->nodetype == 'i'){      
                   tempName=((struct symref *)l)->s->value;
                     ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)r)->i;
-                }else if(((struct integer *)r)->nodetype == 'N' && ((struct integer *)l)->nodetype == 'i') {
-                 
+                }else if(((struct integer *)r)->nodetype == 'N' && ((struct integer *)l)->nodetype == 'i') {               
                   tempName=((struct symref *)r)->s->value;
                   ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)tempName)->i ;
                 }else{
@@ -347,8 +347,7 @@ sum(struct utils *v,struct utils *l,struct utils *r){
                       struct utils *tempName2;
                       tempName2 =  ((struct symref *)r)->s->value;
                       ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)tempName2)->i;
-                }
-              
+                }             
           }
     }else if (v->nodetype=='D'){
        checkDifferentTypes(l, r);
@@ -358,7 +357,6 @@ sum(struct utils *v,struct utils *l,struct utils *r){
                     if ( ((struct doublePrecision *)l)->nodetype == 'N' && ((struct doublePrecision *)r)->nodetype == 'D'){
                       tempName=((struct symref *)l)->s->value;
                       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)r)->d;
-
                      }else if( ((struct doublePrecision *)r)->nodetype == 'N' && ((struct doublePrecision *)l)->nodetype == 'D') {
                        tempName=((struct symref *)r)->s->value;
                       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)l)->d;
@@ -581,6 +579,7 @@ eval(struct ast *a)
     v = malloc(sizeof(struct integer));
     v->nodetype='i';
     ((struct integer *)v)->i = ((struct integer *)a)->i; 
+    printf("i\n");
     break;
 
     /* double */
@@ -589,6 +588,7 @@ eval(struct ast *a)
     v->nodetype='D';
     ((struct doublePrecision *)v)->d = ((struct doublePrecision *)a)->d; 
     break;
+
     /* name reference */
   case 'N': 
     v=malloc(sizeof(struct symref));
@@ -612,6 +612,8 @@ eval(struct ast *a)
     temp2=eval(a->r);
     v=setNodeType(temp1,temp2);
     sum(v,temp1,temp2);
+    printf("Sum: %d \n",((struct doublePrecision * )v)->d);
+
     break;
 
   case '-': 
@@ -809,7 +811,8 @@ print_B(struct utils * v){
   struct utils * temp1;
   
   if (v->nodetype=='i'){
-    printf("%d\n",((struct integer *)v)->i);  
+    printf("%d\n",((struct integer *)v)->i); 
+    printf("i\n"); 
   }else if (v->nodetype=='D'){
     printf("%f\n",((struct doublePrecision *)v)->d);  
   }else if(v->nodetype=='N' ){
@@ -824,13 +827,13 @@ print_B(struct utils * v){
   }
 }
 
-static struct utils *
+struct utils *
 calluser(struct ufncall *f)
 {
   struct symbol *fn = f->s;	/* function name */
-  struct symlist *sl;		/* dummy arguments */
+  struct symlist *sl;		    /* dummy arguments */
   struct ast *args = f->l;	/* actual arguments */
-  struct utils ** oldval, ** newval;	/* saved arg values */
+  struct utils ** oldval, **newval;	/* saved arg values */
   struct utils * v;
   int nargs;
   int i;
@@ -846,27 +849,9 @@ calluser(struct ufncall *f)
     nargs++;
   }
 
+  /* prepare to save them */
   oldval=malloc(sizeof(struct utils * ) * nargs);
   newval=malloc(sizeof(struct utils * ) * nargs);
-
-
-
-  /* properly allocate memory */
-  for(i = 0; i < nargs; i++) {
-    if(args->nodetype == 'L') {	/* if this is a list node */
-      if(args->l->nodetype=='i'){
-        newval[i]=malloc(sizeof(struct integer));
-      }
-      args=args->r;
-    }else{
-      if(args->l->nodetype=='i'){
-        newval[i]=malloc(sizeof(struct integer));
-      }
-      args=NULL;
-    }
-  }
-
-  /* prepare to save them */
   if(!oldval || !newval) {
     yyerror("Out of space in %s", fn->name);
   }
@@ -874,20 +859,21 @@ calluser(struct ufncall *f)
   /* evaluate the arguments */
   for(i = 0; i < nargs; i++) {
     if(!args) {
-      yyerror("too few args in call to %s", fn->name);
-      free(oldval); free(newval);
-      return 0;
-    }
-
+				yyerror("CALLUSER: Too few args in call to %s", fn->name);
+				free(oldval);
+        free(newval);
+				exit(1);
+			}
     if(args->nodetype == 'L') {	/* if this is a list node */
       newval[i] = eval(args->l);
       args = args->r;
+  //printf("%s\n",fn->func->nodetype);
     } else {			/* if it's the end of the list */
       newval[i] = eval(args);
       args = NULL;
     }
   }
-		     
+
   /* save old values of dummies, assign new ones */
   sl = fn->syms;
   for(i = 0; i < nargs; i++) {
@@ -900,19 +886,23 @@ calluser(struct ufncall *f)
 
   free(newval);
 
+
   /* evaluate the function */
   v = eval(fn->func);
 
   /* put the dummies back */
   sl = fn->syms;
   for(i = 0; i < nargs; i++) {
-    struct symbol *s = sl->sym;
-
-    s->value = oldval[i];
-    sl = sl->next;
+    if(!sl){
+      struct symbol *s = sl->sym;
+      s->value = oldval[i];
+      sl = sl->next;
+    }
   }
 
   free(oldval);
+  
+
   return v;
 }
 

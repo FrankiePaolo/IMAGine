@@ -60,7 +60,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
-   | NAME '(' explist ')' { printf("HERE\n");$$ = newcall($1, $3); }
+   | NAME '(' explist ')' { $$ = newcall($1, $3); }
 ;
 
 img:  PATH  { $$ = newimg($1); } 

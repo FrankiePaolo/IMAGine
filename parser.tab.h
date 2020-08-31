@@ -78,7 +78,7 @@ union YYSTYPE
   char * path;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
-  int fn;			/* which function */
+  int fn;			      /* which function */
 
 #line 84 "parser.tab.h"
 
