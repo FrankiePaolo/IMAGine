@@ -263,6 +263,54 @@ dodef(struct symbol *name, struct symlist *syms, struct ast *func){
   name->func = func;
 }
 
+struct utils *  
+setNodeTypeCast(struct utils * l, struct utils * r){
+struct utils * v;
+
+if ((l->nodetype == 'i' && r->nodetype=='N')){
+        if (((struct symref *)r)->s->value->nodetype == 'i')
+        {
+          v = malloc(sizeof(struct integer));
+          ((struct integer *)v)->nodetype='i';
+        }else if (((struct symref *)r)->s->value->nodetype=='D')
+        {
+          v = malloc(sizeof(struct doublePrecision));
+          ((struct doublePrecision *)v)->nodetype='D';
+        }
+}else if((l->nodetype == 'D' && r->nodetype=='N')){
+        v = malloc(sizeof(struct doublePrecision));
+        ((struct doublePrecision *)v)->nodetype='D';
+}else if(l->nodetype == 'N' && r->nodetype =='i'){
+        if (((struct symref *)l)->s->value->nodetype == 'i')
+        {
+          v = malloc(sizeof(struct integer));
+          ((struct integer *)v)->nodetype='i';
+        }else if (((struct symref *)l)->s->value->nodetype=='D')
+        {
+          v = malloc(sizeof(struct doublePrecision));
+          ((struct doublePrecision *)v)->nodetype='D';
+        }
+}else if((l->nodetype == 'N' && r->nodetype=='D')){
+        v = malloc(sizeof(struct doublePrecision));
+        ((struct doublePrecision *)v)->nodetype='D';
+}else if((l->nodetype == 'N' && r->nodetype=='N')){
+        if (((struct symref *)l)->s->value->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i'){
+          v = malloc(sizeof(struct integer));
+          ((struct integer *)v)->nodetype='i';
+        }else
+        {
+          v = malloc(sizeof(struct doublePrecision));
+          ((struct doublePrecision *)v)->nodetype='D';
+        }
+}else{
+        yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
+}
+if(v==NULL){
+        yyerror("out of space");
+        exit(0);
+}
+return v;
+}
 
 struct utils *  
 setNodeType(struct utils * l, struct utils * r){
@@ -282,52 +330,32 @@ setNodeType(struct utils * l, struct utils * r){
   }else if (l->nodetype == 'D' && r->nodetype == 'D'){
     v = malloc(sizeof(struct doublePrecision));
     ((struct doublePrecision *)v)->nodetype='D';
-  }else if ( ( l->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i' ) || 
-           ( ((struct symref *)l)->s->value->nodetype=='i' && r->nodetype == 'i' )     || 
-           ( ((struct symref *)l)->s->value->nodetype=='i' && ((struct symref *)r)->s->value->nodetype=='i' )) {
-    v = malloc(sizeof(struct integer));
-    ((struct integer *)v)->nodetype='i';
-    printf("%d %d\n",l->nodetype,r->nodetype);
-  }else if (  ( l->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype=='D' )  || 
-              ( l->nodetype == 'D' && ((struct symref *)r)->s->value->nodetype=='D' ) || 
-              (  ((struct symref *)l)->s->value->nodetype=='D' && ((struct symref *)r)->s->value->nodetype=='i' ) || 
-              (  ((struct symref *)l)->s->value->nodetype=='i' && ((struct symref *)r)->s->value->nodetype=='D' ) || 
-              (  ((struct symref *)l)->s->value->nodetype=='D' && ((struct symref *)r)->s->value->nodetype=='D')  ||
-              (  ((struct symref *)l)->s->value->nodetype=='D' && r->nodetype == 'i' ) ||        
-              (  ((struct symref *)l)->s->value->nodetype=='D' && r->nodetype == 'D' ) ){
-    printf("test set node type"); //non eliminarmi
-    v = malloc(sizeof(struct doublePrecision));
-    ((struct doublePrecision *)v)->nodetype='D';
   }else{
-    yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
+     v=setNodeTypeCast(l,r);
   }
-  if(v==NULL){
-    yyerror("out of space");
-    exit(0);
-  }
+
   return v;
 }
 
+
 void
 checkDifferentTypes(struct utils *l, struct utils *r){
-        if ( l -> nodetype == 'i'){
+        if (l-> nodetype == 'i'){
               l->nodetype='D';
               ((struct doublePrecision *)l)->d = ((struct integer *)l)->i;
-        }else if ( r -> nodetype == 'i'){
-          printf("test");
+        }else if (r -> nodetype == 'i'){
               r->nodetype='D';
               ((struct doublePrecision *)r)->d = ((struct integer *)r)->i;
         }else {
                 if(  ((struct symref *)r)->s->value->nodetype=='i' ){
-                  
                   ((struct doublePrecision *)((struct symref *)r)->s->value)->d =  ((struct integer *)((struct symref *)r)->s->value)->i;
                 }
-                if(  ((struct symref *)l)->s->value->nodetype=='i' ){
-                  
+                if(  ((struct symref *)l)->s->value->nodetype=='i' ){                
                   ((struct doublePrecision *)((struct symref *)l)->s->value)->d =  ((struct integer *)((struct symref *)l)->s->value)->i;
                 } 
       }
 }
+
 
 void
 sum(struct utils *v,struct utils *l,struct utils *r){
@@ -351,7 +379,7 @@ sum(struct utils *v,struct utils *l,struct utils *r){
           }
     }else if (v->nodetype=='D'){
        checkDifferentTypes(l, r);
-           if (((struct doublePrecision *)l)->nodetype == 'D' && ((struct doublePrecision *)r)->nodetype == 'D'){
+           if (l->nodetype == 'D' && r->nodetype == 'D'){
                 ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d + ((struct doublePrecision *)r)->d;
               } else{
                     if ( ((struct doublePrecision *)l)->nodetype == 'N' && ((struct doublePrecision *)r)->nodetype == 'D'){
@@ -360,11 +388,11 @@ sum(struct utils *v,struct utils *l,struct utils *r){
                      }else if( ((struct doublePrecision *)r)->nodetype == 'N' && ((struct doublePrecision *)l)->nodetype == 'D') {
                        tempName=((struct symref *)r)->s->value;
                       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)l)->d;
-                    }else{
-                          tempName=((struct symref *)l)->s->value;
-                          struct utils *tempName2;
-                          tempName2 =  ((struct symref *)r)->s->value;
-                          ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)tempName2)->d;
+                    }else if (((struct doublePrecision *)l)->nodetype == 'N' && ((struct doublePrecision *)r)->nodetype == 'N'){
+                        tempName=((struct symref *)l)->s->value;
+                        struct utils *tempName2;
+                        tempName2 =  ((struct symref *)r)->s->value;
+                        ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)tempName2)->d;
                     }   
               }
     }else{
@@ -380,37 +408,34 @@ subtract(struct utils *v,struct utils *l,struct utils *r){
                   ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)r)->i;
               }else{
                     if ( ((struct integer *)l)->nodetype == 'N' && ((struct integer *)r)->nodetype == 'i'){
-                    
                       tempName=((struct symref *)l)->s->value;
-                        ((struct integer *)v)->i = ((struct integer *)tempName)->i - ((struct integer *)r)->i;
+                      ((struct integer *)v)->i = ((struct integer *)tempName)->i - ((struct integer *)r)->i;
                     }else if(((struct integer *)r)->nodetype == 'N' && ((struct integer *)l)->nodetype == 'i') {
-                    
                       tempName=((struct symref *)r)->s->value;
                       ((struct integer *)v)->i = ((struct integer *)l)->i - ((struct integer *)tempName)->i ;
                     }else{
-                          tempName=((struct symref *)l)->s->value;
-                          struct utils *tempName2;
-                          tempName2 =  ((struct symref *)r)->s->value;
-                          ((struct integer *)v)->i = ((struct integer *)tempName)->i - ((struct integer *)tempName2)->i;
+                      tempName=((struct symref *)l)->s->value;
+                      struct utils *tempName2;
+                      tempName2 =  ((struct symref *)r)->s->value;
+                      ((struct integer *)v)->i = ((struct integer *)tempName)->i - ((struct integer *)tempName2)->i;
                     }   
               }
     }else if (v->nodetype=='D'){
        if (((struct doublePrecision *)l)->nodetype == 'D' && ((struct doublePrecision *)r)->nodetype == 'D'){
-                checkDifferentTypes(l, r); 
+                //checkDifferentTypes(l, r); 
                 ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)r)->d;
               }else{
                     if ( ((struct doublePrecision *)l)->nodetype == 'N' && ((struct doublePrecision *)r)->nodetype == 'D'){
                       tempName=((struct symref *)l)->s->value;
                       ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d - ((struct doublePrecision *)r)->d;
-
                     }else if(((struct doublePrecision *)r)->nodetype == 'N' && ((struct doublePrecision *)l)->nodetype == 'D') {
                       tempName=((struct symref *)r)->s->value;
-                     ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)tempName)->d ;
+                      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)tempName)->d ;
                     }else{
-                          tempName=((struct symref *)l)->s->value;
-                          struct utils *tempName2;
-                          tempName2 =  ((struct symref *)r)->s->value;
-                          ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d - ((struct doublePrecision *)tempName2)->d;
+                      tempName=((struct symref *)l)->s->value;
+                      struct utils *tempName2;
+                      tempName2 =  ((struct symref *)r)->s->value;
+                      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d - ((struct doublePrecision *)tempName2)->d;
                     }   
               }
     }else{
@@ -442,7 +467,7 @@ multiply(struct utils *v,struct utils *l,struct utils *r){
           }
     }else if (v->nodetype=='D'){
       if (((struct doublePrecision *)l)->nodetype == 'D' && ((struct doublePrecision *)r)->nodetype == 'D'){
-                checkDifferentTypes(l, r); 
+                //checkDifferentTypes(l, r); 
                 ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d * ((struct doublePrecision *)r)->d;
               }else{
                     if ( ((struct doublePrecision *)l)->nodetype == 'N' && ((struct doublePrecision *)r)->nodetype == 'D'){
@@ -476,7 +501,7 @@ divide(struct utils *v,struct utils *l,struct utils *r){
         exit(0);      
       }
     }else if (v->nodetype=='D'){
-      checkDifferentTypes(l,r);
+      //checkDifferentTypes(l,r);
       double temp=((struct doublePrecision *)r)->d;
       if (temp!=0)
       {
@@ -504,7 +529,7 @@ biggerThan(struct utils *v,struct utils *l,struct utils *r){
   if (v->nodetype=='i'){
     ((struct integer *)v)->i = ((struct integer *)l)->i > ((struct integer *)r)->i ? 1 : 0; 
   }else if(v->nodetype=='D'){
-    checkDifferentTypes(l,r);
+    //checkDifferentTypes(l,r);
     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d > ((struct doublePrecision *)r)->d) ? 1 : 0; 
   }  
 }
@@ -514,7 +539,7 @@ smallerThan(struct utils *v,struct utils *l,struct utils *r){
   if (v->nodetype=='i'){
     ((struct integer *)v)->i = ((struct integer *)l)->i < ((struct integer *)r)->i ? 1 : 0; 
   }else if(v->nodetype=='D'){
-    checkDifferentTypes(l,r);
+    //checkDifferentTypes(l,r);
     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d < ((struct doublePrecision *)r)->d) ? 1 : 0; 
   }  
 }
@@ -524,7 +549,7 @@ unequal(struct utils *v,struct utils *l,struct utils *r){
   if (v->nodetype=='i'){
     ((struct integer *)v)->i = ((struct integer *)l)->i != ((struct integer *)r)->i ? 1 : 0; 
   }else if(v->nodetype=='D'){
-    checkDifferentTypes(l,r);
+    //checkDifferentTypes(l,r);
     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d != ((struct doublePrecision *)r)->d) ? 1 : 0; 
   }  
 }
@@ -534,7 +559,7 @@ equal(struct utils *v,struct utils *l,struct utils *r){
   if (v->nodetype=='i'){
     ((struct integer *)v)->i = ((struct integer *)l)->i == ((struct integer *)r)->i ? 1 : 0; 
   }else if(v->nodetype=='D'){
-    checkDifferentTypes(l,r);
+    //checkDifferentTypes(l,r);
     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d == ((struct doublePrecision *)r)->d) ? 1 : 0; 
   }  
 }
@@ -544,7 +569,7 @@ biggerOrEqual(struct utils *v,struct utils *l,struct utils *r){
   if (v->nodetype=='i'){
     ((struct integer *)v)->i = ((struct integer *)l)->i >= ((struct integer *)r)->i ? 1 : 0; 
   }else if(v->nodetype=='D'){
-    checkDifferentTypes(l,r);
+    //checkDifferentTypes(l,r);
     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d >= ((struct doublePrecision *)r)->d) ? 1 : 0; 
   }  
 }
@@ -554,7 +579,7 @@ smallerOrEqual(struct utils *v,struct utils *l,struct utils *r){
   if (v->nodetype=='i'){
     ((struct integer *)v)->i = ((struct integer *)l)->i <= ((struct integer *)r)->i ? 1 : 0; 
   }else if(v->nodetype=='D'){
-    checkDifferentTypes(l,r);
+    //checkDifferentTypes(l,r);
     ((struct doublePrecision *)v)->d = (((struct doublePrecision *)l)->d <= ((struct doublePrecision *)r)->d) ? 1 : 0; 
   }  
 }
