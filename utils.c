@@ -194,7 +194,6 @@ newasgn(struct symbol *s, struct ast *v)
   a->s = s;
   a->v = v;
   if(v->nodetype=='C'){
-    printf("HERE: %i\n",((struct ufncall *)v)->s->value);
     s->value=((struct ufncall *)v)->s->value;
   }else{
     s->value=((struct utils *)v);
@@ -267,48 +266,48 @@ struct utils *
 setNodeTypeCast(struct utils * l, struct utils * r){
 struct utils * v;
 
-if ((l->nodetype == 'i' && r->nodetype=='N')){
-        if (((struct symref *)r)->s->value->nodetype == 'i')
-        {
-          v = malloc(sizeof(struct integer));
-          ((struct integer *)v)->nodetype='i';
-        }else if (((struct symref *)r)->s->value->nodetype=='D')
-        {
-          v = malloc(sizeof(struct doublePrecision));
-          ((struct doublePrecision *)v)->nodetype='D';
-        }
-}else if((l->nodetype == 'D' && r->nodetype=='N')){
-        v = malloc(sizeof(struct doublePrecision));
-        ((struct doublePrecision *)v)->nodetype='D';
-}else if(l->nodetype == 'N' && r->nodetype =='i'){
-        if (((struct symref *)l)->s->value->nodetype == 'i')
-        {
-          v = malloc(sizeof(struct integer));
-          ((struct integer *)v)->nodetype='i';
-        }else if (((struct symref *)l)->s->value->nodetype=='D')
-        {
-          v = malloc(sizeof(struct doublePrecision));
-          ((struct doublePrecision *)v)->nodetype='D';
-        }
-}else if((l->nodetype == 'N' && r->nodetype=='D')){
-        v = malloc(sizeof(struct doublePrecision));
-        ((struct doublePrecision *)v)->nodetype='D';
-}else if((l->nodetype == 'N' && r->nodetype=='N')){
-        if (((struct symref *)l)->s->value->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i'){
-          v = malloc(sizeof(struct integer));
-          ((struct integer *)v)->nodetype='i';
-        }else
-        {
-          v = malloc(sizeof(struct doublePrecision));
-          ((struct doublePrecision *)v)->nodetype='D';
-        }
-}else{
-        yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
-}
-if(v==NULL){
-        yyerror("out of space");
-        exit(0);
-}
+  if ((l->nodetype == 'i' && r->nodetype=='N')){
+    if (((struct symref *)r)->s->value->nodetype == 'i')
+    {
+      v = malloc(sizeof(struct integer));
+      ((struct integer *)v)->nodetype='i';
+    }else if (((struct symref *)r)->s->value->nodetype=='D')
+    {
+      v = malloc(sizeof(struct doublePrecision));
+      ((struct doublePrecision *)v)->nodetype='D';
+    }
+  }else if((l->nodetype == 'D' && r->nodetype=='N')){
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
+  }else if(l->nodetype == 'N' && r->nodetype =='i'){
+    if (((struct symref *)l)->s->value->nodetype == 'i')
+    {
+      v = malloc(sizeof(struct integer));
+      ((struct integer *)v)->nodetype='i';
+    }else if (((struct symref *)l)->s->value->nodetype=='D')
+    {
+      v = malloc(sizeof(struct doublePrecision));
+      ((struct doublePrecision *)v)->nodetype='D';
+    }
+  }else if((l->nodetype == 'N' && r->nodetype=='D')){
+    v = malloc(sizeof(struct doublePrecision));
+    ((struct doublePrecision *)v)->nodetype='D';
+  }else if((l->nodetype == 'N' && r->nodetype=='N')){
+    if (((struct symref *)l)->s->value->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i'){
+      v = malloc(sizeof(struct integer));
+      ((struct integer *)v)->nodetype='i';
+    }else
+    {
+      v = malloc(sizeof(struct doublePrecision));
+      ((struct doublePrecision *)v)->nodetype='D';
+    }
+  }else{
+      yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
+  }
+  if(v==NULL){
+      yyerror("out of space");
+      exit(0);
+  }
 return v;
 }
 
@@ -333,50 +332,78 @@ setNodeType(struct utils * l, struct utils * r){
   }else{
      v=setNodeTypeCast(l,r);
   }
-
   return v;
 }
-
-void
+   
+void 
 sum(struct utils *v,struct utils *l,struct utils *r){
-  struct utils *tempName;
-    if (v->nodetype=='i'){
-          if (l->nodetype == 'i' && r->nodetype == 'i'){          
-            ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)r)->i;
-          }else{
-                if (l->nodetype == 'N' && r->nodetype == 'i'){      
-                  tempName=((struct symref *)l)->s->value;
-                  ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)r)->i;
-                }else if(l->nodetype == 'i' && r->nodetype == 'N') {               
-                  tempName=((struct symref *)r)->s->value;
-                  ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)tempName)->i ;
-                }else if(l->nodetype=='N' && r->nodetype == 'N'){
-                  tempName=((struct symref *)l)->s->value;
-                  struct utils *tempName2;
-                  tempName2 =  ((struct symref *)r)->s->value;
-                  ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)tempName2)->i;
-                }             
-          }
-    }else if (v->nodetype=='D'){
-          if (l->nodetype == 'D' && r->nodetype == 'D' || l->nodetype == 'i' && r->nodetype == 'D' || l->nodetype == 'D' && r->nodetype == 'i'){
-              ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d + ((struct doublePrecision *)r)->d;
-          } else{
-                if (l->nodetype == 'N' && r->nodetype == 'D'){
-                    tempName=((struct symref *)l)->s->value;
-                    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)r)->d;
-                }else if(l->nodetype == 'D' && r->nodetype == 'N') {
-                    tempName=((struct symref *)r)->s->value;
-                    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)l)->d;
-                }else if(l->nodetype == 'N' && r->nodetype == 'N'){
-                    tempName=((struct symref *)l)->s->value;
-                    struct utils *tempName2;
-                    tempName2 =  ((struct symref *)r)->s->value;
-                    ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)tempName2)->d;
-                }   
-              }
-    }else{
-      yyerror("Unexpected type, %i",v->nodetype); 
+  struct utils *tempName,*tempName2;
+
+  if(l->nodetype=='i' && r==NULL){
+    ((struct integer *)v)->i=((struct integer *)l)->i;
+  }else if(l->nodetype=='D' && r==NULL){
+    ((struct doublePrecision *)v)->d=((struct doublePrecision *)l)->d;
+  }else if(l->nodetype == 'i' && r->nodetype == 'D'){
+    ((struct doublePrecision *)v)->d=((struct integer *)l)->i + ((struct doublePrecision *)r)->d;
+  }else if(l->nodetype == 'D' && r->nodetype == 'i'){
+    ((struct doublePrecision *)v)->d=((struct doublePrecision *)l)->d + ((struct integer *)r)->i;
+  }else if(l->nodetype == 'i' && r->nodetype == 'i'){
+    ((struct integer *)v)->i=((struct integer *)l)->i + ((struct integer *)r)->i;
+  }else if (l->nodetype == 'D' && r->nodetype == 'D'){
+    ((struct doublePrecision *)v)->d=((struct doublePrecision *)l)->d + ((struct doublePrecision *)r)->d;
+  }else if ((l->nodetype == 'i' && r->nodetype=='N')){
+    if (((struct symref *)r)->s->value->nodetype == 'i'){
+      tempName=((struct symref *)r)->s->value;
+      ((struct integer *)v)->i = ((struct integer *)l)->i + ((struct integer *)tempName)->i ;
+    }else if (((struct symref *)r)->s->value->nodetype=='D'){
+      tempName=((struct symref *)r)->s->value;
+      ((struct doublePrecision *)v)->d = ((struct integer *)l)->i + ((struct doublePrecision *)tempName)->d;
     }
+  }else if((l->nodetype == 'D' && r->nodetype=='N')){
+    if (((struct symref *)r)->s->value->nodetype == 'i'){
+      tempName=((struct symref *)r)->s->value;
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d + ((struct integer *)tempName)->i;
+    }else if (((struct symref *)r)->s->value->nodetype=='D'){
+      tempName=((struct symref *)r)->s->value;
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d + ((struct doublePrecision *)tempName)->d;
+    }
+  }else if(l->nodetype == 'N' && r->nodetype =='i'){
+    if (((struct symref *)l)->s->value->nodetype == 'i'){
+     tempName=((struct symref *)l)->s->value;
+     ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)r)->i; 
+    }else if (((struct symref *)l)->s->value->nodetype=='D'){
+     tempName=((struct symref *)l)->s->value;
+     ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct integer *)r)->i;
+    }
+  }else if((l->nodetype == 'N' && r->nodetype=='D')){
+    if (((struct symref *)l)->s->value->nodetype == 'i'){
+     tempName=((struct symref *)l)->s->value;
+     ((struct doublePrecision *)v)->d = ((struct integer *)tempName)->i + ((struct doublePrecision *)r)->d; 
+    }else if (((struct symref *)l)->s->value->nodetype=='D'){
+     tempName=((struct symref *)l)->s->value;
+     ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)r)->d;
+    }
+  }else if((l->nodetype == 'N' && r->nodetype=='N')){
+    if (((struct symref *)l)->s->value->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'i'){
+      tempName=((struct symref *)l)->s->value;
+      tempName2=((struct symref *)r)->s->value;
+      ((struct integer *)v)->i = ((struct integer *)tempName)->i + ((struct integer *)tempName2)->i;
+    }else if (((struct symref *)l)->s->value->nodetype == 'i' && ((struct symref *)r)->s->value->nodetype == 'D'){
+      tempName=((struct symref *)l)->s->value;
+      tempName2=((struct symref *)r)->s->value;
+      ((struct doublePrecision *)v)->d = ((struct integer *)tempName)->i + ((struct doublePrecision *)tempName2)->d;
+    }else if (((struct symref *)l)->s->value->nodetype == 'D' && ((struct symref *)r)->s->value->nodetype == 'i'){
+      tempName=((struct symref *)l)->s->value;
+      tempName2=((struct symref *)r)->s->value;
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct integer *)tempName2)->i;
+    }else if (((struct symref *)l)->s->value->nodetype == 'D' && ((struct symref *)r)->s->value->nodetype == 'D'){
+      tempName=((struct symref *)l)->s->value;
+      tempName2=((struct symref *)r)->s->value;
+      ((struct doublePrecision *)v)->d = ((struct doublePrecision *)tempName)->d + ((struct doublePrecision *)tempName2)->d;
+    }
+  }else{
+      yyerror("Unexpected type, %c %c",l->nodetype,r->nodetype);
+  }       
 }
 
 void
@@ -400,7 +427,7 @@ subtract(struct utils *v,struct utils *l,struct utils *r){
                 }             
           }
     }else if (v->nodetype=='D'){
-          if (l->nodetype == 'D' && r->nodetype == 'D' || l->nodetype == 'i' && r->nodetype == 'D' || l->nodetype == 'D' && r->nodetype == 'i'){
+          if ( (l->nodetype == 'D' && r->nodetype == 'D') || (l->nodetype == 'i' && r->nodetype == 'D') || (l->nodetype == 'D' && r->nodetype == 'i') ){
               ((struct doublePrecision *)v)->d = ((struct doublePrecision *)l)->d - ((struct doublePrecision *)r)->d;
           } else{
                 if (l->nodetype == 'N' && r->nodetype == 'D'){
@@ -582,7 +609,6 @@ eval(struct ast *a)
     v = malloc(sizeof(struct integer));
     v->nodetype='i';
     ((struct integer *)v)->i = ((struct integer *)a)->i; 
-    printf("i\n");
     break;
 
     /* double */
@@ -615,8 +641,6 @@ eval(struct ast *a)
     temp2=eval(a->r);
     v=setNodeType(temp1,temp2);
     sum(v,temp1,temp2);
-    printf("Sum: %d \n",((struct doublePrecision * )v)->d);
-
     break;
 
   case '-': 
