@@ -1133,7 +1133,12 @@ print_B(struct utils * v) {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);
    } else if (v -> nodetype == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
-      if (temp1 -> nodetype == 'i') {
+      while (temp1->nodetype=='N')
+      {
+         temp1=((struct symref * ) temp1) -> s -> value;
+         printf("a\n");
+      }
+      if (temp1->nodetype == 'i') {
          printf("%i\n", ((struct integer * ) temp1) -> i);
       } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
