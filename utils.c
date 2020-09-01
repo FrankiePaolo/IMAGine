@@ -1026,8 +1026,7 @@ struct utils *
          /* control flow */
          /* null if/else/do expressions allowed in the grammar, so we check for them */
       case 'I':
-         temp1=eval(((struct flow * ) a) -> cond);
-         if((((struct integer *)temp1)->i) ==1){
+         if((((struct integer *)eval(((struct flow * ) a) -> cond))->i) == 1){
             if (((struct flow * ) a) -> tl) {
                v = eval(((struct flow * ) a) -> tl);
             }
@@ -1043,15 +1042,12 @@ struct utils *
          break;
 
       case 'W':
-
-         //((struct doublePrecision * ) v) -> d = 0; /* a default value */
-
          if (((struct flow * ) a) -> tl) {
-            while (eval(((struct flow * ) a) -> cond) != 0) {
+            while ((((struct integer *)eval(((struct flow * ) a) -> cond))->i) == 1) {
                v = eval(((struct flow * ) a) -> tl);
             }
          }
-         break; /* last value is value */
+         break; 
 
       case 'L':
          eval(a -> l);
