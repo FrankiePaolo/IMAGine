@@ -802,13 +802,10 @@ struct utils *
          /* null if/else/do expressions allowed in the grammar, so we check for them */
       case 'I':
          temp1=eval(((struct flow * ) a) -> cond);
-         //printf("%d %d\n",temp1->nodetype, ((struct integer *)temp1)->i);
-
          if((((struct integer *)temp1)->i) ==1){
              if (((struct flow * ) a) -> tl) {
                v = eval(((struct flow * ) a) -> tl);
             }
-
          }
          break;
 

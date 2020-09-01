@@ -46,7 +46,6 @@ stmt: IF exp THEN stmt           { $$ = newflow('I', $2, $4, NULL); }
    | exp 
 ;
 
-
 exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '+' exp          { $$ = newast('+', $1,$3); }
    | exp '-' exp          { $$ = newast('-', $1,$3);}
