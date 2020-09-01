@@ -1028,9 +1028,13 @@ struct utils *
       case 'I':
          temp1=eval(((struct flow * ) a) -> cond);
          if((((struct integer *)temp1)->i) ==1){
-             if (((struct flow * ) a) -> tl) {
+            if (((struct flow * ) a) -> tl) {
                v = eval(((struct flow * ) a) -> tl);
             }
+         }else{
+            if (((struct flow * ) a) -> el) {
+               v = eval(((struct flow * ) a) -> el);
+            }         
          }
          break;
 
@@ -1136,7 +1140,6 @@ print_B(struct utils * v) {
       while (temp1->nodetype=='N')
       {
          temp1=((struct symref * ) temp1) -> s -> value;
-         printf("a\n");
       }
       if (temp1->nodetype == 'i') {
          printf("%i\n", ((struct integer * ) temp1) -> i);
@@ -1319,7 +1322,7 @@ dumpast(struct ast * a, int level) {
 
       /* double precision */
    case 'D':
-      printf("number %4.4g\n", ((struct doublePrecision * ) a) -> d);
+      printf("number %4.4f\n", ((struct doublePrecision * ) a) -> d);
       break;
 
       /* name reference */
@@ -1364,6 +1367,11 @@ dumpast(struct ast * a, int level) {
          dumpast(((struct flow * ) a) -> tl, level);
       if (((struct flow * ) a) -> el)
          dumpast(((struct flow * ) a) -> el, level);
+      return;
+
+   case 'F':
+      printf("builtin %d\n", ((struct fncall *)a)->functype);
+      dumpast(a->l, level);
       return;
 
    case 'C':

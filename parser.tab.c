@@ -1519,7 +1519,7 @@ yyreduce:
       dumpast((yyvsp[0].a), 0);
    }
    eval((yyvsp[0].a));
-   //treefree($2);
+   treefree((yyvsp[0].a));
    }
 #line 1525 "parser.tab.c"
     break;
