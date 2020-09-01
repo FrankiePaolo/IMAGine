@@ -17,6 +17,8 @@
 "," |
 ";" |
 "(" |
+"{" |
+"}" |
 ")"     { return yytext[0]; }
 
  /* comparison ops */
