@@ -89,10 +89,13 @@ struct doublePrecision {
    double d;
 };
 
+/* To be updated , type S 
 struct str {
-   int nodetype; /* type S */
+   int nodetype;  
    char * str;
-};
+}; 
+*/
+
 
 struct img {
    int nodetype; /* type P */

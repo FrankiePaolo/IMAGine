@@ -174,6 +174,7 @@ struct ast *
 
 struct ast *
    newasgn(struct symbol * s, struct ast * v) {
+      struct utils * temp;
       struct symasgn * a = malloc(sizeof(struct symasgn));
 
       if (!a) {
@@ -184,7 +185,8 @@ struct ast *
       a -> s = s;
       a -> v = v;
       if (v -> nodetype == 'C') {
-         s -> value = ((struct ufncall * ) v) -> s -> value;
+         temp = eval(v);
+         s -> value = temp;
       } else {
          s -> value = ((struct utils * ) v);
       }
@@ -864,14 +866,13 @@ print_B(struct utils * v) {
 
    if (v -> nodetype == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
-      printf("i\n");
    } else if (v -> nodetype == 'D') {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);
    } else if (v -> nodetype == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
-      if (((struct symref * ) v) -> s -> value -> nodetype == 'i') {
+      if (temp1 -> nodetype == 'i') {
          printf("%i\n", ((struct integer * ) temp1) -> i);
-      } else {
+      } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
       }
    } else {
