@@ -175,7 +175,7 @@ struct ast *
 
 struct ast *
    newasgn(struct symbol * s, struct ast * v) {
-      struct utils * temp;
+      //struct utils * temp;
       struct symasgn * a = malloc(sizeof(struct symasgn));
 
       if (!a) {
@@ -185,12 +185,14 @@ struct ast *
       a -> nodetype = '=';
       a -> s = s;
       a -> v = v;
+      /*
       if (v -> nodetype == 'C') {
          temp = eval(v);
          s -> value = temp;
-      } else {
+         } else {
          s -> value = ((struct utils * ) v);
-      }
+         }
+      */
       return (struct ast * ) a;
    }
 
@@ -703,10 +705,22 @@ struct utils *
          /* assignment */
       case '=':
          v = malloc(sizeof(struct symasgn));
+         struct utils * temp;
          v -> nodetype = '=';
 
          ((struct symasgn * ) v) -> s = ((struct symasgn * ) a) -> s;
          ((struct symasgn * ) v) -> v = ((struct symasgn * ) a) -> v;
+
+         
+         if (((struct symasgn * ) v)->v->nodetype == 'C') {
+            printf("here\n");
+            temp = eval(a);
+            ((struct symasgn * ) v) -> s ->value = temp;
+         } else {
+            printf("qui\n");
+            ((struct symasgn * ) v) -> s ->value = ((struct symasgn * ) a) -> s ->value;
+            printf("%d\n",((struct symasgn * ) a) -> s ->value);
+         }
          break;
 
          /* expressions */

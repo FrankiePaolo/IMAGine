@@ -33,18 +33,27 @@
 %left '*' '/'
 %nonassoc '|' 
 
-%type <a> exp stmt explist img
+%type <a> exp stmt explist img list
 %type <sl> symlist
 
 %start program
 
 %%
 
-stmt: IF exp THEN stmt           { $$ = newflow('I', $2, $4, NULL); }
-   | IF exp THEN stmt ELSE stmt  { $$ = newflow('I', $2, $4, $6); }
-   | WHILE exp DO stmt           { $$ = newflow('W', $2, $4, NULL); }
-   | exp 
+stmt: IF '(' exp ')' THEN '{' list '}'                    { $$ = newflow('I', $3, $7, NULL); }
+   | IF '(' exp ')' THEN '{' list '}' ELSE '{' list '}'   { $$ = newflow('I', $3, $7, $11); }
+   | WHILE '(' exp ')' DO '{' list '}'                    { $$ = newflow('W', $3, $7, NULL); }
+   | exp ';'
 ;
+
+list:                               { $$ = NULL; }
+   | stmt  list                     { if($2 == NULL){
+                                       $$ = $1;
+                                    }else{
+			                              $$ = newast('L', $1, $2);
+                                    }}
+;
+
 
 exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '+' exp          { $$ = newast('+', $1,$3); }
@@ -74,7 +83,7 @@ symlist: NAME         { $$ = newsymlist($1, NULL); }
 ;
 
 program: /* nothing */
-   | program stmt ';' {
+   | program stmt {
    if(debug){
       dumpast($2, 0);
    }
@@ -82,9 +91,9 @@ program: /* nothing */
    //treefree($2);
    }
     
-   | program DEF NAME '(' symlist ')' '=' stmt ';' {
+   | program DEF NAME '(' symlist ')' '{' list '}' {
                        dodef($3, $5, $8);
-                       printf("Defined %s\n> ", $3->name); }
+                       printf("Defined %s\n", $3->name); }
 
    | program error '\n' { yyerrok; printf("> "); }
 ;
