@@ -65,6 +65,7 @@ struct ast *
    newimg(char * path) {
       struct img * a = malloc(sizeof(struct img));
       VipsImage * in ;
+      
       /*
       char * correctPath;
       strncpy(correctPath,path,strlen(path)-1);*/
@@ -565,10 +566,56 @@ absoluteValue(struct utils * v, struct utils * l) {
 
 void
 biggerThan(struct utils * v, struct utils * l, struct utils * r) {
-   if (v -> nodetype == 'i') {
+   struct utils * tempName, * tempName2;
+
+   if(l ->nodetype == 'N' && r->nodetype == 'i'){
+      tempName = ((struct symref * ) l) -> s -> value;
+      if(((struct symref * ) l) -> s -> value -> nodetype == 'i'){
+         ((struct integer * ) v) -> i = ((struct integer * ) tempName) -> i > ((struct integer * ) r) -> i ? 1 : 0;
+      }else if(((struct symref * ) l) -> s -> value -> nodetype == 'D'){
+         ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d > ((struct integer * ) r) -> i ? 1 : 0;
+      }
+   }else if(l ->nodetype == 'N' && r->nodetype == 'D'){
+      tempName = ((struct symref * ) l) -> s -> value;
+      if(((struct symref * ) l) -> s -> value -> nodetype == 'i'){
+         ((struct integer * ) v) -> i = ((struct integer * ) tempName) -> i > ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      }else if(((struct symref * ) l) -> s -> value -> nodetype == 'D'){
+         ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d > ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      }
+   }else if(l ->nodetype == 'i' && r->nodetype == 'N'){
+      tempName2 = ((struct symref * ) r) -> s -> value;
+      if(((struct symref * ) r) -> s -> value -> nodetype == 'i'){
+         ((struct integer * ) v) -> i = ((struct integer * ) l) -> i > ((struct integer * ) tempName) -> i ? 1 : 0;
+      }else if(((struct symref * ) r) -> s -> value -> nodetype == 'D'){
+         ((struct integer * ) v) -> i = ((struct integer * ) l) -> i > ((struct doublePrecision * ) tempName) -> d ? 1 : 0;
+      }
+   }else if(l ->nodetype == 'D' && r->nodetype == 'N'){
+      tempName2 = ((struct symref * ) r) -> s -> value;
+      if(((struct symref * ) r) -> s -> value -> nodetype == 'i'){
+         ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d > ((struct integer * ) tempName) -> i ? 1 : 0;
+      }else if(((struct symref * ) r) -> s -> value -> nodetype == 'D'){
+         ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d > ((struct doublePrecision * ) tempName) -> d ? 1 : 0;
+      }
+   }else if(l ->nodetype == 'N' && r->nodetype == 'N'){
+      tempName = ((struct symref * ) l) -> s -> value;
+      tempName2 = ((struct symref * ) r) -> s -> value;
+      if((((struct symref * ) l) -> s -> value -> nodetype == 'i') && (((struct symref * ) r) -> s -> value -> nodetype == 'i')){
+         ((struct integer * ) v) -> i = ((struct integer * ) tempName) -> i > ((struct integer * ) tempName2) -> i ? 1 : 0;
+      }else if((((struct symref * ) l) -> s -> value -> nodetype == 'i') && (((struct symref * ) r) -> s -> value -> nodetype == 'D')){
+         ((struct integer * ) v) -> i = ((struct integer * ) tempName) -> i > ((struct doublePrecision * ) tempName2) -> d ? 1 : 0;
+      }else if((((struct symref * ) l) -> s -> value -> nodetype == 'D') && (((struct symref * ) r) -> s -> value -> nodetype == 'i')){
+         ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d > ((struct integer * ) tempName2) -> i ? 1 : 0;
+      }else if((((struct symref * ) l) -> s -> value -> nodetype == 'D') && (((struct symref * ) r) -> s -> value -> nodetype == 'D')){
+         ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d > ((struct doublePrecision * ) tempName2) -> d ? 1 : 0;
+      }
+   }else if (l -> nodetype == 'i' && r->nodetype == 'D') {
+      ((struct integer * ) v) -> i = ((struct integer * ) l) -> i > ((struct doublePrecision * ) r) -> d ? 1 : 0;
+   }else if (l->nodetype == 'D' && r->nodetype == 'i') {
+      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d > ((struct integer * ) r) -> i ? 1 : 0;
+   }else if (l->nodetype == 'i' && r->nodetype == 'i'){
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i > ((struct integer * ) r) -> i ? 1 : 0;
-   } else if (v -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = (((struct doublePrecision * ) l) -> d > ((struct doublePrecision * ) r) -> d) ? 1 : 0;
+   }else if(l->nodetype == 'D' && r->nodetype == 'D'){
+      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d > ((struct doublePrecision * ) r) -> d ? 1 : 0;
    }
 }
 
@@ -577,7 +624,7 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
    if (v -> nodetype == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i < ((struct integer * ) r) -> i ? 1 : 0;
    } else if (v -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = (((struct doublePrecision * ) l) -> d < ((struct doublePrecision * ) r) -> d) ? 1 : 0;
+     ((struct integer * ) v) -> i = (((struct doublePrecision * ) l) -> d < ((struct doublePrecision * ) r) -> d) ? 1 : 0;
    }
 }
 
@@ -586,7 +633,7 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
    if (v -> nodetype == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i != ((struct integer * ) r) -> i ? 1 : 0;
    } else if (v -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = (((struct doublePrecision * ) l) -> d != ((struct doublePrecision * ) r) -> d) ? 1 : 0;
+      ((struct integer * ) v) -> i = (((struct doublePrecision * ) l) -> d != ((struct doublePrecision * ) r) -> d) ? 1 : 0;
    }
 }
 
@@ -595,7 +642,7 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
    if (v -> nodetype == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i == ((struct integer * ) r) -> i ? 1 : 0;
    } else if (v -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = (((struct doublePrecision * ) l) -> d == ((struct doublePrecision * ) r) -> d) ? 1 : 0;
+      ((struct integer * ) v) -> i = (((struct doublePrecision * ) l) -> d == ((struct doublePrecision * ) r) -> d) ? 1 : 0;
    }
 }
 
@@ -604,7 +651,7 @@ biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    if (v -> nodetype == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i >= ((struct integer * ) r) -> i ? 1 : 0;
    } else if (v -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = (((struct doublePrecision * ) l) -> d >= ((struct doublePrecision * ) r) -> d) ? 1 : 0;
+      ((struct integer * ) v) -> i = (((struct doublePrecision * ) l) -> d >= ((struct doublePrecision * ) r) -> d) ? 1 : 0;
    }
 }
 
@@ -613,7 +660,7 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    if (v -> nodetype == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i <= ((struct integer * ) r) -> i ? 1 : 0;
    } else if (v -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = (((struct doublePrecision * ) l) -> d <= ((struct doublePrecision * ) r) -> d) ? 1 : 0;
+      ((struct integer * ) v) -> i = (((struct doublePrecision * ) l) -> d <= ((struct doublePrecision * ) r) -> d) ? 1 : 0;
    }
 }
 
@@ -752,20 +799,14 @@ struct utils *
          break;
 
          /* control flow */
-         /* null if/else/do expressions allowed in the grammar, so check for them */
+         /* null if/else/do expressions allowed in the grammar, so we check for them */
       case 'I':
-         if (eval(((struct flow * ) a) -> cond) != 0) {
+         temp1=eval(((struct flow * ) a) -> cond);
+         //printf("%d %d\n",temp1->nodetype, ((struct integer *)temp1)->i);
 
-            if (((struct flow * ) a) -> tl) {
+         if((((struct integer *)temp1)->i) ==1){
+             if (((struct flow * ) a) -> tl) {
                v = eval(((struct flow * ) a) -> tl);
-            } else {
-               ((struct doublePrecision * ) v) -> d = 0.0; /* a default value */
-            }
-
-            if (((struct flow * ) a) -> el) {
-               v = eval(((struct flow * ) a) -> el);
-            } else {
-               ((struct doublePrecision * ) v) -> d = 0.0; /* a default value */
             }
 
          }
