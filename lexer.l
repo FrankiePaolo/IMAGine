@@ -60,7 +60,6 @@
  /* double */
 \-?[0-9]+\.{1}[0-9]+     { yylval.d = atof(yytext); return DOUBLE; }
 
- /* image */
 
 "//".*  
 [ \t]   /* ignore white space */ 
