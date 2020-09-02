@@ -62,7 +62,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '-' exp          { $$ = newast('-', $1,$3);}
    | exp '*' exp          { $$ = newast('*', $1,$3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
-   | '|' exp              { $$ = newast('|', $2, NULL); }
+   | '|' exp '|'          { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
    | INT                  { $$ = newint($1); }
    | IMG NAME '=' img     { $$ = newasgn($2,$4); }                   
