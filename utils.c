@@ -248,7 +248,15 @@ struct utils *
    setNodeTypeCast(struct utils * l, struct utils * r) {
       struct utils * v;
 
-      if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
+      if (l -> nodetype == 'N' && r == NULL) {
+         if (((struct symref * ) l) -> s -> value -> nodetype == 'i') {
+            v = malloc(sizeof(struct integer));
+            ((struct integer * ) v) -> nodetype = 'i';
+         } else if (((struct symref * ) l) -> s -> value -> nodetype == 'D') {
+            v = malloc(sizeof(struct doublePrecision));
+            ((struct doublePrecision * ) v) -> nodetype = 'D';
+         }
+      } else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
          if (((struct symref * ) r) -> s -> value -> nodetype == 'i') {
             v = malloc(sizeof(struct integer));
             ((struct integer * ) v) -> nodetype = 'i';
@@ -630,11 +638,21 @@ divide(struct utils * l, struct utils * r) {
 
 void
 absoluteValue(struct utils * v, struct utils * l) {
-   if (v -> nodetype == 'i') {
+   struct utils * tempName;
+
+   if (l -> nodetype == 'N') {
+      tempName = ((struct symref * ) l) -> s -> value;
+
+      if(((struct symref * ) l) -> s -> value -> nodetype == 'i'){
+         ((struct integer * ) v) -> i = abs(((struct integer * ) tempName) -> i);
+      }else if(((struct symref * ) l) -> s -> value -> nodetype == 'D'){
+         ((struct doublePrecision * ) v) -> d = fabs(((struct doublePrecision * ) tempName) -> d);
+      }
+   } else if (v -> nodetype == 'i') {
       ((struct integer * ) v) -> i = abs(((struct integer * ) l) -> i);
    } else if (v -> nodetype == 'D') {
       ((struct doublePrecision * ) v) -> d = fabs(((struct doublePrecision * ) l) -> d);
-   }
+   } 
 }
 
 void
