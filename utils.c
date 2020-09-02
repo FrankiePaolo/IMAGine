@@ -533,27 +533,107 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
    }
 }
 
-void
-divide(struct utils * v, struct utils * l, struct utils * r) {
-   if (v -> nodetype == 'i') {
-      int temp = ((struct integer * ) r) -> i;
-      if (temp != 0) {
-         ((struct integer * ) v) -> i = ((struct integer * ) l) -> i / ((struct integer * ) r) -> i;
-      } else {
-         yyerror("Cannot divide by zero\n");
-         exit(0);
+struct utils *
+divide(struct utils * l, struct utils * r) {
+   struct utils * tempName, * tempName2;
+   struct utils * v;
+   v=malloc(sizeof(struct doublePrecision));
+   ((struct doublePrecision * ) v) -> nodetype = 'D';
+   
+   if (l -> nodetype == 'i' && r -> nodetype == 'D') {
+      if(((struct doublePrecision * ) r) -> d !=0){
+         ((struct doublePrecision *)v) -> d = ((struct integer * ) l) -> i / ((struct doublePrecision * ) r) -> d;
       }
-   } else if (v -> nodetype == 'D') {
-      double temp = ((struct doublePrecision * ) r) -> d;
-      if (temp != 0) {
-         ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d / ((struct doublePrecision * ) r) -> d;
-      } else {
-         yyerror("Cannot divide by zero\n");
-         exit(0);
+   } else if (l -> nodetype == 'D' && r -> nodetype == 'i') {
+      if(((struct integer * ) r) -> i !=0){
+         ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) l) -> d / ((struct integer * ) r) -> i;
+      }
+   } else if (l -> nodetype == 'i' && r -> nodetype == 'i') {
+      if(((struct integer * ) r) -> i !=0){
+         ((struct doublePrecision *)v) -> d = (double) (((struct integer * ) l) -> i) / (double)(((struct integer * ) r) -> i);
+      }
+   } else if (l -> nodetype == 'D' && r -> nodetype == 'D') {
+      if(((struct doublePrecision * ) r) -> d !=0){
+         ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) l) -> d / ((struct doublePrecision * ) r) -> d;
+      }
+   } else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
+      if (((struct symref * ) r) -> s -> value -> nodetype == 'i') {
+         tempName = ((struct symref * ) r) -> s -> value;
+         if(((struct integer *)tempName)->i != 0){
+            ((struct doublePrecision *)v) -> d = ((struct integer * ) l) -> i / ((struct integer * ) tempName) -> i;
+         }
+      } else if (((struct symref * ) r) -> s -> value -> nodetype == 'D') {
+         tempName = ((struct symref * ) r) -> s -> value;
+         if(((struct doublePrecision *)tempName)->d != 0){
+            ((struct doublePrecision *)v) -> d = ((struct integer * ) l) -> i / ((struct doublePrecision * ) tempName) -> d;
+         }
+      }
+   } else if ((l -> nodetype == 'D' && r -> nodetype == 'N')) {
+      if (((struct symref * ) r) -> s -> value -> nodetype == 'i') {
+         tempName = ((struct symref * ) r) -> s -> value;
+         if(((struct integer *)tempName)->i !=0){
+            ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) l) -> d / ((struct integer * ) tempName) -> i;
+         }
+      } else if (((struct symref * ) r) -> s -> value -> nodetype == 'D') {
+         tempName = ((struct symref * ) r) -> s -> value;
+         if(((struct doublePrecision *)tempName)->d !=0){
+            ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) l) -> d / ((struct doublePrecision * ) tempName) -> d;
+         }
+      }
+   } else if (l -> nodetype == 'N' && r -> nodetype == 'i') {
+      if (((struct symref * ) l) -> s -> value -> nodetype == 'i') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         if(((struct integer *)tempName)->i !=0){
+            ((struct doublePrecision *)v) -> d = ((struct integer * ) tempName) -> i / ((struct integer * ) r) -> i;
+         }
+      } else if (((struct symref * ) l) -> s -> value -> nodetype == 'D') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         if(((struct doublePrecision *)tempName)->d !=0){
+            ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) tempName) -> d / ((struct integer * ) r) -> i;
+         }
+      }
+   } else if ((l -> nodetype == 'N' && r -> nodetype == 'D')) {
+      if (((struct symref * ) l) -> s -> value -> nodetype == 'i') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         if(((struct integer *)tempName)->i !=0){
+            ((struct doublePrecision *)v) -> d = ((struct integer * ) tempName) -> i / ((struct doublePrecision * ) r) -> d;
+         }
+      } else if (((struct symref * ) l) -> s -> value -> nodetype == 'D') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         if(((struct doublePrecision *)tempName)->d !=0){
+            ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) tempName) -> d / ((struct doublePrecision * ) r) -> d;
+         }
+      }
+   } else if ((l -> nodetype == 'N' && r -> nodetype == 'N')) {
+      if (((struct symref * ) l) -> s -> value -> nodetype == 'i' && ((struct symref * ) r) -> s -> value -> nodetype == 'i') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         tempName2 = ((struct symref * ) r) -> s -> value;
+         if(((struct integer *)tempName)->i !=0){
+            ((struct doublePrecision *)v) -> d = ((struct integer * ) tempName) -> i / ((struct integer * ) tempName2) -> i;
+         }
+      } else if (((struct symref * ) l) -> s -> value -> nodetype == 'i' && ((struct symref * ) r) -> s -> value -> nodetype == 'D') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         tempName2 = ((struct symref * ) r) -> s -> value;
+         if(((struct doublePrecision *)tempName)->d !=0){
+            ((struct doublePrecision *)v) -> d = ((struct integer * ) tempName) -> i / ((struct doublePrecision * ) tempName2) -> d;
+         }
+      } else if (((struct symref * ) l) -> s -> value -> nodetype == 'D' && ((struct symref * ) r) -> s -> value -> nodetype == 'i') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         tempName2 = ((struct symref * ) r) -> s -> value;
+         if(((struct integer *)tempName)->i !=0){
+            ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) tempName) -> d / ((struct integer * ) tempName2) -> i;
+         }
+      } else if (((struct symref * ) l) -> s -> value -> nodetype == 'D' && ((struct symref * ) r) -> s -> value -> nodetype == 'D') {
+         tempName = ((struct symref * ) l) -> s -> value;
+         tempName2 = ((struct symref * ) r) -> s -> value;
+         if(((struct doublePrecision *)tempName)->d !=0){
+            ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) tempName) -> d / ((struct doublePrecision * ) tempName2) -> d;
+         }
       }
    } else {
-      yyerror("Unexpected type, %i", v -> nodetype);
+      yyerror("Unexpected type, %c %c", l -> nodetype, r -> nodetype);
    }
+   return v;
 }
 
 void
@@ -980,8 +1060,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
-         divide(v, temp1, temp2);
+         v=divide(temp1, temp2);
          break;
 
       case '|':
