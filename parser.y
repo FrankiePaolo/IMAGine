@@ -3,7 +3,9 @@
 #  include <stdlib.h>
 #  include <vips/vips.h>
 #  include "utils.h"
-%}
+#  include "builtin.h"
+#  include "eval.h"
+%} 
 
 
 %union {

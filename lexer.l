@@ -3,6 +3,7 @@
 %option noyywrap nodefault yylineno
 %{
 # include "utils.h"
+# include "builtin.h"
 # include "parser.tab.h"
 %}
 

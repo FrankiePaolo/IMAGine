@@ -96,7 +96,6 @@ struct str {
 }; 
 */
 
-
 struct img {
    int nodetype; /* type P */
    char * path; //Image path
@@ -129,19 +128,30 @@ struct ast * newflow(int nodetype, struct ast * cond, struct ast * tl, struct as
 /* define a function */
 void dodef(struct symbol * name, struct symlist * syms, struct ast * stmts);
 
-/* evaluate an AST */
-struct utils * eval(struct ast * );
-
-/* built-in functions */
-void print_B(struct utils * v);
-void getWidth(struct symref * v);
-void invert(struct symref * v);
-void average(struct symref * v);
-
+/* Call user defined function */
 struct utils * calluser(struct ufncall * f);
 
 /* delete and free an AST */
 void treefree(struct ast * );
+
+/* set node type */
+struct utils * setNodeTypeCast(struct utils * l, struct utils * r);
+struct utils * setNodeType(struct utils * l, struct utils * r);
+
+/* arithmetic operations */
+void sum(struct utils * v, struct utils * l, struct utils * r);
+void subtract(struct utils * v, struct utils * l, struct utils * r);
+void multiply(struct utils * v, struct utils * l, struct utils * r);
+struct utils * divide(struct utils * l, struct utils * r);
+
+/* comparisons */
+void biggerThan(struct utils * v, struct utils * l, struct utils * r);
+void smallerThan(struct utils * v, struct utils * l, struct utils * r);
+void unequal(struct utils * v, struct utils * l, struct utils * r);
+void equal(struct utils * v, struct utils * l, struct utils * r);
+void biggerOrEqual(struct utils * v, struct utils * l, struct utils * r);
+void smallerOrEqual(struct utils * v, struct utils * l, struct utils * r);
+void absoluteValue(struct utils * v, struct utils * l);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */
