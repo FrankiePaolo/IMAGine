@@ -31,6 +31,13 @@ struct utils *
          v -> nodetype = 'D';
          ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) a) -> d;
          break;
+    
+      case 'P':
+         v=malloc(sizeof(struct img));
+         v->nodetype = 'P';
+         ((struct img * ) v) -> img = ((struct img * ) a)-> img;
+         ((struct img * ) v) -> path = ((struct img * ) a)-> path;
+         break;
 
          /* name reference */
       case 'N':

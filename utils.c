@@ -1093,6 +1093,7 @@ treefree(struct ast * a) {
    case 'i':
    case 'D':
    case 'N':
+   case 'P':
       break;
 
    case '=':
