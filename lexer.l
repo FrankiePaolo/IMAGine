@@ -37,14 +37,17 @@
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"def"   { return DEF;}
-"img"   { return IMG;}
-
+"def"   { return DEF; }
+"img"   { return IMG; }
+"list"  { return LIST; }
+ 
  /* built in functions */
 "print" { yylval.fn = B_print; return FUNC; }
 "width" { yylval.fn = I_width; return FUNC; }
 "invert" { yylval.fn = I_invert; return FUNC; }
 "average" { yylval.fn = I_average; return FUNC; }
+"print_list" { yylval.fn=return PRLIST}
+
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }

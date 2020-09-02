@@ -34,6 +34,7 @@ struct symbol *
             /* new entry */
             sp -> name = strdup(sym);
             sp -> value = NULL;
+            sp -> li = NULL;
             sp -> func = NULL;
             sp -> syms = NULL;
             return sp;
@@ -216,6 +217,39 @@ struct symlist *
       return sl;
    }
 
+struct list *
+   newlist(struct ast * l,struct list * r){
+      struct list * li=malloc(sizeof(struct list));
+      
+      if (!li) {
+         yyerror("out of space");
+         exit(0);
+      }
+
+      if(l->nodetype == 'i'){
+         li->e=malloc(sizeof(struct integer));
+         ((struct integer *)li->e)->i=((struct integer *)l)->i;
+      }else if(l->nodetype == 'D'){
+         li->e=malloc(sizeof(struct doublePrecision));
+         ((struct doublePrecision *)li->e)->d=((struct doublePrecision *)l)->d;
+      }
+      li->n=r;
+      return li;
+}
+
+void 
+   print_list(struct list * li){
+   
+   while(li->n){
+      if(l->nodetype == 'i'){
+         printf("%d\n",((struct integer *)li->e)->i)
+      }else if(l->nodetype == 'D'){
+         printf("%d\n",((struct doublePrecision *)li->e)->d)
+      }
+   }
+
+}
+
 void
 symlistfree(struct symlist * sl) {
    struct symlist * nsl;
@@ -243,6 +277,11 @@ dodef(struct symbol * name, struct symlist * syms, struct ast * func) {
 
    name -> syms = syms;
    name -> func = func;
+}
+
+void 
+dolist(struct symbol * name, struct list * li){
+   name->li=li;
 }
 
 struct utils *

@@ -5,6 +5,7 @@
       /* a variable name */
       char * name;
       struct utils * value;
+      struct list * li;   /* list */
       struct ast * func; /* stmt for the function */
       struct symlist * syms; /* list of dummy args */
    };
@@ -97,9 +98,15 @@ struct str {
 */
 
 struct img {
-   int nodetype; /* type P */
-   char * path; //Image path
+   int nodetype;     /* type P */
+   char * path;      /* image path */
    VipsImage * img;
+};
+
+struct list {
+   //int nodetype;     /* type l */
+   struct utils * e; /* element of list */
+   struct list *n;   /* pointer to next element */
 };
 
 struct symref {
@@ -124,6 +131,10 @@ struct ast * newint(int i);
 struct ast * newimg(char * path);
 struct ast * newdouble(double i);
 struct ast * newflow(int nodetype, struct ast * cond, struct ast * tl, struct ast * tr);
+
+/* build a list */
+struct list * newlist(struct ast * l,struct list * r);
+void dolist(struct symbol * name, struct list * li);
 
 /* define a function */
 void dodef(struct symbol * name, struct symlist * syms, struct ast * stmts);
