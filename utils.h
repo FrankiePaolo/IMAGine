@@ -43,10 +43,11 @@ void symlistfree(struct symlist * sl);
 
 enum bifs {
    /* built-in functions */
-   B_print = 1,
-      I_width,
-      I_invert,
-      I_average
+   b_print = 1,
+      b_width,
+      b_invert,
+      b_average,
+      b_push
 };
 
 struct ast {

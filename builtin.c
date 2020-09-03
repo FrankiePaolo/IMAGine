@@ -14,23 +14,32 @@ struct utils *
       struct utils * v = eval(f -> l);
 
       switch (functype) {
-      case B_print:
+      case b_print:
          print_B(v);
          return v;
-      case I_width:
+      case b_width:
          getWidth(((struct symref * ) v));
          return v;
-      case I_invert:
+      case b_invert:
          invert(((struct symref * ) v));
          return v;
-      case I_average:
+      case b_average:
          average(((struct symref * ) v));
+         return v;
+      case b_push:
+         push(((struct symref * ) v));
          return v;
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
       }
    }
+
+void
+push(((struct symref * ) v)){
+   struct symbol * temp=
+   while
+}
 
 void
 openImg(char * path){

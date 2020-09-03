@@ -42,10 +42,11 @@
 "list"  { return LIST; }
  
  /* built in functions */
-"print" { yylval.fn = B_print; return FUNC; }
-"width" { yylval.fn = I_width; return FUNC; }
-"invert" { yylval.fn = I_invert; return FUNC; }
-"average" { yylval.fn = I_average; return FUNC; }
+"print" { yylval.fn = b_print; return FUNC; }
+"width" { yylval.fn = b_width; return FUNC; }
+"invert" { yylval.fn = b_invert; return FUNC; }
+"average" { yylval.fn = b_average; return FUNC; }
+"push"    { yylval.fn = b_push; return FUNC; }
 
 
  /* debug hack */
