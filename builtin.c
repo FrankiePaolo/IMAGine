@@ -94,6 +94,8 @@ print_B(struct utils * v) {
       } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
       } else if(temp1-> nodetype == 'P'){
+         printf("xdg-open %s\n", ((struct img *) temp1)->path);
+         //exec("xdg-open %s", ((struct img *) temp1)->path);
          printf("this is an image\n");
       }
    } else if(v-> nodetype == 'P'){
