@@ -46,8 +46,7 @@ enum bifs {
    B_print = 1,
       I_width,
       I_invert,
-      I_average,
-      L_print
+      I_average
 };
 
 struct ast {
