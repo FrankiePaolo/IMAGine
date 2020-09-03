@@ -221,28 +221,25 @@ struct symlist *
 struct list *
    newlist(struct ast * l,struct list * r){
       struct list * li=malloc(sizeof(struct list));
-      struct ast * temp;
-      
+      struct symbol * s=malloc(sizeof(struct symbol));
+
       if (!li) {
          yyerror("out of space");
          exit(0);
       }
 
       if(l->nodetype == 'i'){
-         temp=newint( ((struct integer *)l)->i );
-         li->e=((struct utils *) temp);
+         s->value=newint( ((struct integer *)l)->i );
+         li->s=s;
             //printf("%d, This:%X, Next:%X\n", ((struct integer *)li->e)->i, li, r);
       }else if(l->nodetype == 'D'){
-         temp=newdouble( ((struct doublePrecision *)l)->d );
-         li->e=((struct utils *) temp);
-
+         s->value=newdouble( ((struct doublePrecision *)l)->d );
+         li->s=s;
       }else if(l->nodetype == 'N'){
-         li->e=((struct symref *)l)->s->value;
-         printf("%X, %d\n", li->e, li->e->nodetype);
-      }else if(l->nodetype == 'P'){
-         
+         li->s=((struct symref *)l)->s;
+         printf("%X\n", li->s);
       }
-      
+
       li->n=r;
 
       return li;

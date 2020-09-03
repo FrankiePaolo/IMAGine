@@ -105,7 +105,8 @@ struct img {
 };
 
 struct list {
-   struct utils * e; /* element of list */
+   // struct utils * e; /* element of list */
+   struct symbol * s;   /* element of list */
    struct list *n;   /* pointer to next element */
 };
 

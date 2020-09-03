@@ -77,9 +77,9 @@ print_B(struct utils * v) {
       li=temp->li;
       do{
          //printf("Pointer:%X Value:%d NodeType:%d\n", li, ((struct integer *)li->e)->i, ((struct utils *)li->e)->nodetype);
-         print_B( ((struct utils *)li->e));
+         print_B( ((struct utils *)li->s->value));
       } while(li=li->n);
-   }else if (v -> nodetype == 'i') {
+   } else if (v -> nodetype == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
    } else if (v -> nodetype == 'D') {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);
@@ -93,7 +93,11 @@ print_B(struct utils * v) {
          printf("%i\n", ((struct integer * ) temp1) -> i);
       } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
+      } else if(temp1-> nodetype == 'P'){
+         printf("this is an image\n");
       }
+   } else if(v-> nodetype == 'P'){
+         printf("This element of the list is an image\n");
    } else {
       printf("Node not found\n");
    }
