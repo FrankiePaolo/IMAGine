@@ -235,7 +235,12 @@ struct list *
          temp=newdouble( ((struct doublePrecision *)l)->d );
          li->e=((struct utils *) temp);
 
+      }else if(l->nodetype == 'N'){
+         if()
+      }else if(l->nodetype == 'P'){
+         
       }
+      
       li->n=r;
 
       return li;
