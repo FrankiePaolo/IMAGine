@@ -186,6 +186,7 @@ struct ast *
       a -> nodetype = '=';
       a -> s = s;
       a -> v = v;
+      printf("%X\n", s);
       return (struct ast * ) a;
    }
 
@@ -236,7 +237,8 @@ struct list *
          li->e=((struct utils *) temp);
 
       }else if(l->nodetype == 'N'){
-         if()
+         li->e=((struct symref *)l)->s->value;
+         printf("%X, %d\n", li->e, li->e->nodetype);
       }else if(l->nodetype == 'P'){
          
       }
