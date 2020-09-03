@@ -33,6 +33,17 @@ struct utils *
    }
 
 void
+openImg(char * path){
+   char * open = strdup("xdg-open ");     
+   char * command; 
+
+   command=strcat(open,path);
+   system(command);
+   printf("The image has been opened\n");
+}
+
+
+void
 average(struct symref * v) {
    double mean;
    struct utils * temp1 = v -> s -> value;
@@ -58,6 +69,9 @@ invert(struct symref * v) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
+   char * temp_path =strdup(path);   
+   openImg(temp_path);
+
 }
 
 void
@@ -94,12 +108,7 @@ print_B(struct utils * v) {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
       } else if(temp1-> nodetype == 'P'){
          char * temp_path =strdup(((struct img *) temp1)->path);   
-         char * open = strdup("xdg-open ");     
-         char * command; 
-
-         command=strcat(open,temp_path);
-         system(command);
-         printf("The image has been opened\n");
+         openImg(temp_path);
       }
    } else if(v-> nodetype == 'P'){
          printf("This element of the list is an image\n");
