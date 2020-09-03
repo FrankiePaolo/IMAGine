@@ -69,15 +69,24 @@ getWidth(struct symref * v) {
 void
 print_B(struct utils * v) {
    struct utils * temp1;
-
-   if (v -> nodetype == 'i') {
+   struct symbol * temp; 
+   struct list * li;
+   
+   if(v -> nodetype == 'N' && ((struct symref * ) v) -> s->li) {
+      temp=((struct symref * ) v) -> s;
+      li=temp->li;
+      do{
+         //printf("Pointer:%X Value:%d NodeType:%d\n", li, ((struct integer *)li->e)->i, ((struct utils *)li->e)->nodetype);
+         print_B( ((struct utils *)li->e));
+      } while(li=li->n);
+   }else if (v -> nodetype == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
    } else if (v -> nodetype == 'D') {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);
    } else if (v -> nodetype == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
-      while (temp1->nodetype=='N')
-      {
+
+      while (temp1->nodetype=='N') {
          temp1=((struct symref * ) temp1) -> s -> value;
       }
       if (temp1->nodetype == 'i') {

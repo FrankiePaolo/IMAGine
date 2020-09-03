@@ -955,63 +955,63 @@ YY_RULE_SETUP
 /* debug hack */
 case 31:
 YY_RULE_SETUP
-#line 52 "lexer.l"
+#line 53 "lexer.l"
 { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
 	YY_BREAK
 /* names */
 case 32:
 YY_RULE_SETUP
-#line 55 "lexer.l"
+#line 56 "lexer.l"
 { yylval.s = lookup(yytext); return NAME; }
 	YY_BREAK
 /* path */
 case 33:
 YY_RULE_SETUP
-#line 58 "lexer.l"
+#line 59 "lexer.l"
 { yylval.path=(yytext); return PATH; }
 	YY_BREAK
 /* int */
 case 34:
 YY_RULE_SETUP
-#line 61 "lexer.l"
+#line 62 "lexer.l"
 { yylval.i = atoi(yytext); return INT; }
 	YY_BREAK
 /* double */
 case 35:
 YY_RULE_SETUP
-#line 64 "lexer.l"
+#line 65 "lexer.l"
 { yylval.d = atof(yytext); return DOUBLE; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 67 "lexer.l"
+#line 68 "lexer.l"
 
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 68 "lexer.l"
+#line 69 "lexer.l"
 /* ignore white space */ 
 	YY_BREAK
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 69 "lexer.l"
+#line 70 "lexer.l"
 printf("> "); /* ignore line continuation */
 	YY_BREAK
 case 39:
 /* rule 39 can match eol */
 YY_RULE_SETUP
-#line 70 "lexer.l"
+#line 71 "lexer.l"
 printf("> ");
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 72 "lexer.l"
+#line 73 "lexer.l"
 { yyerror("Unknown character %c\n", *yytext); }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 73 "lexer.l"
+#line 74 "lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
 #line 1018 "lex.yy.c"
@@ -2031,6 +2031,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 73 "lexer.l"
+#line 74 "lexer.l"
 
 

@@ -80,6 +80,7 @@ img:  PATH  { $$ = newimg($1); }
 
 explist: exp          
    | exp ',' explist  { $$ = newast('L', $1, $3); }
+   | elements         { $$ = $1; }
 ;
 
 symlist: NAME         { $$ = newsymlist($1, NULL); }

@@ -46,7 +46,8 @@ enum bifs {
    B_print = 1,
       I_width,
       I_invert,
-      I_average
+      I_average,
+      L_print
 };
 
 struct ast {
@@ -104,7 +105,6 @@ struct img {
 };
 
 struct list {
-   //int nodetype;     /* type l */
    struct utils * e; /* element of list */
    struct list *n;   /* pointer to next element */
 };

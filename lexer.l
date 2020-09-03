@@ -46,7 +46,6 @@
 "width" { yylval.fn = I_width; return FUNC; }
 "invert" { yylval.fn = I_invert; return FUNC; }
 "average" { yylval.fn = I_average; return FUNC; }
-"print_list" { yylval.fn=return PRLIST}
 
 
  /* debug hack */
