@@ -79,7 +79,7 @@ struct ast *
 
       a -> nodetype = 'P'; //P as in picture
       path++;
-      a -> path = path;
+      a -> path = strdup(path);
 
       if (!( in = vips_image_new_from_file(path, NULL))) {
          vips_error_exit(NULL);
@@ -186,7 +186,6 @@ struct ast *
       a -> nodetype = '=';
       a -> s = s;
       a -> v = v;
-      printf("%X\n", s);
       return (struct ast * ) a;
    }
 

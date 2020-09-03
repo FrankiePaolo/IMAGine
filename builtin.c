@@ -76,7 +76,6 @@ print_B(struct utils * v) {
       temp=((struct symref * ) v) -> s;
       li=temp->li;
       do{
-         //printf("Pointer:%X Value:%d NodeType:%d\n", li, ((struct integer *)li->e)->i, ((struct utils *)li->e)->nodetype);
          print_B( ((struct utils *)li->s->value));
       } while(li=li->n);
    } else if (v -> nodetype == 'i') {
@@ -94,9 +93,13 @@ print_B(struct utils * v) {
       } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
       } else if(temp1-> nodetype == 'P'){
-         printf("xdg-open %s\n", ((struct img *) temp1)->path);
-         //exec("xdg-open %s", ((struct img *) temp1)->path);
-         printf("this is an image\n");
+         char * temp_path =strdup(((struct img *) temp1)->path);   
+         char * open = strdup("xdg-open ");     
+         char * command; 
+
+         command=strcat(open,temp_path);
+         system(command);
+         printf("The image has been opened\n");
       }
    } else if(v-> nodetype == 'P'){
          printf("This element of the list is an image\n");

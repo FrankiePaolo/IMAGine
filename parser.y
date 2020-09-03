@@ -64,6 +64,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '|' exp '|'          { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
+   | NAME                 { $$ = newref($1); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
    | value                { $$ = $1; }
@@ -71,8 +72,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
 
 value: INT                { $$ = newint($1); }
    | DOUBLE               { $$ = newdouble($1); }
-   | IMG NAME '=' img     { $$ = newasgn($2,$4); }
-   | NAME                 { $$ = newref($1); }
+   | IMG NAME '=' img     { $$ = newasgn($2,$4); }  
 ;
 
 img:  PATH  { $$ = newimg($1); } 
@@ -80,7 +80,6 @@ img:  PATH  { $$ = newimg($1); }
 
 explist: exp          
    | exp ',' explist  { $$ = newast('L', $1, $3); }
-   | elements         { $$ = $1; }
 ;
 
 symlist: NAME         { $$ = newsymlist($1, NULL); }
