@@ -230,17 +230,13 @@ struct list *
       if(l->nodetype == 'i'){
          s->value=newint( ((struct integer *)l)->i );
          li->s=s;
-            //printf("%d, This:%X, Next:%X\n", ((struct integer *)li->e)->i, li, r);
       }else if(l->nodetype == 'D'){
          s->value=newdouble( ((struct doublePrecision *)l)->d );
          li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
-         printf("%X\n", li->s);
       }
-
       li->n=r;
-
       return li;
 }
 

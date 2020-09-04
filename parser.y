@@ -42,7 +42,7 @@
 
 %%
 
-stmt: IF '(' exp ')' THEN '{' list '}'                    { $$ = newflow('I', $3, $7, NULL); }
+stmt: IF '(' exp ')' THEN '{' list '}' ';'                { $$ = newflow('I', $3, $7, NULL); }
    | IF '(' exp ')' THEN '{' list '}' ELSE '{' list '}'   { $$ = newflow('I', $3, $7, $11); }
    | WHILE '(' exp ')' DO '{' list '}'                    { $$ = newflow('W', $3, $7, NULL); }
    | exp ';'

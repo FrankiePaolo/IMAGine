@@ -11,7 +11,8 @@
 struct utils *
    callbuiltin(struct fncall * f) {
       enum bifs functype = f -> functype;
-      struct utils * v = eval(f -> l);
+      struct utils * v = eval(f -> l);     
+
 
       switch (functype) {
       case b_print:
@@ -27,7 +28,7 @@ struct utils *
          average(((struct symref * ) v));
          return v;
       case b_push:
-         push(((struct symref * ) v));
+         push(((struct symref *)f->l->l)->s,v);
          return v;
       default:
          yyerror("Unknown built-in function %d", functype);
@@ -36,9 +37,38 @@ struct utils *
    }
 
 void
-push(((struct symref * ) v)){
-   struct symbol * temp=
-   while
+push(struct symbol * e,struct utils * v){
+   struct list * temp = e->li;
+   struct list * li=malloc(sizeof(struct list));
+   struct symbol * s=malloc(sizeof(struct symbol));
+
+   if (!li) {
+      yyerror("out of space");
+      exit(0);
+   }
+
+   if(!temp){
+      yyerror("the list does not exist");
+      return;
+   }
+
+   while((temp->n)){
+      temp=temp->n;
+   }
+
+   temp->n=li;
+
+   if(v->nodetype == 'i'){
+      s->value=newint( ((struct integer *)v)->i );
+      li->s=s;
+   }else if(v->nodetype == 'D'){
+      s->value=newdouble( ((struct doublePrecision *)v)->d );
+      li->s=s;
+   }else if(v->nodetype == 'N'){
+      li->s=((struct symref *)v)->s;
+   }
+   li->n=NULL;
+
 }
 
 void
