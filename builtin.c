@@ -20,6 +20,12 @@ struct utils *
       case b_width:
          getWidth(((struct symref * ) v));
          return v;
+      case b_add:
+         add(((struct symref *)f->l->l),((struct symref * ) v));
+         return v;
+      case b_subtract:
+         subtract_img(((struct symref *)f->l->l),((struct symref * ) v));
+         return v;
       case b_invert:
          invert(((struct symref * ) v));
          return v;
@@ -203,7 +209,48 @@ invert(struct symref * v) {
    printf("Image saved\n");
    char * temp_path =strdup(path);   
    openImg(temp_path);
+}
 
+void
+add(struct symref * l,struct symref * r){
+   VipsImage * out;
+   char path[500];
+   struct utils * temp1 = l-> s -> value;
+   struct utils * temp2 = r-> s -> value;
+
+   if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+
+   printf("Please enter the path of the output image :\n");
+   scanf("%s", path);
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   char * temp_path =strdup(path);   
+   openImg(temp_path);
+}
+
+void
+subtract_img(struct symref * l,struct symref * r){
+   VipsImage * out;
+   char path[500];
+   struct utils * temp1 = l-> s -> value;
+   struct utils * temp2 = r-> s -> value;
+
+   if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+
+   printf("Please enter the path of the output image :\n");
+   scanf("%s", path);
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   char * temp_path =strdup(path);   
+   openImg(temp_path);
 }
 
 void

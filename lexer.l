@@ -44,6 +44,8 @@
  /* built in functions */
 "print" { yylval.fn = b_print; return FUNC; }
 "width" { yylval.fn = b_width; return FUNC; }
+"add"   { yylval.fn = b_add; return FUNC; }
+"subtract"   { yylval.fn = b_subtract; return FUNC; }
 "invert" { yylval.fn = b_invert; return FUNC; }
 "average" { yylval.fn = b_average; return FUNC; }
 "push"    { yylval.fn = b_push; return FUNC; }

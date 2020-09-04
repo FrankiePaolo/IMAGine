@@ -45,6 +45,8 @@ enum bifs {
    /* built-in functions */
    b_print = 1,
       b_width,
+      b_add,
+      b_subtract,
       b_invert,
       b_average,
       b_push,
