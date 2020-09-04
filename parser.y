@@ -65,7 +65,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | '(' exp ')'          { $$ = $2; }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
-   | IMG NAME '=' img     { $$ = newasgn($2,$4); }  
+   | IMG NAME '=' img     { $$ = newasgn($2, $4); }  
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
    | value                { $$ = $1; }
 ;
