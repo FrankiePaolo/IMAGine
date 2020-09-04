@@ -35,11 +35,35 @@ struct utils *
       case b_pop:
          pop( ((struct symref * ) v)->s );
          return v;
+      case b_depth:
+         depth( ((struct symref * ) v)->s );
+         return v;
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
       }
    }
+
+void
+depth(struct symbol * e){
+   struct list * temp = e->li;
+   int counter=1;
+
+   if(!temp && (e->value)){
+      yyerror("The list does not exist\n");
+      return;
+   }
+
+   if(!temp){
+      printf("The list is empty\n");
+      return;
+   }
+
+   while((temp=temp->n)){
+      counter++;
+   }
+   printf("The list contains %i elements\n",counter);
+}
 
 
 void
