@@ -5,6 +5,7 @@
       /* a variable name */
       char * name;
       struct utils * value;
+      struct list * li;   /* list */
       struct ast * func; /* stmt for the function */
       struct symlist * syms; /* list of dummy args */
    };
@@ -42,10 +43,14 @@ void symlistfree(struct symlist * sl);
 
 enum bifs {
    /* built-in functions */
-   B_print = 1,
-      I_width,
-      I_invert,
-      I_average
+   b_print = 1,
+      b_width,
+      b_invert,
+      b_average,
+      b_push,
+      b_pop,
+      b_get,
+      b_depth
 };
 
 struct ast {
@@ -97,9 +102,15 @@ struct str {
 */
 
 struct img {
-   int nodetype; /* type P */
-   char * path; //Image path
+   int nodetype;     /* type P */
+   char * path;      /* image path */
    VipsImage * img;
+};
+
+struct list {
+   // struct utils * e; /* element of list */
+   struct symbol * s;   /* element of list */
+   struct list *n;   /* pointer to next element */
 };
 
 struct symref {
@@ -124,6 +135,11 @@ struct ast * newint(int i);
 struct ast * newimg(char * path);
 struct ast * newdouble(double i);
 struct ast * newflow(int nodetype, struct ast * cond, struct ast * tl, struct ast * tr);
+
+/* build a list */
+struct list * newlist(struct ast * l,struct list * r);
+void dolist(struct symbol * name, struct list * li);
+struct symbol * setList(struct utils * v);
 
 /* define a function */
 void dodef(struct symbol * name, struct symlist * syms, struct ast * stmts);

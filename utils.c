@@ -34,6 +34,7 @@ struct symbol *
             /* new entry */
             sp -> name = strdup(sym);
             sp -> value = NULL;
+            sp -> li = NULL;
             sp -> func = NULL;
             sp -> syms = NULL;
             return sp;
@@ -66,10 +67,6 @@ struct ast *
    newimg(char * path) {
       struct img * a = malloc(sizeof(struct img));
       VipsImage * in ;
-      
-      /*
-      char * correctPath;
-      strncpy(correctPath,path,strlen(path)-1);*/
 
       if (!a) {
          yyerror("out of space");
@@ -78,7 +75,7 @@ struct ast *
 
       a -> nodetype = 'P'; //P as in picture
       path++;
-      a -> path = path;
+      a -> path = strdup(path);
 
       if (!( in = vips_image_new_from_file(path, NULL))) {
          vips_error_exit(NULL);
@@ -216,6 +213,29 @@ struct symlist *
       return sl;
    }
 
+struct list *
+   newlist(struct ast * l,struct list * r){
+      struct list * li=malloc(sizeof(struct list));
+      struct symbol * s=malloc(sizeof(struct symbol));
+
+      if (!li) {
+         yyerror("out of space");
+         exit(0);
+      }
+
+      if(l->nodetype == 'i'){
+         s->value=newint( ((struct integer *)l)->i );
+         li->s=s;
+      }else if(l->nodetype == 'D'){
+         s->value=newdouble( ((struct doublePrecision *)l)->d );
+         li->s=s;
+      }else if(l->nodetype == 'N'){
+         li->s=((struct symref *)l)->s;
+      }
+      li->n=r;
+      return li;
+}
+
 void
 symlistfree(struct symlist * sl) {
    struct symlist * nsl;
@@ -243,6 +263,11 @@ dodef(struct symbol * name, struct symlist * syms, struct ast * func) {
 
    name -> syms = syms;
    name -> func = func;
+}
+
+void 
+dolist(struct symbol * name, struct list * li){
+   name->li=li;
 }
 
 struct utils *
@@ -985,6 +1010,25 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
       ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d <= ((struct doublePrecision * ) r) -> d ? 1 : 0;
    }
 }
+
+/* This method allocates a struct symbol with the new value */
+struct symbol *
+   setList(struct utils * v){ 
+      struct symbol * s=malloc(sizeof(struct symbol));
+
+      if(v->nodetype == 'i'){
+         s->value=newint( ((struct integer *)v)->i );
+      }else if(v->nodetype == 'D'){
+         s->value=newdouble( ((struct doublePrecision *)v)->d );
+      }else if(v->nodetype == 'N'){
+         s=((struct symref *)v)->s;
+      }else{
+        printf("Nodetype not found\n");
+        return;
+      }
+
+      return s;
+   }
 
 struct utils *
    calluser(struct ufncall * f) {

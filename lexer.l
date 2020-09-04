@@ -37,14 +37,19 @@
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
-"def"   { return DEF;}
-"img"   { return IMG;}
-
+"def"   { return DEF; }
+"img"   { return IMG; }
+"list"  { return LIST; }
+ 
  /* built in functions */
-"print" { yylval.fn = B_print; return FUNC; }
-"width" { yylval.fn = I_width; return FUNC; }
-"invert" { yylval.fn = I_invert; return FUNC; }
-"average" { yylval.fn = I_average; return FUNC; }
+"print" { yylval.fn = b_print; return FUNC; }
+"width" { yylval.fn = b_width; return FUNC; }
+"invert" { yylval.fn = b_invert; return FUNC; }
+"average" { yylval.fn = b_average; return FUNC; }
+"push"    { yylval.fn = b_push; return FUNC; }
+"pop"    { yylval.fn = b_pop; return FUNC; }
+"get"    { yylval.fn = b_get; return FUNC; }
+"depth"    { yylval.fn = b_depth; return FUNC; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
