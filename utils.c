@@ -67,10 +67,6 @@ struct ast *
    newimg(char * path) {
       struct img * a = malloc(sizeof(struct img));
       VipsImage * in ;
-      
-      /*
-      char * correctPath;
-      strncpy(correctPath,path,strlen(path)-1);*/
 
       if (!a) {
          yyerror("out of space");

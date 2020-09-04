@@ -13,7 +13,6 @@ struct utils *
       enum bifs functype = f -> functype;
       struct utils * v = eval(f -> l);     
 
-
       switch (functype) {
       case b_print:
          print_B(v);
@@ -29,6 +28,9 @@ struct utils *
          return v;
       case b_push:
          push(((struct symref *)f->l->l)->s,v);
+         return v;
+      case b_pop:
+         pop(((struct symref *)f->l->l));
          return v;
       default:
          yyerror("Unknown built-in function %d", functype);
@@ -68,6 +70,14 @@ push(struct symbol * e,struct utils * v){
       li->s=((struct symref *)v)->s;
    }
    li->n=NULL;
+
+}
+
+void
+pop(struct symbol * e){
+   
+
+
 
 }
 

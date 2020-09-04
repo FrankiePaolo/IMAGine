@@ -47,7 +47,8 @@ enum bifs {
       b_width,
       b_invert,
       b_average,
-      b_push
+      b_push,
+      b_pop
 };
 
 struct ast {
