@@ -24,13 +24,14 @@ struct utils *
          invert(((struct symref * ) v));
          return v;
       case b_average:
-         average(((struct symref * ) v));
+         average((v));
          return v;
       case b_push:
-         push(((struct symref *)f->l->l)->s,v);
+         push( ((struct symref *)f->l->l)->s, v);
          return v;
       case b_pop:
-         pop(((struct symref *)f->l->l));
+         pop( ((struct symref * ) v)->s );
+         //pop( ((struct symref *)f->l->l)->s );
          return v;
       default:
          yyerror("Unknown built-in function %d", functype);
@@ -42,43 +43,58 @@ void
 push(struct symbol * e,struct utils * v){
    struct list * temp = e->li;
    struct list * li=malloc(sizeof(struct list));
-   struct symbol * s=malloc(sizeof(struct symbol));
+   struct symbol * s;
 
    if (!li) {
       yyerror("out of space");
       exit(0);
    }
 
-   if(!temp){
+   if(!temp && (e->value)){
       yyerror("the list does not exist");
       return;
    }
 
-   while((temp->n)){
-      temp=temp->n;
+   if(!(temp)){
+      li->s=setList(v);
+      e->li=li;
+   }else{
+      while((temp->n)){
+         temp=temp->n;
+      }
+      temp->n=li;
+      li->s=setList(v);
+      li->n=NULL;
    }
-
-   temp->n=li;
-
-   if(v->nodetype == 'i'){
-      s->value=newint( ((struct integer *)v)->i );
-      li->s=s;
-   }else if(v->nodetype == 'D'){
-      s->value=newdouble( ((struct doublePrecision *)v)->d );
-      li->s=s;
-   }else if(v->nodetype == 'N'){
-      li->s=((struct symref *)v)->s;
-   }
-   li->n=NULL;
 
 }
 
 void
 pop(struct symbol * e){
+   struct list * temp = e->li;
+
+   if(!temp && (e->value)){
+      yyerror("The list does not exist");
+      return;
+   }
+
+   if(!temp){
+      printf("The list is empty\n");
+      return;
+   }
    
 
+   if(!(temp->n)){
+      free(e->li);
+      e->li=NULL;
+   }else{
+      while((temp->n->n)){
+         temp=temp->n;
+      }
 
-
+      free(temp->n);
+      temp->n=NULL;
+   }
 }
 
 void
@@ -141,7 +157,9 @@ print_B(struct utils * v) {
       do{
          print_B( ((struct utils *)li->s->value));
       } while(li=li->n);
-   } else if (v -> nodetype == 'i') {
+   } else if(v -> nodetype == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
+      printf("The list is empty\n");
+   }else if (v -> nodetype == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
    } else if (v -> nodetype == 'D') {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);

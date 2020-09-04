@@ -137,6 +137,7 @@ struct ast * newflow(int nodetype, struct ast * cond, struct ast * tl, struct as
 /* build a list */
 struct list * newlist(struct ast * l,struct list * r);
 void dolist(struct symbol * name, struct list * li);
+struct symbol * setList(struct utils * v);
 
 /* define a function */
 void dodef(struct symbol * name, struct symlist * syms, struct ast * stmts);

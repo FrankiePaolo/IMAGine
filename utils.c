@@ -1011,6 +1011,25 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    }
 }
 
+/* This method allocates a struct symbol with the new value */
+struct symbol *
+   setList(struct utils * v){ 
+      struct symbol * s=malloc(sizeof(struct symbol));
+
+      if(v->nodetype == 'i'){
+         s->value=newint( ((struct integer *)v)->i );
+      }else if(v->nodetype == 'D'){
+         s->value=newdouble( ((struct doublePrecision *)v)->d );
+      }else if(v->nodetype == 'N'){
+         s=((struct symref *)v)->s;
+      }else{
+        printf("Nodetype not found\n");
+        return;
+      }
+
+      return s;
+   }
+
 struct utils *
    calluser(struct ufncall * f) {
       struct symbol * fn = f -> s; /* function name */
