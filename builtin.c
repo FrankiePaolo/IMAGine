@@ -36,16 +36,16 @@ struct utils *
          pop( ((struct symref * ) v)->s );
          return v;
       case b_depth:
-         depth( ((struct symref * ) v)->s );
-         return v;
+         return depth( ((struct symref * ) v)->s );
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
       }
    }
 
-void
+struct utils * 
 depth(struct symbol * e){
+   struct utils * v;
    struct list * temp = e->li;
    int counter=1;
 
@@ -62,18 +62,23 @@ depth(struct symbol * e){
    while((temp=temp->n)){
       counter++;
    }
-   printf("The list contains %i elements\n",counter);
+   v=newint(counter);
+   return v;
 }
-
 
 void
 get(struct symbol * e,struct utils * v){
    struct list * temp = e->li;
-   int counter = 0;
+   int counter = 1;
    int index = 0;
+   int depth_list=((struct integer *)depth(e))->i;
 
    if(v->nodetype=='i'){
       index=((struct integer*)v)->i;
+      if((index>depth_list)){
+         printf("The index cannot be bigger than list\n");
+         return;
+      }
    }else{
       yyerror("The index must be an integer\n");
       return;

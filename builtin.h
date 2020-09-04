@@ -8,3 +8,4 @@ void print_B(struct utils * v);
 void getWidth(struct symref * v);
 void invert(struct symref * v);
 void average(struct symref * v);
+struct utils * depth(struct symbol * e);
