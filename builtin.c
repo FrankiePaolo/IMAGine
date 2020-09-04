@@ -24,20 +24,56 @@ struct utils *
          invert(((struct symref * ) v));
          return v;
       case b_average:
-         average((v));
+         average(((struct symref * ) v));
+         return v;
+      case b_get:
+         get( ((struct symref *)f->l->l)->s,v);
          return v;
       case b_push:
          push( ((struct symref *)f->l->l)->s, v);
          return v;
       case b_pop:
          pop( ((struct symref * ) v)->s );
-         //pop( ((struct symref *)f->l->l)->s );
          return v;
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
       }
    }
+
+
+void
+get(struct symbol * e,struct utils * v){
+   struct list * temp = e->li;
+   int counter = 0;
+   int index = 0;
+
+   if(v->nodetype=='i'){
+      index=((struct integer*)v)->i;
+   }else{
+      yyerror("The index must be an integer\n");
+      return;
+   }
+
+   if(!temp && (e->value)){
+      yyerror("The list does not exist\n");
+      return;
+   }
+
+   if(!temp){
+      printf("The list is empty\n");
+      return;
+   }
+
+   do{
+      if(counter==index){
+         print_B(temp->s->value);
+         break;
+      }
+      counter++;
+   }while((temp=temp->n));
+}
+
 
 void
 push(struct symbol * e,struct utils * v){
@@ -74,7 +110,7 @@ pop(struct symbol * e){
    struct list * temp = e->li;
 
    if(!temp && (e->value)){
-      yyerror("The list does not exist");
+      yyerror("The list does not exist\n");
       return;
    }
 
@@ -82,16 +118,18 @@ pop(struct symbol * e){
       printf("The list is empty\n");
       return;
    }
-   
 
    if(!(temp->n)){
+      printf("Removed element: ");
+      print_B(e->li->s->value);
       free(e->li);
       e->li=NULL;
    }else{
       while((temp->n->n)){
          temp=temp->n;
       }
-
+      printf("Removed element: ");
+      print_B(temp->n->s->value);
       free(temp->n);
       temp->n=NULL;
    }

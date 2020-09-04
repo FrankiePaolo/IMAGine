@@ -48,6 +48,8 @@
 "average" { yylval.fn = b_average; return FUNC; }
 "push"    { yylval.fn = b_push; return FUNC; }
 "pop"    { yylval.fn = b_pop; return FUNC; }
+"get"    { yylval.fn = b_get; return FUNC; }
+
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }

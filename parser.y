@@ -75,7 +75,7 @@ value: INT                { $$ = newint($1); }
    | NAME                 { $$ = newref($1); }
 ;
 
-img:  PATH  { $$ = newimg($1); } 
+img:  PATH            { $$ = newimg($1); } 
 ;
 
 explist: exp          

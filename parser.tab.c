@@ -1471,7 +1471,7 @@ yyreduce:
 
   case 17:
 #line 68 "parser.y"
-                          { (yyval.a) = newasgn((yyvsp[-2].s),(yyvsp[0].a)); }
+                          { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
 #line 1476 "parser.tab.c"
     break;
 
@@ -1507,7 +1507,7 @@ yyreduce:
 
   case 23:
 #line 78 "parser.y"
-            { (yyval.a) = newimg((yyvsp[0].path)); }
+                      { (yyval.a) = newimg((yyvsp[0].path)); }
 #line 1512 "parser.tab.c"
     break;
 
