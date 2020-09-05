@@ -35,7 +35,7 @@
 %right '='
 %left '+' '-'
 %left '*' '/'
-%nonassoc '|' 
+%nonassoc '|' UMINUS
 
 %type <a> exp stmt explist img list value elements
 %type <sl> symlist
@@ -72,10 +72,12 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | value                { $$ = $1; }
 ;
 
-value: INT                { $$ = newint($1); }
-   | DOUBLE               { $$ = newdouble($1); }
-   | STRING               { $$ = newstring($1); }
-   | NAME                 { $$ = newref($1); }
+value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
+   | INT                          { $$ = newint($1,'+'); }
+   | '-' DOUBLE %prec UMINUS      { $$ = newdouble($2,'-'); }
+   | DOUBLE                       { $$ = newdouble($1,'+'); }
+   | STRING                       { $$ = newstring($1); }
+   | NAME                         { $$ = newref($1); }
 ;
 
 img:  PATH            { $$ = newimg($1); } 
@@ -102,15 +104,12 @@ program: /* nothing */
    eval($2);
    treefree($2);
    }
-    
    | program DEF NAME '(' symlist ')' '{' list '}' {
                        dodef($3, $5, $8);
-                       printf("Defined %s\n", $3->name); 
    }
    | program LIST NAME '=''{' elements '}' ';' {
-                       dolist($3,$6);
+                       dolist($3, $6);
    }
-
    | program error '\n' { yyerrok; printf("> "); }
 ;
 

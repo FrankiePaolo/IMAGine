@@ -133,9 +133,9 @@ struct ast * newcall(struct symbol * s, struct ast * l);
 struct ast * newref(struct symbol * s);
 struct ast * newasgn(struct symbol * s, struct ast * v);
 struct ast * newstring(char * str);
-struct ast * newint(int i);
+struct ast * newint(int i,char f);
 struct ast * newimg(char * path);
-struct ast * newdouble(double i);
+struct ast * newdouble(double i,char f);
 struct ast * newflow(int nodetype, struct ast * cond, struct ast * tl, struct ast * tr);
 
 /* build a list */

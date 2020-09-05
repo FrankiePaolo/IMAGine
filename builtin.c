@@ -64,14 +64,14 @@ depth(struct symbol * e){
    }
 
    if(!temp){
-      v=((struct utils *)newint(0));
+      v=((struct utils *)newint(0,'+'));
       return v;
    }
 
    while((temp=temp->n)){
       counter++;
    }
-   v=((struct utils *)newint(counter));
+   v=((struct utils *)newint(counter,'+'));
    return v;
 }
 

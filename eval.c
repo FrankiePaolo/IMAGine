@@ -18,13 +18,12 @@ struct utils *
       }
 
       switch (a -> nodetype) {
-
+         /* string */
       case 'S':
          v = malloc(sizeof(struct str));
          v -> nodetype = 'S';
          ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
          break;
-      
 
          /* int */
       case 'i':
@@ -39,7 +38,8 @@ struct utils *
          v -> nodetype = 'D';
          ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) a) -> d;
          break;
-    
+
+         /* picture */
       case 'P':
          v=malloc(sizeof(struct img));
          v->nodetype = 'P';
@@ -66,7 +66,7 @@ struct utils *
       
           break;
 
-         /* expressions */
+         /* operations */
       case '+':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);

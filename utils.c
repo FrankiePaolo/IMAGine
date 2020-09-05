@@ -102,7 +102,7 @@ struct ast *
    }
 
 struct ast *
-   newint(int i) {
+   newint(int i,char f) {
       struct integer * a = malloc(sizeof(struct integer));
 
       if (!a) {
@@ -111,13 +111,18 @@ struct ast *
       }
 
       a -> nodetype = 'i';
-      a -> i = i;
-
+      if(f=='-'){
+         a -> i = - i;
+      }else if(f=='+'){
+         a -> i = i;
+      }else{
+         exit(0);
+      }
       return (struct ast * ) a;
    }
 
 struct ast *
-   newdouble(double d) {
+   newdouble(double d,char f) {
       struct doublePrecision * a = malloc(sizeof(struct doublePrecision));
 
       if (!a) {
@@ -126,7 +131,13 @@ struct ast *
       }
 
       a -> nodetype = 'D';
-      a -> d = d;
+      if(f=='-'){
+         a -> d = - d;
+      }else if(f=='+'){
+         a -> d = d;
+      }else{
+         exit(0);
+      }
 
       return (struct ast * ) a;
    }
@@ -239,10 +250,10 @@ struct ast *
       }
 
       if(l->nodetype == 'i'){
-         s->value=((struct utils *)newint( ((struct integer *)l)->i ));
+         s->value=((struct utils *)newint(((struct integer *)l)->i,'+'));
          li->s=s;
       }else if(l->nodetype == 'D'){
-         s->value=((struct utils *)newdouble( ((struct doublePrecision *)l)->d ));
+         s->value=((struct utils *)newdouble(((struct doublePrecision *)l)->d,'+'));
          li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
@@ -367,9 +378,9 @@ struct symbol *
       struct symbol * s=malloc(sizeof(struct symbol));
 
       if(v->nodetype == 'i'){
-         s->value=((struct utils *)newint( ((struct integer *)v)->i ));
+         s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
       }else if(v->nodetype == 'D'){
-         s->value=((struct utils *)newdouble( ((struct doublePrecision *)v)->d ));
+         s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
       }else if(v->nodetype == 'N'){
          s=((struct symref *)v)->s;
       }else{
