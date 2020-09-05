@@ -237,11 +237,13 @@ struct symlist *
       sl -> sym = sym;
       sl -> next = next;
       return sl;
+      
    }
 
 struct ast *
    newlist(struct ast * l,struct ast * r){
       struct list * li=malloc(sizeof(struct list));
+      struct symbol * s=malloc(sizeof(struct symbol));
 
       if (!li) {
          yyerror("out of space");

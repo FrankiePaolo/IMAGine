@@ -138,7 +138,8 @@ extern int yydebug;
     DEF = 270,
     IMG = 271,
     LIST = 272,
-    CMP = 273
+    CMP = 273,
+    UMINUS = 274
   };
 #endif
 
@@ -157,7 +158,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-#line 161 "parser.tab.c"
+#line 162 "parser.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -476,29 +477,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-<<<<<<< HEAD
 #define YYLAST   149
-=======
-#define YYLAST   141
->>>>>>> parent of 9c0b4d7... Negative numbers
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  32
+#define YYNTOKENS  33
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
-<<<<<<< HEAD
 #define YYNRULES  38
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  94
-=======
-#define YYNRULES  36
-/* YYNSTATES -- Number of states.  */
-#define YYNSTATES  91
->>>>>>> parent of 9c0b4d7... Negative numbers
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   273
+#define YYMAXUTOK   274
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -511,18 +502,18 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      31,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      32,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      25,    26,    22,    20,    30,    21,     2,    23,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    29,
+      26,    27,    22,    20,    31,    21,     2,    23,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    30,
        2,    19,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    27,    24,    28,     2,     2,     2,     2,
+       2,     2,     2,    28,    24,    29,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -537,7 +528,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18
+      15,    16,    17,    18,    25
 };
 
 #if YYDEBUG
@@ -546,13 +537,8 @@ static const yytype_int8 yyrline[] =
 {
        0,    47,    47,    48,    49,    50,    53,    54,    61,    62,
       63,    64,    65,    66,    67,    68,    69,    70,    71,    72,
-<<<<<<< HEAD
       75,    76,    77,    78,    79,    80,    83,    86,    87,    90,
-      91,    94,    95,    96,    99,   100,   107,   110,   114
-=======
-      75,    76,    77,    78,    81,    84,    85,    88,    89,    92,
-      93,    94,    97,    98,   106,   110,   114
->>>>>>> parent of 9c0b4d7... Negative numbers
+      91,    94,    95,    96,    99,   100,   107,   110,   113
 };
 #endif
 
@@ -563,9 +549,9 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "INT", "DOUBLE", "STRING", "PATH",
   "NAME", "FUNC", "EOL", "IF", "THEN", "ELSE", "WHILE", "DO", "DEF", "IMG",
-  "LIST", "CMP", "'='", "'+'", "'-'", "'*'", "'/'", "'|'", "'('", "')'",
-  "'{'", "'}'", "';'", "','", "'\\n'", "$accept", "stmt", "list", "exp",
-  "value", "img", "explist", "symlist", "elements", "program", YY_NULLPTR
+  "LIST", "CMP", "'='", "'+'", "'-'", "'*'", "'/'", "'|'", "UMINUS", "'('",
+  "')'", "'{'", "'}'", "';'", "','", "'\\n'", "$accept", "stmt", "list",
+  "exp", "value", "img", "explist", "symlist", "elements", "program", YY_NULLPTR
 };
 #endif
 
@@ -576,16 +562,12 @@ static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,    61,
-      43,    45,    42,    47,   124,    40,    41,   123,   125,    59,
-      44,    10
+      43,    45,    42,    47,   124,   274,    40,    41,   123,   125,
+      59,    44,    10
 };
 # endif
 
-<<<<<<< HEAD
 #define YYPACT_NINF (-61)
-=======
-#define YYPACT_NINF (-51)
->>>>>>> parent of 9c0b4d7... Negative numbers
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -599,7 +581,6 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-<<<<<<< HEAD
      -61,    28,   -61,   -29,   -61,   -61,   -61,    79,   -11,    11,
       13,    35,    51,    61,    77,    58,    58,   -61,    67,   -61,
      -61,    58,    58,    58,    58,    58,    57,    -8,    87,   -61,
@@ -610,18 +591,6 @@ static const yytype_int8 yypact[] =
      -61,   110,   105,    43,    43,   -61,    43,     9,   112,    43,
      111,   114,   115,   -61,   -61,   -61,    -7,   -61,   -61,   119,
      -61,    43,   120,   -61
-=======
-     -51,    26,   -51,   -28,   -51,   -51,   -51,    30,   -11,    -3,
-      10,    -2,     8,    40,    63,    63,   -51,    71,   -51,   -51,
-      63,    63,    63,    63,    63,    12,    39,    42,   102,    81,
-      63,    63,    63,    63,    63,   -51,    75,    60,    34,    37,
-      88,    95,    57,    66,    48,   -51,   -51,   109,   -10,   -10,
-     -51,   -51,    63,   -51,   -51,    58,    62,    47,    59,   -51,
-     -51,    41,   -51,    78,    85,    57,    92,   -51,    54,   100,
-      49,    49,   -51,    49,    41,   104,    49,   106,   107,   108,
-     -51,   -51,   -51,    -8,   -51,   -51,   110,   -51,    49,   111,
-     -51
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -629,7 +598,6 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-<<<<<<< HEAD
       34,     0,     1,     0,    21,    23,    24,    25,     0,     0,
        0,     0,     0,     0,     0,     0,     0,    35,     0,    19,
       38,     0,     0,     0,     0,     0,     0,     0,     0,    20,
@@ -640,38 +608,18 @@ static const yytype_int8 yydefact[] =
       25,    32,     0,     6,     6,    30,     6,    31,     0,     6,
        0,     0,     0,    33,    37,     7,     0,     4,    36,     0,
        2,     6,     0,     3
-=======
-      32,     0,     1,     0,    20,    21,    22,    23,     0,     0,
-       0,     0,     0,     0,     0,     0,    33,     0,    19,    36,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     5,    16,    25,     0,     0,
-       0,     0,     0,     0,     0,    13,    14,     8,     9,    10,
-      11,    12,     0,    18,    15,     0,     0,    27,     0,    24,
-      17,    29,    26,     0,     0,     0,     0,    23,    30,     0,
-       6,     6,    28,     6,    29,     0,     6,     0,     0,     0,
-      31,    35,     7,     0,     4,    34,     0,     2,     6,     0,
-       3
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-<<<<<<< HEAD
      -61,   134,   -19,   -15,   -60,   -61,   -21,    70,    62,   -61
-=======
-     -51,   137,   -48,   -14,   -50,   -51,   -20,    21,    67,   -51
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-<<<<<<< HEAD
       -1,    79,    80,    18,    19,    63,    41,    61,    72,     1
-=======
-      -1,    76,    77,    17,    18,    60,    38,    58,    69,     1
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -679,7 +627,6 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-<<<<<<< HEAD
       31,    32,    42,    20,    71,    89,    39,    40,    40,    43,
       44,    46,     4,     5,     6,    23,    70,    71,    50,    51,
       52,    53,    54,    90,    34,    35,    36,    37,     2,     3,
@@ -695,28 +642,10 @@ static const yytype_int8 yytable[] =
       37,    48,    -1,    62,    34,    35,    36,    37,    64,    66,
       67,    73,    68,    69,    78,    17,    74,    76,    75,    83,
       86,    77,    84,    87,    88,     0,     0,    91,     0,    93
-=======
-      28,    29,    39,    19,    86,    25,    36,    37,    37,    40,
-      41,    68,    33,    34,    22,    26,    47,    48,    49,    50,
-      51,    87,    23,    78,    68,    79,     2,     3,    82,     4,
-       5,     6,    62,     7,     8,    24,     9,    42,    37,    10,
-      89,    11,    12,    13,     4,     5,     6,    27,    67,    20,
-      14,    15,     4,     5,     6,    21,     7,     8,    43,     9,
-      53,    44,    10,    54,    57,    12,     4,     5,     6,    63,
-       7,     8,    59,    14,    15,    61,    64,    65,    30,    12,
-      31,    32,    33,    34,    74,    66,    72,    14,    15,    30,
-      52,    31,    32,    33,    34,    31,    32,    33,    34,    30,
-      35,    31,    32,    33,    34,    70,    30,    46,    31,    32,
-      33,    34,    71,    30,    55,    31,    32,    33,    34,    73,
-      30,    56,    31,    32,    33,    34,    45,    -1,    75,    31,
-      32,    33,    34,    81,    83,    84,    85,    88,    16,    90,
-       0,    80
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
 static const yytype_int8 yycheck[] =
 {
-<<<<<<< HEAD
       15,    16,    23,    32,    64,    12,    21,    22,    23,    24,
       25,    19,     3,     4,     5,    26,     7,    77,    33,    34,
       35,    36,    37,    30,    20,    21,    22,    23,     0,     1,
@@ -732,30 +661,12 @@ static const yytype_int8 yycheck[] =
       23,    24,    18,     6,    20,    21,    22,    23,    28,    11,
       14,    28,    31,    27,    29,     1,    28,    28,    68,    77,
       29,    31,    30,    29,    29,    -1,    -1,    28,    -1,    29
-=======
-      14,    15,    22,    31,    12,     7,    20,    21,    22,    23,
-      24,    61,    22,    23,    25,     7,    30,    31,    32,    33,
-      34,    29,    25,    71,    74,    73,     0,     1,    76,     3,
-       4,     5,    52,     7,     8,    25,    10,    25,    52,    13,
-      88,    15,    16,    17,     3,     4,     5,     7,     7,    19,
-      24,    25,     3,     4,     5,    25,     7,     8,    19,    10,
-      26,    19,    13,    26,     7,    16,     3,     4,     5,    11,
-       7,     8,     6,    24,    25,    27,    14,    30,    18,    16,
-      20,    21,    22,    23,    30,    26,    65,    24,    25,    18,
-      30,    20,    21,    22,    23,    20,    21,    22,    23,    18,
-      29,    20,    21,    22,    23,    27,    18,    26,    20,    21,
-      22,    23,    27,    18,    26,    20,    21,    22,    23,    27,
-      18,    26,    20,    21,    22,    23,    24,    18,    28,    20,
-      21,    22,    23,    29,    28,    28,    28,    27,     1,    28,
-      -1,    74
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-<<<<<<< HEAD
        0,    42,     0,     1,     3,     4,     5,     7,     8,    10,
       13,    15,    16,    17,    21,    24,    26,    34,    36,    37,
       32,    19,    26,    26,    26,    26,     7,     7,     7,     3,
@@ -766,34 +677,15 @@ static const yytype_int8 yystos[] =
        7,    37,    41,    28,    28,    40,    28,    31,    29,    34,
       35,    35,    35,    41,    30,    35,    29,    29,    29,    12,
       30,    28,    35,    29
-=======
-       0,    41,     0,     1,     3,     4,     5,     7,     8,    10,
-      13,    15,    16,    17,    24,    25,    33,    35,    36,    31,
-      19,    25,    25,    25,    25,     7,     7,     7,    35,    35,
-      18,    20,    21,    22,    23,    29,    35,    35,    38,    38,
-      35,    35,    25,    19,    19,    24,    26,    35,    35,    35,
-      35,    35,    30,    26,    26,    26,    26,     7,    39,     6,
-      37,    27,    38,    11,    14,    30,    26,     7,    36,    40,
-      27,    27,    39,    27,    30,    28,    33,    34,    34,    34,
-      40,    29,    34,    28,    28,    28,    12,    29,    27,    34,
-      28
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-<<<<<<< HEAD
        0,    33,    34,    34,    34,    34,    35,    35,    36,    36,
       36,    36,    36,    36,    36,    36,    36,    36,    36,    36,
       37,    37,    37,    37,    37,    37,    38,    39,    39,    40,
       40,    41,    41,    41,    42,    42,    42,    42,    42
-=======
-       0,    32,    33,    33,    33,    33,    34,    34,    35,    35,
-      35,    35,    35,    35,    35,    35,    35,    35,    35,    35,
-      36,    36,    36,    36,    37,    38,    38,    39,    39,    40,
-      40,    40,    41,    41,    41,    41,    41
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -801,13 +693,8 @@ static const yytype_int8 yyr2[] =
 {
        0,     2,     9,    12,     8,     2,     0,     2,     3,     3,
        3,     3,     3,     3,     3,     4,     3,     4,     4,     1,
-<<<<<<< HEAD
        2,     1,     2,     1,     1,     1,     1,     1,     3,     1,
        3,     0,     1,     3,     0,     2,     9,     8,     3
-=======
-       1,     1,     1,     1,     1,     1,     3,     1,     3,     0,
-       1,     3,     0,     2,     9,     8,     3
->>>>>>> parent of 9c0b4d7... Negative numbers
 };
 
 
@@ -1505,25 +1392,25 @@ yyreduce:
   case 2:
 #line 47 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-6].a), (yyvsp[-2].a), NULL); }
-#line 1395 "parser.tab.c"
+#line 1396 "parser.tab.c"
     break;
 
   case 3:
 #line 48 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-9].a), (yyvsp[-5].a), (yyvsp[-1].a)); }
-#line 1401 "parser.tab.c"
+#line 1402 "parser.tab.c"
     break;
 
   case 4:
 #line 49 "parser.y"
                                                           { (yyval.a) = newflow('W', (yyvsp[-5].a), (yyvsp[-1].a), NULL); }
-#line 1407 "parser.tab.c"
+#line 1408 "parser.tab.c"
     break;
 
   case 6:
 #line 53 "parser.y"
                                     { (yyval.a) = NULL; }
-#line 1413 "parser.tab.c"
+#line 1414 "parser.tab.c"
     break;
 
   case 7:
@@ -1533,133 +1420,101 @@ yyreduce:
                                     }else{
 			                              (yyval.a) = newast('L', (yyvsp[-1].a), (yyvsp[0].a));
                                     }}
-#line 1423 "parser.tab.c"
+#line 1424 "parser.tab.c"
     break;
 
   case 8:
 #line 61 "parser.y"
                           { (yyval.a) = newcmp((yyvsp[-1].fn), (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1429 "parser.tab.c"
+#line 1430 "parser.tab.c"
     break;
 
   case 9:
 #line 62 "parser.y"
                           { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1435 "parser.tab.c"
+#line 1436 "parser.tab.c"
     break;
 
   case 10:
 #line 63 "parser.y"
                           { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a));}
-#line 1441 "parser.tab.c"
+#line 1442 "parser.tab.c"
     break;
 
   case 11:
 #line 64 "parser.y"
                           { (yyval.a) = newast('*', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1447 "parser.tab.c"
+#line 1448 "parser.tab.c"
     break;
 
   case 12:
 #line 65 "parser.y"
                           { (yyval.a) = newast('/', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1453 "parser.tab.c"
+#line 1454 "parser.tab.c"
     break;
 
   case 13:
 #line 66 "parser.y"
                           { (yyval.a) = newast('|', (yyvsp[-1].a), NULL); }
-#line 1459 "parser.tab.c"
+#line 1460 "parser.tab.c"
     break;
 
   case 14:
 #line 67 "parser.y"
                           { (yyval.a) = (yyvsp[-1].a); }
-#line 1465 "parser.tab.c"
+#line 1466 "parser.tab.c"
     break;
 
   case 15:
 #line 68 "parser.y"
                           { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
-<<<<<<< HEAD
 #line 1472 "parser.tab.c"
-=======
-#line 1471 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 16:
 #line 69 "parser.y"
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-<<<<<<< HEAD
 #line 1478 "parser.tab.c"
-=======
-#line 1477 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 17:
 #line 70 "parser.y"
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1483 "parser.tab.c"
+#line 1484 "parser.tab.c"
     break;
 
   case 18:
 #line 71 "parser.y"
                           { (yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
-<<<<<<< HEAD
 #line 1490 "parser.tab.c"
-=======
-#line 1489 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 19:
 #line 72 "parser.y"
                           { (yyval.a) = (yyvsp[0].a); }
-<<<<<<< HEAD
 #line 1496 "parser.tab.c"
-=======
-#line 1495 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 20:
 #line 75 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newint((yyvsp[0].i),'-'); }
 #line 1502 "parser.tab.c"
-=======
-                          { (yyval.a) = newint((yyvsp[0].i)); }
-#line 1501 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 21:
 #line 76 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newint((yyvsp[0].i),'+'); }
 #line 1508 "parser.tab.c"
-=======
-                          { (yyval.a) = newdouble((yyvsp[0].d)); }
-#line 1507 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 22:
 #line 77 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newdouble((yyvsp[0].d),'-'); }
 #line 1514 "parser.tab.c"
-=======
-                          { (yyval.a) = newstring((yyvsp[0].str)); }
-#line 1513 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 23:
 #line 78 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newdouble((yyvsp[0].d),'+'); }
 #line 1520 "parser.tab.c"
     break;
@@ -1698,51 +1553,10 @@ yyreduce:
 #line 91 "parser.y"
                       { (yyval.sl) = newsymlist((yyvsp[-2].s), (yyvsp[0].sl)); }
 #line 1556 "parser.tab.c"
-=======
-                          { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1519 "parser.tab.c"
-    break;
-
-  case 24:
-#line 81 "parser.y"
-                      { (yyval.a) = newimg((yyvsp[0].path)); }
-#line 1525 "parser.tab.c"
-    break;
-
-  case 26:
-#line 85 "parser.y"
-                      { (yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1531 "parser.tab.c"
-    break;
-
-  case 27:
-#line 88 "parser.y"
-                      { (yyval.sl) = newsymlist((yyvsp[0].s), NULL); }
-#line 1537 "parser.tab.c"
-    break;
-
-  case 28:
-#line 89 "parser.y"
-                      { (yyval.sl) = newsymlist((yyvsp[-2].s), (yyvsp[0].sl)); }
-#line 1543 "parser.tab.c"
-    break;
-
-  case 29:
-#line 92 "parser.y"
-                         { (yyval.a) = NULL; }
-#line 1549 "parser.tab.c"
-    break;
-
-  case 30:
-#line 93 "parser.y"
-                         { (yyval.a) = newlist((yyvsp[0].a),NULL); }
-#line 1555 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
     break;
 
   case 31:
 #line 94 "parser.y"
-<<<<<<< HEAD
                          { (yyval.a) = NULL; }
 #line 1562 "parser.tab.c"
     break;
@@ -1761,14 +1575,6 @@ yyreduce:
 
   case 35:
 #line 100 "parser.y"
-=======
-                         { (yyval.a) = newlist((yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1561 "parser.tab.c"
-    break;
-
-  case 33:
-#line 98 "parser.y"
->>>>>>> parent of 9c0b4d7... Negative numbers
                   {
    if(debug){
       dumpast((yyvsp[0].a), 0);
@@ -1776,62 +1582,33 @@ yyreduce:
    eval((yyvsp[0].a));
    treefree((yyvsp[0].a));
    }
-<<<<<<< HEAD
 #line 1586 "parser.tab.c"
     break;
 
   case 36:
 #line 107 "parser.y"
-=======
-#line 1573 "parser.tab.c"
-    break;
-
-  case 34:
-#line 106 "parser.y"
->>>>>>> parent of 9c0b4d7... Negative numbers
                                                    {
                        dodef((yyvsp[-6].s), (yyvsp[-4].sl), (yyvsp[-1].a));
    }
-<<<<<<< HEAD
 #line 1594 "parser.tab.c"
     break;
 
   case 37:
-=======
-#line 1582 "parser.tab.c"
-    break;
-
-  case 35:
->>>>>>> parent of 9c0b4d7... Negative numbers
 #line 110 "parser.y"
                                                {
                        dolist((yyvsp[-5].s), (yyvsp[-2].a));
    }
-<<<<<<< HEAD
 #line 1602 "parser.tab.c"
     break;
 
   case 38:
-#line 114 "parser.y"
+#line 113 "parser.y"
                         { yyerrok; printf("> "); }
 #line 1608 "parser.tab.c"
     break;
 
 
 #line 1612 "parser.tab.c"
-=======
-#line 1590 "parser.tab.c"
-    break;
-
-  case 36:
-#line 114 "parser.y"
-                        { yyerrok; printf("> "); }
-#line 1596 "parser.tab.c"
-    break;
-
-
-#line 1600 "parser.tab.c"
->>>>>>> parent of 9c0b4d7... Negative numbers
 
       default: break;
     }
@@ -2063,8 +1840,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-<<<<<<< HEAD
 #line 116 "parser.y"
-=======
-#line 117 "parser.y"
->>>>>>> parent of 9c0b4d7... Negative numbers
