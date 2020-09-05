@@ -14,9 +14,9 @@
   double d;
   char * str;
   char * path;
-  struct symbol *s;		/* which symbol */
+  struct symbol *s;		/* symbol */
   struct symlist *sl;
-  int fn;			      /* which function */
+  int fn;			      /* function */
 }
 
 /* declare tokens */
@@ -103,10 +103,8 @@ program: /* nothing */
    eval($2);
    treefree($2);
    }
-    
    | program DEF NAME '(' symlist ')' '{' list '}' {
                        dodef($3, $5, $8);
-                       printf("Defined %s\n", $3->name); 
    }
    | program LIST NAME '=''{' elements '}' ';' {
                        dolist($3,$6);

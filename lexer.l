@@ -77,8 +77,8 @@
 
 "//".*  
 [ \t]   /* ignore white space */ 
-\\\n    printf("> "); /* ignore line continuation */
-"\n"    printf("> ");
+\\\n    /* ignore line continuation */
+"\n"    
 
 .	    { yyerror("Unknown character %c\n", *yytext); }
 %%

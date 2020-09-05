@@ -1060,13 +1060,13 @@ case 46:
 /* rule 46 can match eol */
 YY_RULE_SETUP
 #line 81 "lexer.l"
-printf("> "); /* ignore line continuation */
+/* ignore line continuation */
 	YY_BREAK
 case 47:
 /* rule 47 can match eol */
 YY_RULE_SETUP
 #line 82 "lexer.l"
-printf("> ");
+
 	YY_BREAK
 case 48:
 YY_RULE_SETUP

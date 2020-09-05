@@ -154,9 +154,9 @@ union YYSTYPE
   double d;
   char * str;
   char * path;
-  struct symbol *s;		/* which symbol */
+  struct symbol *s;		/* symbol */
   struct symlist *sl;
-  int fn;			      /* which function */
+  int fn;			      /* function */
 
 #line 162 "parser.tab.c"
 
@@ -538,7 +538,7 @@ static const yytype_int8 yyrline[] =
        0,    47,    47,    48,    49,    50,    53,    54,    61,    62,
       63,    64,    65,    66,    67,    68,    69,    70,    71,    72,
       75,    76,    77,    78,    79,    82,    85,    86,    89,    90,
-      93,    94,    95,    98,    99,   107,   111,   115
+      93,    94,    95,    98,    99,   106,   109,   113
 };
 #endif
 
@@ -1580,30 +1580,29 @@ yyreduce:
     break;
 
   case 35:
-#line 107 "parser.y"
+#line 106 "parser.y"
                                                    {
                        dodef((yyvsp[-6].s), (yyvsp[-4].sl), (yyvsp[-1].a));
-                       printf("Defined %s\n", (yyvsp[-6].s)->name); 
    }
-#line 1589 "parser.tab.c"
+#line 1588 "parser.tab.c"
     break;
 
   case 36:
-#line 111 "parser.y"
+#line 109 "parser.y"
                                                {
                        dolist((yyvsp[-5].s),(yyvsp[-2].a));
    }
-#line 1597 "parser.tab.c"
+#line 1596 "parser.tab.c"
     break;
 
   case 37:
-#line 115 "parser.y"
+#line 113 "parser.y"
                         { yyerrok; printf("> "); }
-#line 1603 "parser.tab.c"
+#line 1602 "parser.tab.c"
     break;
 
 
-#line 1607 "parser.tab.c"
+#line 1606 "parser.tab.c"
 
       default: break;
     }
@@ -1835,4 +1834,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 118 "parser.y"
+#line 116 "parser.y"
