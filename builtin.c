@@ -299,7 +299,9 @@ print_B(struct utils * v) {
       printf("%d\n", ((struct integer * ) v) -> i);
    } else if (v -> nodetype == 'D') {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);
-   } else if (v -> nodetype == 'N') {
+   } else if (v -> nodetype == 'S') {
+      printf("%s\n", strdup(((struct str * ) v) -> str));
+   }else if (v -> nodetype == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
 
       while (temp1->nodetype=='N') {
@@ -309,6 +311,8 @@ print_B(struct utils * v) {
          printf("%i\n", ((struct integer * ) temp1) -> i);
       } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
+      } else if(temp1->nodetype == 'S') {
+         printf("%s\n", ((struct str * ) temp1) -> str);
       } else if(temp1-> nodetype == 'P'){
          char * temp_path =strdup(((struct img *) temp1)->path);   
          openImg(temp_path);

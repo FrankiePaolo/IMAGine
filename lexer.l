@@ -1,7 +1,9 @@
 /* recognize tokens */
 
 %option noyywrap nodefault yylineno
+
 %{
+# include <string.h>
 # include "utils.h"
 # include "builtin.h"
 # include "parser.tab.h"
@@ -62,6 +64,9 @@
 
  /* path */
 #{1}.+(png|jpeg|jpg|bpm) { yylval.path=(yytext); return PATH; }
+
+ /* string */
+\"{1}.+\"{1}             {  yytext++;yylval.str=(yytext);return STRING; } 
 
  /* int */
 \-?[0-9]+                { yylval.i = atoi(yytext); return INT; }

@@ -51,19 +51,20 @@ extern int yydebug;
   {
     INT = 258,
     DOUBLE = 259,
-    PATH = 260,
-    NAME = 261,
-    FUNC = 262,
-    EOL = 263,
-    IF = 264,
-    THEN = 265,
-    ELSE = 266,
-    WHILE = 267,
-    DO = 268,
-    DEF = 269,
-    IMG = 270,
-    LIST = 271,
-    CMP = 272
+    STRING = 260,
+    PATH = 261,
+    NAME = 262,
+    FUNC = 263,
+    EOL = 264,
+    IF = 265,
+    THEN = 266,
+    ELSE = 267,
+    WHILE = 268,
+    DO = 269,
+    DEF = 270,
+    IMG = 271,
+    LIST = 272,
+    CMP = 273
   };
 #endif
 
@@ -76,12 +77,13 @@ union YYSTYPE
   struct ast *a;
   int i;
   double d;
+  char * str;
   char * path;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
   int fn;			      /* which function */
 
-#line 85 "parser.tab.h"
+#line 87 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

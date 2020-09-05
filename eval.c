@@ -19,6 +19,13 @@ struct utils *
 
       switch (a -> nodetype) {
 
+      case 'S':
+         v = malloc(sizeof(struct str));
+         v -> nodetype = 'S';
+         ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
+         break;
+      
+
          /* int */
       case 'i':
          v = malloc(sizeof(struct integer));
