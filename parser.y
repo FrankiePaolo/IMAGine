@@ -65,7 +65,6 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
    | '|' exp '|'          { $$ = newast('|', $2, NULL); }
    | '(' exp ')'          { $$ = $2; }
-   | '-' exp %prec UMINUS { $$ = newast('M', $2, NULL); }
    | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
    | NAME '=' exp         { $$ = newasgn($1, $3); }
    | IMG NAME '=' img     { $$ = newasgn($2, $4); }  
@@ -73,7 +72,8 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | value                { $$ = $1; }
 ;
 
-value: INT                { $$ = newint($1); }
+value:  '-' value %prec UMINUS { $$ = newast('M', $2, NULL); }
+   | INT                  { $$ = newint($1); }
    | DOUBLE               { $$ = newdouble($1); }
    | STRING               { $$ = newstring($1); }
    | NAME                 { $$ = newref($1); }

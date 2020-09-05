@@ -52,6 +52,7 @@ struct utils *
       }
    }
 
+/* methods for lists */
 struct utils * 
 depth(struct symbol * e){
    struct utils * v;
@@ -170,6 +171,7 @@ pop(struct symbol * e){
    }
 }
 
+/* methods for images */
 void
 openImg(char * path){
    char * open = strdup("xdg-open ");     
@@ -286,7 +288,7 @@ print_B(struct utils * v) {
    struct utils * temp1;
    struct symbol * temp; 
    struct list * li;
-   
+
    if(v -> nodetype == 'N' && ((struct symref * ) v) -> s->li) {
       temp=((struct symref * ) v) -> s;
       li=temp->li;
@@ -303,7 +305,6 @@ print_B(struct utils * v) {
       printf("%s\n", strdup(((struct str * ) v) -> str));
    } else if (v -> nodetype == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
-
       while (temp1->nodetype=='N') {
          temp1=((struct symref * ) temp1) -> s -> value;
       }
@@ -317,8 +318,10 @@ print_B(struct utils * v) {
          char * temp_path =strdup(((struct img *) temp1)->path);   
          openImg(temp_path);
       }
+   } else if (v -> nodetype == 'M') {
+      print_B(((struct ast *)v)->l);
    } else if(v-> nodetype == 'P'){
-         printf("This element of the list is an image\n");
+      printf("This element of the list is an image\n");
    } else {
       printf("Node not found\n");
    }

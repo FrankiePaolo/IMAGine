@@ -19,12 +19,16 @@ struct utils *
 
       switch (a -> nodetype) {
    
-      case 'M': 
-         eval(a->l);  
+      case 'M':            /* unary minus, negative value */
          if(a->l->nodetype=='i'){
             int temp;
             temp=((struct integer *)(a->l))->i;
             ((struct integer *)(a->l))->i=-temp;
+            v=a->l;
+         }else if(a->l->nodetype=='D'){
+            double temp;
+            temp=((struct doublePrecision *)(a->l))->d;
+            ((struct doublePrecision *)(a->l))->d=-temp;
             v=a->l;
          }
          break;
@@ -39,12 +43,12 @@ struct utils *
 
          /* assignment */
       case '=':
-         temp1=eval(((struct symasgn *)a)->v);
+         temp1 = eval(((struct symasgn *)a)->v);
          ((struct symasgn * ) a) -> s ->value = temp1;
          v = ((struct utils *)a) ;
          break;
 
-         /* expressions */
+         /* operations */
       case '+':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
