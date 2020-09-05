@@ -295,13 +295,13 @@ print_B(struct utils * v) {
       } while((li=li->n));
    } else if(v -> nodetype == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
       printf("The list is empty\n");
-   }else if (v -> nodetype == 'i') {
+   } else if (v -> nodetype == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
    } else if (v -> nodetype == 'D') {
       printf("%f\n", ((struct doublePrecision * ) v) -> d);
    } else if (v -> nodetype == 'S') {
       printf("%s\n", strdup(((struct str * ) v) -> str));
-   }else if (v -> nodetype == 'N') {
+   } else if (v -> nodetype == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
 
       while (temp1->nodetype=='N') {
