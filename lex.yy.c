@@ -1032,55 +1032,53 @@ YY_RULE_SETUP
 case 41:
 YY_RULE_SETUP
 #line 70 "lexer.l"
-{  yytext++;
-                            yylval.str=(yytext);
-                            return STRING; } 
+{  yytext++;yylval.str=(yytext);return STRING; } 
 	YY_BREAK
 /* int */
 case 42:
 YY_RULE_SETUP
-#line 75 "lexer.l"
+#line 73 "lexer.l"
 { yylval.i = atoi(yytext); return INT; }
 	YY_BREAK
 /* double */
 case 43:
 YY_RULE_SETUP
-#line 78 "lexer.l"
+#line 76 "lexer.l"
 { yylval.d = atof(yytext); return DOUBLE; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 81 "lexer.l"
+#line 79 "lexer.l"
 
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 82 "lexer.l"
+#line 80 "lexer.l"
 /* ignore white space */ 
 	YY_BREAK
 case 46:
 /* rule 46 can match eol */
 YY_RULE_SETUP
-#line 83 "lexer.l"
-printf("> "); /* ignore line continuation */
+#line 81 "lexer.l"
+/* ignore line continuation */
 	YY_BREAK
 case 47:
 /* rule 47 can match eol */
 YY_RULE_SETUP
-#line 84 "lexer.l"
-printf("> ");
+#line 82 "lexer.l"
+
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 86 "lexer.l"
+#line 84 "lexer.l"
 { yyerror("Unknown character %c\n", *yytext); }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 87 "lexer.l"
+#line 85 "lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1084 "lex.yy.c"
+#line 1082 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2097,6 +2095,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 87 "lexer.l"
+#line 85 "lexer.l"
 
 

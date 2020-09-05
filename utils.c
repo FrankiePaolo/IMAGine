@@ -7,6 +7,7 @@
 #  include "utils.h"
 #  include "builtin.h"
 #  include "eval.h"
+extern FILE *yyin;
 
 /* hash a symbol */
 static unsigned
@@ -524,9 +525,15 @@ main(int argc, char * argv[]) {
       //This shows the vips error buffer and quits with a fail exit code.
       vips_error_exit("unable to start VIPS");
    }
-
-   printf("> ");
-   return yyparse();
+   FILE * pt = fopen("/home/frank/Desktop/test", "r" );
+   if(!pt){
+      return -1;
+   }
+   yyin = pt;
+   do
+   {
+      yyparse();
+   }while(!feof(yyin));  
    vips_shutdown();
    return 0;
 }
