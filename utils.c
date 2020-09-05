@@ -213,8 +213,8 @@ struct symlist *
       return sl;
    }
 
-struct list *
-   newlist(struct ast * l,struct list * r){
+struct ast *
+   newlist(struct ast * l,struct ast * r){
       struct list * li=malloc(sizeof(struct list));
       struct symbol * s=malloc(sizeof(struct symbol));
 
@@ -232,8 +232,8 @@ struct list *
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
       }
-      li->n=r;
-      return li;
+      li->n=((struct list *)r);
+      return ((struct ast *)li);
 }
 
 void
@@ -266,8 +266,8 @@ dodef(struct symbol * name, struct symlist * syms, struct ast * func) {
 }
 
 void 
-dolist(struct symbol * name, struct list * li){
-   name->li=li;
+dolist(struct symbol * name, struct ast * li){
+   name->li=((struct list *)li);
 }
 
 struct utils *

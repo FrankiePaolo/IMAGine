@@ -139,8 +139,8 @@ struct ast * newdouble(double i);
 struct ast * newflow(int nodetype, struct ast * cond, struct ast * tl, struct ast * tr);
 
 /* build a list */
-struct list * newlist(struct ast * l,struct list * r);
-void dolist(struct symbol * name, struct list * li);
+struct ast * newlist(struct ast * l,struct ast * r);
+void dolist(struct symbol * name, struct ast * li);
 struct symbol * setList(struct utils * v);
 
 /* define a function */
