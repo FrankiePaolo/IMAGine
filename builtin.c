@@ -61,8 +61,8 @@ depth(struct symbol * e){
    }
 
    if(!temp){
-      printf("The list is empty\n");
-      return NULL;
+      v=((struct utils *)newint(0));
+      return v;
    }
 
    while((temp=temp->n)){
@@ -82,7 +82,7 @@ get(struct symbol * e,struct utils * v){
    if(v->nodetype=='i'){
       index=((struct integer*)v)->i;
       if((index>depth_list)){
-         printf("The index cannot be bigger than list\n");
+         printf("The index cannot be bigger than list depth\n");
          return;
       }
    }else{
@@ -176,7 +176,6 @@ openImg(char * path){
    system(command);
    printf("The image has been opened\n");
 }
-
 
 void
 average(struct symref * v) {
