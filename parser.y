@@ -35,7 +35,7 @@
 %right '='
 %left '+' '-'
 %left '*' '/'
-%nonassoc '|' UMINUS
+%nonassoc '|' 
 
 %type <a> exp stmt explist img list value elements
 %type <sl> symlist

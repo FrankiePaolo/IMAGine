@@ -69,10 +69,10 @@
 \"{1}.+\"{1}             {  yytext++;yylval.str=(yytext);return STRING; } 
 
  /* int */
-[0-9]+                { yylval.i = atoi(yytext); return INT; }
+\-?[0-9]+                { yylval.i = atoi(yytext); return INT; }
 
  /* double */
-[0-9]+\.{1}[0-9]+     { yylval.d = atof(yytext); return DOUBLE; }
+\-?[0-9]+\.{1}[0-9]+     { yylval.d = atof(yytext); return DOUBLE; }
 
 
 "//".*  

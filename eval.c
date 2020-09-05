@@ -24,13 +24,13 @@ struct utils *
          v -> nodetype = 'S';
          ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
          break;
+      
 
-      case 'S':    /* string */
-      case 'i':    /* int */
-      case 'D':    /* double */
-      case 'P':    /* picture */
-      case 'N':    /* name reference */
-         v = ((struct utils *)a) ;
+         /* int */
+      case 'i':
+         v = malloc(sizeof(struct integer));
+         v -> nodetype = 'i';
+         ((struct integer * ) v) -> i = ((struct integer * ) a) -> i;
          break;
 
          /* double */

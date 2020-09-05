@@ -138,8 +138,7 @@ extern int yydebug;
     DEF = 270,
     IMG = 271,
     LIST = 272,
-    CMP = 273,
-    UMINUS = 274
+    CMP = 273
   };
 #endif
 
@@ -158,7 +157,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-#line 162 "parser.tab.c"
+#line 161 "parser.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -480,7 +479,7 @@ union yyalloc
 #define YYLAST   149
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  33
+#define YYNTOKENS  32
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  10
 /* YYNRULES -- Number of rules.  */
@@ -489,7 +488,7 @@ union yyalloc
 #define YYNSTATES  94
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   274
+#define YYMAXUTOK   273
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -502,18 +501,18 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      32,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      31,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      26,    27,    22,    20,    31,    21,     2,    23,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,    30,
+      25,    26,    22,    20,    30,    21,     2,    23,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,    29,
        2,    19,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    28,    24,    29,     2,     2,     2,     2,
+       2,     2,     2,    27,    24,    28,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -528,7 +527,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    25
+      15,    16,    17,    18
 };
 
 #if YYDEBUG
@@ -549,9 +548,9 @@ static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "INT", "DOUBLE", "STRING", "PATH",
   "NAME", "FUNC", "EOL", "IF", "THEN", "ELSE", "WHILE", "DO", "DEF", "IMG",
-  "LIST", "CMP", "'='", "'+'", "'-'", "'*'", "'/'", "'|'", "UMINUS", "'('",
-  "')'", "'{'", "'}'", "';'", "','", "'\\n'", "$accept", "stmt", "list",
-  "exp", "value", "img", "explist", "symlist", "elements", "program", YY_NULLPTR
+  "LIST", "CMP", "'='", "'+'", "'-'", "'*'", "'/'", "'|'", "'('", "')'",
+  "'{'", "'}'", "';'", "','", "'\\n'", "$accept", "stmt", "list", "exp",
+  "value", "img", "explist", "symlist", "elements", "program", YY_NULLPTR
 };
 #endif
 
@@ -562,8 +561,8 @@ static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,    61,
-      43,    45,    42,    47,   124,   274,    40,    41,   123,   125,
-      59,    44,    10
+      43,    45,    42,    47,   124,    40,    41,   123,   125,    59,
+      44,    10
 };
 # endif
 
@@ -1392,25 +1391,25 @@ yyreduce:
   case 2:
 #line 47 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-6].a), (yyvsp[-2].a), NULL); }
-#line 1396 "parser.tab.c"
+#line 1395 "parser.tab.c"
     break;
 
   case 3:
 #line 48 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-9].a), (yyvsp[-5].a), (yyvsp[-1].a)); }
-#line 1402 "parser.tab.c"
+#line 1401 "parser.tab.c"
     break;
 
   case 4:
 #line 49 "parser.y"
                                                           { (yyval.a) = newflow('W', (yyvsp[-5].a), (yyvsp[-1].a), NULL); }
-#line 1408 "parser.tab.c"
+#line 1407 "parser.tab.c"
     break;
 
   case 6:
 #line 53 "parser.y"
                                     { (yyval.a) = NULL; }
-#line 1414 "parser.tab.c"
+#line 1413 "parser.tab.c"
     break;
 
   case 7:
@@ -1420,49 +1419,49 @@ yyreduce:
                                     }else{
 			                              (yyval.a) = newast('L', (yyvsp[-1].a), (yyvsp[0].a));
                                     }}
-#line 1424 "parser.tab.c"
+#line 1423 "parser.tab.c"
     break;
 
   case 8:
 #line 61 "parser.y"
                           { (yyval.a) = newcmp((yyvsp[-1].fn), (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1430 "parser.tab.c"
+#line 1429 "parser.tab.c"
     break;
 
   case 9:
 #line 62 "parser.y"
                           { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1436 "parser.tab.c"
+#line 1435 "parser.tab.c"
     break;
 
   case 10:
 #line 63 "parser.y"
                           { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a));}
-#line 1442 "parser.tab.c"
+#line 1441 "parser.tab.c"
     break;
 
   case 11:
 #line 64 "parser.y"
                           { (yyval.a) = newast('*', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1448 "parser.tab.c"
+#line 1447 "parser.tab.c"
     break;
 
   case 12:
 #line 65 "parser.y"
                           { (yyval.a) = newast('/', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1454 "parser.tab.c"
+#line 1453 "parser.tab.c"
     break;
 
   case 13:
 #line 66 "parser.y"
                           { (yyval.a) = newast('|', (yyvsp[-1].a), NULL); }
-#line 1460 "parser.tab.c"
+#line 1459 "parser.tab.c"
     break;
 
   case 14:
 #line 67 "parser.y"
                           { (yyval.a) = (yyvsp[-1].a); }
-#line 1466 "parser.tab.c"
+#line 1465 "parser.tab.c"
     break;
 
   case 15:
@@ -1480,7 +1479,7 @@ yyreduce:
   case 17:
 #line 70 "parser.y"
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1484 "parser.tab.c"
+#line 1483 "parser.tab.c"
     break;
 
   case 18:
