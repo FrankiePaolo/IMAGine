@@ -1061,14 +1061,24 @@ YY_RULE_SETUP
 case 46:
 /* rule 46 can match eol */
 YY_RULE_SETUP
+<<<<<<< HEAD
 #line 81 "lexer.l"
 /* ignore line continuation */
+=======
+#line 83 "lexer.l"
+printf("> "); /* ignore line continuation */
+>>>>>>> parent of 9c0b4d7... Negative numbers
 	YY_BREAK
 case 47:
 /* rule 47 can match eol */
 YY_RULE_SETUP
+<<<<<<< HEAD
 #line 82 "lexer.l"
 
+=======
+#line 84 "lexer.l"
+printf("> ");
+>>>>>>> parent of 9c0b4d7... Negative numbers
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
