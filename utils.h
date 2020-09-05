@@ -52,7 +52,8 @@ enum bifs {
       b_push,
       b_pop,
       b_get,
-      b_depth
+      b_depth,
+      b_convert
 };
 
 struct ast {

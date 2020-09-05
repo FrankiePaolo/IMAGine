@@ -26,6 +26,9 @@ struct utils *
       case b_subtract:
          subtract_img(((struct symref *)f->l->l),((struct symref * ) v));
          return v;
+      case b_convert:
+         toColorSpace(((struct symref * ) v));
+         return v;
       case b_invert:
          invert(((struct symref * ) v));
          return v;
@@ -236,6 +239,29 @@ subtract_img(struct symref * l,struct symref * r){
    struct utils * temp2 = r-> s -> value;
 
    if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+
+   printf("Please enter the path of the output image :\n");
+   scanf("%s", path);
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   char * temp_path =strdup(path);   
+   openImg(temp_path);
+}
+
+void
+toColorSpace(struct symref * v){
+   VipsImage * out;
+   char path[500];
+   struct utils * temp1 = v -> s -> value;
+   VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
+   VipsInterpretation space=VIPS_INTERPRETATION_GREY16;
+   (((struct img * ) temp1) -> img)->Type=in_space;
+
+   if (vips_colourspace((((struct img * ) temp1) -> img), & out,  space,NULL)) {
       vips_error_exit(NULL);
    }
 
