@@ -57,18 +57,18 @@ depth(struct symbol * e){
 
    if(!temp && (e->value)){
       yyerror("The list does not exist\n");
-      return;
+      return NULL;
    }
 
    if(!temp){
       printf("The list is empty\n");
-      return;
+      return NULL;
    }
 
    while((temp=temp->n)){
       counter++;
    }
-   v=newint(counter);
+   v=((struct utils *)newint(counter));
    return v;
 }
 
@@ -109,12 +109,10 @@ get(struct symbol * e,struct utils * v){
    }while((temp=temp->n));
 }
 
-
 void
 push(struct symbol * e,struct utils * v){
    struct list * temp = e->li;
    struct list * li=malloc(sizeof(struct list));
-   struct symbol * s;
 
    if (!li) {
       yyerror("out of space");
@@ -137,7 +135,6 @@ push(struct symbol * e,struct utils * v){
       li->s=setList(v);
       li->n=NULL;
    }
-
 }
 
 void
@@ -270,7 +267,7 @@ print_B(struct utils * v) {
       li=temp->li;
       do{
          print_B( ((struct utils *)li->s->value));
-      } while(li=li->n);
+      } while((li=li->n));
    } else if(v -> nodetype == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
       printf("The list is empty\n");
    }else if (v -> nodetype == 'i') {

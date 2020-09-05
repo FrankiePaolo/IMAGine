@@ -3,6 +3,7 @@
 #include "utils.h"
 #include "builtin.h"
 #include "eval.h"
+#include "operations.h"
 
 struct utils *
    eval(struct ast * a) {
