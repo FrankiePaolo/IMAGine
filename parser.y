@@ -14,9 +14,9 @@
   double d;
   char * str;
   char * path;
-  struct symbol *s;		/* which symbol */
+  struct symbol *s;		/* symbol */
   struct symlist *sl;
-  int fn;			      /* which function */
+  int fn;			      /* function */
 }
 
 /* declare tokens */

@@ -242,7 +242,6 @@ struct symlist *
 struct ast *
    newlist(struct ast * l,struct ast * r){
       struct list * li=malloc(sizeof(struct list));
-      struct symbol * s=malloc(sizeof(struct symbol));
 
       if (!li) {
          yyerror("out of space");
@@ -381,6 +380,8 @@ struct symbol *
          s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
       }else if(v->nodetype == 'D'){
          s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
+      }else if(v->nodetype == 'N'){
+         s->value=((struct ast *)v)->l;
       }else if(v->nodetype == 'N'){
          s=((struct symref *)v)->s;
       }else{

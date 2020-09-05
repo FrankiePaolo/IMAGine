@@ -25,11 +25,12 @@ struct utils *
          ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
          break;
 
-         /* int */
-      case 'i':
-         v = malloc(sizeof(struct integer));
-         v -> nodetype = 'i';
-         ((struct integer * ) v) -> i = ((struct integer * ) a) -> i;
+      case 'S':    /* string */
+      case 'i':    /* int */
+      case 'D':    /* double */
+      case 'P':    /* picture */
+      case 'N':    /* name reference */
+         v = ((struct utils *)a) ;
          break;
 
          /* double */
@@ -57,8 +58,10 @@ struct utils *
 
          /* assignment */
       case '=':
-         v = malloc(sizeof(struct symasgn));
-         v -> nodetype = '=';
+         temp1 = eval(((struct symasgn *)a)->v);
+         ((struct symasgn * ) a) -> s ->value = temp1;
+         v = ((struct utils *)a) ;
+         break;
 
          ((struct symasgn * ) v) -> s = ((struct symasgn * ) a) -> s;
          ((struct symasgn * ) v) -> v = ((struct symasgn * ) a) -> v;

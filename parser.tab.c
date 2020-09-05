@@ -154,9 +154,9 @@ union YYSTYPE
   double d;
   char * str;
   char * path;
-  struct symbol *s;		/* which symbol */
+  struct symbol *s;		/* symbol */
   struct symlist *sl;
-  int fn;			      /* which function */
+  int fn;			      /* function */
 
 #line 162 "parser.tab.c"
 
@@ -1840,4 +1840,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 117 "parser.y"
+#line 116 "parser.y"
