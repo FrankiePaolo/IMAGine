@@ -87,6 +87,20 @@ struct ast *
    }
 
 struct ast *
+   newstring(char * str) {
+      struct str * a = malloc(sizeof(struct str));
+
+      if (!a) {
+         yyerror("out of space");
+         exit(0);
+      }
+
+      a -> nodetype = 'S';
+      a -> str = strndup(str,(strlen(str)-1));
+      return (struct ast * ) a;
+   }
+
+struct ast *
    newint(int i) {
       struct integer * a = malloc(sizeof(struct integer));
 
@@ -472,6 +486,7 @@ treefree(struct ast * a) {
    case 'D':
    case 'N':
    case 'P':
+   case 'S':
       break;
 
    case '=':

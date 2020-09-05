@@ -97,12 +97,10 @@ struct doublePrecision {
    double d;
 };
 
-/* To be updated , type S 
 struct str {
-   int nodetype;  
+   int nodetype; /* type S */ 
    char * str;
 }; 
-*/
 
 struct img {
    int nodetype;     /* type P */
@@ -134,6 +132,7 @@ struct ast * newfunc(int functype, struct ast * l);
 struct ast * newcall(struct symbol * s, struct ast * l);
 struct ast * newref(struct symbol * s);
 struct ast * newasgn(struct symbol * s, struct ast * v);
+struct ast * newstring(char * str);
 struct ast * newint(int i);
 struct ast * newimg(char * path);
 struct ast * newdouble(double i);

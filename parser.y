@@ -12,6 +12,7 @@
   struct ast *a;
   int i;
   double d;
+  char * str;
   char * path;
   struct symbol *s;		/* which symbol */
   struct symlist *sl;
@@ -21,6 +22,7 @@
 /* declare tokens */
 %token <i> INT
 %token <d> DOUBLE
+%token <str> STRING
 %token <path> PATH
 %token <s> NAME
 %token <fn> FUNC
@@ -72,6 +74,7 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
 
 value: INT                { $$ = newint($1); }
    | DOUBLE               { $$ = newdouble($1); }
+   | STRING               { $$ = newstring($1); }
    | NAME                 { $$ = newref($1); }
 ;
 
