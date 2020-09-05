@@ -102,7 +102,7 @@ struct ast *
    }
 
 struct ast *
-   newint(int i) {
+   newint(int i,char f) {
       struct integer * a = malloc(sizeof(struct integer));
 
       if (!a) {
@@ -111,13 +111,18 @@ struct ast *
       }
 
       a -> nodetype = 'i';
-      a -> i = i;
-
+      if(f=='-'){
+         a -> i = - i;
+      }else if(f=='+'){
+         a -> i = i;
+      }else{
+         exit(0);
+      }
       return (struct ast * ) a;
    }
 
 struct ast *
-   newdouble(double d) {
+   newdouble(double d,char f) {
       struct doublePrecision * a = malloc(sizeof(struct doublePrecision));
 
       if (!a) {
@@ -126,7 +131,13 @@ struct ast *
       }
 
       a -> nodetype = 'D';
-      a -> d = d;
+      if(f=='-'){
+         a -> d = - d;
+      }else if(f=='+'){
+         a -> d = d;
+      }else{
+         exit(0);
+      }
 
       return (struct ast * ) a;
    }
@@ -237,14 +248,11 @@ struct ast *
          exit(0);
       }
 
-      if(l->nodetype == 'i' || l->nodetype == 'D'){
-         struct symbol * s = malloc(sizeof(struct symbol));
-         s->value=((struct utils *)l);
+      if(l->nodetype == 'i'){
+         s->value=((struct utils *)newint(((struct integer *)l)->i,'+'));
          li->s=s;
-      }else if(l->nodetype == 'M'){
-         struct symbol * s = malloc(sizeof(struct symbol));
-         eval(l);
-         s->value=l->l;
+      }else if(l->nodetype == 'D'){
+         s->value=((struct utils *)newdouble(((struct doublePrecision *)l)->d,'+'));
          li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
@@ -368,8 +376,10 @@ struct symbol *
    setList(struct utils * v){ 
       struct symbol * s=malloc(sizeof(struct symbol));
 
-      if(v->nodetype == 'i' | v->nodetype == 'D'){
-         s->value=v;
+      if(v->nodetype == 'i'){
+         s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
+      }else if(v->nodetype == 'D'){
+         s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
       }else if(v->nodetype == 'N'){
          s->value=((struct ast *)v)->l;
       }else if(v->nodetype == 'N'){

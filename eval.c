@@ -18,19 +18,11 @@ struct utils *
       }
 
       switch (a -> nodetype) {
-   
-      case 'M':            /* unary minus, negative value */
-         if(a->l->nodetype=='i'){
-            int temp;
-            temp=((struct integer *)(a->l))->i;
-            ((struct integer *)(a->l))->i=-temp;
-            v=a->l;
-         }else if(a->l->nodetype=='D'){
-            double temp;
-            temp=((struct doublePrecision *)(a->l))->d;
-            ((struct doublePrecision *)(a->l))->d=-temp;
-            v=a->l;
-         }
+         /* string */
+      case 'S':
+         v = malloc(sizeof(struct str));
+         v -> nodetype = 'S';
+         ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
          break;
 
       case 'S':    /* string */
@@ -41,12 +33,41 @@ struct utils *
          v = ((struct utils *)a) ;
          break;
 
+         /* double */
+      case 'D':
+         v = malloc(sizeof(struct doublePrecision));
+         v -> nodetype = 'D';
+         ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) a) -> d;
+         break;
+
+         /* picture */
+      case 'P':
+         v=malloc(sizeof(struct img));
+         v->nodetype = 'P';
+         ((struct img * ) v) -> img = ((struct img * ) a)-> img;
+         ((struct img * ) v) -> path = ((struct img * ) a)-> path;
+         break;
+
+         /* name reference */
+      case 'N':
+         v = malloc(sizeof(struct symref));
+         v -> nodetype = 'N';
+
+         ((struct symref * ) v) -> s = ((struct symref * ) a) -> s;
+         break;
+
          /* assignment */
       case '=':
          temp1 = eval(((struct symasgn *)a)->v);
          ((struct symasgn * ) a) -> s ->value = temp1;
          v = ((struct utils *)a) ;
          break;
+
+         ((struct symasgn * ) v) -> s = ((struct symasgn * ) a) -> s;
+         ((struct symasgn * ) v) -> v = ((struct symasgn * ) a) -> v;
+         ((struct symasgn * ) v) -> s ->value = eval(((struct symasgn *)a)->v);
+      
+          break;
 
          /* operations */
       case '+':

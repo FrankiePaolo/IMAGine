@@ -72,11 +72,12 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | value                { $$ = $1; }
 ;
 
-value:  '-' value %prec UMINUS { $$ = newast('M', $2, NULL); }
-   | INT                  { $$ = newint($1); }
-   | DOUBLE               { $$ = newdouble($1); }
-   | STRING               { $$ = newstring($1); }
-   | NAME                 { $$ = newref($1); }
+value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
+   | INT                          { $$ = newint($1,'+'); }
+   | '-' DOUBLE %prec UMINUS      { $$ = newdouble($2,'-'); }
+   | DOUBLE                       { $$ = newdouble($1,'+'); }
+   | STRING                       { $$ = newstring($1); }
+   | NAME                         { $$ = newref($1); }
 ;
 
 img:  PATH            { $$ = newimg($1); } 
@@ -107,9 +108,8 @@ program: /* nothing */
                        dodef($3, $5, $8);
    }
    | program LIST NAME '=''{' elements '}' ';' {
-                       dolist($3,$6);
+                       dolist($3, $6);
    }
-
    | program error '\n' { yyerrok; printf("> "); }
 ;
 
