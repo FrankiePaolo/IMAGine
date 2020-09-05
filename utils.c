@@ -230,18 +230,20 @@ struct symlist *
 struct ast *
    newlist(struct ast * l,struct ast * r){
       struct list * li=malloc(sizeof(struct list));
-      struct symbol * s=malloc(sizeof(struct symbol));
 
       if (!li) {
          yyerror("out of space");
          exit(0);
       }
 
-      if(l->nodetype == 'i'){
-         s->value=((struct utils *)newint( ((struct integer *)l)->i ));
+      if(l->nodetype == 'i' || l->nodetype == 'D'){
+         struct symbol * s = malloc(sizeof(struct symbol));
+         s->value=((struct utils *)l);
          li->s=s;
-      }else if(l->nodetype == 'D'){
-         s->value=((struct utils *)newdouble( ((struct doublePrecision *)l)->d ));
+      }else if(l->nodetype == 'M'){
+         struct symbol * s = malloc(sizeof(struct symbol));
+         eval(l);
+         s->value=l->l;
          li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
@@ -365,10 +367,10 @@ struct symbol *
    setList(struct utils * v){ 
       struct symbol * s=malloc(sizeof(struct symbol));
 
-      if(v->nodetype == 'i'){
-         s->value=((struct utils *)newint( ((struct integer *)v)->i ));
-      }else if(v->nodetype == 'D'){
-         s->value=((struct utils *)newdouble( ((struct doublePrecision *)v)->d ));
+      if(v->nodetype == 'i' | v->nodetype == 'D'){
+         s->value=v;
+      }else if(v->nodetype == 'N'){
+         s->value=((struct ast *)v)->l;
       }else if(v->nodetype == 'N'){
          s=((struct symref *)v)->s;
       }else{

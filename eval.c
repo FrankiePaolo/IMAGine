@@ -18,55 +18,37 @@ struct utils *
       }
 
       switch (a -> nodetype) {
-
-      case 'S':
-         v = malloc(sizeof(struct str));
-         v -> nodetype = 'S';
-         ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
-         break;
-      
-
-         /* int */
-      case 'i':
-         v = malloc(sizeof(struct integer));
-         v -> nodetype = 'i';
-         ((struct integer * ) v) -> i = ((struct integer * ) a) -> i;
-         break;
-
-         /* double */
-      case 'D':
-         v = malloc(sizeof(struct doublePrecision));
-         v -> nodetype = 'D';
-         ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) a) -> d;
-         break;
-    
-      case 'P':
-         v=malloc(sizeof(struct img));
-         v->nodetype = 'P';
-         ((struct img * ) v) -> img = ((struct img * ) a)-> img;
-         ((struct img * ) v) -> path = ((struct img * ) a)-> path;
+   
+      case 'M':            /* unary minus, negative value */
+         if(a->l->nodetype=='i'){
+            int temp;
+            temp=((struct integer *)(a->l))->i;
+            ((struct integer *)(a->l))->i=-temp;
+            v=a->l;
+         }else if(a->l->nodetype=='D'){
+            double temp;
+            temp=((struct doublePrecision *)(a->l))->d;
+            ((struct doublePrecision *)(a->l))->d=-temp;
+            v=a->l;
+         }
          break;
 
-         /* name reference */
-      case 'N':
-         v = malloc(sizeof(struct symref));
-         v -> nodetype = 'N';
-
-         ((struct symref * ) v) -> s = ((struct symref * ) a) -> s;
+      case 'S':    /* string */
+      case 'i':    /* int */
+      case 'D':    /* double */
+      case 'P':    /* picture */
+      case 'N':    /* name reference */
+         v = ((struct utils *)a) ;
          break;
 
          /* assignment */
       case '=':
-         v = malloc(sizeof(struct symasgn));
-         v -> nodetype = '=';
+         temp1 = eval(((struct symasgn *)a)->v);
+         ((struct symasgn * ) a) -> s ->value = temp1;
+         v = ((struct utils *)a) ;
+         break;
 
-         ((struct symasgn * ) v) -> s = ((struct symasgn * ) a) -> s;
-         ((struct symasgn * ) v) -> v = ((struct symasgn * ) a) -> v;
-         ((struct symasgn * ) v) -> s ->value = eval(((struct symasgn *)a)->v);
-      
-          break;
-
-         /* expressions */
+         /* operations */
       case '+':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
