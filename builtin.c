@@ -30,7 +30,7 @@ struct utils *
          toColorSpace(((struct symref * ) v));
          return v;
       case b_invert:
-         invert(((struct symref * ) v));
+         invert(f->l->l,((struct symref * ) v));
          return v;
       case b_average:
          average(((struct symref * ) v));
@@ -194,16 +194,27 @@ average(struct symref * v) {
 }
 
 void
-invert(struct symref * v) {
+invert(struct ast * l,struct symref * v) {
    VipsImage * out;
-   char path[500];
+   char * path;
    struct utils * temp1 = v -> s -> value;
    if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
+   if(l->nodetype=='S'){
+      path=strdup(((struct str *)l)->str);
+   }else if(l->nodetype=='N'){
+      path=strdup(((struct str *)(((struct symref *)l)->s->value))->str);
+   }else{
+      printf("internal error: bad node %c\n", a -> nodetype);
+      return;
+   }
 
+   /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");
    scanf("%s", path);
+   */
+
    if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
    }
