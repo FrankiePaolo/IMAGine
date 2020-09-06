@@ -105,10 +105,9 @@ struct ast *
       }
 
       a -> nodetype = 'P'; //P as in picture
-      path++;
-      a -> path = strdup(path);
+      a -> path = strndup(path,(strlen(path)-1));
 
-      if (!( in = vips_image_new_from_file(path, NULL))) {
+      if (!( in = vips_image_new_from_file(a->path, NULL))) {
          vips_error_exit(NULL);
       }
 

@@ -13,7 +13,6 @@
   int i;
   double d;
   char * str;
-  char * path;
   struct symbol *s;		/* symbol */
   struct symlist *sl;
   int fn;			      /* function */
@@ -23,7 +22,6 @@
 %token <i> INT
 %token <d> DOUBLE
 %token <str> STRING
-%token <path> PATH
 %token <s> NAME
 %token <fn> FUNC
 %token EOL
@@ -80,7 +78,7 @@ value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
    | NAME                         { $$ = newref($1); }
 ;
 
-img:  PATH            { $$ = newimg($1); } 
+img:  STRING            { $$ = newimg($1); } 
 ;
 
 explist: exp          

@@ -62,9 +62,6 @@
  /* names */
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
- /* path */
-#{1}.+(png|jpeg|jpg|bpm) { yylval.path=(yytext); return PATH; }
-
  /* string */
 \"{1}.+\"{1}             {  yytext++;yylval.str=(yytext);return STRING; } 
 
