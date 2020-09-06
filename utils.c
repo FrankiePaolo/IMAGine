@@ -418,8 +418,6 @@ struct symbol *
       }else if(v->nodetype == 'D'){
          s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
       }else if(v->nodetype == 'N'){
-         s->value=((struct ast *)v)->l;
-      }else if(v->nodetype == 'N'){
          s=((struct symref *)v)->s;
       }else{
         printf("Nodetype not found\n");
@@ -574,15 +572,13 @@ main(int argc, char * argv[]) {
       //This shows the vips error buffer and quits with a fail exit code.
       vips_error_exit("unable to start VIPS");
    }
-   FILE * pt = fopen("/home/frank/Desktop/test", "r" );
-   if(!pt){
-      return -1;
+   if(argc>1){
+      if(!(yyin=fopen(argv[1],"r"))){
+         perror(argv[1]);
+         return (1);
+      }
    }
-   yyin = pt;
-   do
-   {
-      yyparse();
-   }while(!feof(yyin));  
+   yyparse();
    vips_shutdown();
    return 0;
 }

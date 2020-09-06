@@ -335,6 +335,7 @@ print_B(struct utils * v) {
    } else if(v-> nodetype == 'P'){
       printf("This element of the list is an image\n");
    } else {
+      printf("%i\n",v->nodetype);
       printf("Node not found\n");
    }
 }
