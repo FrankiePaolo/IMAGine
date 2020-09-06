@@ -59,6 +59,7 @@
 "get"    { yylval.fn = b_get; return FUNC; }
 "depth"    { yylval.fn = b_depth; return FUNC; }
 "convertColorSpace" { yylval.fn = b_convert; return FUNC; }
+"rotate" { yylval.fn = b_rotate; return FUNC; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }

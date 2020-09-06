@@ -22,6 +22,7 @@ void getBands(struct symref * v);
 void crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height);
 void smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height);
 void toColorSpace(struct symref * l,struct ast * v,struct ast * s);
+void rotate(struct symref * l,struct ast * v,struct ast * s);
 
 
 /* methods for lists */

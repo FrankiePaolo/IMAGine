@@ -48,6 +48,9 @@ struct utils *
       case b_average:
          average(((struct symref * ) v));
          return v;
+      case b_rotate:
+         rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
+         return v;
       case b_get:
          get( ((struct symref *)findNode(f, 1))->s,v);
          return v;
@@ -337,6 +340,25 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    printf("Please enter the path of the output image :\n");
    scanf("%s", path);
    */
+
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   openImg(path);
+}
+
+void
+rotate(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   double angle=getValue(s);
+
+   if (vips_rotate((((struct img * ) temp1) -> img), & out, angle, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
 
    if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
