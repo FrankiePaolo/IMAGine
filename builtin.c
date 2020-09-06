@@ -197,20 +197,11 @@ void
 invert(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
-   printf("%i",l->nodetype);
-   printf("%i",v->nodetype);
    struct utils * temp1 = l -> s -> value;
    if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
-   if(v->nodetype=='S'){
-      path=strdup(((struct str *)v)->str);
-   }else if(v->nodetype=='N'){
-      path=strdup(((struct str *)(((struct symref *)v)->s->value))->str);
-   }else{
-      printf("internal error: bad node %c\n", v -> nodetype);
-      return;
-   }
+   path=getPath(v);
 
    /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");
@@ -234,14 +225,7 @@ add(struct symref * l,struct symref * r,struct ast * p){
    if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
-   if(p->nodetype=='S'){
-      path=strdup(((struct str *)p)->str);
-   }else if(p->nodetype=='N'){
-      path=strdup(((struct str *)(((struct symref *)p)->s->value))->str);
-   }else{
-      printf("internal error: bad node %c\n", p -> nodetype);
-      return;
-   }
+   path=getPath(p);
 
    /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");
@@ -265,14 +249,7 @@ subtract_img(struct symref * l,struct symref * r,struct ast * p){
    if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
-   if(p->nodetype=='S'){
-      path=strdup(((struct str *)p)->str);
-   }else if(p->nodetype=='N'){
-      path=strdup(((struct str *)(((struct symref *)p)->s->value))->str);
-   }else{
-      printf("internal error: bad node %c\n", p -> nodetype);
-      return;
-   }
+   path=getPath(p);
 
    /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");

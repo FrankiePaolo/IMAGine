@@ -156,6 +156,9 @@ void treefree(struct ast * );
 struct utils * setNodeTypeCast(struct utils * l, struct utils * r);
 struct utils * setNodeType(struct utils * l, struct utils * r);
 
+/* other useful methods */
+char * getPath(struct ast * p);
+
 /* interface to the lexer */
 extern int yylineno; /* from lexer */
 void yyerror(char * s, ...);

@@ -50,6 +50,19 @@ struct symbol *
 
    }
 
+char *
+getPath(struct ast * p){
+   char * path;
+   if(p->nodetype=='S'){
+      path=strdup(((struct str *)p)->str);
+   }else if(p->nodetype=='N'){
+      path=strdup(((struct str *)(((struct symref *)p)->s->value))->str);
+   }else{
+      printf("internal error: bad node %c\n", p -> nodetype);
+      return NULL;
+   }
+}
+
 struct ast *
    newast(int nodetype, struct ast * l, struct ast * r) {
       struct ast * a = malloc(sizeof(struct ast));
