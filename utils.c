@@ -74,7 +74,6 @@ findNode(struct fncall * f, int index){
 
       if(!node){
          free(node);
-         free(counter);
          yyerror("Node does not exist!\n");
          exit(0);
       }

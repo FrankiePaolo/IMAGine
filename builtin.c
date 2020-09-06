@@ -28,31 +28,31 @@ struct utils *
          getBands(((struct symref * ) v));
          return v;
       case b_crop:
-         crop(((struct symref *)findNode(f, 1)), findNode(f, 2),findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,v);
+         crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
          return v;
       case b_smartcrop:
-         smartCrop(((struct symref *)f->l->l),f->l->r->l,f->l->r->r->l,v);
+         smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return v;
       case b_add:
-         add(((struct symref *)findNode(f, 1)),findNode(f, 2),v);
+         add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
          return v;
       case b_subtract:
-         subtract_img(((struct symref *)findNode(f, 1)),findNode(f, 2),v);
+         subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
          return v;
       case b_convert:
-         toColorSpace(((struct symref *)findNode(f, 1)),findNode(f, 2),v);
+         toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return v;
       case b_invert:
-         invert(((struct symref *)findNode(f, 1)),v);
+         invert(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return v;
       case b_average:
          average(((struct symref * ) v));
          return v;
       case b_get:
-         get( ((struct symref *)f->l->l)->s,v);
+         get( ((struct symref *)findNode(f, 1))->s,v);
          return v;
       case b_push:
-         push( ((struct symref *)f->l->l)->s,v);
+         push( ((struct symref *)findNode(f, 1))->s,v);
          return v;
       case b_pop:
          pop( ((struct symref * ) v)->s );
@@ -241,7 +241,7 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
    if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
       vips_error_exit(NULL);
    }
-   path=getPath(r);
+   path=getPath( ((struct ast *) r) );
 
    if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
@@ -262,7 +262,7 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    if (vips_smartcrop((((struct img * ) temp1) -> img), & out, width_value, height_value, NULL)) {
       vips_error_exit(NULL);
    }
-   path=getPath(r);
+   path=getPath( ((struct ast *) r) );
 
    if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
@@ -399,7 +399,7 @@ print_B(struct utils * v) {
          openImg(temp_path);
       }
    } else if (v -> nodetype == 'M') {
-      print_B(((struct ast *)v)->l);
+      print_B( ((struct utils *)((struct ast *)v)->l) );
    } else if(v-> nodetype == 'P'){
       printf("This element of the list is an image\n");
    } else {
