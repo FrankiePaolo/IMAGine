@@ -30,7 +30,7 @@ struct utils *
          toColorSpace(((struct symref * ) v));
          return v;
       case b_invert:
-         invert(f->l->l,((struct symref * ) v));
+         invert(((struct symref *)f->l->l),((struct utils * ) v));
          return v;
       case b_average:
          average(((struct symref * ) v));
@@ -194,19 +194,21 @@ average(struct symref * v) {
 }
 
 void
-invert(struct ast * l,struct symref * v) {
+invert(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
-   struct utils * temp1 = v -> s -> value;
+   printf("%i",l->nodetype);
+   printf("%i",v->nodetype);
+   struct utils * temp1 = l -> s -> value;
    if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
-   if(l->nodetype=='S'){
-      path=strdup(((struct str *)l)->str);
-   }else if(l->nodetype=='N'){
-      path=strdup(((struct str *)(((struct symref *)l)->s->value))->str);
+   if(v->nodetype=='S'){
+      path=strdup(((struct str *)v)->str);
+   }else if(v->nodetype=='N'){
+      path=strdup(((struct str *)(((struct symref *)v)->s->value))->str);
    }else{
-      printf("internal error: bad node %c\n", l -> nodetype);
+      printf("internal error: bad node %c\n", v -> nodetype);
       return;
    }
 
