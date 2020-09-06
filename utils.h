@@ -48,6 +48,7 @@ enum bifs {
       b_height,
       b_bands,
       b_crop,
+      b_smartcrop,
       b_add,
       b_subtract,
       b_invert,
