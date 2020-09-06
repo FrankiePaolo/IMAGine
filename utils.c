@@ -70,12 +70,18 @@ getSpace(struct ast * s){
    str=getPath(s);
 
    if(!strcmp(str,"grey16")){
-      space=VIPS_INTERPRETATION_GREY16;
+      space=VIPS_INTERPRETATION_GREY16;   // generic 16-bit mono
    }else if(!strcmp(str,"hsv")){
-      space=VIPS_INTERPRETATION_HSV;
+      space=VIPS_INTERPRETATION_HSV;    // pixels are HSV
+   }else if(!strcmp(str,"yxy")){
+      space=VIPS_INTERPRETATION_YXY;    // pixels are CIE Yxy
+   }else if(!strcmp(str,"lch")){       
+      space=VIPS_INTERPRETATION_LCH;    // pixels are in CIE LCh space
+   }else if(!strcmp(str,"cmc")){
+      space=VIPS_INTERPRETATION_CMC;    // a uniform colourspace based on CMC(1:1)
+   }else if(!strcmp(str,"lab")){
+      space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
    }
-
-
 
    return space;
 }
