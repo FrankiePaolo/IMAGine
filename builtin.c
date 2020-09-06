@@ -11,7 +11,8 @@
 struct utils *
    callbuiltin(struct fncall * f) {
       enum bifs functype = f -> functype;
-      struct utils * v = eval(f -> l);     
+      struct utils * v = eval(f -> l);  
+      struct utils * val;   
       // Find tree node
 
       switch (functype) {
@@ -19,8 +20,8 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         getWidth(((struct symref * ) v));
-         return v;
+         val=getWidth(((struct symref * ) v));
+         return val;
       case b_height:
          getHeight(((struct symref * ) v));
          return v;
@@ -367,10 +368,13 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    openImg(path);
 }
 
-void
+struct utils *
 getWidth(struct symref * v) {
+   int val;
    struct utils * temp1 = v -> s -> value;
-   printf("image width = %d\n", vips_image_get_width(((struct img * ) temp1) -> img));
+   val=vips_image_get_width(((struct img * ) temp1) -> img);
+   printf("image width = %d\n", val);
+   return ((struct utils *)newint(val,'+'));
 }
 
 void

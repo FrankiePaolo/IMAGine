@@ -7,7 +7,7 @@ struct utils * callbuiltin(struct fncall * f);
 void print_B(struct utils * v);
 
 /* methods for images */
-void getWidth(struct symref * v);
+struct utils * getWidth(struct symref * v);
 void getHeight(struct symref * v);
 void getBands(struct symref * v);
 void toColorSpace(struct symref * l,struct ast * v,struct ast * s);
