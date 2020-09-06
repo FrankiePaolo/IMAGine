@@ -12,6 +12,7 @@ struct utils *
    callbuiltin(struct fncall * f) {
       enum bifs functype = f -> functype;
       struct utils * v = eval(f -> l);     
+      // Find tree node
 
       switch (functype) {
       case b_print:
@@ -27,7 +28,7 @@ struct utils *
          getBands(((struct symref * ) v));
          return v;
       case b_crop:
-         crop(((struct symref *)f->l->l),f->l->r->l,v);
+         crop(((struct symref *)f->l->l),f->l->r->l,f->l->r->r->l,f->l->r->r->r->l,f->l->r->r->r->r->l,v);
          return v;
       case b_add:
          add(((struct symref *)f->l->l),f->l->r->l,v);
@@ -226,7 +227,8 @@ invert(struct symref * l,struct ast * v) {
 
 void
 crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
-   printf("%i\n%i\n%i\n",l->nodetype,r->nodetype,left->nodetype);
+   printf("%i\n%i\n%i\n%i\n%i\n%i\n",l->nodetype,r->nodetype,left->nodetype,top->nodetype,width->nodetype,height->nodetype);
+
 }
 
 void
