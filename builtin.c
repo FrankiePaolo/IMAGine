@@ -227,8 +227,24 @@ invert(struct symref * l,struct ast * v) {
 
 void
 crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
-   printf("%i\n%i\n%i\n%i\n%i\n%i\n",l->nodetype,r->nodetype,left->nodetype,top->nodetype,width->nodetype,height->nodetype);
+   VipsImage * out;
+   char * path;
+   double left_value=getValue(left);
+   double top_value=getValue(top);
+   double width_value=getValue(width);
+   double height_value=getValue(height);
+   struct utils * temp1 = l -> s -> value;
 
+   if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(r);
+
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   openImg(path);
 }
 
 void

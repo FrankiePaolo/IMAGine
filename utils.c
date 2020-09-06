@@ -86,6 +86,17 @@ getSpace(struct ast * s){
    return space;
 }
 
+double
+getValue(struct ast * v){
+   double value;
+   if(v->nodetype=='i'){
+      value=(double)((struct integer *)v)->i;
+   }else if(v->nodetype=='D'){
+      value=((struct doublePrecision *)v)->d;
+   }
+   return value;
+}
+
 struct ast *
    newast(int nodetype, struct ast * l, struct ast * r) {
       struct ast * a = malloc(sizeof(struct ast));
