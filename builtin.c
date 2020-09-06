@@ -21,7 +21,7 @@ struct utils *
          getWidth(((struct symref * ) v));
          return v;
       case b_add:
-         add(((struct symref *)f->l->l),((struct symref * ) v));
+         add(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,((struct utils * ) v));
          return v;
       case b_subtract:
          subtract_img(((struct symref *)f->l->l),((struct symref * ) v));
@@ -219,29 +219,38 @@ invert(struct ast * l,struct symref * v) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   char * temp_path =strdup(path);   
-   openImg(temp_path);
+   openImg(path);
 }
 
 void
-add(struct symref * l,struct symref * r){
+add(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
-   char path[500];
+   char * path;
    struct utils * temp1 = l-> s -> value;
    struct utils * temp2 = r-> s -> value;
 
    if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
+   if(p->nodetype=='S'){
+      path=strdup(((struct str *)p)->str);
+   }else if(p->nodetype=='N'){
+      path=strdup(((struct str *)(((struct symref *)p)->s->value))->str);
+   }else{
+      printf("internal error: bad node %c\n", p -> nodetype);
+      return;
+   }
 
+   /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");
    scanf("%s", path);
+   */
+
    if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   char * temp_path =strdup(path);   
-   openImg(temp_path);
+   openImg(path);
 }
 
 void
