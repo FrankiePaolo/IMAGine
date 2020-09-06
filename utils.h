@@ -166,6 +166,8 @@ char * getPath(struct ast * p);
 double getValue(struct ast * v);
 VipsInterpretation getSpace(struct ast * s);
 struct ast * findNode(struct fncall * f, int index);
+int yylex();
+int yyparse();
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */
