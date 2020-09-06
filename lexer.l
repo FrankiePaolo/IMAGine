@@ -49,6 +49,7 @@
 "height" { yylval.fn = b_height; return FUNC; }
 "bands" { yylval.fn = b_bands; return FUNC; }
 "crop"   { yylval.fn = b_crop; return FUNC; }
+"smartCrop" { yylval.fn = b_smartcrop; return FUNC; }
 "add"   { yylval.fn = b_add; return FUNC; }
 "subtract"   { yylval.fn = b_subtract; return FUNC; }
 "invert" { yylval.fn = b_invert; return FUNC; }
