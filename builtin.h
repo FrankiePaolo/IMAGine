@@ -8,8 +8,8 @@ void print_B(struct utils * v);
 
 /* methods for images */
 struct utils * getWidth(struct symref * v);
-void getHeight(struct symref * v);
-void getBands(struct symref * v);
+struct utils * getHeight(struct symref * v);
+struct utils * getBands(struct symref * v);
 void toColorSpace(struct symref * l,struct ast * v,struct ast * s);
 void crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height);
 void smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height);
@@ -18,7 +18,6 @@ void subtract_img(struct symref * l,struct symref * r,struct ast * p);          
 void invert(struct symref * l,struct ast * v);                                  //Inverts the image
 void average(struct symref * v);
 void openImg(char * path);
-void getBands(struct symref * v);
 void crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height);
 void smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height);
 void toColorSpace(struct symref * l,struct ast * v,struct ast * s);

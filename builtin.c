@@ -12,7 +12,6 @@ struct utils *
    callbuiltin(struct fncall * f) {
       enum bifs functype = f -> functype;
       struct utils * v = eval(f -> l);  
-      struct utils * val;   
       // Find tree node
 
       switch (functype) {
@@ -20,13 +19,13 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         val=getWidth(((struct symref * ) v));
-         return val;
+         v=getWidth(((struct symref * ) v));
+         return v;
       case b_height:
-         getHeight(((struct symref * ) v));
+         v=getHeight(((struct symref * ) v));
          return v;
       case b_bands:
-         getBands(((struct symref * ) v));
+         v=getBands(((struct symref * ) v));
          return v;
       case b_crop:
          crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
@@ -377,16 +376,22 @@ getWidth(struct symref * v) {
    return ((struct utils *)newint(val,'+'));
 }
 
-void
+struct utils *
 getHeight(struct symref * v) {
+   int val;
    struct utils * temp1 = v -> s -> value;
-   printf("image height = %d\n", vips_image_get_height(((struct img * ) temp1) -> img));
+   val=vips_image_get_height(((struct img * ) temp1) -> img);
+   printf("image height = %d\n", val);
+   return ((struct utils *)newint(val,'+'));
 }
 
-void
+struct utils *
 getBands(struct symref * v) {
+   int val;
    struct utils * temp1 = v -> s -> value;
-   printf("number of bands = %d\n", vips_image_get_bands(((struct img * ) temp1) -> img));
+   val=vips_image_get_bands(((struct img * ) temp1) -> img);
+   printf("number of bands = %d\n", val);
+   return ((struct utils *)newint(val,'+'));
 }
 
 void
