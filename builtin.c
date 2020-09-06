@@ -28,7 +28,7 @@ struct utils *
          v=getBands(((struct symref * ) v));
          return v;
       case b_crop:
-         crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
+         v=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
          return v;
       case b_smartcrop:
          smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
@@ -195,7 +195,6 @@ openImg(char * path){
 
    command=strcat(open,path);
    system(command);
-   printf("The image has been opened\n");
 }
 
 void
@@ -228,10 +227,10 @@ invert(struct symref * l,struct ast * v) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   openImg(path);
+   //openImg(path);
 }
 
-void
+struct utils * 
 crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
    VipsImage * out;
    char * path;
@@ -250,7 +249,13 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   openImg(path);
+   //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
 }
 
 /* Crop an image down to a specified width and height by removing "boring" parts.  */
@@ -271,7 +276,7 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   openImg(path);
+   //openImg(path);
 }
 
 void
