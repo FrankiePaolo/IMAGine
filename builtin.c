@@ -21,16 +21,16 @@ struct utils *
          getWidth(((struct symref * ) v));
          return v;
       case b_add:
-         add(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,((struct utils * ) v));
+         add(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,v);
          return v;
       case b_subtract:
-         subtract_img(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,((struct utils * ) v));
+         subtract_img(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,v);
          return v;
       case b_convert:
-         toColorSpace(((struct symref * ) v));
+         toColorSpace(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,v);
          return v;
       case b_invert:
-         invert(((struct symref *)f->l->l),((struct utils * ) v));
+         invert(((struct symref *)f->l->l),v);
          return v;
       case b_average:
          average(((struct symref * ) v));
@@ -264,26 +264,28 @@ subtract_img(struct symref * l,struct symref * r,struct ast * p){
 }
 
 void
-toColorSpace(struct symref * v){
+toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
-   char path[500];
-   struct utils * temp1 = v -> s -> value;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
    VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
-   VipsInterpretation space=VIPS_INTERPRETATION_GREY16;
+   VipsInterpretation space=getSpace(s);
    (((struct img * ) temp1) -> img)->Type=in_space;
 
    if (vips_colourspace((((struct img * ) temp1) -> img), & out,  space,NULL)) {
       vips_error_exit(NULL);
    }
 
+   /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");
    scanf("%s", path);
+   */
+
    if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   char * temp_path =strdup(path);   
-   openImg(temp_path);
+   openImg(path);
 }
 
 void

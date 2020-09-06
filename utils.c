@@ -63,6 +63,18 @@ getPath(struct ast * p){
    }
 }
 
+VipsInterpretation
+getSpace(struct ast * s){
+   VipsInterpretation space;
+   char * str;
+   str=getPath(s);
+
+   if(strcmp(str,"grey16")){
+      space=VIPS_INTERPRETATION_GREY16;
+   }
+   return space;
+}
+
 struct ast *
    newast(int nodetype, struct ast * l, struct ast * r) {
       struct ast * a = malloc(sizeof(struct ast));
