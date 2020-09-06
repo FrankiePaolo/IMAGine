@@ -163,6 +163,7 @@ struct utils * setNodeType(struct utils * l, struct utils * r);
 char * getPath(struct ast * p);
 double getValue(struct ast * v);
 VipsInterpretation getSpace(struct ast * s);
+struct ast * findNode(struct fncall * f, int index);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */

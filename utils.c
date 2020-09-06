@@ -63,6 +63,27 @@ getPath(struct ast * p){
    }
 }
 
+struct ast *
+findNode(struct fncall * f, int index){
+   struct ast * node=f->l;
+   int counter=1;
+
+   while(counter<index){
+      node=node->r;
+      counter++;
+
+      if(!node){
+         free(node);
+         free(counter);
+         yyerror("Node does not exist!\n");
+         exit(0);
+      }
+   }
+
+   node=node->l;
+   return node;
+}
+
 VipsInterpretation
 getSpace(struct ast * s){
    VipsInterpretation space;

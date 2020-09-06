@@ -28,19 +28,19 @@ struct utils *
          getBands(((struct symref * ) v));
          return v;
       case b_crop:
-         crop(((struct symref *)f->l->l),f->l->r->l,f->l->r->r->l,f->l->r->r->r->l,f->l->r->r->r->r->l,v);
+         crop(((struct symref *)findNode(f, 1)), findNode(f, 2),findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,v);
          return v;
       case b_add:
-         add(((struct symref *)f->l->l),f->l->r->l,v);
+         add(((struct symref *)findNode(f, 1)),findNode(f, 2),v);
          return v;
       case b_subtract:
-         subtract_img(((struct symref *)f->l->l),f->l->r->l,v);
+         subtract_img(((struct symref *)findNode(f, 1)),findNode(f, 2),v);
          return v;
       case b_convert:
-         toColorSpace(((struct symref *)f->l->l),f->l->r->l,v);
+         toColorSpace(((struct symref *)findNode(f, 1)),findNode(f, 2),v);
          return v;
       case b_invert:
-         invert(((struct symref *)f->l->l),v);
+         invert(((struct symref *)findNode(f, 1)),v);
          return v;
       case b_average:
          average(((struct symref * ) v));
