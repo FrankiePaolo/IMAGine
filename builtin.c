@@ -20,14 +20,23 @@ struct utils *
       case b_width:
          getWidth(((struct symref * ) v));
          return v;
+      case b_height:
+         getHeight(((struct symref * ) v));
+         return v;
+      case b_bands:
+         getBands(((struct symref * ) v));
+         return v;
+      case b_crop:
+         crop(((struct symref *)f->l->l),f->l->r->l,v);
+         return v;
       case b_add:
-         add(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,v);
+         add(((struct symref *)f->l->l),f->l->r->l,v);
          return v;
       case b_subtract:
-         subtract_img(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,v);
+         subtract_img(((struct symref *)f->l->l),f->l->r->l,v);
          return v;
       case b_convert:
-         toColorSpace(((struct symref *)f->l->l),((struct ast *)f->l->r)->l,v);
+         toColorSpace(((struct symref *)f->l->l),f->l->r->l,v);
          return v;
       case b_invert:
          invert(((struct symref *)f->l->l),v);
@@ -216,6 +225,11 @@ invert(struct symref * l,struct ast * v) {
 }
 
 void
+crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
+   printf("%i\n%i\n%i\n",l->nodetype,r->nodetype,left->nodetype);
+}
+
+void
 add(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
    char * path;
@@ -293,6 +307,18 @@ void
 getWidth(struct symref * v) {
    struct utils * temp1 = v -> s -> value;
    printf("image width = %d\n", vips_image_get_width(((struct img * ) temp1) -> img));
+}
+
+void
+getHeight(struct symref * v) {
+   struct utils * temp1 = v -> s -> value;
+   printf("image height = %d\n", vips_image_get_height(((struct img * ) temp1) -> img));
+}
+
+void
+getBands(struct symref * v) {
+   struct utils * temp1 = v -> s -> value;
+   printf("number of bands = %d\n", vips_image_get_bands(((struct img * ) temp1) -> img));
 }
 
 void
