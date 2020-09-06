@@ -69,9 +69,14 @@ getSpace(struct ast * s){
    char * str;
    str=getPath(s);
 
-   if(strcmp(str,"grey16")){
+   if(!strcmp(str,"grey16")){
       space=VIPS_INTERPRETATION_GREY16;
+   }else if(!strcmp(str,"hsv")){
+      space=VIPS_INTERPRETATION_HSV;
    }
+
+
+
    return space;
 }
 

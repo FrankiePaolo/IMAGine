@@ -269,12 +269,13 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    char * path;
    struct utils * temp1 = l -> s -> value;
    VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
-   VipsInterpretation space=getSpace(s);
+   VipsInterpretation out_space=getSpace(s);
    (((struct img * ) temp1) -> img)->Type=in_space;
 
-   if (vips_colourspace((((struct img * ) temp1) -> img), & out,  space,NULL)) {
+   if (vips_colourspace((((struct img * ) temp1) -> img), & out,  out_space,NULL)) {
       vips_error_exit(NULL);
    }
+   path=getPath(v);
 
    /* If we wish to require user input from terminal, OLD
    printf("Please enter the path of the output image :\n");
