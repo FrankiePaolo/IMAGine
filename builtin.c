@@ -206,7 +206,7 @@ invert(struct ast * l,struct symref * v) {
    }else if(l->nodetype=='N'){
       path=strdup(((struct str *)(((struct symref *)l)->s->value))->str);
    }else{
-      printf("internal error: bad node %c\n", a -> nodetype);
+      printf("internal error: bad node %c\n", l -> nodetype);
       return;
    }
 
