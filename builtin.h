@@ -8,9 +8,9 @@ void print_B(struct utils * v);
 
 /* methods for images */
 void getWidth(struct symref * v);
-void add(struct symref * l,struct symref * r,struct ast * p);   //Sums 2 images
-void subtract_img(struct symref * l,struct symref * r);         //Subtracts 2 images
-void invert(struct symref * l,struct ast * v);                  //Inverts the image
+void add(struct symref * l,struct symref * r,struct ast * p);                   //Sums 2 images
+void subtract_img(struct symref * l,struct symref * r,struct ast * p);          //Subtracts 2 images
+void invert(struct symref * l,struct ast * v);                                  //Inverts the image
 void average(struct symref * v);
 void openImg(char * path);
 
