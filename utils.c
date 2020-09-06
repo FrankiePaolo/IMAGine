@@ -55,8 +55,10 @@ getPath(struct ast * p){
    char * path;
    if(p->nodetype=='S'){
       path=strdup(((struct str *)p)->str);
+      return path;
    }else if(p->nodetype=='N'){
       path=strdup(((struct str *)(((struct symref *)p)->s->value))->str);
+      return path;
    }else{
       printf("internal error: bad node %c\n", p -> nodetype);
       return NULL;
