@@ -14,3 +14,4 @@ struct utils * rotate(struct symref * l,struct ast * v,struct ast * s);
 struct utils * histeq(struct symref * l,struct ast * v);
 struct utils * norm(struct symref * l,struct ast * v);
 struct utils * gaussianBlur(struct symref * l,struct ast * v,struct ast * s);
+struct utils * canny(struct symref * l,struct ast * v);
