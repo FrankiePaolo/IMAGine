@@ -6,12 +6,14 @@
 #  include <vips/vips.h>
 #  include "utils.h"
 #  include "builtin.h"
+#  include "imageops.h"
 #  include "eval.h"
 
 struct utils *
    callbuiltin(struct fncall * f) {
       enum bifs functype = f -> functype;
-      struct utils * v = eval(f -> l);     
+      struct utils * v = eval(f -> l);  
+      struct utils * val;
       // Find tree node
 
       switch (functype) {
@@ -19,38 +21,38 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         getWidth(((struct symref * ) v));
-         return v;
+         val=getWidth(((struct symref * ) v)); //number
+         return val;
       case b_height:
-         getHeight(((struct symref * ) v));
-         return v;
+         val=getHeight(((struct symref * ) v)); //number
+         return val;
       case b_bands:
-         getBands(((struct symref * ) v));
-         return v;
+         val=getBands(((struct symref * ) v)); //number
+         return val;
       case b_crop:
-         crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
-         return v;
+         val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
+         return val;
       case b_smartcrop:
-         smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
-         return v;
+         val=smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
+         return val;
       case b_add:
-         add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
-         return v;
+         val=add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
+         return val;
       case b_subtract:
-         subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
-         return v;
+         val=subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
+         return val;
       case b_convert:
-         toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
-         return v;
+         val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
+         return val;
       case b_invert:
-         invert(((struct symref *)findNode(f, 1)), ((struct ast *)v));
-         return v;
+         val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         return val;
       case b_average:
-         average(((struct symref * ) v));
-         return v;
+         val=average(((struct symref * ) v));
+         return val;
       case b_rotate:
-         rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
-         return v;
+         val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
+         return val;
       case b_get:
          get( ((struct symref *)findNode(f, 1))->s,v);
          return v;
@@ -187,204 +189,6 @@ pop(struct symbol * e){
    }
 }
 
-/* methods for images */
-void
-openImg(char * path){
-   char * open = strdup("xdg-open ");     
-   char * command; 
-
-   command=strcat(open,path);
-   system(command);
-   printf("The image has been opened\n");
-}
-
-void
-average(struct symref * v) {
-   double mean;
-   struct utils * temp1 = v -> s -> value;
-   if (vips_avg((((struct img * ) temp1) -> img), & mean, NULL)) {
-      vips_error_exit(NULL);
-   }
-
-   printf("mean pixel value = %g\n", mean);
-}
-
-void
-invert(struct symref * l,struct ast * v) {
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-void
-crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
-   VipsImage * out;
-   char * path;
-   double left_value=getValue(left);
-   double top_value=getValue(top);
-   double width_value=getValue(width);
-   double height_value=getValue(height);
-   struct utils * temp1 = l -> s -> value;
-
-   if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath( ((struct ast *) r) );
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-/* Crop an image down to a specified width and height by removing "boring" parts.  */
-void
-smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
-   VipsImage * out;
-   char * path;
-   double width_value=getValue(width);
-   double height_value=getValue(height);
-   struct utils * temp1 = l -> s -> value;
-
-   if (vips_smartcrop((((struct img * ) temp1) -> img), & out, width_value, height_value, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath( ((struct ast *) r) );
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-void
-add(struct symref * l,struct symref * r,struct ast * p){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l-> s -> value;
-   struct utils * temp2 = r-> s -> value;
-
-   if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(p);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-void
-subtract_img(struct symref * l,struct symref * r,struct ast * p){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l-> s -> value;
-   struct utils * temp2 = r-> s -> value;
-
-   if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(p);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-void
-toColorSpace(struct symref * l,struct ast * v,struct ast * s){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
-   VipsInterpretation out_space=getSpace(s);
-   (((struct img * ) temp1) -> img)->Type=in_space;
-
-   if (vips_colourspace((((struct img * ) temp1) -> img), & out,  out_space,NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-void
-rotate(struct symref * l,struct ast * v,struct ast * s){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   double angle=getValue(s);
-
-   if (vips_rotate((((struct img * ) temp1) -> img), & out, angle, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   openImg(path);
-}
-
-void
-getWidth(struct symref * v) {
-   struct utils * temp1 = v -> s -> value;
-   printf("image width = %d\n", vips_image_get_width(((struct img * ) temp1) -> img));
-}
-
-void
-getHeight(struct symref * v) {
-   struct utils * temp1 = v -> s -> value;
-   printf("image height = %d\n", vips_image_get_height(((struct img * ) temp1) -> img));
-}
-
-void
-getBands(struct symref * v) {
-   struct utils * temp1 = v -> s -> value;
-   printf("number of bands = %d\n", vips_image_get_bands(((struct img * ) temp1) -> img));
-}
-
 void
 print_B(struct utils * v) {
    struct utils * temp1;
@@ -417,8 +221,9 @@ print_B(struct utils * v) {
       } else if(temp1->nodetype == 'S') {
          printf("%s\n", ((struct str * ) temp1) -> str);
       } else if(temp1-> nodetype == 'P'){
-         char * temp_path =strdup(((struct img *) temp1)->path);   
-         openImg(temp_path);
+         //char * temp_path =strdup(((struct img *) temp1)->path); 
+         //openImg(temp_path);
+         printf("This is an image\n");
       }
    } else if (v -> nodetype == 'M') {
       print_B( ((struct utils *)((struct ast *)v)->l) );

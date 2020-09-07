@@ -6,7 +6,6 @@
 #  include <vips/vips.h>
 #  include "utils.h"
 #  include "builtin.h"
-#  include "eval.h"
 
 void
 sum(struct utils * v, struct utils * l, struct utils * r) {

@@ -78,7 +78,8 @@ value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
    | NAME                         { $$ = newref($1); }
 ;
 
-img:  STRING            { $$ = newimg($1); } 
+img:  STRING              { $$ = newimg($1); }
+   | FUNC '(' explist ')' { $$ = newfunc($1, $3); }
 ;
 
 explist: exp          
