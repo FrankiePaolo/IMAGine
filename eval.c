@@ -182,7 +182,12 @@ struct utils *
             }
          }
          break; 
+      case 'E':
+         
 
+
+
+         break;
       case 'L':
          eval(a -> l);
          v = eval(a -> r);
