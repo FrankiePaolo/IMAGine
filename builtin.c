@@ -35,8 +35,8 @@ struct utils *
          val=smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
       case b_add:
-         add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
-         return v;
+         val=add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
+         return val;
       case b_subtract:
          subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
          return v;
@@ -292,7 +292,7 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    return ((struct utils *)a);
 }
 
-void
+struct utils * 
 add(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
    char * path;
@@ -313,7 +313,13 @@ add(struct symref * l,struct symref * r,struct ast * p){
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   openImg(path);
+   //openImg(path);
+
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
 }
 
 void
