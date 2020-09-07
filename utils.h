@@ -62,7 +62,8 @@ enum bifs {
       b_histeq,
       b_norm,
       b_gaussianblur,
-      b_canny
+      b_canny,
+      b_sobel
 };
 
 struct ast {

@@ -64,6 +64,7 @@
 "normalise" { yylval.fn = b_histeq; return FUNC; }
 "gaussianBlur" { yylval.fn = b_gaussianblur; return FUNC; }
 "canny" { yylval.fn = b_canny; return FUNC; }
+"sobel" { yylval.fn = b_sobel; return FUNC; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }
