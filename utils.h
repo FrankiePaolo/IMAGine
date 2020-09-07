@@ -64,7 +64,8 @@ enum bifs {
       b_flip,
       b_gaussianblur,
       b_canny,
-      b_sobel
+      b_sobel,
+      b_sharpen
 };
 
 struct ast {

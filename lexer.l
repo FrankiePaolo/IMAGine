@@ -66,6 +66,7 @@
 "canny" { yylval.fn = b_canny; return FUNC; }
 "sobel" { yylval.fn = b_sobel; return FUNC; }
 "flip" { yylval.fn = b_flip; return FUNC; }
+"sharpen" { yylval.fn = b_sharpen; return FUNC; }
 
  /* debug hack */
 "debug"[0-9]+ { debug = atoi(&yytext[5]); printf("debug set to %d\n", debug); }

@@ -71,6 +71,9 @@ struct utils *
       case b_sobel:
          val=sobel(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
+      case b_sharpen:
+         val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
+         return val;
       case b_get:
          get( ((struct symref *)findNode(f, 1))->s,v);
          return v;

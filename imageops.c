@@ -427,3 +427,31 @@ sobel(struct symref * l,struct ast * v) {
    a -> img = out;
    return ((struct utils *)a);
 }
+
+struct utils * 
+sharpen(struct symref * l,struct ast * v) {
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   if (vips_sharpen((((struct img * ) temp1) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   /* If we wish to require user input from terminal, OLD
+   printf("Please enter the path of the output image :\n");
+   scanf("%s", path);
+   */
+
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
