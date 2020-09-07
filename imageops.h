@@ -12,3 +12,5 @@ struct utils * average(struct symref * v);
 void openImg(char * path);
 struct utils * rotate(struct symref * l,struct ast * v,struct ast * s);
 struct utils * histeq(struct symref * l,struct ast * v);
+struct utils * norm(struct symref * l,struct ast * v);
+struct utils * gaussianBlur(struct symref * l,struct ast * v,struct ast * s);

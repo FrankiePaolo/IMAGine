@@ -59,7 +59,9 @@ enum bifs {
       b_depth,
       b_convert,
       b_rotate,
-      b_histeq
+      b_histeq,
+      b_norm,
+      b_gaussianblur
 };
 
 struct ast {
