@@ -205,6 +205,41 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
 }
 
 struct utils *
+flip(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   char * str=getPath(s);
+   VipsDirection direction;
+
+   if(!strcmp(str,"hor")){
+      direction=VIPS_DIRECTION_HORIZONTAL;   
+   }else if(!strcmp(str,"ver")){
+      direction=VIPS_DIRECTION_VERTICAL;
+   }else{
+      printf("Third parameter error, need to be 'hor' or 'ver'!\n");
+      exit(0);
+   }
+
+   if (vips_flip((((struct img * ) temp1) -> img), & out, direction, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
+   //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils *
 rotate(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
    char * path;
