@@ -47,8 +47,8 @@ struct utils *
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_average:
-         average(((struct symref * ) v));
-         return v;
+         val=average(((struct symref * ) v));
+         return val;
       case b_rotate:
          val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;
@@ -198,15 +198,15 @@ openImg(char * path){
    system(command);
 }
 
-void
+struct utils *
 average(struct symref * v) {
    double mean;
    struct utils * temp1 = v -> s -> value;
    if (vips_avg((((struct img * ) temp1) -> img), & mean, NULL)) {
       vips_error_exit(NULL);
    }
-
-   printf("Mean pixel value = %g\n", mean);
+   //printf("Mean pixel value = %g\n", mean);
+   return newdouble(mean,'+');
 }
 
 struct utils * 
