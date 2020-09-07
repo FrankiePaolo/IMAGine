@@ -61,6 +61,7 @@ enum bifs {
       b_rotate,
       b_histeq,
       b_norm,
+      b_flip,
       b_gaussianblur,
       b_canny
 };
