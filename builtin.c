@@ -12,6 +12,7 @@ struct utils *
    callbuiltin(struct fncall * f) {
       enum bifs functype = f -> functype;
       struct utils * v = eval(f -> l);  
+      struct utils * val;
       // Find tree node
 
       switch (functype) {
@@ -19,20 +20,20 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         v=getWidth(((struct symref * ) v));
-         return v;
+         val=getWidth(((struct symref * ) v)); //number
+         return val;
       case b_height:
-         v=getHeight(((struct symref * ) v));
-         return v;
+         val=getHeight(((struct symref * ) v)); //number
+         return val;
       case b_bands:
-         v=getBands(((struct symref * ) v));
-         return v;
+         val=getBands(((struct symref * ) v)); //number
+         return val;
       case b_crop:
-         v=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
-         return v;
+         val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
+         return val;
       case b_smartcrop:
-         smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
-         return v;
+         val=smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
+         return val;
       case b_add:
          add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
          return v;
@@ -43,14 +44,14 @@ struct utils *
          toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return v;
       case b_invert:
-         invert(((struct symref *)findNode(f, 1)), ((struct ast *)v));
-         return v;
+         val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         return val;
       case b_average:
          average(((struct symref * ) v));
          return v;
       case b_rotate:
-         rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
-         return v;
+         val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
+         return val;
       case b_get:
          get( ((struct symref *)findNode(f, 1))->s,v);
          return v;
@@ -205,10 +206,10 @@ average(struct symref * v) {
       vips_error_exit(NULL);
    }
 
-   printf("mean pixel value = %g\n", mean);
+   printf("Mean pixel value = %g\n", mean);
 }
 
-void
+struct utils * 
 invert(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
@@ -228,6 +229,12 @@ invert(struct symref * l,struct ast * v) {
    }
    printf("Image saved\n");
    //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
 }
 
 struct utils * 
@@ -259,7 +266,7 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
 }
 
 /* Crop an image down to a specified width and height by removing "boring" parts.  */
-void
+struct utils * 
 smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
    VipsImage * out;
    char * path;
@@ -277,6 +284,12 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    }
    printf("Image saved\n");
    //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
 }
 
 void
@@ -353,7 +366,7 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    openImg(path);
 }
 
-void
+struct utils *
 rotate(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
    char * path;
@@ -369,7 +382,13 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   openImg(path);
+   //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
 }
 
 struct utils *
@@ -377,7 +396,7 @@ getWidth(struct symref * v) {
    int val;
    struct utils * temp1 = v -> s -> value;
    val=vips_image_get_width(((struct img * ) temp1) -> img);
-   printf("image width = %d\n", val);
+   //printf("image width = %d\n", val);
    return ((struct utils *)newint(val,'+'));
 }
 
@@ -386,7 +405,7 @@ getHeight(struct symref * v) {
    int val;
    struct utils * temp1 = v -> s -> value;
    val=vips_image_get_height(((struct img * ) temp1) -> img);
-   printf("image height = %d\n", val);
+   //printf("image height = %d\n", val);
    return ((struct utils *)newint(val,'+'));
 }
 
@@ -395,7 +414,7 @@ getBands(struct symref * v) {
    int val;
    struct utils * temp1 = v -> s -> value;
    val=vips_image_get_bands(((struct img * ) temp1) -> img);
-   printf("number of bands = %d\n", val);
+   //printf("number of bands = %d\n", val);
    return ((struct utils *)newint(val,'+'));
 }
 
@@ -431,7 +450,7 @@ print_B(struct utils * v) {
       } else if(temp1->nodetype == 'S') {
          printf("%s\n", ((struct str * ) temp1) -> str);
       } else if(temp1-> nodetype == 'P'){
-         char * temp_path =strdup(((struct img *) temp1)->path);   
+         char * temp_path =strdup(((struct img *) temp1)->path); 
          openImg(temp_path);
       }
    } else if (v -> nodetype == 'M') {
