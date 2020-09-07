@@ -193,6 +193,7 @@ struct utils *
                }
             }while((temp_li=temp_li->n));
          }else{
+            printf("Li is empty or is not a list\n");
             return 0;
          }
          break;
