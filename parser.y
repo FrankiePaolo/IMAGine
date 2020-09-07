@@ -35,7 +35,7 @@
 %left '*' '/'
 %nonassoc '|' UMINUS
 
-%type <a> exp stmt explist img list value elements foreach
+%type <a> exp stmt explist img list value elements foreach name
 %type <sl> symlist
 
 %start program
@@ -71,8 +71,10 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | value                { $$ = $1; }
 ;
 
-foreach:    NAME ':' NAME        { $$ = newast('L', $1, $3); }
-   | NAME                         { $$ = newref($1); }
+foreach:    name ':' name        { $$ = newast('L', $1, $3); }
+;
+
+name: NAME                       { $$ = newref($1); }
 ;
 
 value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }

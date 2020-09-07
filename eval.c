@@ -183,16 +183,22 @@ struct utils *
          }
          break; 
       case 'E':
-         
-
-
-
+         if(((struct symref *)((struct flow * ) a)->cond->r)->s->li){
+            struct list * temp_li = ((struct symref *)((struct flow * ) a)->cond->r)->s->li;
+            struct symref * temp_ref=((struct symref *)((struct flow * ) a)->cond->l);
+            do{
+               temp_ref->s->value=temp_li->s->value;
+               v = eval(((struct flow * ) a) -> tl);
+            }while((temp_li=temp_li->n));
+         }else{
+            printf("Li is empty or is not a list\n");
+            return 0;
+         }
          break;
       case 'L':
          eval(a -> l);
          v = eval(a -> r);
          break;
-
       case 'C':
          v = calluser((struct ufncall * ) a);
          break;

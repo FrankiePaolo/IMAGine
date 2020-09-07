@@ -576,6 +576,7 @@ treefree(struct ast * a) {
 
    case 'I':
    case 'W':
+   case 'E':
       free(((struct flow * ) a) -> cond);
       if (((struct flow * ) a) -> tl) free(((struct flow * ) a) -> tl);
       if (((struct flow * ) a) -> el) free(((struct flow * ) a) -> el);
