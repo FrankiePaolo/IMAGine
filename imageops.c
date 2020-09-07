@@ -7,6 +7,8 @@
 #  include "utils.h"
 
 /* methods for images */
+
+/* This sometimes causes memory issues, needs to be updated */
 void
 openImg(char * path){
    char * open = strdup("xdg-open ");     

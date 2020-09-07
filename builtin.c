@@ -219,11 +219,11 @@ print_B(struct utils * v) {
       } else if(temp1->nodetype == 'D') {
          printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
       } else if(temp1->nodetype == 'S') {
-         printf("HERE");
          printf("%s\n", ((struct str * ) temp1) -> str);
       } else if(temp1-> nodetype == 'P'){
-         char * temp_path =strdup(((struct img *) temp1)->path); 
-         openImg(temp_path);
+         //char * temp_path =strdup(((struct img *) temp1)->path); 
+         //openImg(temp_path);
+         printf("This is an image\n");
       }
    } else if (v -> nodetype == 'M') {
       print_B( ((struct utils *)((struct ast *)v)->l) );
