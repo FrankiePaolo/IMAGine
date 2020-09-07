@@ -405,7 +405,7 @@ sobel(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
    struct utils * temp1 = l -> s -> value;
-   if (vips_canny((((struct img * ) temp1) -> img), & out, NULL)) {
+   if (vips_sobel((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
    path=getPath(v);
