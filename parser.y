@@ -71,7 +71,8 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | value                { $$ = $1; }
 ;
 
-foreach:    NAME ':' NAME        { printf("foreach\n"); }
+foreach:    NAME ':' NAME        { $$ = newast('L', $1, $3); }
+   | NAME                         { $$ = newref($1); }
 ;
 
 value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
