@@ -129,6 +129,12 @@ get(struct symbol * e,struct utils * v){
          printf("The index cannot be bigger than list depth\n");
          return NULL;
       }
+   }else if(v->nodetype=='N' && ((struct symref *)v)->s->value->nodetype=='i'){ 
+      index=((struct integer *)((struct symref *)v)->s->value)->i;
+      if((index>depth_list)){
+         printf("The index cannot be bigger than list depth\n");
+         return NULL;
+      }
    }else{
       yyerror("The index must be an integer\n");
       return NULL;
