@@ -6,6 +6,6 @@ void print_B(struct utils * v);
 
 /* methods for lists */
 struct utils * depth(struct symbol * e);
-void get(struct symbol * e,struct utils * v);
+struct utils * get(struct symbol * e,struct utils * v);
 void push(struct symbol * e,struct utils * v);
 void pop(struct symbol * e);

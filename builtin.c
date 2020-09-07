@@ -75,8 +75,8 @@ struct utils *
          val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_get:
-         get( ((struct symref *)findNode(f, 1))->s,v);
-         return v;
+         val=get( ((struct symref *)findNode(f, 1))->s,v);
+         return val;
       case b_push:
          push( ((struct symref *)findNode(f, 1))->s,v);
          return v;
@@ -84,7 +84,8 @@ struct utils *
          pop( ((struct symref * ) v)->s );
          return v;
       case b_depth:
-         return depth( ((struct symref * ) v)->s );
+         val= depth( ((struct symref * ) v)->s );
+         return val;
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
@@ -115,7 +116,7 @@ depth(struct symbol * e){
    return v;
 }
 
-void
+struct utils *
 get(struct symbol * e,struct utils * v){
    struct list * temp = e->li;
    int counter = 1;
@@ -126,30 +127,31 @@ get(struct symbol * e,struct utils * v){
       index=((struct integer*)v)->i;
       if((index>depth_list)){
          printf("The index cannot be bigger than list depth\n");
-         return;
+         return NULL;
       }
    }else{
       yyerror("The index must be an integer\n");
-      return;
+      return NULL;
    }
 
    if(!temp && (e->value)){
       yyerror("The list does not exist\n");
-      return;
+      return NULL;
    }
 
    if(!temp){
       printf("The list is empty\n");
-      return;
+      return NULL;
    }
 
    do{
       if(counter==index){
-         print_B(temp->s->value);
+         return(temp->s->value);
          break;
       }
       counter++;
    }while((temp=temp->n));
+   return NULL;
 }
 
 void
