@@ -53,6 +53,9 @@ struct utils *
       case b_rotate:
          val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;
+      case b_histeq:
+         val=histeq((struct symref *)findNode(f, 1),((struct ast *)v));
+         return val;
       case b_get:
          get( ((struct symref *)findNode(f, 1))->s,v);
          return v;

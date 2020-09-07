@@ -58,7 +58,8 @@ enum bifs {
       b_get,
       b_depth,
       b_convert,
-      b_rotate
+      b_rotate,
+      b_histeq
 };
 
 struct ast {
