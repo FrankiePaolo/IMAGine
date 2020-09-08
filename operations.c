@@ -159,7 +159,7 @@ divide(struct utils * l, struct utils * r) {
 
 void
 absoluteValue(struct utils * v, struct utils * l) {
-   if (type(l) == 'N') {
+   if (type(v) == 'N') {
       absoluteValue(v, getElement_sym(l));
    } else if (type(v) == 'i') {
       ((struct integer * ) v) -> i = abs(getElement_i(l));
