@@ -10,6 +10,7 @@
 void
 sum(struct utils * v, struct utils * l, struct utils * r) {
    struct utils * tempName, * tempName2;
+   char temp[50];
 
    if (l -> nodetype == 'i' && r == NULL) {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i;
@@ -23,7 +24,10 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i + ((struct integer * ) r) -> i;
    } else if (l -> nodetype == 'D' && r -> nodetype == 'D') {
       ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d + ((struct doublePrecision * ) r) -> d;
-   } else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
+   } else if ((l -> nodetype == 'S' && r -> nodetype == 'i')) { 
+      sprintf(temp, "%d", ((struct integer * ) r) -> i);
+      ((struct str * ) v)->str = strcat( strdup( ((struct str * ) l) -> str), temp );
+   }else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
       if (((struct symref * ) r) -> s -> value -> nodetype == 'i') {
          tempName = ((struct symref * ) r) -> s -> value;
          ((struct integer * ) v) -> i = ((struct integer * ) l) -> i + ((struct integer * ) tempName) -> i;
