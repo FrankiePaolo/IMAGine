@@ -173,6 +173,7 @@ char * getPath(struct ast * p);
 double getValue(struct ast * v);
 VipsInterpretation getSpace(struct ast * s);
 struct ast * findNode(struct fncall * f, int index);
+int getTruth(int temp);
 int yylex();
 int yyparse();
 

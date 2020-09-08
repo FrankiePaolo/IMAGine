@@ -85,6 +85,16 @@ findNode(struct fncall * f, int index){
    return node;
 }
 
+int
+getTruth(int temp){
+   if(temp==0){
+      temp=1;
+   }else{
+      temp=0;
+   }
+   return temp;
+}
+
 VipsInterpretation
 getSpace(struct ast * s){
    VipsInterpretation space;

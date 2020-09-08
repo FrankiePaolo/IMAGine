@@ -113,7 +113,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
+         v=((struct utils *)newint(0,'+'));
          biggerThan(v, temp1, temp2);
          break;
 
@@ -121,7 +121,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
+         v=((struct utils *)newint(0,'+'));
          smallerThan(v, temp1, temp2);
          break;
 
@@ -129,7 +129,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
+         v=((struct utils *)newint(0,'+'));
          unequal(v, temp1, temp2);
          break;
 
@@ -137,7 +137,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
+         v=((struct utils *)newint(0,'+'));
          equal(v, temp1, temp2);
          break;
 
@@ -145,7 +145,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
+         v=((struct utils *)newint(0,'+'));
          biggerOrEqual(v, temp1, temp2);
          break;
 
@@ -153,7 +153,7 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
 
-         v = setNodeType(temp1, temp2);
+         v=((struct utils *)newint(0,'+'));
          smallerOrEqual(v, temp1, temp2);
          break;
 

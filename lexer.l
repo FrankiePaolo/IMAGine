@@ -28,7 +28,7 @@
  /* comparison ops */
 ">"     { yylval.fn = 1; return CMP; }
 "<"     { yylval.fn = 2; return CMP; }
-"<>"    { yylval.fn = 3; return CMP; }
+"!="    { yylval.fn = 3; return CMP; }
 "=="    { yylval.fn = 4; return CMP; }
 ">="    { yylval.fn = 5; return CMP; }
 "<="    { yylval.fn = 6; return CMP; }
@@ -77,7 +77,7 @@
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
  /* string */
-\"{1}.+\"{1}             {  yytext++;yylval.str=(yytext);return STRING; } 
+\"{1}.[^"]+\"{1}       { yytext++;yylval.str=(yytext);return STRING; } 
 
  /* int */
 [0-9]+                { yylval.i = atoi(yytext); return INT; }
