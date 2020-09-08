@@ -181,6 +181,7 @@ char * getElement_s(struct utils * v);
 void putElement_i(struct utils * v,int i);
 void putElement_d(struct utils * v,double d);
 void putElement_s(struct utils * v,char * s);
+struct utils * getElement_sym(struct utils * v);
 int yylex();
 int yyparse();
 int asprintf(char **strp, const char *fmt, ...);

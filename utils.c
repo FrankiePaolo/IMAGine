@@ -106,9 +106,6 @@ type(struct utils * v){
 	}
 }
 
-
-//      ((struct doublePrecision * ) v) -> d = getElement_i(l) - getElement_d(r);
-
 void
 putElement_i(struct utils * v,int i){
    if(type(v)=='i'){
@@ -163,6 +160,16 @@ char *
 getElement_s(struct utils * v){
    if(type(v)=='S'){
       return ((struct str * ) v) -> str ;
+   } else {
+		yyerror("NULL value detected");
+		return NULL;
+	}
+}
+
+struct utils *
+getElement_sym(struct utils * v){
+   if(type(v)=='N'){
+      return ((struct symref * ) v) -> s -> value ;
    } else {
 		yyerror("NULL value detected");
 		return NULL;

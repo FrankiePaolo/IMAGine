@@ -123,13 +123,13 @@ get(struct symbol * e,struct utils * v){
    int index = 0;
    int depth_list=((struct integer *)depth(e))->i;
 
-   if(v->nodetype=='i'){
+   if(type(v)=='i'){
       index=((struct integer*)v)->i;
       if((index>depth_list)){
          printf("The index cannot be bigger than list depth\n");
          return NULL;
       }
-   }else if(v->nodetype=='N' && ((struct symref *)v)->s->value->nodetype=='i'){ 
+   }else if(type(v)=='N' && ((struct symref *)v)->s->value->nodetype=='i'){ 
       index=((struct integer *)((struct symref *)v)->s->value)->i;
       if((index>depth_list)){
          printf("The index cannot be bigger than list depth\n");
@@ -224,21 +224,21 @@ print_B(struct utils * v) {
    struct symbol * temp; 
    struct list * li;
 
-   if(v -> nodetype == 'N' && ((struct symref * ) v) -> s->li) {
+   if(type(v) == 'N' && ((struct symref * ) v) -> s->li) {
       temp=((struct symref * ) v) -> s;
       li=temp->li;
       do{
          print_B( ((struct utils *)li->s->value));
       } while((li=li->n));
-   } else if(v -> nodetype == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
+   } else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
       printf("The list is empty\n");
-   }else if (v -> nodetype == 'i') {
+   }else if (type(v) == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
-   } else if (v -> nodetype == 'D') {
+   } else if (type(v) == 'D') {
       printf("%.6g\n", ((struct doublePrecision * ) v) -> d);
-   } else if (v -> nodetype == 'S') {
+   } else if (type(v) == 'S') {
       printf("%s\n", strdup(((struct str * ) v) -> str));
-   }else if (v -> nodetype == 'N') {
+   }else if (type(v) == 'N') {
       temp1 = ((struct symref * ) v) -> s -> value;
       while (temp1->nodetype=='N') {
          temp1=((struct symref * ) temp1) -> s -> value;
@@ -246,7 +246,7 @@ print_B(struct utils * v) {
       if (temp1->nodetype == 'i') {
          printf("%i\n", ((struct integer * ) temp1) -> i);
       } else if(temp1->nodetype == 'D') {
-         printf("%f\n", ((struct doublePrecision * ) temp1) -> d);
+         printf("%.6g\n", ((struct doublePrecision * ) temp1) -> d);
       } else if(temp1->nodetype == 'S') {
          printf("%s\n", ((struct str * ) temp1) -> str);
       } else if(temp1-> nodetype == 'P'){
@@ -254,12 +254,12 @@ print_B(struct utils * v) {
          //openImg(temp_path);
          printf("This is an image\n");
       }
-   } else if (v -> nodetype == 'M') {
+   } else if (type(v) == 'M') {
       print_B( ((struct utils *)((struct ast *)v)->l) );
    } else if(v-> nodetype == 'P'){
       printf("This element of the list is an image\n");
    } else {
-      printf("%i\n",v->nodetype);
+      printf("%i\n",type(v));
       printf("Node not found\n");
    }
 }
