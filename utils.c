@@ -634,7 +634,7 @@ main(int argc, char * argv[]) {
    return 0;
 }
 
-/* debugging: dump out an AST */
+/* debugging: dump out an AST ,add S and E*/
 int debug = 0;
 void
 dumpast(struct ast * a, int level) {
