@@ -26,8 +26,19 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
       ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d + ((struct doublePrecision * ) r) -> d;
    } else if ((l -> nodetype == 'S' && r -> nodetype == 'i')) { 
       sprintf(temp, "%d", ((struct integer * ) r) -> i);
-      ((struct str * ) v)->str = strcat( strdup( ((struct str * ) l) -> str), temp );
-   }else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
+      ((struct str * ) v)->str = strcat( strdup( ((struct str * ) l) -> str), strdup(temp) );
+   } else if ((l -> nodetype == 'i' && r -> nodetype == 'S')) { 
+      sprintf(temp, "%d", ((struct integer * ) l) -> i);
+      ((struct str * ) v)->str = strcat( strdup(temp), strdup( ((struct str * ) r) -> str) );
+   } else if ((l -> nodetype == 'S' && r -> nodetype == 'D')) { 
+      sprintf(temp, "%f", ((struct doublePrecision * ) r) -> d);
+      ((struct str * ) v)->str = strcat( strdup( ((struct str * ) l) -> str), strdup(temp) );
+   } else if ((l -> nodetype == 'D' && r -> nodetype == 'S')) { 
+      sprintf(temp, "%f", ((struct doublePrecision * ) l) -> d);
+      ((struct str * ) v)->str = strcat( strdup(temp), strdup( ((struct str * ) r) -> str) );
+   } else if ((l -> nodetype == 'S' && r -> nodetype == 'S')) { 
+      ((struct str * ) v)->str = strcat( strdup( ((struct str * ) l) -> str), strdup( ((struct str * ) r) -> str) );
+   } else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
       if (((struct symref * ) r) -> s -> value -> nodetype == 'i') {
          tempName = ((struct symref * ) r) -> s -> value;
          ((struct integer * ) v) -> i = ((struct integer * ) l) -> i + ((struct integer * ) tempName) -> i;
