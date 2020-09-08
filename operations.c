@@ -76,7 +76,6 @@ subtract(struct utils * v, struct utils * l, struct utils * r) {
 
 void
 multiply(struct utils * v, struct utils * l, struct utils * r) {
-   struct utils * tempName, * tempName2;
 
    if (l -> nodetype == 'i' && r == NULL) {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i;
@@ -90,6 +89,26 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i * ((struct integer * ) r) -> i;
    } else if (l -> nodetype == 'D' && r -> nodetype == 'D') {
       ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d * ((struct doublePrecision * ) r) -> d;
+   } else if ((l -> nodetype == 'S' && r -> nodetype == 'i')) {
+      if(((struct integer * ) r)->i >0 ){
+
+         asprintf( &(((struct str * ) v)->str), "%s", strdup( ((struct str * ) l) -> str));
+         for(int i=0; i<((struct integer * ) r)->i; i++){
+            asprintf(&(((struct str * ) v)->str), "%s%s", (((struct str * ) v)->str), (((struct str * ) l) -> str));
+         }
+      }else{
+         yyerror("string multiply allowed only for positive integer");
+      }       
+   } else if ((l -> nodetype == 'i' && r -> nodetype == 'S')) { 
+      if(((struct integer * ) l)->i >0 ){
+
+         asprintf( &(((struct str * ) v)->str), "%s", strdup( ((struct str * ) r) -> str));
+         for(int i=0; i<((struct integer * ) l)->i; i++){
+            asprintf(&(((struct str * ) v)->str), "%s%s", (((struct str * ) v)->str), (((struct str * ) r) -> str));
+         }
+      }else{
+         yyerror("string multiply allowed only for positive integer");
+      }  
    } else if (l -> nodetype == 'N' && r -> nodetype != 'N') {
       multiply(v, ((struct symref * ) l) -> s -> value, r);
    } else if (l -> nodetype != 'N' && r -> nodetype == 'N') {
