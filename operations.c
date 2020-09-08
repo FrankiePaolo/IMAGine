@@ -83,41 +83,41 @@ void
 multiply(struct utils * v, struct utils * l, struct utils * r) {
 
    if (type(l) == 'i' && r == NULL) {
-      ((struct integer * ) v) -> i = getElement_i(l);
+      putElement_i(v,getElement_i(l));
    } else if (type(l) == 'D' && r == NULL) {
-      ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d;
+      putElement_d(v,getElement_d(l));
    } else if (type(l) == 'i' && type(r) == 'D') {
-      ((struct doublePrecision * ) v) -> d = getElement_i(l) * ((struct doublePrecision * ) r) -> d;
+      putElement_d(v,getElement_i(l)*getElement_d(r));
    } else if (type(l) == 'D' && type(r) == 'i') {
       multiply(v, r, l);
    } else if (type(l) == 'i' && type(r) == 'i') {
-      ((struct integer * ) v) -> i = getElement_i(l) * ((struct integer * ) r) -> i;
+      putElement_i(v,getElement_i(l) * getElement_i(r));
    } else if (type(l) == 'D' && type(r) == 'D') {
-      ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d * ((struct doublePrecision * ) r) -> d;
+      putElement_d(v,getElement_d(l)*getElement_d(r));
    } else if ((type(l) == 'S' && type(r) == 'i')) {
-      if(((struct integer * ) r)->i >0 ){
-         asprintf( &(((struct str * ) v)->str), "%s", strdup( ((struct str * ) l) -> str));
-         for(int i=0; i<((struct integer * ) r)->i; i++){
-            asprintf(&(((struct str * ) v)->str), "%s%s", (((struct str * ) v)->str), (((struct str * ) l) -> str));
+      if(getElement_i(r) >0 ){
+         asprintf( &(((struct str * ) v)->str), "%s", getElement_s(l));
+         for(int i=0; i<getElement_i(r); i++){
+            asprintf(&(((struct str * ) v)->str), "%s%s", getElement_s(v), getElement_s(l));
          }
       }else{
-         yyerror("string multiply allowed only for positive integer");
+         yyerror("String multiply allowed only for positive integer\n");
       }       
    } else if ((type(l) == 'i' && type(r) == 'S')) { 
-      if(((struct integer * ) l)->i >0 ){
+      if(getElement_i(l) >0 ){
          asprintf( &(((struct str * ) v)->str), "%s", getElement_s(r));
-         for(int i=0; i<((struct integer * ) l)->i; i++){
-            asprintf(&(((struct str * ) v)->str), "%s%s", (((struct str * ) v)->str), getElement_s(r));
+         for(int i=0; i<getElement_i(l); i++){
+            asprintf(&(((struct str * ) v)->str), "%s%s", getElement_s(v), getElement_s(r));
          }
       }else{
-         yyerror("string multiply allowed only for positive integer");
+         yyerror("String multiply allowed only for positive integer\n");
       }  
    } else if (type(l) == 'N' && type(r) != 'N') {
       multiply(v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      multiply(v, l, ((struct symref * ) r) -> s -> value);
+      multiply(v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      multiply(v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      multiply(v, getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -148,9 +148,9 @@ divide(struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) != 'N') {
       v=divide(getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      v=divide(l, ((struct symref * ) r) -> s -> value);
+      v=divide(l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      v=divide(getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      v=divide(getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -176,9 +176,9 @@ biggerThan(struct utils * v, struct utils * l, struct utils * r) {
    if (type(l) == 'N' && type(r) != 'N') {
       biggerThan( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      biggerThan( v, l, ((struct symref * ) r) -> s -> value);
+      biggerThan( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      biggerThan( v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      biggerThan( v, getElement_sym(l), getElement_sym(r));
    } else if (type(l) == 'i' && r->nodetype == 'D') {
       ((struct integer * ) v) -> i = getElement_i(l) > ((struct doublePrecision * ) r) -> d ? 1 : 0;
    } else if (l->nodetype == 'D' && r->nodetype == 'i') {
@@ -198,9 +198,9 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
    if (type(l) == 'N' && type(r) != 'N') {
       smallerThan( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      smallerThan( v, l, ((struct symref * ) r) -> s -> value);
+      smallerThan( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      smallerThan( v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      smallerThan( v, getElement_sym(l), getElement_sym(r));
    }else if (type(l) == 'i' && r->nodetype == 'D') {
       ((struct integer * ) v) -> i = getElement_i(l) < ((struct doublePrecision * ) r) -> d ? 1 : 0;
    }else if (l->nodetype == 'D' && r->nodetype == 'i') {
@@ -235,9 +235,9 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
    }else if (type(l) == 'N' && type(r) != 'N') {
       unequal( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      unequal( v, l, ((struct symref * ) r) -> s -> value);
+      unequal( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      unequal( v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      unequal( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -262,9 +262,9 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
    }else if (type(l) == 'N' && type(r) != 'N') {
       equal( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      equal( v, l, ((struct symref * ) r) -> s -> value);
+      equal( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      equal( v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      equal( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -284,9 +284,9 @@ biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    }else if (type(l) == 'N' && type(r) != 'N') {
       biggerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      biggerOrEqual( v, l, ((struct symref * ) r) -> s -> value);
+      biggerOrEqual( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      biggerOrEqual( v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      biggerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -306,9 +306,9 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    }else if (type(l) == 'N' && type(r) != 'N') {
       smallerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      smallerOrEqual( v, l, ((struct symref * ) r) -> s -> value);
+      smallerOrEqual( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      smallerOrEqual( v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      smallerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
