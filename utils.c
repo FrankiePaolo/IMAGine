@@ -386,10 +386,7 @@ struct utils *
    setNodeTypeCast(struct utils * l, struct utils * r) {
       struct utils * v;
 
-      if ( (l -> nodetype == 'N' && ((struct symref * ) l) -> s -> value -> nodetype == 'S') || (r -> nodetype == 'N' && ((struct symref * ) r) -> s -> value -> nodetype == 'S') ) {
-         v = malloc(sizeof(struct str));
-         ((struct str * ) v) -> nodetype = 'S';
-      } else if (l -> nodetype == 'N' && r == NULL) {
+     if (l -> nodetype == 'N' && r == NULL) {
          if (((struct symref * ) l) -> s -> value -> nodetype == 'i') {
             v = malloc(sizeof(struct integer));
             ((struct integer * ) v) -> nodetype = 'i';
@@ -397,6 +394,9 @@ struct utils *
             v = malloc(sizeof(struct doublePrecision));
             ((struct doublePrecision * ) v) -> nodetype = 'D';
          }
+      } else if ( (l -> nodetype == 'N' && ((struct symref * ) l) -> s -> value -> nodetype == 'S') || (r -> nodetype == 'N' && ((struct symref * ) r) -> s -> value -> nodetype == 'S') ) {
+         v = malloc(sizeof(struct str));
+         ((struct str * ) v) -> nodetype = 'S';
       } else if ((l -> nodetype == 'i' && r -> nodetype == 'N')) {
          if (((struct symref * ) r) -> s -> value -> nodetype == 'i') {
             v = malloc(sizeof(struct integer));

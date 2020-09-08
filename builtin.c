@@ -235,7 +235,7 @@ print_B(struct utils * v) {
    }else if (v -> nodetype == 'i') {
       printf("%d\n", ((struct integer * ) v) -> i);
    } else if (v -> nodetype == 'D') {
-      printf("%f\n", ((struct doublePrecision * ) v) -> d);
+      printf("%.6g\n", ((struct doublePrecision * ) v) -> d);
    } else if (v -> nodetype == 'S') {
       printf("%s\n", strdup(((struct str * ) v) -> str));
    }else if (v -> nodetype == 'N') {
