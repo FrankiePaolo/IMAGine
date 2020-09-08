@@ -130,20 +130,20 @@ divide(struct utils * l, struct utils * r) {
    ((struct doublePrecision * ) v) -> nodetype = 'D';
    
    if (type(l) == 'i' && type(r) == 'D') {
-      if(((struct doublePrecision * ) r) -> d !=0){
-         ((struct doublePrecision *)v) -> d = getElement_i(l) / ((struct doublePrecision * ) r) -> d;
+      if(getElement_d(r) !=0){
+         putElement_d(v,getElement_i(l) / getElement_d(r));
       }
    } else if (type(l) == 'D' && type(r) == 'i') {
-      if(((struct integer * ) r) -> i !=0){
-         ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) l) -> d / ((struct integer * ) r) -> i;
+      if(getElement_i(r) !=0){
+         putElement_d(v,getElement_d(l) / getElement_i(r));
       }
    } else if (type(l) == 'i' && type(r) == 'i') {
-      if(((struct integer * ) r) -> i !=0){
-         ((struct doublePrecision *)v) -> d = (double) (getElement_i(l)) / (double)(((struct integer * ) r) -> i);
+      if(getElement_i(r) !=0){
+         putElement_d(v,(double) (getElement_i(l)) / (double)(getElement_i(r)));
       }
    } else if (type(l) == 'D' && type(r) == 'D') {
-      if(((struct doublePrecision * ) r) -> d !=0){
-         ((struct doublePrecision *)v) -> d = ((struct doublePrecision * ) l) -> d / ((struct doublePrecision * ) r) -> d;
+      if(getElement_d(r) !=0){
+         putElement_d(v,getElement_d(l) / getElement_d(r));
       }
    } else if (type(l) == 'N' && type(r) != 'N') {
       v=divide(getElement_sym(l), r);
@@ -164,7 +164,7 @@ absoluteValue(struct utils * v, struct utils * l) {
    } else if (type(v) == 'i') {
       ((struct integer * ) v) -> i = abs(getElement_i(l));
    } else if (type(v) == 'D') {
-      ((struct doublePrecision * ) v) -> d = fabs(((struct doublePrecision * ) l) -> d);
+      ((struct doublePrecision * ) v) -> d = fabs(getElement_d(l));
    } else {
       yyerror("Unexpected type, %c %c", type(l));
    }
@@ -180,13 +180,13 @@ biggerThan(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       biggerThan( v, getElement_sym(l), getElement_sym(r));
    } else if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) > ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) > getElement_d(r) ? 1 : 0;
    } else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d > ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) > getElement_i(r) ? 1 : 0;
    } else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) > ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) > getElement_i(r) ? 1 : 0;
    } else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d > ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) > getElement_d(r) ? 1 : 0;
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -202,13 +202,13 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       smallerThan( v, getElement_sym(l), getElement_sym(r));
    }else if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) < ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) < getElement_d(r) ? 1 : 0;
    }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d < ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) < getElement_i(r) ? 1 : 0;
    }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) < ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) < getElement_i(r) ? 1 : 0;
    }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d < ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) < getElement_d(r) ? 1 : 0;
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -218,13 +218,13 @@ void
 unequal(struct utils * v, struct utils * l, struct utils * r) {
 
    if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) != ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) != getElement_d(r) ? 1 : 0;
    }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d != ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) != getElement_i(r) ? 1 : 0;
    }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) != ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) != getElement_i(r) ? 1 : 0;
    }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d != ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) != getElement_d(r) ? 1 : 0;
    }else if (type(l) == 'S' && r->nodetype == 'S'){
       int temp;
       temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
@@ -247,13 +247,13 @@ void
 equal(struct utils * v, struct utils * l, struct utils * r) {
    
    if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) == ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) == getElement_d(r) ? 1 : 0;
    }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d == ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) == getElement_i(r) ? 1 : 0;
    }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) == ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) == getElement_i(r) ? 1 : 0;
    }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d == ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) == getElement_d(r) ? 1 : 0;
    }else if (type(l) == 'S' && r->nodetype == 'S'){
       int temp;
       temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
@@ -274,13 +274,13 @@ void
 biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    
    if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) >= ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) >= getElement_d(r) ? 1 : 0;
    }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d >= ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) >= getElement_i(r) ? 1 : 0;
    }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) >= ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) >= getElement_i(r) ? 1 : 0;
    }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d >= ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) >= getElement_d(r) ? 1 : 0;
    }else if (type(l) == 'N' && type(r) != 'N') {
       biggerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -296,13 +296,13 @@ void
 smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    
    if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) <= ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) <= getElement_d(r) ? 1 : 0;
    }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d <= ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) <= getElement_i(r) ? 1 : 0;
    }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) <= ((struct integer * ) r) -> i ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_i(l) <= getElement_i(r) ? 1 : 0;
    }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d <= ((struct doublePrecision * ) r) -> d ? 1 : 0;
+      ((struct integer * ) v) -> i = getElement_d(l) <= getElement_d(r) ? 1 : 0;
    }else if (type(l) == 'N' && type(r) != 'N') {
       smallerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
