@@ -35,6 +35,9 @@ struct utils *
       case b_smartcrop:
          val=smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
+      case b_zoom:
+         val=zoom(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
+         return val;
       case b_add:
          val=add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
          return val;
@@ -46,6 +49,9 @@ struct utils *
          return val;
       case b_invert:
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         return val;
+      case b_copyfile:
+         val=copyfile(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_average:
          val=average(((struct symref * ) v));

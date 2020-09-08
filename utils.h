@@ -65,7 +65,9 @@ enum bifs {
       b_gaussianblur,
       b_canny,
       b_sobel,
-      b_sharpen
+      b_sharpen,
+      b_zoom,
+      b_copyfile
 };
 
 struct ast {

@@ -50,7 +50,30 @@ invert(struct symref * l,struct ast * v) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
-   //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils * 
+copyfile(struct symref * l,struct ast * v) {
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   VipsTarget temp1= vips_target_new_to_file(getElement_s(v));
+
+   if (((((stvips_copyruct img * ) temp1) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -106,6 +129,32 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    }
    printf("Image saved\n");
    //openImg(path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+
+struct utils * 
+zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfactor){
+   VipsImage * out;
+   char * path;
+   int x=(int) getValue(xfactor);
+   int y=(int) getValue(yfactor);
+   struct utils * temp1 = l -> s -> value;
+
+   if (vips_zoom((((struct img * ) temp1) -> img), & out, x, y, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath( ((struct ast *) r) );
+
+   if (vips_image_write_to_file(out, path, NULL)) {
+      vips_error_exit(NULL);
+   }
+   printf("Image saved\n");
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
