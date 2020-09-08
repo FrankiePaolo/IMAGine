@@ -71,9 +71,9 @@ subtract(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) != 'N') {
       subtract(v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
-      subtract(v, l, ((struct symref * ) r) -> s -> value);
+      subtract(v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
-      subtract(v, getElement_sym(l), ((struct symref * ) r) -> s -> value);
+      subtract(v, getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
