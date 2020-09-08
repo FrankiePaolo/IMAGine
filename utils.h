@@ -176,6 +176,7 @@ struct ast * findNode(struct fncall * f, int index);
 int getTruth(int temp);
 int yylex();
 int yyparse();
+int asprintf(char **strp, const char *fmt, ...);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */
