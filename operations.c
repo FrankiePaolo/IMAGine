@@ -18,7 +18,7 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
    } else if (l -> nodetype == 'i' && r -> nodetype == 'D') {
       ((struct doublePrecision * ) v) -> d = ((struct integer * ) l) -> i + ((struct doublePrecision * ) r) -> d;
    } else if (l -> nodetype == 'D' && r -> nodetype == 'i') {
-      ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d + ((struct integer * ) r) -> i;
+      sum(v, r, l);
    } else if (l -> nodetype == 'i' && r -> nodetype == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i + ((struct integer * ) r) -> i;
    } else if (l -> nodetype == 'D' && r -> nodetype == 'D') {
