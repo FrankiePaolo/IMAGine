@@ -470,6 +470,16 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
       }else if(((struct symref * ) l) -> s -> value -> nodetype == 'D'){
          ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d != ((struct doublePrecision * ) r) -> d ? 1 : 0;
       }
+     }else if(l ->nodetype == 'N' && r->nodetype == 'S'){
+      tempName = ((struct symref * ) l) -> s -> value;
+      if(((struct symref * ) l) -> s -> value -> nodetype == 'S'){
+         int temp;
+         temp = strcmp(strdup(((struct str *)tempName)->str),strdup(((struct str *)r)->str));
+         if(temp!=0){
+            temp=1;
+         }
+         ((struct integer * ) v) -> i = temp;
+      }
    }else if(l ->nodetype == 'i' && r->nodetype == 'N'){
       tempName = ((struct symref * ) r) -> s -> value;
       if(((struct symref * ) r) -> s -> value -> nodetype == 'i'){
@@ -484,6 +494,16 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
       }else if(((struct symref * ) r) -> s -> value -> nodetype == 'D'){
          ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d != ((struct doublePrecision * ) tempName) -> d ? 1 : 0;
       }
+   }else if(l ->nodetype == 'S' && r->nodetype == 'N'){
+      tempName = ((struct symref * ) r) -> s -> value;
+      if(((struct symref * ) r) -> s -> value -> nodetype == 'S'){
+         int temp;
+         temp = strcmp(strdup(((struct str *)tempName)->str),strdup(((struct str *)l)->str));
+         if(temp!=0){
+            temp=1;
+         }
+         ((struct integer * ) v) -> i = temp;
+      }
    }else if(l ->nodetype == 'N' && r->nodetype == 'N'){
       tempName = ((struct symref * ) l) -> s -> value;
       tempName2 = ((struct symref * ) r) -> s -> value;
@@ -495,6 +515,13 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
          ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d != ((struct integer * ) tempName2) -> i ? 1 : 0;
       }else if((((struct symref * ) l) -> s -> value -> nodetype == 'D') && (((struct symref * ) r) -> s -> value -> nodetype == 'D')){
          ((struct integer * ) v) -> i = ((struct doublePrecision * ) tempName) -> d != ((struct doublePrecision * ) tempName2) -> d ? 1 : 0;
+      }else if((((struct symref * ) l) -> s -> value -> nodetype == 'S') && (((struct symref * ) r) -> s -> value -> nodetype == 'S')){
+         int temp;
+         temp = strcmp(strdup(((struct str *)tempName)->str),strdup(((struct str *)tempName2)->str));
+         if(temp!=0){
+            temp=1;
+         }
+         ((struct integer * ) v) -> i = temp;
       }
    }else if (l -> nodetype == 'i' && r->nodetype == 'D') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i != ((struct doublePrecision * ) r) -> d ? 1 : 0;
@@ -504,6 +531,13 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i != ((struct integer * ) r) -> i ? 1 : 0;
    }else if(l->nodetype == 'D' && r->nodetype == 'D'){
       ((struct integer * ) v) -> i = ((struct doublePrecision * ) l) -> d != ((struct doublePrecision * ) r) -> d ? 1 : 0;
+   }else if (l -> nodetype == 'S' && r->nodetype == 'S'){
+      int temp;
+      temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
+      if(temp!=0){
+         temp=1;
+      }
+      ((struct integer * ) v) -> i = temp;
    }
 }
 
