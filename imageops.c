@@ -32,7 +32,6 @@ average(struct symref * v) {
 struct utils * 
 invert(struct symref * l,struct ast * v) {
    VipsImage * out;
-
    char * path;
    struct utils * temp1 = l -> s -> value;
    if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
@@ -44,9 +43,8 @@ invert(struct symref * l,struct ast * v) {
    printf("Please enter the path of the output image :\n");
    scanf("%s", path);
    */
-   VipsImage * result=vips_image_new_from_file(path);
 
-   if (vips_image_write(out, result, NULL)) {
+   if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
    }
    printf("Image saved\n");
@@ -235,7 +233,7 @@ flip(struct symref * l,struct ast * v,struct ast * s){
    //openImg(path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> type = 'P'; //P as in picture
+   a -> nodetype = 'P'; //P as in picture
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
