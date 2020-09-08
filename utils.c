@@ -95,6 +95,81 @@ getTruth(int temp){
    return temp;
 }
 
+int
+type(struct utils * v){
+
+	if(v){
+  	   return v->nodetype;
+	} else {
+		yyerror("NULL value detected");
+		return 0;
+	}
+}
+
+
+//      ((struct doublePrecision * ) v) -> d = getElement_i(l) - getElement_d(r);
+
+void
+putElement_i(struct utils * v,int i){
+   if(type(v)=='i'){
+      ((struct integer * ) v) -> i=i;
+   } else {
+		yyerror("NULL value detected");
+		return;
+	}
+}
+
+void
+putElement_d(struct utils * v,double d){
+   if(type(v)=='D'){
+      ((struct doublePrecision * ) v) -> d=d;
+   } else {
+		yyerror("NULL value detected");
+      return ;
+	}
+}
+
+void
+putElement_s(struct utils * v,char * s){
+   if(type(v)=='S'){
+      ((struct str * ) v) -> str=strdup(s);
+   } else {
+		yyerror("NULL value detected");
+      return ;
+	}
+}
+
+int
+getElement_i(struct utils * v){
+   if(type(v)=='i'){
+      return ((struct integer * ) v) -> i ;
+   } else {
+		yyerror("NULL value detected");
+		return 0;
+	}
+}
+
+double
+getElement_d(struct utils * v){
+   if(type(v)=='D'){
+      return ((struct doublePrecision * ) v) -> d ;
+   } else {
+		yyerror("NULL value detected");
+		return 0;
+	}
+}
+
+char *
+getElement_s(struct utils * v){
+   if(type(v)=='S'){
+      return ((struct str * ) v) -> str ;
+   } else {
+		yyerror("NULL value detected");
+		return NULL;
+	}
+}
+
+
 VipsInterpretation
 getSpace(struct ast * s){
    VipsInterpretation space;

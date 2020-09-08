@@ -51,26 +51,26 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
 void
 subtract(struct utils * v, struct utils * l, struct utils * r) {
 
-   if (l -> nodetype == 'i' && r == NULL) {
+   if (type(l) == 'i' && r == NULL) {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i;
-   } else if (l -> nodetype == 'D' && r == NULL) {
-      ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d;
-   } else if (l -> nodetype == 'i' && r -> nodetype == 'D') {
-      ((struct doublePrecision * ) v) -> d = ((struct integer * ) l) -> i - ((struct doublePrecision * ) r) -> d;
-   } else if (l -> nodetype == 'D' && r -> nodetype == 'i') {
+   } else if (type(l) == 'D' && r == NULL) {
+      ((struct doublePrecision * ) v) -> d = getElement_d(l);
+   } else if (type(l) == 'i' && type(r) == 'D') {
+      putElement_d(v,getElement_i(l) - getElement_d(r));
+   } else if (type(l) == 'D' && type(r) == 'i') {
       ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d - ((struct integer * ) r) -> i;
-   } else if (l -> nodetype == 'i' && r -> nodetype == 'i') {
+   } else if (type(l) == 'i' && type(r) == 'i') {
       ((struct integer * ) v) -> i = ((struct integer * ) l) -> i - ((struct integer * ) r) -> i;
-   } else if (l -> nodetype == 'D' && r -> nodetype == 'D') {
+   } else if (type(l) == 'D' && type(r) == 'D') {
       ((struct doublePrecision * ) v) -> d = ((struct doublePrecision * ) l) -> d - ((struct doublePrecision * ) r) -> d;
-   } else if (l -> nodetype == 'N' && r -> nodetype != 'N') {
+   } else if (type(l) == 'N' && type(r) != 'N') {
       subtract(v, ((struct symref * ) l) -> s -> value, r);
-   } else if (l -> nodetype != 'N' && r -> nodetype == 'N') {
+   } else if (type(l) != 'N' && type(r) == 'N') {
       subtract(v, l, ((struct symref * ) r) -> s -> value);
-   } else if (l -> nodetype == 'N' && r -> nodetype == 'N') {
+   } else if (type(l) == 'N' && type(r) == 'N') {
       subtract(v, ((struct symref * ) l) -> s -> value, ((struct symref * ) r) -> s -> value);
    } else {
-      yyerror("Unexpected type, %c %c", l -> nodetype, r -> nodetype);
+      yyerror("Unexpected type, %c %c", type(l), type(r));
    }
 }
 
