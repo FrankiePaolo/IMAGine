@@ -324,6 +324,13 @@ struct ast *
       }else if(l->nodetype == 'D'){
          s->value=((struct utils *)newdouble(((struct doublePrecision *)l)->d,'+'));
          li->s=s;
+      }else if(l->nodetype == 'S'){
+         struct str * a = malloc(sizeof(struct str));
+         char * temp=(((struct str *)l)->str);
+         a -> nodetype = 'S';
+         a -> str = strndup(temp,(strlen(temp)));
+         s->value=((struct utils *)a);
+         li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
       }
@@ -576,6 +583,7 @@ treefree(struct ast * a) {
 
    case 'I':
    case 'W':
+   case 'E':
       free(((struct flow * ) a) -> cond);
       if (((struct flow * ) a) -> tl) free(((struct flow * ) a) -> tl);
       if (((struct flow * ) a) -> el) free(((struct flow * ) a) -> el);

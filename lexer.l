@@ -22,6 +22,7 @@
 "(" |
 "{" |
 "}" |
+":" |
 ")"     { return yytext[0]; }
 
  /* comparison ops */
@@ -39,6 +40,7 @@
 "else"  { return ELSE; }
 "while" { return WHILE; }
 "do"    { return DO; }
+"foreach" { return FOREACH; }
 "def"   { return DEF; }
 "img"   { return IMG; }
 "list"  { return LIST; }

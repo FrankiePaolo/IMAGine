@@ -26,7 +26,7 @@
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO DEF IMG LIST
+%token IF THEN ELSE WHILE DO DEF IMG LIST FOREACH
 
 
 %nonassoc <fn> CMP
@@ -35,7 +35,7 @@
 %left '*' '/'
 %nonassoc '|' UMINUS
 
-%type <a> exp stmt explist img list value elements
+%type <a> exp stmt explist img list value elements foreach name
 %type <sl> symlist
 
 %start program
@@ -45,6 +45,7 @@
 stmt: IF '(' exp ')' THEN '{' list '}' ';'                { $$ = newflow('I', $3, $7, NULL); }
    | IF '(' exp ')' THEN '{' list '}' ELSE '{' list '}'   { $$ = newflow('I', $3, $7, $11); }
    | WHILE '(' exp ')' DO '{' list '}'                    { $$ = newflow('W', $3, $7, NULL); }
+   | FOREACH '(' foreach ')' '{' list '}'                 { $$ = newflow('E', $3, $6, NULL); }
    | exp ';'
 ;
 
@@ -68,6 +69,12 @@ exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | IMG NAME '=' img     { $$ = newasgn($2, $4); }  
    | NAME '(' explist ')' { $$ = newcall($1, $3); }
    | value                { $$ = $1; }
+;
+
+foreach:    name ':' name        { $$ = newast('L', $1, $3); }
+;
+
+name: NAME                       { $$ = newref($1); }
 ;
 
 value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
