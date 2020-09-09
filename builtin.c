@@ -51,7 +51,7 @@ struct utils *
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_copyfile:
-         val=copyfile(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_average:
          val=average(((struct symref * ) v));

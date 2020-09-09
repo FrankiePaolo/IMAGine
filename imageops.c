@@ -6,6 +6,7 @@
 #  include <vips/vips.h>
 #  include "utils.h"
 
+
 /* methods for images */
 
 /* This sometimes causes memory issues, needs to be updated */
@@ -35,17 +36,14 @@ saveImage(char * in, VipsImage * out, char * path){
    printf("Suffisso: %s\n", suffix);
 
    if(suffix==NULL){
-      printf("Non c'è suffisso dobbiamo prenderlo da quella di input!\n");
-      
       path=strcat(path, temp);
       path=strcat(path, getFormat(in));
 
       saveImage(in, out, path);
    } else{
       if((strcmp(suffix, "png"))==0){
-         if (vips_pngsave(out, path, NULL)) {
-            vips_error_exit(NULL);
-         }
+         yyerror("PNG is unfortunatly not supported by our lib! See you soon!");
+         exit(0);
       } else if((strcmp(suffix, "tif"))==0){
          if (vips_tiffsave(out, path, NULL)) {
             vips_error_exit(NULL);
@@ -62,9 +60,7 @@ saveImage(char * in, VipsImage * out, char * path){
          if (vips_rawsave(out, path, NULL)) {
             vips_error_exit(NULL);
          }
-      } else{
-         printf("Il suffisso inserito non è valido lo prendiamo da quella di input!\n");
-         
+      } else{         
          path=strcat(path, temp);
          path=strcat(path, getFormat(in));
 
@@ -82,18 +78,8 @@ invert(struct symref * l,struct ast * v) {
       vips_error_exit(NULL);
    }
    path=getPath(v);
-
    saveImage(((struct img * ) temp1) ->path, out, path);
-
-   //da verificare se funziona e se, nel caso in cui path sia cambiato poichè non valido dentro a saveImage, se viene modificato e salvato correttamente dentro ad a path
-   //da un errore nello switch, probabilemente con enum si risolve
-
-   /*if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }*/
-
    printf("Image saved, path:%s\n", path);
-   
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
    a -> path = path;
@@ -102,26 +88,19 @@ invert(struct symref * l,struct ast * v) {
 }
 
 struct utils * 
-copyfile(struct symref * l,struct ast * v) {
-   /*VipsImage * out;
+convert(struct symref * l,struct ast * v) {
+   struct utils * temp1 = getElement_sym(l);
+   VipsImage * in = ((struct img * ) temp1) -> img);
+   VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
-   VipsTarget temp1= vips_target_new_to_file(getElement_s(v));
-
-   if (((((stvips_copyruct img * ) temp1) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
    path=getPath(v);
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
-   printf("Image saved\n");
-   */
+   vips_copy(in, &out);
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved, path:%s\n", path);
    struct img * a = malloc(sizeof(struct img));
-   /*a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; //P as in picture
    a -> path = path;
-   a -> img = out;*/
+   a -> img = out;
    return ((struct utils *)a);
 }
 
@@ -134,18 +113,12 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
    double width_value=getValue(width);
    double height_value=getValue(height);
    struct utils * temp1 = l -> s -> value;
-
    if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
       vips_error_exit(NULL);
    }
    path=getPath( ((struct ast *) r) );
-
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
-   
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
    a -> path = path;
@@ -153,7 +126,6 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
    return ((struct utils *)a);
 }
 
-/* Crop an image down to a specified width and height by removing "boring" parts.  */
 struct utils * 
 smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
    VipsImage * out;
@@ -167,11 +139,9 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    }
    path=getPath( ((struct ast *) r) );
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -194,9 +164,7 @@ zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfact
    }
    path=getPath( ((struct ast *) r) );
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
    
    struct img * a = malloc(sizeof(struct img));
@@ -223,11 +191,9 @@ add(struct symref * l,struct symref * r,struct ast * p){
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
 
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -253,11 +219,9 @@ subtract_img(struct symref * l,struct symref * r,struct ast * p){
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
 
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -285,11 +249,9 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
 
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -320,11 +282,9 @@ flip(struct symref * l,struct ast * v,struct ast * s){
    }
    path=getPath(v);
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -345,11 +305,9 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    }
    path=getPath(v);
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -400,11 +358,9 @@ histeq(struct symref * l,struct ast * v){
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -423,11 +379,9 @@ norm(struct symref * l,struct ast * v){
    }
    path=getPath(v);
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -448,11 +402,9 @@ gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
    }
    path=getPath(v);
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -476,11 +428,9 @@ canny(struct symref * l,struct ast * v) {
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -504,11 +454,9 @@ sobel(struct symref * l,struct ast * v) {
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -532,11 +480,9 @@ sharpen(struct symref * l,struct ast * v) {
    scanf("%s", path);
    */
 
-   if (vips_image_write_to_file(out, path, NULL)) {
-      vips_error_exit(NULL);
-   }
+   saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved\n");
-   //openImg(path);
+   
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture

@@ -20,4 +20,4 @@ struct utils * sobel(struct symref * l,struct ast * v);
 struct utils * sharpen(struct symref * l,struct ast * v);
 struct utils * flip(struct symref * l,struct ast * v,struct ast * s);
 struct utils * zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfactor);
-struct utils * copyfile(struct symref * l,struct ast * v);
+struct utils * convert(struct symref * l,struct ast * v);
