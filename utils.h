@@ -187,6 +187,8 @@ struct utils * getElement_sym(struct utils * v);
 int yylex();
 int yyparse();
 int asprintf(char **strp, const char *fmt, ...);
+int isList(struct utils * v);
+struct utils * getElement_li(struct list * v);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */

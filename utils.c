@@ -176,6 +176,36 @@ getElement_sym(struct utils * v){
 	}
 }
 
+struct utils *
+getElement_li(struct list * v){
+   if(v){
+      return v->s->value; 
+   } else {
+		yyerror("NULL value detected");
+		return NULL;
+	}
+}
+/*
+struct list *
+getElement_li(struct utils * v){
+   if(v){
+      return ((struct symref * ) v) -> s-> li;
+   } else {
+		yyerror("NULL value detected");
+		return NULL;
+	}
+}*/
+
+int
+isList(struct utils * v){
+   if(type(v) == 'N' && ((struct symref * ) v) -> s->li){
+      return 1;
+   }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
+      return 0;
+   }else{
+      return -1;
+   }
+}
 
 VipsInterpretation
 getSpace(struct ast * s){

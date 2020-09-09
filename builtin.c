@@ -107,7 +107,6 @@ depth(struct symbol * e){
 
    if(!temp && (e->value)){
       yyerror("The list does not exist\n");
-      return NULL;
    }
 
    if(!temp){
@@ -135,7 +134,8 @@ get(struct symbol * e,struct utils * v){
          printf("The index cannot be bigger than list depth\n");
          return NULL;
       }
-   }else if(type(v)=='N' && ((struct symref *)v)->s->value->nodetype=='i'){ 
+      //((struct symref *)v)->s->value->nodetype=='i'
+   }else if(type(v)=='N' && type(getElement_sym(v))=='i'){
       index=((struct integer *)((struct symref *)v)->s->value)->i;
       if((index>depth_list)){
          printf("The index cannot be bigger than list depth\n");
@@ -143,12 +143,10 @@ get(struct symbol * e,struct utils * v){
       }
    }else{
       yyerror("The index must be an integer\n");
-      return NULL;
    }
 
    if(!temp && (e->value)){
       yyerror("The list does not exist\n");
-      return NULL;
    }
 
    if(!temp){
@@ -173,12 +171,10 @@ push(struct symbol * e,struct utils * v){
 
    if (!li) {
       yyerror("out of space");
-      exit(0);
    }
 
    if(!temp && (e->value)){
       yyerror("the list does not exist");
-      return;
    }
 
    if(!(temp)){
@@ -200,12 +196,10 @@ pop(struct symbol * e){
 
    if(!temp && (e->value)){
       yyerror("The list does not exist\n");
-      return;
    }
 
    if(!temp){
       printf("The list is empty\n");
-      return;
    }
 
    if(!(temp->n)){
@@ -226,44 +220,27 @@ pop(struct symbol * e){
 
 void
 print_B(struct utils * v) {
-   struct utils * temp1;
-   struct symbol * temp; 
    struct list * li;
 
-   if(type(v) == 'N' && ((struct symref * ) v) -> s->li) {
-      temp=((struct symref * ) v) -> s;
-      li=temp->li;
+   if(isList(v)==1) {
+      li=((struct symref * ) v)->s->li;
       do{
-         print_B( ((struct utils *)li->s->value));
+         print_B( getElement_li(li) );
       } while((li=li->n));
-   } else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
+   } else if(isList(v)==0){
       printf("The list is empty\n");
    }else if (type(v) == 'i') {
-      printf("%d\n", ((struct integer * ) v) -> i);
+      printf("%d\n", getElement_i(v));
    } else if (type(v) == 'D') {
-      printf("%.6g\n", ((struct doublePrecision * ) v) -> d);
+      printf("%.6g\n", getElement_d(v));
    } else if (type(v) == 'S') {
-      printf("%s\n", strdup(((struct str * ) v) -> str));
-   }else if (type(v) == 'N') {
-      temp1 = ((struct symref * ) v) -> s -> value;
-      while (temp1->nodetype=='N') {
-         temp1=((struct symref * ) temp1) -> s -> value;
-      }
-      if (temp1->nodetype == 'i') {
-         printf("%i\n", ((struct integer * ) temp1) -> i);
-      } else if(temp1->nodetype == 'D') {
-         printf("%.6g\n", ((struct doublePrecision * ) temp1) -> d);
-      } else if(temp1->nodetype == 'S') {
-         printf("%s\n", ((struct str * ) temp1) -> str);
-      } else if(temp1-> nodetype == 'P'){
-         //char * temp_path =strdup(((struct img *) temp1)->path); 
-         //openImg(temp_path);
-         printf("This is an image\n");
-      }
-   } else if (type(v) == 'M') {
+      printf("%s\n", getElement_s(v));
+   } else if (type(v) == 'N') {
+      print_B( getElement_sym(v) );
+   } /*else if (type(v) == 'M') {
       print_B( ((struct utils *)((struct ast *)v)->l) );
-   } else if(v-> nodetype == 'P'){
-      printf("This element of the list is an image\n");
+   } */else if(type(v) == 'P'){
+      printf("This element is an image\n");
    } else {
       printf("%i\n",type(v));
       printf("Node not found\n");
