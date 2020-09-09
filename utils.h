@@ -34,7 +34,6 @@ void symlistfree(struct symlist * sl);
  *  E for each statement
  *  N symbol ref
  *  = assignment
- *  S list of symbols
  *  F built in function call
  *  C user function call
  *  i integer 
