@@ -162,9 +162,9 @@ absoluteValue(struct utils * v, struct utils * l) {
    if (type(l) == 'N') {
       absoluteValue(v, getElement_sym(l));
    } else if (type(v) == 'i') {
-      ((struct integer * ) v) -> i = abs(getElement_i(l));
+      putElement_i(v,abs(getElement_i(l)));
    } else if (type(v) == 'D') {
-      ((struct doublePrecision * ) v) -> d = fabs(getElement_d(l));
+      putElement_d(v,fabs(getElement_d(l)));
    } else {
       yyerror("Unexpected type, %c %c", type(l));
    }
@@ -179,14 +179,14 @@ biggerThan(struct utils * v, struct utils * l, struct utils * r) {
       biggerThan( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
       biggerThan( v, getElement_sym(l), getElement_sym(r));
-   } else if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) > getElement_d(r) ? 1 : 0;
-   } else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) > getElement_i(r) ? 1 : 0;
-   } else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) > getElement_i(r) ? 1 : 0;
-   } else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) > getElement_d(r) ? 1 : 0;
+   } else if (type(l) == 'i' && type(r) == 'D') {
+      putElement_i(v,getElement_i(l) > getElement_d(r) ? 1 : 0);
+   } else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_i(v,getElement_d(l) > getElement_i(r) ? 1 : 0);
+   } else if (type(l) == 'i' && type(r) == 'i'){
+      putElement_i(v,getElement_i(l) > getElement_i(r) ? 1 : 0);
+   } else if(type(l) == 'D' && type(r) == 'D'){
+      putElement_i(v,getElement_d(l) > getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -201,14 +201,14 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
       smallerThan( v, l, getElement_sym(r));
    } else if (type(l) == 'N' && type(r) == 'N') {
       smallerThan( v, getElement_sym(l), getElement_sym(r));
-   }else if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) < getElement_d(r) ? 1 : 0;
-   }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) < getElement_i(r) ? 1 : 0;
-   }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) < getElement_i(r) ? 1 : 0;
-   }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) < getElement_d(r) ? 1 : 0;
+   }else if (type(l) == 'i' && type(r) == 'D') {
+      putElement_i(v,getElement_i(l) < getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_i(v,getElement_d(l) < getElement_i(r) ? 1 : 0);
+   }else if (type(l) == 'i' && type(r) == 'i'){
+      putElement_i(v,getElement_i(l) < getElement_i(r) ? 1 : 0);
+   }else if(type(l) == 'D' && type(r) == 'D'){
+      putElement_i(v,getElement_d(l) < getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -217,21 +217,21 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
 void
 unequal(struct utils * v, struct utils * l, struct utils * r) {
 
-   if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) != getElement_d(r) ? 1 : 0;
-   }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) != getElement_i(r) ? 1 : 0;
-   }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) != getElement_i(r) ? 1 : 0;
-   }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) != getElement_d(r) ? 1 : 0;
-   }else if (type(l) == 'S' && r->nodetype == 'S'){
+   if (type(l) == 'i' && type(r) == 'D') {
+      putElement_i(v,getElement_i(l) != getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_i(v,getElement_d(l) != getElement_i(r) ? 1 : 0);
+   }else if (type(l) == 'i' && type(r) == 'i'){
+      putElement_i(v,getElement_i(l) != getElement_i(r) ? 1 : 0);
+   }else if(type(l) == 'D' && type(r) == 'D'){
+      putElement_i(v,getElement_d(l) != getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'S' && type(r) == 'S'){
       int temp;
-      temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
+      temp = strcmp(strdup(getElement_s(l)),strdup(getElement_s(r)));
       if(temp!=0){
          temp=1;
       }
-      ((struct integer * ) v) -> i = temp;
+      putElement_i(v,temp);
    }else if (type(l) == 'N' && type(r) != 'N') {
       unequal( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -246,19 +246,19 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
 void
 equal(struct utils * v, struct utils * l, struct utils * r) {
    
-   if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) == getElement_d(r) ? 1 : 0;
-   }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) == getElement_i(r) ? 1 : 0;
-   }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) == getElement_i(r) ? 1 : 0;
-   }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) == getElement_d(r) ? 1 : 0;
-   }else if (type(l) == 'S' && r->nodetype == 'S'){
+   if (type(l) == 'i' && type(r) == 'D') {
+      putElement_i(v,getElement_i(l) == getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_i(v,getElement_d(l) == getElement_i(r) ? 1 : 0);
+   }else if (type(l) == 'i' && type(r) == 'i'){
+      putElement_i(v,getElement_i(l) == getElement_i(r) ? 1 : 0);
+   }else if(type(l) == 'D' && type(r) == 'D'){
+      putElement_i(v,getElement_d(l) == getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'S' && type(r) == 'S'){
       int temp;
-      temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
+      temp = strcmp(strdup(getElement_s(l)),strdup(getElement_s(r)));
       temp=getTruth(temp);
-      ((struct integer * ) v) -> i = temp;
+      putElement_i(v,temp);
    }else if (type(l) == 'N' && type(r) != 'N') {
       equal( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -273,14 +273,14 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
 void
 biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    
-   if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) >= getElement_d(r) ? 1 : 0;
-   }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) >= getElement_i(r) ? 1 : 0;
-   }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) >= getElement_i(r) ? 1 : 0;
-   }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) >= getElement_d(r) ? 1 : 0;
+   if (type(l) == 'i' && type(r) == 'D') {
+      putElement_i(v,getElement_i(l) >= getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_i(v,getElement_d(l) >= getElement_i(r) ? 1 : 0);
+   }else if (type(l) == 'i' && type(r) == 'i'){
+      putElement_i(v,getElement_i(l) >= getElement_i(r) ? 1 : 0);
+   }else if(type(l) == 'D' && type(r) == 'D'){
+      putElement_i(v,getElement_d(l) >= getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'N' && type(r) != 'N') {
       biggerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -295,14 +295,14 @@ biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
 void
 smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    
-   if (type(l) == 'i' && r->nodetype == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) <= getElement_d(r) ? 1 : 0;
-   }else if (l->nodetype == 'D' && r->nodetype == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) <= getElement_i(r) ? 1 : 0;
-   }else if (l->nodetype == 'i' && r->nodetype == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) <= getElement_i(r) ? 1 : 0;
-   }else if(l->nodetype == 'D' && r->nodetype == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) <= getElement_d(r) ? 1 : 0;
+   if (type(l) == 'i' && type(r) == 'D') {
+      putElement_i(v,getElement_i(l) <= getElement_d(r) ? 1 : 0);
+   }else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_i(v,getElement_d(l) <= getElement_i(r) ? 1 : 0);
+   }else if (type(l) == 'i' && type(r) == 'i'){
+      putElement_i(v,getElement_i(l) <= getElement_i(r) ? 1 : 0);
+   }else if(type(l) == 'D' && type(r) == 'D'){
+      putElement_i(v,getElement_d(l) <= getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'N' && type(r) != 'N') {
       smallerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {

@@ -31,11 +31,16 @@ void symlistfree(struct symlist * sl);
  *  L statement list
  *  I IF statement
  *  W WHILE statement
+ *  E for each statement
  *  N symbol ref
  *  = assignment
  *  S list of symbols
  *  F built in function call
  *  C user function call
+ *  i integer 
+ *  D double
+ *  S string
+ *  
  */
 
 /* nodes in the Abstract Syntax Tree */
@@ -91,7 +96,7 @@ struct fncall {
 };
 
 struct flow {
-   int nodetype; /* type I or W */
+   int nodetype; /* type I or W or E*/
    struct ast * cond; /* condition */
    struct ast * tl; /* then or do list */
    struct ast * el; /* optional else list */
