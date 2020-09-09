@@ -260,6 +260,9 @@ struct ast *
       struct img * a = malloc(sizeof(struct img));
       VipsImage * in ;
 
+      getFormat(path);
+
+
       if (!a) {
          yyerror("out of space");
          exit(0);
@@ -273,6 +276,7 @@ struct ast *
       }
 
       a -> img = in ;
+
       return (struct ast * ) a;
 
    }
@@ -584,6 +588,23 @@ struct symbol *
       }
       return s;
    }
+
+
+char *
+getFormat(char * path){
+   const char delimiters[] = ".";
+   char * suffix=NULL;
+   char *token = strtok(path, delimiters);
+   token = strtok(NULL, delimiters);
+
+   while (token != NULL)
+   {
+      suffix=strndup(token,(strlen(token)-1));
+      token = strtok(NULL, delimiters);
+   }
+   
+   return suffix;
+}
 
 struct utils *
    calluser(struct ufncall * f) {

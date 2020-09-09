@@ -25,8 +25,42 @@ average(struct symref * v) {
    if (vips_avg((((struct img * ) temp1) -> img), & mean, NULL)) {
       vips_error_exit(NULL);
    }
-   //printf("Mean pixel value = %g\n", mean);
    return ((struct utils *)newdouble(mean,'+'));
+}
+
+void
+saveImage(char * in, VipsImage * out, char * path){
+   char* suffix=getFormat(path);
+
+   if((suffix=getFormat(path))==NULL){
+      printf("Non c'è suffisso dobbiamo prenderlo da quella di input!");
+      path=strcat(path, getFormat(in));
+      saveImage(in, out, path);
+   } else{
+      switch (suffix){
+         case "png":
+            if (vips_pngsave(out, path, NULL)) {
+               vips_error_exit(NULL);
+            }
+            break;         
+         case "tif":
+            if (vips_tiffsave(out, path, NULL)) {
+               vips_error_exit(NULL);
+            }
+            break;         
+         case "jpeg":
+         case "jpg":
+            if (vips_jpegsave(out, path, NULL)) {
+               vips_error_exit(NULL);
+            }
+            break;    
+         default:
+            printf("Il suffisso inserito non è valido lo prendiamo da quella di input!");
+            path=strcat(path, getFormat(in));
+            saveImage(in, out, path);
+            break;
+      }
+   }
 }
 
 struct utils * 
@@ -39,14 +73,15 @@ invert(struct symref * l,struct ast * v) {
    }
    path=getPath(v);
 
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
+   saveImage(((struct img * ) temp1) ->path, out, path);
 
-   if (vips_image_write_to_file(out, path, NULL)) {
+   //da verificare se funziona e se, nel caso in cui path sia cambiato poichè non valido dentro a saveImage, se viene modificato e salvato correttamente dentro ad a
+   //da un errore nello switch, probabilemente con enum si risolve
+
+   /*if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
-   }
+   }*/
+
    printf("Image saved\n");
    
    struct img * a = malloc(sizeof(struct img));

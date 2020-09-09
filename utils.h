@@ -193,6 +193,7 @@ int yyparse();
 int asprintf(char **strp, const char *fmt, ...);
 int isList(struct utils * v);
 struct utils * getElement_li(struct list * v);
+char * getFormat(char * path);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */
