@@ -168,12 +168,7 @@ getElement_s(struct utils * v){
 
 struct utils *
 getElement_sym(struct utils * v){
-   if(type(v)=='N'){
       return ((struct symref * ) v) -> s -> value ;
-   } else {
-		yyerror("NULL value detected");
-		return NULL;
-	}
 }
 
 
