@@ -189,7 +189,7 @@ getElement_li(struct list * v){
 struct list *
 getList(struct utils * v){
    if(v){
-      return (struct symref * ) v) -> s->li; 
+      return ((struct symref * ) v) -> s->li; 
    } else {
 		yyerror("NULL value detected");
 		return NULL;
@@ -201,7 +201,7 @@ int
 isList(struct utils * v){
    if(type(v) == 'N' &&  ((struct symref * ) v) -> s->li){
       return 1;
-   }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !getElement_li(v)){
+   }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !getElement_sym(v)){
       return 0;
    }else{
       return -1;
@@ -234,9 +234,9 @@ getSpace(struct ast * s){
 double
 getValue(struct ast * v){
    double value;
-   if(type(v)=='i'){
+   if(v->nodetype=='i'){
       value=(double)((struct integer *)v)->i;
-   }else if(type(v)=='D'){
+   }else if(v->nodetype=='D'){
       value=((struct doublePrecision *)v)->d;
    }
    return value;
