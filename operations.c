@@ -274,13 +274,13 @@ void
 biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    
    if (type(l) == 'i' && type(r) == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) >= getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) >= getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'D' && type(r) == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) >= getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) >= getElement_i(r) ? 1 : 0);
    }else if (type(l) == 'i' && type(r) == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) >= getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) >= getElement_i(r) ? 1 : 0);
    }else if(type(l) == 'D' && type(r) == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) >= getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) >= getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'N' && type(r) != 'N') {
       biggerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -297,12 +297,13 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    
    if (type(l) == 'i' && type(r) == 'D') {
       ((struct integer * ) v) -> i = getElement_i(l) <= getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) <= getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'D' && type(r) == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) <= getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) <= getElement_i(r) ? 1 : 0);
    }else if (type(l) == 'i' && type(r) == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) <= getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) <= getElement_i(r) ? 1 : 0);
    }else if(type(l) == 'D' && type(r) == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) <= getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) <= getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'N' && type(r) != 'N') {
       smallerOrEqual( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
