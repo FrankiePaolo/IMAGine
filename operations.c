@@ -256,7 +256,7 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
       putElement_i(v,getElement_d(l) == getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'S' && type(r) == 'S'){
       int temp;
-      temp = strcmp(strdup(getElement_s(l)),strdup(getElement_s(r));
+      temp = strcmp(strdup(getElement_s(l)),strdup(getElement_s(r)));
       temp=getTruth(temp);
       putElement_i(v,temp);
    }else if (type(l) == 'N' && type(r) != 'N') {
