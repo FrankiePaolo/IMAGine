@@ -129,7 +129,7 @@ get(struct symbol * e,struct utils * v){
    int depth_list=((struct integer *)depth(e))->i;
 
    if(type(v)=='i'){
-      index=((struct integer*)v)->i;
+      index=getElement_i(v);
       if((index>depth_list)){
          printf("The index cannot be bigger than list depth\n");
          return NULL;
