@@ -684,7 +684,6 @@ treefree(struct ast * a) {
 
       /* one subtree */
    case '|':
-   case 'M':
    case 'C':
    case 'F':
       treefree(a -> l);
@@ -796,7 +795,6 @@ dumpast(struct ast * a, int level) {
       return;
 
    case '|':
-   case 'M':
       printf("unop %c\n", a -> nodetype);
       dumpast(a -> l, level);
       return;
