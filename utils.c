@@ -525,7 +525,7 @@ struct utils *
       if ((l -> nodetype == 'i' && r == NULL) || (l -> nodetype == 'i' && r -> nodetype == 'i')) {
          v = malloc(sizeof(struct integer));
          ((struct integer * ) v) -> nodetype = 'i';
-      } else if ((l -> nodetype == 'i' && r -> nodetype == 'D') || (l -> nodetype == 'D' && r -> nodetype == 'i') || (l -> nodetype == 'D' && r == NULL) || (l -> nodetype == 'D' && r -> nodetype == 'D') ) {
+      } else if ( (l -> nodetype == 'D' && r == NULL) || (l -> nodetype == 'i' && r -> nodetype == 'D') || (l -> nodetype == 'D' && r -> nodetype == 'i') || (l -> nodetype == 'D' && r -> nodetype == 'D') ) {
          v = malloc(sizeof(struct doublePrecision));
          ((struct doublePrecision * ) v) -> nodetype = 'D';
       } else if ( (l -> nodetype == 'S' &&  r -> nodetype != 'N') || (l -> nodetype != 'N' &&  r -> nodetype == 'S') ) {
