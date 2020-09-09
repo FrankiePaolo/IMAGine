@@ -202,13 +202,13 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       smallerThan( v, getElement_sym(l), getElement_sym(r));
    }else if (type(l) == 'i' && type(r) == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) < getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) < getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'D' && type(r) == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) < getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) < getElement_i(r) ? 1 : 0);
    }else if (type(l) == 'i' && type(r) == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) < getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) < getElement_i(r) ? 1 : 0);
    }else if(type(l) == 'D' && type(r) == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) < getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) < getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
    }
@@ -218,20 +218,20 @@ void
 unequal(struct utils * v, struct utils * l, struct utils * r) {
 
    if (type(l) == 'i' && type(r) == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) != getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) != getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'D' && type(r) == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) != getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) != getElement_i(r) ? 1 : 0);
    }else if (type(l) == 'i' && type(r) == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) != getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) != getElement_i(r) ? 1 : 0);
    }else if(type(l) == 'D' && type(r) == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) != getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) != getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'S' && type(r) == 'S'){
       int temp;
-      temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
+      temp = strcmp(strdup(getElement_s(l)),strdup(getElement_s(r)));
       if(temp!=0){
          temp=1;
       }
-      ((struct integer * ) v) -> i = temp;
+      putElement_i(v,temp);
    }else if (type(l) == 'N' && type(r) != 'N') {
       unequal( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -247,18 +247,18 @@ void
 equal(struct utils * v, struct utils * l, struct utils * r) {
    
    if (type(l) == 'i' && type(r) == 'D') {
-      ((struct integer * ) v) -> i = getElement_i(l) == getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) == getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'D' && type(r) == 'i') {
-      ((struct integer * ) v) -> i = getElement_d(l) == getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) == getElement_i(r) ? 1 : 0);
    }else if (type(l) == 'i' && type(r) == 'i'){
-      ((struct integer * ) v) -> i = getElement_i(l) == getElement_i(r) ? 1 : 0;
+      putElement_i(v,getElement_i(l) == getElement_i(r) ? 1 : 0);
    }else if(type(l) == 'D' && type(r) == 'D'){
-      ((struct integer * ) v) -> i = getElement_d(l) == getElement_d(r) ? 1 : 0;
+      putElement_i(v,getElement_d(l) == getElement_d(r) ? 1 : 0);
    }else if (type(l) == 'S' && type(r) == 'S'){
       int temp;
-      temp = strcmp(strdup(((struct str *)l)->str),strdup(((struct str *)r)->str));
+      temp = strcmp(strdup(getElement_s(l)),strdup(getElement_s(r));
       temp=getTruth(temp);
-      ((struct integer * ) v) -> i = temp;
+      putElement_i(v,temp);
    }else if (type(l) == 'N' && type(r) != 'N') {
       equal( v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
