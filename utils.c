@@ -168,7 +168,12 @@ getElement_s(struct utils * v){
 
 struct utils *
 getElement_sym(struct utils * v){
+   if(v){
       return ((struct symref * ) v) -> s -> value ;
+   } else {
+		yyerror("NULL value detected");
+		return NULL;
+	}
 }
 
 struct utils *
@@ -180,22 +185,23 @@ getElement_li(struct list * v){
 		return NULL;
 	}
 }
-/*
+
 struct list *
-getElement_li(struct utils * v){
+getList(struct utils * v){
    if(v){
-      return ((struct symref * ) v) -> s-> li;
+      return (struct symref * ) v) -> s->li; 
    } else {
 		yyerror("NULL value detected");
 		return NULL;
 	}
-}*/
+}
+
 
 int
 isList(struct utils * v){
-   if(type(v) == 'N' && ((struct symref * ) v) -> s->li){
+   if(type(v) == 'N' &&  ((struct symref * ) v) -> s->li){
       return 1;
-   }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !(((struct symref * ) v) -> s->value)){
+   }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !getElement_li(v)){
       return 0;
    }else{
       return -1;
@@ -228,9 +234,9 @@ getSpace(struct ast * s){
 double
 getValue(struct ast * v){
    double value;
-   if(v->nodetype=='i'){
+   if(type(v)=='i'){
       value=(double)((struct integer *)v)->i;
-   }else if(v->nodetype=='D'){
+   }else if(type(v)=='D'){
       value=((struct doublePrecision *)v)->d;
    }
    return value;
@@ -567,11 +573,11 @@ struct symbol *
    setList(struct utils * v){ 
       struct symbol * s=malloc(sizeof(struct symbol));
 
-      if(v->nodetype == 'i'){
+      if(type(v) == 'i'){
          s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
-      }else if(v->nodetype == 'D'){
+      }else if(type(v) == 'D'){
          s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
-      }else if(v->nodetype == 'N'){
+      }else if(type(v) == 'N'){
          s=((struct symref *)v)->s;
       }else{
         printf("Nodetype not found\n");
