@@ -237,9 +237,7 @@ print_B(struct utils * v) {
       printf("%s\n", getElement_s(v));
    } else if (type(v) == 'N') {
       print_B( getElement_sym(v) );
-   } /*else if (type(v) == 'M') {
-      print_B( ((struct utils *)((struct ast *)v)->l) );
-   } */else if(type(v) == 'P'){
+   } else if(type(v) == 'P'){
       printf("This element is an image\n");
    } else {
       printf("%i\n",type(v));
