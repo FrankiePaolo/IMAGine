@@ -11,14 +11,14 @@ extern FILE *yyin;
 
 /* hash a symbol */
 static unsigned
-symhash(char * sym) {
-   unsigned int hash = 0;
-   unsigned c;
+   symhash(char * sym) {
+      unsigned int hash = 0;
+      unsigned c;
 
-   while ((c = * sym++)){
-      hash = hash * 9 ^ c;
-   }
-   return hash;
+      while ((c = * sym++)){
+         hash = hash * 9 ^ c;
+      }
+      return hash;
 }
 
 struct symbol *
@@ -187,59 +187,58 @@ getElement_li(struct list * v){
 }
 
 struct list *
-getList(struct utils * v){
-   if(v){
-      return ((struct symref * ) v) -> s->li; 
-   } else {
-		yyerror("NULL value detected");
-		return NULL;
-	}
+   getList(struct utils * v){
+      if(v){
+         return ((struct symref * ) v) -> s->li; 
+      } else {
+         yyerror("NULL value detected");
+         return NULL;
+      }
 }
 
-
 int
-isList(struct utils * v){
-   if(type(v) == 'N' &&  ((struct symref * ) v) -> s->li){
-      return 1;
-   }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !getElement_sym(v)){
-      return 0;
-   }else{
-      return -1;
-   }
+   isList(struct utils * v){
+      if(type(v) == 'N' &&  ((struct symref * ) v) -> s->li){
+         return 1;
+      }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !getElement_sym(v)){
+         return 0;
+      }else{
+         return -1;
+      }
 }
 
 VipsInterpretation
-getSpace(struct ast * s){
-   VipsInterpretation space;
-   char * str;
-   str=getPath(s);
+   getSpace(struct ast * s){
+      VipsInterpretation space;
+      char * str;
+      str=getPath(s);
 
-   if(!strcmp(str,"grey16")){
-      space=VIPS_INTERPRETATION_GREY16;   // generic 16-bit mono
-   }else if(!strcmp(str,"hsv")){
-      space=VIPS_INTERPRETATION_HSV;    // pixels are HSV
-   }else if(!strcmp(str,"yxy")){
-      space=VIPS_INTERPRETATION_YXY;    // pixels are CIE Yxy
-   }else if(!strcmp(str,"lch")){       
-      space=VIPS_INTERPRETATION_LCH;    // pixels are in CIE LCh space
-   }else if(!strcmp(str,"cmc")){
-      space=VIPS_INTERPRETATION_CMC;    // a uniform colourspace based on CMC(1:1)
-   }else if(!strcmp(str,"lab")){
-      space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
-   }
+      if(!strcmp(str,"grey16")){
+         space=VIPS_INTERPRETATION_GREY16;   // generic 16-bit mono
+      }else if(!strcmp(str,"hsv")){
+         space=VIPS_INTERPRETATION_HSV;    // pixels are HSV
+      }else if(!strcmp(str,"yxy")){
+         space=VIPS_INTERPRETATION_YXY;    // pixels are CIE Yxy
+      }else if(!strcmp(str,"lch")){       
+         space=VIPS_INTERPRETATION_LCH;    // pixels are in CIE LCh space
+      }else if(!strcmp(str,"cmc")){
+         space=VIPS_INTERPRETATION_CMC;    // a uniform colourspace based on CMC(1:1)
+      }else if(!strcmp(str,"lab")){
+         space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
+      }
 
-   return space;
+      return space;
 }
 
 double
-getValue(struct ast * v){
-   double value;
-   if(v->nodetype=='i'){
-      value=(double)((struct integer *)v)->i;
-   }else if(v->nodetype=='D'){
-      value=((struct doublePrecision *)v)->d;
-   }
-   return value;
+   getValue(struct ast * v){
+      double value;
+      if(v->nodetype=='i'){
+         value=(double)((struct integer *)v)->i;
+      }else if(v->nodetype=='D'){
+         value=((struct doublePrecision *)v)->d;
+      }
+      return value;
 }
 
 struct ast *
