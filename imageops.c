@@ -30,36 +30,46 @@ average(struct symref * v) {
 
 void
 saveImage(char * in, VipsImage * out, char * path){
-   char* suffix=getFormat(path);
+   char * suffix=getFormat(strdup(path));
+   char * temp=strdup(".");
+   printf("Suffisso: %s\n", suffix);
 
-   if((suffix=getFormat(path))==NULL){
-      printf("Non c'è suffisso dobbiamo prenderlo da quella di input!");
+   if(suffix==NULL){
+      printf("Non c'è suffisso dobbiamo prenderlo da quella di input!\n");
+      
+      path=strcat(path, temp);
       path=strcat(path, getFormat(in));
+
       saveImage(in, out, path);
    } else{
-      switch (suffix){
-         case "png":
-            if (vips_pngsave(out, path, NULL)) {
-               vips_error_exit(NULL);
-            }
-            break;         
-         case "tif":
-            if (vips_tiffsave(out, path, NULL)) {
-               vips_error_exit(NULL);
-            }
-            break;         
-         case "jpeg":
-         case "jpg":
-            if (vips_jpegsave(out, path, NULL)) {
-               vips_error_exit(NULL);
-            }
-            break;    
-         default:
-            printf("Il suffisso inserito non è valido lo prendiamo da quella di input!");
-            path=strcat(path, getFormat(in));
-            saveImage(in, out, path);
-            break;
-      }
+      if((strcmp(suffix, "png"))==0){
+         if (vips_pngsave(out, path, NULL)) {
+            vips_error_exit(NULL);
+         }
+      } else if((strcmp(suffix, "tif"))==0){
+         if (vips_tiffsave(out, path, NULL)) {
+            vips_error_exit(NULL);
+         }
+      } else if( ((strcmp(suffix, "jpeg"))==0) || ((strcmp(suffix, "jpg"))==0) ){
+         if (vips_jpegsave(out, path, NULL)) {
+            vips_error_exit(NULL);
+         }
+      } else if((strcmp(suffix, "hdr"))==0){
+         if (vips_radsave(out, path, NULL)) {
+            vips_error_exit(NULL);
+         }
+      } else if((strcmp(suffix, "raw"))==0){
+         if (vips_rawsave(out, path, NULL)) {
+            vips_error_exit(NULL);
+         }
+      } else{
+         printf("Il suffisso inserito non è valido lo prendiamo da quella di input!\n");
+         
+         path=strcat(path, temp);
+         path=strcat(path, getFormat(in));
+
+         saveImage(in, out, path);
+      }      
    }
 }
 
@@ -75,14 +85,14 @@ invert(struct symref * l,struct ast * v) {
 
    saveImage(((struct img * ) temp1) ->path, out, path);
 
-   //da verificare se funziona e se, nel caso in cui path sia cambiato poichè non valido dentro a saveImage, se viene modificato e salvato correttamente dentro ad a
+   //da verificare se funziona e se, nel caso in cui path sia cambiato poichè non valido dentro a saveImage, se viene modificato e salvato correttamente dentro ad a path
    //da un errore nello switch, probabilemente con enum si risolve
 
    /*if (vips_image_write_to_file(out, path, NULL)) {
       vips_error_exit(NULL);
    }*/
 
-   printf("Image saved\n");
+   printf("Image saved, path:%s\n", path);
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture

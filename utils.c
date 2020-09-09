@@ -260,9 +260,6 @@ struct ast *
       struct img * a = malloc(sizeof(struct img));
       VipsImage * in ;
 
-      getFormat(path);
-
-
       if (!a) {
          yyerror("out of space");
          exit(0);
@@ -278,7 +275,6 @@ struct ast *
       a -> img = in ;
 
       return (struct ast * ) a;
-
    }
 
 struct ast *
@@ -599,10 +595,10 @@ getFormat(char * path){
 
    while (token != NULL)
    {
-      suffix=strndup(token,(strlen(token)-1));
+      suffix=strndup(token,(strlen(token)));
       token = strtok(NULL, delimiters);
    }
-   
+
    return suffix;
 }
 
