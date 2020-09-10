@@ -10,6 +10,8 @@ struct utils * add(struct symref * l,struct symref * r,struct ast * p);         
 struct utils * subtract_img(struct symref * l,struct symref * r,struct ast * p);          //Subtracts 2 images
 struct utils * invert(struct symref * l,struct ast * v);                                  //Inverts the image
 struct utils * average(struct symref * v);
+struct utils * min(struct symref * v);
+struct utils * max(struct symref * v);
 void openImg(char * path);
 struct utils * rotate(struct symref * l,struct ast * v,struct ast * s);
 struct utils * histeq(struct symref * l,struct ast * v);
