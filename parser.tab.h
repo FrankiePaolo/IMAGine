@@ -64,8 +64,11 @@ extern int yydebug;
     IMG = 270,
     LIST = 271,
     FOREACH = 272,
-    CMP = 273,
-    UMINUS = 274
+    AND = 273,
+    OR = 274,
+    CMP = 275,
+    CND = 276,
+    UMINUS = 277
   };
 #endif
 
@@ -83,7 +86,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-#line 87 "parser.tab.h"
+#line 90 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

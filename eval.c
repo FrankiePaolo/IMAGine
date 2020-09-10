@@ -107,6 +107,27 @@ struct utils *
          v = setNodeType(temp1, temp2);
          absoluteValue(v, temp1);
          break;
+      case '&':
+         
+         temp1 = eval(a -> l);
+         temp2 = eval(a -> r);
+         
+         v=((struct utils *)newint(0,'+'));
+         if(((struct integer *)temp1)->i==1 && ((struct integer *)temp2)->i==1){
+            putElement_i(v,1);
+         }
+         break;
+
+      case 'O':
+         
+         temp1 = eval(a -> l);
+         temp2 = eval(a -> r);
+         
+         v=((struct utils *)newint(0,'+'));
+         if(((struct integer *)temp1)->i==1 || ((struct integer *)temp2)->i==1){
+            putElement_i(v,1);
+         }
+         break;
 
          /* comparisons */
       case '1':
