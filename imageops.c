@@ -53,7 +53,6 @@ void
 saveImage(char * in, VipsImage * out, char * path){
    char * suffix=getFormat(strdup(path));
    char * temp=strdup(".");
-   printf("Suffisso: %s\n", suffix);
 
    if(suffix==NULL){
       path=strcat(path, temp);
@@ -99,7 +98,7 @@ invert(struct symref * l,struct ast * v) {
    }
    path=getPath(v);
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved, path:%s\n", path);
+   printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
    a -> path = path;
@@ -116,7 +115,7 @@ convert(struct symref * l,struct ast * v) {
    path=getPath(v);
    vips_copy(in, &out, NULL);
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved, path:%s\n", path);
+   printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
    a -> path = path;
@@ -138,7 +137,7 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
    }
    path=getPath( ((struct ast *) r) );
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
    a -> path = path;
@@ -160,7 +159,7 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    path=getPath( ((struct ast *) r) );
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -185,7 +184,7 @@ zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfact
    path=getPath( ((struct ast *) r) );
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
@@ -212,7 +211,7 @@ add(struct symref * l,struct symref * r,struct ast * p){
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
 
    struct img * a = malloc(sizeof(struct img));
@@ -240,7 +239,7 @@ subtract_img(struct symref * l,struct symref * r,struct ast * p){
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
 
    struct img * a = malloc(sizeof(struct img));
@@ -270,7 +269,7 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
 
    struct img * a = malloc(sizeof(struct img));
@@ -303,7 +302,7 @@ flip(struct symref * l,struct ast * v,struct ast * s){
    path=getPath(v);
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -326,7 +325,7 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    path=getPath(v);
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -379,7 +378,7 @@ histeq(struct symref * l,struct ast * v){
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -400,7 +399,7 @@ norm(struct symref * l,struct ast * v){
    path=getPath(v);
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -423,7 +422,7 @@ gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
    path=getPath(v);
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -449,7 +448,7 @@ canny(struct symref * l,struct ast * v) {
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -475,7 +474,7 @@ sobel(struct symref * l,struct ast * v) {
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
@@ -501,7 +500,7 @@ sharpen(struct symref * l,struct ast * v) {
    */
 
    saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved\n");
+   printf("Image saved in '%s'\n", path);
    
    
    struct img * a = malloc(sizeof(struct img));
