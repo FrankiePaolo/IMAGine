@@ -107,6 +107,17 @@ struct utils *
          v = setNodeType(temp1, temp2);
          absoluteValue(v, temp1);
          break;
+      case '&':
+         printf("here\n");
+         break;
+         /*
+         temp1 = eval(a -> l);
+         temp2 = eval(a -> r);
+         
+         if(((struct integer *)temp1)->i==1 && ((struct integer *)temp2)->i==1){
+            printf("and");
+         }*/
+         break;
 
          /* comparisons */
       case '1':
@@ -115,6 +126,7 @@ struct utils *
 
          v=((struct utils *)newint(0,'+'));
          biggerThan(v, temp1, temp2);
+         printf("here2\n");
          break;
 
       case '2':

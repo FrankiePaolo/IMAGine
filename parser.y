@@ -28,8 +28,8 @@
 
 %token IF THEN ELSE WHILE DO DEF IMG LIST FOREACH
 
-
-%nonassoc <fn> CMP
+%left AND OR
+%nonassoc <fn> CMP CND 
 %right '='
 %left '+' '-'
 %left '*' '/'
@@ -57,7 +57,9 @@ list:                               { $$ = NULL; }
                                     }}
 ;
 
-exp: exp CMP exp          { $$ = newcmp($2, $1, $3); }
+exp: exp AND exp          { $$ = newast('&', $1,$3);}
+   | exp OR exp           { $$ = newast('O', $1,$3);}
+   | exp CMP exp          { $$ = newcmp($2, $1, $3); }
    | exp '+' exp          { $$ = newast('+', $1,$3); }
    | exp '-' exp          { $$ = newast('-', $1,$3);}
    | exp '*' exp          { $$ = newast('*', $1,$3); }

@@ -44,6 +44,8 @@
 "def"   { return DEF; }
 "img"   { return IMG; }
 "list"  { return LIST; }
+"&&"    { return AND; }
+"||"    { return OR;}
  
  /* built in functions */
 "print" { yylval.fn = b_print; return FUNC; }
