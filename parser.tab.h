@@ -50,28 +50,6 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-<<<<<<< HEAD
-    INT = 258,
-    DOUBLE = 259,
-    STRING = 260,
-    NAME = 261,
-    FUNC = 262,
-    EOL = 263,
-    IF = 264,
-    THEN = 265,
-    ELSE = 266,
-    WHILE = 267,
-    DO = 268,
-    DEF = 269,
-    IMG = 270,
-    LIST = 271,
-    FOREACH = 272,
-    AND = 273,
-    OR = 274,
-    CMP = 275,
-    CND = 276,
-    UMINUS = 277
-=======
     YYEMPTY = -2,
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
@@ -91,9 +69,11 @@ extern int yydebug;
     IMG = 270,                     /* IMG  */
     LIST = 271,                    /* LIST  */
     FOREACH = 272,                 /* FOREACH  */
-    CMP = 273,                     /* CMP  */
-    UMINUS = 274                   /* UMINUS  */
->>>>>>> master
+    AND = 273,                     /* AND  */
+    OR = 274,                      /* OR  */
+    CMP = 275,                     /* CMP  */
+    CND = 276,                     /* CND  */
+    UMINUS = 277                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -112,11 +92,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-<<<<<<< HEAD
-#line 90 "parser.tab.h"
-=======
-#line 93 "parser.tab.h"
->>>>>>> master
+#line 96 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

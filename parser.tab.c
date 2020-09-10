@@ -116,28 +116,6 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-<<<<<<< HEAD
-    INT = 258,
-    DOUBLE = 259,
-    STRING = 260,
-    NAME = 261,
-    FUNC = 262,
-    EOL = 263,
-    IF = 264,
-    THEN = 265,
-    ELSE = 266,
-    WHILE = 267,
-    DO = 268,
-    DEF = 269,
-    IMG = 270,
-    LIST = 271,
-    FOREACH = 272,
-    AND = 273,
-    OR = 274,
-    CMP = 275,
-    CND = 276,
-    UMINUS = 277
-=======
     YYEMPTY = -2,
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
@@ -157,9 +135,11 @@ extern int yydebug;
     IMG = 270,                     /* IMG  */
     LIST = 271,                    /* LIST  */
     FOREACH = 272,                 /* FOREACH  */
-    CMP = 273,                     /* CMP  */
-    UMINUS = 274                   /* UMINUS  */
->>>>>>> master
+    AND = 273,                     /* AND  */
+    OR = 274,                      /* OR  */
+    CMP = 275,                     /* CMP  */
+    CND = 276,                     /* CND  */
+    UMINUS = 277                   /* UMINUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -178,11 +158,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-<<<<<<< HEAD
-#line 164 "parser.tab.c"
-=======
-#line 159 "parser.tab.c"
->>>>>>> master
+#line 162 "parser.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -218,34 +194,37 @@ enum yysymbol_kind_t
   YYSYMBOL_IMG = 15,                       /* IMG  */
   YYSYMBOL_LIST = 16,                      /* LIST  */
   YYSYMBOL_FOREACH = 17,                   /* FOREACH  */
-  YYSYMBOL_CMP = 18,                       /* CMP  */
-  YYSYMBOL_19_ = 19,                       /* '='  */
-  YYSYMBOL_20_ = 20,                       /* '+'  */
-  YYSYMBOL_21_ = 21,                       /* '-'  */
-  YYSYMBOL_22_ = 22,                       /* '*'  */
-  YYSYMBOL_23_ = 23,                       /* '/'  */
-  YYSYMBOL_24_ = 24,                       /* '|'  */
-  YYSYMBOL_UMINUS = 25,                    /* UMINUS  */
-  YYSYMBOL_26_ = 26,                       /* '('  */
-  YYSYMBOL_27_ = 27,                       /* ')'  */
-  YYSYMBOL_28_ = 28,                       /* '{'  */
-  YYSYMBOL_29_ = 29,                       /* '}'  */
-  YYSYMBOL_30_ = 30,                       /* ';'  */
-  YYSYMBOL_31_ = 31,                       /* ':'  */
-  YYSYMBOL_32_ = 32,                       /* ','  */
-  YYSYMBOL_33_n_ = 33,                     /* '\n'  */
-  YYSYMBOL_YYACCEPT = 34,                  /* $accept  */
-  YYSYMBOL_stmt = 35,                      /* stmt  */
-  YYSYMBOL_list = 36,                      /* list  */
-  YYSYMBOL_exp = 37,                       /* exp  */
-  YYSYMBOL_foreach = 38,                   /* foreach  */
-  YYSYMBOL_name = 39,                      /* name  */
-  YYSYMBOL_value = 40,                     /* value  */
-  YYSYMBOL_img = 41,                       /* img  */
-  YYSYMBOL_explist = 42,                   /* explist  */
-  YYSYMBOL_symlist = 43,                   /* symlist  */
-  YYSYMBOL_elements = 44,                  /* elements  */
-  YYSYMBOL_program = 45                    /* program  */
+  YYSYMBOL_AND = 18,                       /* AND  */
+  YYSYMBOL_OR = 19,                        /* OR  */
+  YYSYMBOL_CMP = 20,                       /* CMP  */
+  YYSYMBOL_CND = 21,                       /* CND  */
+  YYSYMBOL_22_ = 22,                       /* '='  */
+  YYSYMBOL_23_ = 23,                       /* '+'  */
+  YYSYMBOL_24_ = 24,                       /* '-'  */
+  YYSYMBOL_25_ = 25,                       /* '*'  */
+  YYSYMBOL_26_ = 26,                       /* '/'  */
+  YYSYMBOL_27_ = 27,                       /* '|'  */
+  YYSYMBOL_UMINUS = 28,                    /* UMINUS  */
+  YYSYMBOL_29_ = 29,                       /* '('  */
+  YYSYMBOL_30_ = 30,                       /* ')'  */
+  YYSYMBOL_31_ = 31,                       /* '{'  */
+  YYSYMBOL_32_ = 32,                       /* '}'  */
+  YYSYMBOL_33_ = 33,                       /* ';'  */
+  YYSYMBOL_34_ = 34,                       /* ':'  */
+  YYSYMBOL_35_ = 35,                       /* ','  */
+  YYSYMBOL_36_n_ = 36,                     /* '\n'  */
+  YYSYMBOL_YYACCEPT = 37,                  /* $accept  */
+  YYSYMBOL_stmt = 38,                      /* stmt  */
+  YYSYMBOL_list = 39,                      /* list  */
+  YYSYMBOL_exp = 40,                       /* exp  */
+  YYSYMBOL_foreach = 41,                   /* foreach  */
+  YYSYMBOL_name = 42,                      /* name  */
+  YYSYMBOL_value = 43,                     /* value  */
+  YYSYMBOL_img = 44,                       /* img  */
+  YYSYMBOL_explist = 45,                   /* explist  */
+  YYSYMBOL_symlist = 46,                   /* symlist  */
+  YYSYMBOL_elements = 47,                  /* elements  */
+  YYSYMBOL_program = 48                    /* program  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -566,12 +545,7 @@ union yyalloc
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  113
 
-<<<<<<< HEAD
-#define YYUNDEFTOK  2
 #define YYMAXUTOK   277
-=======
-#define YYMAXUTOK   274
->>>>>>> master
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -639,19 +613,12 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-<<<<<<< HEAD
-  "$end", "error", "$undefined", "INT", "DOUBLE", "STRING", "NAME",
-  "FUNC", "EOL", "IF", "THEN", "ELSE", "WHILE", "DO", "DEF", "IMG", "LIST",
-  "FOREACH", "AND", "OR", "CMP", "CND", "'='", "'+'", "'-'", "'*'", "'/'",
-  "'|'", "UMINUS", "'('", "')'", "'{'", "'}'", "';'", "':'", "','",
-=======
   "\"end of file\"", "error", "\"invalid token\"", "INT", "DOUBLE",
   "STRING", "NAME", "FUNC", "EOL", "IF", "THEN", "ELSE", "WHILE", "DO",
-  "DEF", "IMG", "LIST", "FOREACH", "CMP", "'='", "'+'", "'-'", "'*'",
-  "'/'", "'|'", "UMINUS", "'('", "')'", "'{'", "'}'", "';'", "':'", "','",
->>>>>>> master
-  "'\\n'", "$accept", "stmt", "list", "exp", "foreach", "name", "value",
-  "img", "explist", "symlist", "elements", "program", YY_NULLPTR
+  "DEF", "IMG", "LIST", "FOREACH", "AND", "OR", "CMP", "CND", "'='", "'+'",
+  "'-'", "'*'", "'/'", "'|'", "UMINUS", "'('", "')'", "'{'", "'}'", "';'",
+  "':'", "','", "'\\n'", "$accept", "stmt", "list", "exp", "foreach",
+  "name", "value", "img", "explist", "symlist", "elements", "program", YY_NULLPTR
 };
 
 static const char *
@@ -1301,51 +1268,31 @@ yyreduce:
   case 2:
 #line 45 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-6].a), (yyvsp[-2].a), NULL); }
-<<<<<<< HEAD
-#line 1418 "parser.tab.c"
-=======
-#line 1259 "parser.tab.c"
->>>>>>> master
+#line 1272 "parser.tab.c"
     break;
 
   case 3:
 #line 46 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-9].a), (yyvsp[-5].a), (yyvsp[-1].a)); }
-<<<<<<< HEAD
-#line 1424 "parser.tab.c"
-=======
-#line 1265 "parser.tab.c"
->>>>>>> master
+#line 1278 "parser.tab.c"
     break;
 
   case 4:
 #line 47 "parser.y"
                                                           { (yyval.a) = newflow('W', (yyvsp[-5].a), (yyvsp[-1].a), NULL); }
-<<<<<<< HEAD
-#line 1430 "parser.tab.c"
-=======
-#line 1271 "parser.tab.c"
->>>>>>> master
+#line 1284 "parser.tab.c"
     break;
 
   case 5:
 #line 48 "parser.y"
                                                           { (yyval.a) = newflow('E', (yyvsp[-4].a), (yyvsp[-1].a), NULL); }
-<<<<<<< HEAD
-#line 1436 "parser.tab.c"
-=======
-#line 1277 "parser.tab.c"
->>>>>>> master
+#line 1290 "parser.tab.c"
     break;
 
   case 7:
 #line 52 "parser.y"
                                     { (yyval.a) = NULL; }
-<<<<<<< HEAD
-#line 1442 "parser.tab.c"
-=======
-#line 1283 "parser.tab.c"
->>>>>>> master
+#line 1296 "parser.tab.c"
     break;
 
   case 8:
@@ -1355,331 +1302,187 @@ yyreduce:
                                     }else{
 			                              (yyval.a) = newast('L', (yyvsp[-1].a), (yyvsp[0].a));
                                     }}
-<<<<<<< HEAD
-#line 1452 "parser.tab.c"
-=======
-#line 1293 "parser.tab.c"
->>>>>>> master
+#line 1306 "parser.tab.c"
     break;
 
   case 9:
 #line 60 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('&', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1458 "parser.tab.c"
-=======
-                          { (yyval.a) = newcmp((yyvsp[-1].fn), (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1299 "parser.tab.c"
->>>>>>> master
+#line 1312 "parser.tab.c"
     break;
 
   case 10:
 #line 61 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('O', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1464 "parser.tab.c"
-=======
-                          { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1305 "parser.tab.c"
->>>>>>> master
+#line 1318 "parser.tab.c"
     break;
 
   case 11:
 #line 62 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newcmp((yyvsp[-1].fn),  (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1470 "parser.tab.c"
-=======
-                          { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a));}
-#line 1311 "parser.tab.c"
->>>>>>> master
+#line 1324 "parser.tab.c"
     break;
 
   case 12:
 #line 63 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1476 "parser.tab.c"
-=======
-                          { (yyval.a) = newast('*', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1317 "parser.tab.c"
->>>>>>> master
+#line 1330 "parser.tab.c"
     break;
 
   case 13:
 #line 64 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1482 "parser.tab.c"
-=======
-                          { (yyval.a) = newast('/', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1323 "parser.tab.c"
->>>>>>> master
+#line 1336 "parser.tab.c"
     break;
 
   case 14:
 #line 65 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('*', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1488 "parser.tab.c"
-=======
-                          { (yyval.a) = newast('|', (yyvsp[-1].a), NULL); }
-#line 1329 "parser.tab.c"
->>>>>>> master
+#line 1342 "parser.tab.c"
     break;
 
   case 15:
 #line 66 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('/', (yyvsp[-2].a),(yyvsp[0].a)); }
-#line 1494 "parser.tab.c"
-=======
-                          { (yyval.a) = (yyvsp[-1].a); }
-#line 1335 "parser.tab.c"
->>>>>>> master
+#line 1348 "parser.tab.c"
     break;
 
   case 16:
 #line 67 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newast('|', (yyvsp[-1].a), NULL); }
-#line 1500 "parser.tab.c"
-=======
-                          { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
-#line 1341 "parser.tab.c"
->>>>>>> master
+#line 1354 "parser.tab.c"
     break;
 
   case 17:
 #line 68 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = (yyvsp[-1].a); }
-#line 1506 "parser.tab.c"
-=======
-                          { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1347 "parser.tab.c"
->>>>>>> master
+#line 1360 "parser.tab.c"
     break;
 
   case 18:
 #line 69 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
-#line 1512 "parser.tab.c"
-=======
-                          { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1353 "parser.tab.c"
->>>>>>> master
+#line 1366 "parser.tab.c"
     break;
 
   case 19:
 #line 70 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1518 "parser.tab.c"
-=======
-                          { (yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
-#line 1359 "parser.tab.c"
->>>>>>> master
+#line 1372 "parser.tab.c"
     break;
 
   case 20:
 #line 71 "parser.y"
-<<<<<<< HEAD
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1524 "parser.tab.c"
+#line 1378 "parser.tab.c"
     break;
 
   case 21:
 #line 72 "parser.y"
                           { (yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
-#line 1530 "parser.tab.c"
+#line 1384 "parser.tab.c"
     break;
 
   case 22:
 #line 73 "parser.y"
                           { (yyval.a) = (yyvsp[0].a); }
-#line 1536 "parser.tab.c"
+#line 1390 "parser.tab.c"
     break;
 
   case 23:
 #line 76 "parser.y"
                                  { (yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1542 "parser.tab.c"
+#line 1396 "parser.tab.c"
     break;
 
   case 24:
 #line 79 "parser.y"
                                  { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1548 "parser.tab.c"
-=======
-                          { (yyval.a) = (yyvsp[0].a); }
-#line 1365 "parser.tab.c"
-    break;
-
-  case 21:
-#line 74 "parser.y"
-                                 { (yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1371 "parser.tab.c"
-    break;
-
-  case 22:
-#line 77 "parser.y"
-                                 { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1377 "parser.tab.c"
-    break;
-
-  case 23:
-#line 80 "parser.y"
-                                  { (yyval.a) = newint((yyvsp[0].i),'-'); }
-#line 1383 "parser.tab.c"
-    break;
-
-  case 24:
-#line 81 "parser.y"
-                                  { (yyval.a) = newint((yyvsp[0].i),'+'); }
-#line 1389 "parser.tab.c"
->>>>>>> master
+#line 1402 "parser.tab.c"
     break;
 
   case 25:
 #line 82 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newint((yyvsp[0].i),'-'); }
-#line 1554 "parser.tab.c"
-=======
-                                  { (yyval.a) = newdouble((yyvsp[0].d),'-'); }
-#line 1395 "parser.tab.c"
->>>>>>> master
+#line 1408 "parser.tab.c"
     break;
 
   case 26:
 #line 83 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newint((yyvsp[0].i),'+'); }
-#line 1560 "parser.tab.c"
-=======
-                                  { (yyval.a) = newdouble((yyvsp[0].d),'+'); }
-#line 1401 "parser.tab.c"
->>>>>>> master
+#line 1414 "parser.tab.c"
     break;
 
   case 27:
 #line 84 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newdouble((yyvsp[0].d),'-'); }
-#line 1566 "parser.tab.c"
-=======
-                                  { (yyval.a) = newstring((yyvsp[0].str)); }
-#line 1407 "parser.tab.c"
->>>>>>> master
+#line 1420 "parser.tab.c"
     break;
 
   case 28:
 #line 85 "parser.y"
-<<<<<<< HEAD
                                   { (yyval.a) = newdouble((yyvsp[0].d),'+'); }
-#line 1572 "parser.tab.c"
+#line 1426 "parser.tab.c"
     break;
 
   case 29:
 #line 86 "parser.y"
                                   { (yyval.a) = newstring((yyvsp[0].str)); }
-#line 1578 "parser.tab.c"
+#line 1432 "parser.tab.c"
     break;
 
   case 30:
 #line 87 "parser.y"
                                   { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1584 "parser.tab.c"
+#line 1438 "parser.tab.c"
     break;
 
   case 31:
 #line 90 "parser.y"
                           { (yyval.a) = newimg((yyvsp[0].str)); }
-#line 1590 "parser.tab.c"
-=======
-                                  { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1413 "parser.tab.c"
-    break;
-
-  case 29:
-#line 88 "parser.y"
-                          { (yyval.a) = newimg((yyvsp[0].str)); }
-#line 1419 "parser.tab.c"
-    break;
-
-  case 30:
-#line 89 "parser.y"
-                          { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
-#line 1425 "parser.tab.c"
->>>>>>> master
+#line 1444 "parser.tab.c"
     break;
 
   case 32:
 #line 91 "parser.y"
                           { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
-#line 1596 "parser.tab.c"
+#line 1450 "parser.tab.c"
     break;
 
   case 34:
 #line 95 "parser.y"
                       { (yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a)); }
-<<<<<<< HEAD
-#line 1602 "parser.tab.c"
-=======
-#line 1431 "parser.tab.c"
->>>>>>> master
+#line 1456 "parser.tab.c"
     break;
 
   case 35:
 #line 98 "parser.y"
                       { (yyval.sl) = newsymlist((yyvsp[0].s), NULL); }
-<<<<<<< HEAD
-#line 1608 "parser.tab.c"
-=======
-#line 1437 "parser.tab.c"
->>>>>>> master
+#line 1462 "parser.tab.c"
     break;
 
   case 36:
 #line 99 "parser.y"
                       { (yyval.sl) = newsymlist((yyvsp[-2].s), (yyvsp[0].sl)); }
-<<<<<<< HEAD
-#line 1614 "parser.tab.c"
-=======
-#line 1443 "parser.tab.c"
->>>>>>> master
+#line 1468 "parser.tab.c"
     break;
 
   case 37:
 #line 102 "parser.y"
                          { (yyval.a) = NULL; }
-<<<<<<< HEAD
-#line 1620 "parser.tab.c"
-=======
-#line 1449 "parser.tab.c"
->>>>>>> master
+#line 1474 "parser.tab.c"
     break;
 
   case 38:
 #line 103 "parser.y"
                          { (yyval.a) = newlist((yyvsp[0].a),NULL); }
-<<<<<<< HEAD
-#line 1626 "parser.tab.c"
-=======
-#line 1455 "parser.tab.c"
->>>>>>> master
+#line 1480 "parser.tab.c"
     break;
 
   case 39:
 #line 104 "parser.y"
                          { (yyval.a) = newlist((yyvsp[-2].a), (yyvsp[0].a)); }
-<<<<<<< HEAD
-#line 1632 "parser.tab.c"
-=======
-#line 1461 "parser.tab.c"
->>>>>>> master
+#line 1486 "parser.tab.c"
     break;
 
   case 41:
@@ -1691,11 +1494,7 @@ yyreduce:
    eval((yyvsp[0].a));
    treefree((yyvsp[0].a));
    }
-<<<<<<< HEAD
-#line 1644 "parser.tab.c"
-=======
-#line 1473 "parser.tab.c"
->>>>>>> master
+#line 1498 "parser.tab.c"
     break;
 
   case 42:
@@ -1703,11 +1502,7 @@ yyreduce:
                                                    {
                        dodef((yyvsp[-6].s), (yyvsp[-4].sl), (yyvsp[-1].a));
    }
-<<<<<<< HEAD
-#line 1652 "parser.tab.c"
-=======
-#line 1481 "parser.tab.c"
->>>>>>> master
+#line 1506 "parser.tab.c"
     break;
 
   case 43:
@@ -1715,29 +1510,17 @@ yyreduce:
                                                {
                        dolist((yyvsp[-5].s), (yyvsp[-2].a));
    }
-<<<<<<< HEAD
-#line 1660 "parser.tab.c"
-=======
-#line 1489 "parser.tab.c"
->>>>>>> master
+#line 1514 "parser.tab.c"
     break;
 
   case 44:
 #line 121 "parser.y"
                         { yyerrok; printf("> "); }
-<<<<<<< HEAD
-#line 1666 "parser.tab.c"
+#line 1520 "parser.tab.c"
     break;
 
 
-#line 1670 "parser.tab.c"
-=======
-#line 1495 "parser.tab.c"
-    break;
-
-
-#line 1499 "parser.tab.c"
->>>>>>> master
+#line 1524 "parser.tab.c"
 
       default: break;
     }
@@ -1930,9 +1713,5 @@ yyreturn:
 
   return yyresult;
 }
-<<<<<<< HEAD
-#line 124 "parser.y"
-=======
 
-#line 122 "parser.y"
->>>>>>> master
+#line 124 "parser.y"

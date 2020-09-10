@@ -132,7 +132,7 @@ putElement_s(struct utils * v,char * s){
       ((struct str * ) v) -> str=strdup(s);
    } else {
 		yyerror("NULL value detected");
-      return ;
+      return;
 	}
 }
 
@@ -144,7 +144,7 @@ getElement_i(struct utils * v){
       return getElement_i(getElement_sym(v));
    } else{
 		yyerror("NULL value detected");
-		return 0;
+		exit(0);
 	}
 }
 
@@ -156,7 +156,7 @@ getElement_d(struct utils * v){
       return getElement_d(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
-		return 0;
+		exit(0);
 	}
 }
 
@@ -168,8 +168,8 @@ getElement_s(struct utils * v){
       return getElement_s(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
-		return NULL;
-	}
+		exit(0);
+   }
 }
 
 struct utils *
@@ -457,7 +457,7 @@ struct ast *
          char * temp=(((struct str *)l)->str);
          a -> nodetype = 'S';
          a -> str = strndup(temp,(strlen(temp)));
-         s->value=((struct utils *)a);
+         s ->value=((struct utils *)a);
          li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
