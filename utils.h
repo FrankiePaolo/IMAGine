@@ -57,6 +57,8 @@ enum bifs {
       b_subtract,
       b_invert,
       b_average,
+      b_min,
+      b_max,
       b_push,
       b_pop,
       b_get,

@@ -56,6 +56,12 @@ struct utils *
       case b_average:
          val=average(((struct symref * ) v));
          return val;
+      case b_min:
+         val=min(((struct symref * ) v));
+         return val;
+      case b_max:
+         val=max(((struct symref * ) v));
+         return val;
       case b_flip:
          val=flip(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;

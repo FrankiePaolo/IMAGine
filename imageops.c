@@ -29,6 +29,26 @@ average(struct symref * v) {
    return ((struct utils *)newdouble(mean,'+'));
 }
 
+struct utils *
+min(struct symref * v) {
+   double min;
+   struct utils * temp1 = v -> s -> value;
+   if (vips_min((((struct img * ) temp1) -> img), & min, NULL)) {
+      vips_error_exit(NULL);
+   }
+   return ((struct utils *)newdouble(min,'+'));
+}
+
+struct utils *
+max(struct symref * v) {
+   double max;
+   struct utils * temp1 = v -> s -> value;
+   if (vips_max((((struct img * ) temp1) -> img), & max, NULL)) {
+      vips_error_exit(NULL);
+   }
+   return ((struct utils *)newdouble(max,'+'));
+}
+
 void
 saveImage(char * in, VipsImage * out, char * path){
    char * suffix=getFormat(strdup(path));

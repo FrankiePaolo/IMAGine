@@ -56,6 +56,8 @@
 "subtract"   { yylval.fn = b_subtract; return FUNC; }
 "invert" { yylval.fn = b_invert; return FUNC; }
 "average" { yylval.fn = b_average; return FUNC; }
+"min" { yylval.fn = b_min; return FUNC; }
+"max" { yylval.fn = b_max; return FUNC; }
 "push"    { yylval.fn = b_push; return FUNC; }
 "pop"    { yylval.fn = b_pop; return FUNC; }
 "get"    { yylval.fn = b_get; return FUNC; }
