@@ -61,6 +61,7 @@
 "push"    { yylval.fn = b_push; return FUNC; }
 "pop"    { yylval.fn = b_pop; return FUNC; }
 "insert"    { yylval.fn = b_insert; return FUNC; }
+"remove"    { yylval.fn = b_remove; return FUNC; }
 "get"    { yylval.fn = b_get; return FUNC; }
 "length"    { yylval.fn = b_length; return FUNC; }
 "convertColorSpace" { yylval.fn = b_convert; return FUNC; }

@@ -101,6 +101,9 @@ struct utils *
       case b_insert:
          insert(((struct symref *)findNode(f, 1))->s, ((struct utils *)findNode(f, 2)), v);
          return v;
+      case b_remove:
+         list_remove( ((struct symref *)findNode(f, 1))->s,v);
+         return v;
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
@@ -134,24 +137,20 @@ struct utils *
 get(struct symbol * e,struct utils * v){
    struct list * temp = e->li;
    int counter = 1;
-   int index = 0;
-   int length_list=getElement_i(length(e));
+   int index;
 
-   if(type(v)=='i'){
+   if( type(v)=='i' || (type(v)=='N' && type(getElement_sym(v))=='i') ){
       index=getElement_i(v);
-      if((index>length_list)){
+      if( index>getElement_i(length(e))){
          printf("The index cannot be bigger than list length\n");
          return NULL;
-      }
-   }else if(type(v)=='N' && type(getElement_sym(v))=='i'){
-      index=getElement_i(getElement_sym(v)); 
-      //index=((struct integer *)((struct symref *)v)->s->value)->i;
-      if((index>length_list)){
-         printf("The index cannot be bigger than list length\n");
+      }else if(index<1){
+         printf("The index cannot be less than 1\n");
          return NULL;
       }
    }else{
       yyerror("The index must be an integer\n");
+      exit(0);
    }
 
    if(!temp && (e->value)){
@@ -177,7 +176,7 @@ void
 insert(struct symbol * e, struct utils * v, struct utils * s){
    struct list * temp = e->li;
    struct list * li=malloc(sizeof(struct list));
-   int index=getElement_i(s);
+   int index;
    int counter=1;
 
    if (!li) {
@@ -186,11 +185,21 @@ insert(struct symbol * e, struct utils * v, struct utils * s){
    if(!temp && (e->value)){
       yyerror("the list does not exist");
    }
-
-   if( index>(getElement_i(length(e)) +1 ) ){
-      yyerror("The insert index cannot be bigger than list length\n");
+   if( type(s)=='i' || (type(s)=='N' && type(getElement_sym(s))=='i') ){
+      index=getElement_i(s);
+      if( index>getElement_i(length(e))){
+         printf("The index cannot be bigger than list length\n");
+         return;
+      }else if(index<1){
+         printf("The index cannot be less than 1\n");
+         return;
+      }
+   }else{
+      yyerror("The index must be an integer\n");
       exit(0);
-   } else if( index==(getElement_i(length(e))+1) ){
+   }
+
+   if( index==(getElement_i(length(e))+1) ){
       push(e, v);
    }else{
       do{
@@ -208,20 +217,49 @@ insert(struct symbol * e, struct utils * v, struct utils * s){
          counter++;
       }while((temp=temp->n));
    }
+}
 
-   /*
-   if(!(temp)){
-      li->s=setList(v);
-      //e->li=li;
-      temp=li;
-   }else{
-      while((temp->n)){
-         temp=temp->n;
+void 
+list_remove(struct symbol * e, struct utils * v){
+   struct list * temp = e->li;
+   int index;
+   int counter=1;
+
+   if(!temp && (e->value)){
+      yyerror("the list does not exist");
+   }
+   if( type(v)=='i' || (type(v)=='N' && type(getElement_sym(v))=='i') ){
+      index=getElement_i(v);
+      if( index>getElement_i(length(e))){
+         printf("The index cannot be bigger than list length\n");
+         return;
+      }else if(index<1){
+         printf("The index cannot be less than 1\n");
+         return;
       }
-      temp->n=li;
-      li->s=setList(v);
-      li->n=NULL;
-   }*/
+   }else{
+      yyerror("The index must be an integer\n");
+      exit(0);
+   }
+   
+   if( index==getElement_i(length(e)) ){
+      pop(e);
+   }else{
+      do{
+         if(index==1){
+            e->li=temp->n;
+            printf("Removed element: ");
+            print_B(temp->s->value);
+            break;
+         }else if(counter==(index-1)){
+            printf("Removed element: ");
+            print_B(temp->n->s->value);
+            temp->n=temp->n->n;
+            break;
+         }
+         counter++;
+      }while((temp=temp->n));
+   }
 }
 
 void
@@ -282,7 +320,9 @@ void
 print_B(struct utils * v) {
    struct list * li;
 
-   if(isList(v)==1) {
+   if(!v){
+      yyerror("NULL pointer can't be printed!");
+   }else if(isList(v)==1) {
       li=((struct symref * ) v)->s->li;
       do{
          print_B( getElement_li(li) );

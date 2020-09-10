@@ -61,6 +61,7 @@ enum bifs {
       b_max,
       b_push,
       b_pop,
+      b_remove,
       b_insert,
       b_get,
       b_length,

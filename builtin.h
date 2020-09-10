@@ -10,3 +10,4 @@ struct utils * get(struct symbol * e,struct utils * v);
 void push(struct symbol * e,struct utils * v);
 void pop(struct symbol * e);
 void insert(struct symbol * e, struct utils * v, struct utils * s);
+void list_remove(struct symbol * e, struct utils * s);
