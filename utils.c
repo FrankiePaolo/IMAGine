@@ -140,7 +140,9 @@ int
 getElement_i(struct utils * v){
    if(type(v)=='i'){
       return ((struct integer * ) v) -> i ;
-   } else {
+   } else if(type(v)=='N') {
+      return getElement_i(getElement_sym(v));
+   } else{
 		yyerror("NULL value detected");
 		return 0;
 	}
@@ -150,6 +152,8 @@ double
 getElement_d(struct utils * v){
    if(type(v)=='D'){
       return ((struct doublePrecision * ) v) -> d ;
+   } else if(type(v)=='N') {
+      return getElement_d(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
 		return 0;
@@ -160,6 +164,8 @@ char *
 getElement_s(struct utils * v){
    if(type(v)=='S'){
       return ((struct str * ) v) -> str ;
+   } else if(type(v)=='N') {
+      return getElement_s(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
 		return NULL;

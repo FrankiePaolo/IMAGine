@@ -95,9 +95,12 @@ struct utils *
       case b_pop:
          pop( ((struct symref * ) v)->s );
          return v;
-      case b_depth:
-         val= depth( ((struct symref * ) v)->s );
+      case b_length:
+         val= length( ((struct symref * ) v)->s );
          return val;
+      case b_insert:
+         insert(((struct symref *)findNode(f, 1))->s, ((struct utils *)findNode(f, 2)), v);
+         return v;
       default:
          yyerror("Unknown built-in function %d", functype);
          return NULL;
@@ -106,7 +109,7 @@ struct utils *
 
 /* methods for lists */
 struct utils * 
-depth(struct symbol * e){
+length(struct symbol * e){
    struct utils * v;
    struct list * temp = e->li;
    int counter=1;
@@ -132,19 +135,19 @@ get(struct symbol * e,struct utils * v){
    struct list * temp = e->li;
    int counter = 1;
    int index = 0;
-   int depth_list=getElement_i(depth(e));
+   int length_list=getElement_i(length(e));
 
    if(type(v)=='i'){
       index=getElement_i(v);
-      if((index>depth_list)){
-         printf("The index cannot be bigger than list depth\n");
+      if((index>length_list)){
+         printf("The index cannot be bigger than list length\n");
          return NULL;
       }
    }else if(type(v)=='N' && type(getElement_sym(v))=='i'){
       index=getElement_i(getElement_sym(v)); 
       //index=((struct integer *)((struct symref *)v)->s->value)->i;
-      if((index>depth_list)){
-         printf("The index cannot be bigger than list depth\n");
+      if((index>length_list)){
+         printf("The index cannot be bigger than list length\n");
          return NULL;
       }
    }else{
@@ -168,6 +171,57 @@ get(struct symbol * e,struct utils * v){
       counter++;
    }while((temp=temp->n));
    return NULL;
+}
+
+void 
+insert(struct symbol * e, struct utils * v, struct utils * s){
+   struct list * temp = e->li;
+   struct list * li=malloc(sizeof(struct list));
+   int index=getElement_i(s);
+   int counter=1;
+
+   if (!li) {
+      yyerror("out of space");
+   }
+   if(!temp && (e->value)){
+      yyerror("the list does not exist");
+   }
+
+   if( index>(getElement_i(length(e)) +1 ) ){
+      yyerror("The insert index cannot be bigger than list length\n");
+      exit(0);
+   } else if( index==(getElement_i(length(e))+1) ){
+      push(e, v);
+   }else{
+      do{
+         if(index==1){
+            li->n=temp;
+            li->s=setList(v);
+            e->li=li;
+            break;
+         }else if(counter==(index-1)){
+            li->n=temp->n;
+            li->s=setList(v);
+            temp->n=li;
+            break;
+         }
+         counter++;
+      }while((temp=temp->n));
+   }
+
+   /*
+   if(!(temp)){
+      li->s=setList(v);
+      //e->li=li;
+      temp=li;
+   }else{
+      while((temp->n)){
+         temp=temp->n;
+      }
+      temp->n=li;
+      li->s=setList(v);
+      li->n=NULL;
+   }*/
 }
 
 void
