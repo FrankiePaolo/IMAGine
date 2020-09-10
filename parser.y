@@ -57,11 +57,11 @@ list:                               { $$ = NULL; }
                                     }}
 ;
 
-exp: exp AND exp          { $$ = newast('&', $1,$3);}
-   | exp OR exp           { $$ = newast('O', $1,$3);}
-   | exp CMP exp          { $$ = newcmp($2, $1, $3); }
+exp: exp AND exp          { $$ = newast('&', $1,$3); }
+   | exp OR exp           { $$ = newast('O', $1,$3); }
+   | exp CMP exp          { $$ = newcmp($2,  $1,$3); }
    | exp '+' exp          { $$ = newast('+', $1,$3); }
-   | exp '-' exp          { $$ = newast('-', $1,$3);}
+   | exp '-' exp          { $$ = newast('-', $1,$3); }
    | exp '*' exp          { $$ = newast('*', $1,$3); }
    | exp '/' exp          { $$ = newast('/', $1,$3); }
    | '|' exp '|'          { $$ = newast('|', $2, NULL); }
@@ -81,7 +81,7 @@ name: NAME                       { $$ = newref($1); }
 
 value:  '-' INT %prec UMINUS      { $$ = newint($2,'-'); }
    | INT                          { $$ = newint($1,'+'); }
-   | '-' DOUBLE %prec UMINUS      { $$ = newdouble($2,'-'); }
+   | '-' DOUBLE %prec UMINUS      { $$ = newdouble($2,'-'); } 
    | DOUBLE                       { $$ = newdouble($1,'+'); }
    | STRING                       { $$ = newstring($1); }
    | NAME                         { $$ = newref($1); }

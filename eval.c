@@ -108,15 +108,25 @@ struct utils *
          absoluteValue(v, temp1);
          break;
       case '&':
-         printf("here\n");
-         break;
-         /*
+         
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
          
+         v=((struct utils *)newint(0,'+'));
          if(((struct integer *)temp1)->i==1 && ((struct integer *)temp2)->i==1){
-            printf("and");
-         }*/
+            putElement_i(v,1);
+         }
+         break;
+
+      case 'O':
+         
+         temp1 = eval(a -> l);
+         temp2 = eval(a -> r);
+         
+         v=((struct utils *)newint(0,'+'));
+         if(((struct integer *)temp1)->i==1 || ((struct integer *)temp2)->i==1){
+            putElement_i(v,1);
+         }
          break;
 
          /* comparisons */
@@ -126,7 +136,6 @@ struct utils *
 
          v=((struct utils *)newint(0,'+'));
          biggerThan(v, temp1, temp2);
-         printf("here2\n");
          break;
 
       case '2':

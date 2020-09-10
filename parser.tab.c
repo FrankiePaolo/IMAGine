@@ -1453,19 +1453,19 @@ yyreduce:
 
   case 9:
 #line 60 "parser.y"
-                          { (yyval.a) = newast('&', (yyvsp[-2].a),(yyvsp[0].a));}
+                          { (yyval.a) = newast('&', (yyvsp[-2].a),(yyvsp[0].a)); }
 #line 1458 "parser.tab.c"
     break;
 
   case 10:
 #line 61 "parser.y"
-                          { (yyval.a) = newast('O', (yyvsp[-2].a),(yyvsp[0].a));}
+                          { (yyval.a) = newast('O', (yyvsp[-2].a),(yyvsp[0].a)); }
 #line 1464 "parser.tab.c"
     break;
 
   case 11:
 #line 62 "parser.y"
-                          { (yyval.a) = newcmp((yyvsp[-1].fn), (yyvsp[-2].a), (yyvsp[0].a)); }
+                          { (yyval.a) = newcmp((yyvsp[-1].fn),  (yyvsp[-2].a),(yyvsp[0].a)); }
 #line 1470 "parser.tab.c"
     break;
 
@@ -1477,7 +1477,7 @@ yyreduce:
 
   case 13:
 #line 64 "parser.y"
-                          { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a));}
+                          { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a)); }
 #line 1482 "parser.tab.c"
     break;
 
