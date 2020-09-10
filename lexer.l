@@ -85,7 +85,7 @@
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
  /* string */
-\"{1}.[^"]+\"{1}       { yytext++;yylval.str=(yytext);return STRING; } 
+\"{1}.[^"]*\"{1}       { yytext++;yylval.str=(yytext);return STRING; } 
 
  /* int */
 [0-9]+                { yylval.i = atoi(yytext); return INT; }

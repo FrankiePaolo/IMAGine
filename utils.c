@@ -203,12 +203,12 @@ struct list *
 }
 
 int
-   isList(struct utils * v){
-      if(type(v) == 'N' &&  ((struct symref * ) v) -> s->li){
+   listCheck(struct symref * v){
+      if(v->s->li && type( getElement_sym( (struct utils *)v ) ) =='l'){
          return 1;
-      }else if(type(v) == 'N' && !(((struct symref * ) v) -> s->li) && !getElement_sym(v)){
+      } else if( type( getElement_sym( (struct utils *)v ) ) =='l' ){
          return 0;
-      }else{
+      } else {
          return -1;
       }
 }
@@ -383,14 +383,17 @@ struct ast *
 struct ast *
    newref(struct symbol * s) {
       struct symref * a = malloc(sizeof(struct symref));
-      printf("newref\n");
+      
       if (!a) {
          yyerror("out of space");
          exit(0);
       }
       a -> nodetype = 'N';
       a -> s = s;
-      a -> s ->value = malloc(sizeof(struct utils *));
+      if(s->value==NULL){
+         a -> s -> value = malloc(sizeof(struct utils *));
+         a -> s -> value -> nodetype = 'U';
+      }
       return (struct ast * ) a;
    }
 
@@ -464,6 +467,7 @@ struct ast *
          li->s=((struct symref *)l)->s;
       }
       li->n=((struct list *)r);
+      li->nodetype='l';
       return ((struct ast *)li);
 }
 
@@ -498,6 +502,10 @@ dodef(struct symbol * name, struct symlist * syms, struct ast * func) {
 
 void 
 dolist(struct symbol * name, struct ast * li){
+   struct utils * temp=malloc(sizeof(struct utils *));
+   temp->nodetype='l';
+   name->value=temp;
+
    name->li=((struct list *)li);
 }
 

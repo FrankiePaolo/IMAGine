@@ -2,12 +2,11 @@
 
    /* symbol table */
    struct symbol {
-      /* a variable name */
-      char * name;
+      char * name;            /* a variable name */
       struct utils * value;
-      struct list * li;   /* list */
-      struct ast * func; /* stmt for the function */
-      struct symlist * syms; /* list of dummy args */
+      struct list * li;       /* list */
+      struct ast * func;      /* stmt for the function */
+      struct symlist * syms;  /* list of dummy args */
    };
 
 /* simple symtab of fixed size */
@@ -39,7 +38,8 @@ void symlistfree(struct symlist * sl);
  *  i integer 
  *  D double
  *  S string
- *  
+ *  l list
+ *  U unallocated
  */
 
 /* nodes in the Abstract Syntax Tree */
@@ -131,9 +131,8 @@ struct img {
 };
 
 struct list {
-   // struct utils * e; /* element of list */
-   struct symbol * s;   /* element of list */
-   struct list *n;   /* pointer to next element */
+   struct symbol * s;  /* element of list */
+   struct list *n;     /* pointer to next element */
 };
 
 struct symref {
@@ -195,7 +194,7 @@ struct utils * getElement_sym(struct utils * v);
 int yylex();
 int yyparse();
 int asprintf(char **strp, const char *fmt, ...);
-int isList(struct utils * v);
+int listCheck(struct symref * v);
 struct utils * getElement_li(struct list * v);
 char * getFormat(char * path);
 
