@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.6.3.  */
+/* A Bison parser, made by GNU Bison 3.5.1.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,9 +31,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -45,12 +44,11 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-<<<<<<< HEAD
     INT = 258,
     DOUBLE = 259,
     STRING = 260,
@@ -71,31 +69,7 @@ extern int yydebug;
     CMP = 275,
     CND = 276,
     UMINUS = 277
-=======
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    INT = 258,                     /* INT  */
-    DOUBLE = 259,                  /* DOUBLE  */
-    STRING = 260,                  /* STRING  */
-    NAME = 261,                    /* NAME  */
-    FUNC = 262,                    /* FUNC  */
-    EOL = 263,                     /* EOL  */
-    IF = 264,                      /* IF  */
-    THEN = 265,                    /* THEN  */
-    ELSE = 266,                    /* ELSE  */
-    WHILE = 267,                   /* WHILE  */
-    DO = 268,                      /* DO  */
-    DEF = 269,                     /* DEF  */
-    IMG = 270,                     /* IMG  */
-    LIST = 271,                    /* LIST  */
-    FOREACH = 272,                 /* FOREACH  */
-    CMP = 273,                     /* CMP  */
-    UMINUS = 274                   /* UMINUS  */
->>>>>>> master
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
@@ -112,11 +86,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-<<<<<<< HEAD
 #line 90 "parser.tab.h"
-=======
-#line 93 "parser.tab.h"
->>>>>>> master
 
 };
 typedef union YYSTYPE YYSTYPE;

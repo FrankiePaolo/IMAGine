@@ -383,13 +383,14 @@ struct ast *
 struct ast *
    newref(struct symbol * s) {
       struct symref * a = malloc(sizeof(struct symref));
-
+      printf("newref\n");
       if (!a) {
          yyerror("out of space");
          exit(0);
       }
       a -> nodetype = 'N';
       a -> s = s;
+      a -> s ->value = malloc(sizeof(struct utils *));
       return (struct ast * ) a;
    }
 
