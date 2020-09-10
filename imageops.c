@@ -89,12 +89,12 @@ invert(struct symref * l,struct ast * v) {
 
 struct utils * 
 convert(struct symref * l,struct ast * v) {
-   struct utils * temp1 = getElement_sym(l);
-   VipsImage * in = ((struct img * ) temp1) -> img);
+   struct utils * temp1 = l -> s -> value;
+   VipsImage * in = ((struct img * ) temp1) -> img;
    VipsImage * out;
    char * path;
    path=getPath(v);
-   vips_copy(in, &out);
+   vips_copy(in, &out, NULL);
    saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved, path:%s\n", path);
    struct img * a = malloc(sizeof(struct img));
