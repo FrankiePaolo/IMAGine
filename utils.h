@@ -57,6 +57,8 @@ enum bifs {
       b_subtract,
       b_invert,
       b_average,
+      b_min,
+      b_max,
       b_push,
       b_pop,
       b_get,
@@ -193,6 +195,7 @@ int yyparse();
 int asprintf(char **strp, const char *fmt, ...);
 int isList(struct utils * v);
 struct utils * getElement_li(struct list * v);
+char * getFormat(char * path);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */

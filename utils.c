@@ -273,8 +273,8 @@ struct ast *
       }
 
       a -> img = in ;
-      return (struct ast * ) a;
 
+      return (struct ast * ) a;
    }
 
 struct ast *
@@ -584,6 +584,23 @@ struct symbol *
       }
       return s;
    }
+
+
+char *
+getFormat(char * path){
+   const char delimiters[] = ".";
+   char * suffix=NULL;
+   char *token = strtok(path, delimiters);
+   token = strtok(NULL, delimiters);
+
+   while (token != NULL)
+   {
+      suffix=strndup(token,(strlen(token)));
+      token = strtok(NULL, delimiters);
+   }
+
+   return suffix;
+}
 
 struct utils *
    calluser(struct ufncall * f) {
