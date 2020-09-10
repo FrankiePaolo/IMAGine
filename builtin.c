@@ -322,6 +322,7 @@ print_B(struct utils * v) {
 
    if(!v){
       yyerror("NULL pointer can't be printed!");
+      exit(0);
    }else if(isList(v)==1) {
       li=((struct symref * ) v)->s->li;
       do{

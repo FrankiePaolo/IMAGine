@@ -123,6 +123,7 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
+<<<<<<< HEAD
     INT = 258,
     DOUBLE = 259,
     STRING = 260,
@@ -143,6 +144,32 @@ extern int yydebug;
     CMP = 275,
     CND = 276,
     UMINUS = 277
+=======
+    YYEMPTY = -2,
+    YYEOF = 0,                     /* "end of file"  */
+    YYerror = 256,                 /* error  */
+    YYUNDEF = 257,                 /* "invalid token"  */
+    INT = 258,                     /* INT  */
+    DOUBLE = 259,                  /* DOUBLE  */
+    STRING = 260,                  /* STRING  */
+    NAME = 261,                    /* NAME  */
+    FUNC = 262,                    /* FUNC  */
+    EOL = 263,                     /* EOL  */
+    IF = 264,                      /* IF  */
+    THEN = 265,                    /* THEN  */
+    ELSE = 266,                    /* ELSE  */
+    WHILE = 267,                   /* WHILE  */
+    DO = 268,                      /* DO  */
+    DEF = 269,                     /* DEF  */
+    IMG = 270,                     /* IMG  */
+    LIST = 271,                    /* LIST  */
+    FOREACH = 272,                 /* FOREACH  */
+    AND = 273,                     /* AND  */
+    OR = 274,                      /* OR  */
+    CMP = 275,                     /* CMP  */
+    CND = 276,                     /* CND  */
+    UMINUS = 277                   /* UMINUS  */
+>>>>>>> master
   };
 #endif
 
@@ -160,7 +187,11 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
+<<<<<<< HEAD
 #line 164 "parser.tab.c"
+=======
+#line 162 "parser.tab.c"
+>>>>>>> master
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -174,6 +205,65 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 #endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
+<<<<<<< HEAD
+=======
+/* Symbol kind.  */
+enum yysymbol_kind_t
+{
+  YYSYMBOL_YYEMPTY = -2,
+  YYSYMBOL_YYEOF = 0,                      /* "end of file"  */
+  YYSYMBOL_YYerror = 1,                    /* error  */
+  YYSYMBOL_YYUNDEF = 2,                    /* "invalid token"  */
+  YYSYMBOL_INT = 3,                        /* INT  */
+  YYSYMBOL_DOUBLE = 4,                     /* DOUBLE  */
+  YYSYMBOL_STRING = 5,                     /* STRING  */
+  YYSYMBOL_NAME = 6,                       /* NAME  */
+  YYSYMBOL_FUNC = 7,                       /* FUNC  */
+  YYSYMBOL_EOL = 8,                        /* EOL  */
+  YYSYMBOL_IF = 9,                         /* IF  */
+  YYSYMBOL_THEN = 10,                      /* THEN  */
+  YYSYMBOL_ELSE = 11,                      /* ELSE  */
+  YYSYMBOL_WHILE = 12,                     /* WHILE  */
+  YYSYMBOL_DO = 13,                        /* DO  */
+  YYSYMBOL_DEF = 14,                       /* DEF  */
+  YYSYMBOL_IMG = 15,                       /* IMG  */
+  YYSYMBOL_LIST = 16,                      /* LIST  */
+  YYSYMBOL_FOREACH = 17,                   /* FOREACH  */
+  YYSYMBOL_AND = 18,                       /* AND  */
+  YYSYMBOL_OR = 19,                        /* OR  */
+  YYSYMBOL_CMP = 20,                       /* CMP  */
+  YYSYMBOL_CND = 21,                       /* CND  */
+  YYSYMBOL_22_ = 22,                       /* '='  */
+  YYSYMBOL_23_ = 23,                       /* '+'  */
+  YYSYMBOL_24_ = 24,                       /* '-'  */
+  YYSYMBOL_25_ = 25,                       /* '*'  */
+  YYSYMBOL_26_ = 26,                       /* '/'  */
+  YYSYMBOL_27_ = 27,                       /* '|'  */
+  YYSYMBOL_UMINUS = 28,                    /* UMINUS  */
+  YYSYMBOL_29_ = 29,                       /* '('  */
+  YYSYMBOL_30_ = 30,                       /* ')'  */
+  YYSYMBOL_31_ = 31,                       /* '{'  */
+  YYSYMBOL_32_ = 32,                       /* '}'  */
+  YYSYMBOL_33_ = 33,                       /* ';'  */
+  YYSYMBOL_34_ = 34,                       /* ':'  */
+  YYSYMBOL_35_ = 35,                       /* ','  */
+  YYSYMBOL_36_n_ = 36,                     /* '\n'  */
+  YYSYMBOL_YYACCEPT = 37,                  /* $accept  */
+  YYSYMBOL_stmt = 38,                      /* stmt  */
+  YYSYMBOL_list = 39,                      /* list  */
+  YYSYMBOL_exp = 40,                       /* exp  */
+  YYSYMBOL_foreach = 41,                   /* foreach  */
+  YYSYMBOL_name = 42,                      /* name  */
+  YYSYMBOL_value = 43,                     /* value  */
+  YYSYMBOL_img = 44,                       /* img  */
+  YYSYMBOL_explist = 45,                   /* explist  */
+  YYSYMBOL_symlist = 46,                   /* symlist  */
+  YYSYMBOL_elements = 47,                  /* elements  */
+  YYSYMBOL_program = 48                    /* program  */
+};
+typedef enum yysymbol_kind_t yysymbol_kind_t;
+
+>>>>>>> master
 
 
 
@@ -490,7 +580,10 @@ union yyalloc
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  113
 
+<<<<<<< HEAD
 #define YYUNDEFTOK  2
+=======
+>>>>>>> master
 #define YYMAXUTOK   277
 
 
@@ -550,12 +643,21 @@ static const yytype_int8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
+<<<<<<< HEAD
   "$end", "error", "$undefined", "INT", "DOUBLE", "STRING", "NAME",
   "FUNC", "EOL", "IF", "THEN", "ELSE", "WHILE", "DO", "DEF", "IMG", "LIST",
   "FOREACH", "AND", "OR", "CMP", "CND", "'='", "'+'", "'-'", "'*'", "'/'",
   "'|'", "UMINUS", "'('", "')'", "'{'", "'}'", "';'", "':'", "','",
   "'\\n'", "$accept", "stmt", "list", "exp", "foreach", "name", "value",
   "img", "explist", "symlist", "elements", "program", YY_NULLPTR
+=======
+  "\"end of file\"", "error", "\"invalid token\"", "INT", "DOUBLE",
+  "STRING", "NAME", "FUNC", "EOL", "IF", "THEN", "ELSE", "WHILE", "DO",
+  "DEF", "IMG", "LIST", "FOREACH", "AND", "OR", "CMP", "CND", "'='", "'+'",
+  "'-'", "'*'", "'/'", "'|'", "UMINUS", "'('", "')'", "'{'", "'}'", "';'",
+  "':'", "','", "'\\n'", "$accept", "stmt", "list", "exp", "foreach",
+  "name", "value", "img", "explist", "symlist", "elements", "program", YY_NULLPTR
+>>>>>>> master
 };
 #endif
 
@@ -1414,31 +1516,51 @@ yyreduce:
   case 2:
 #line 45 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-6].a), (yyvsp[-2].a), NULL); }
+<<<<<<< HEAD
 #line 1418 "parser.tab.c"
+=======
+#line 1272 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 3:
 #line 46 "parser.y"
                                                           { (yyval.a) = newflow('I', (yyvsp[-9].a), (yyvsp[-5].a), (yyvsp[-1].a)); }
+<<<<<<< HEAD
 #line 1424 "parser.tab.c"
+=======
+#line 1278 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 4:
 #line 47 "parser.y"
                                                           { (yyval.a) = newflow('W', (yyvsp[-5].a), (yyvsp[-1].a), NULL); }
+<<<<<<< HEAD
 #line 1430 "parser.tab.c"
+=======
+#line 1284 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 5:
 #line 48 "parser.y"
                                                           { (yyval.a) = newflow('E', (yyvsp[-4].a), (yyvsp[-1].a), NULL); }
+<<<<<<< HEAD
 #line 1436 "parser.tab.c"
+=======
+#line 1290 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 7:
 #line 52 "parser.y"
                                     { (yyval.a) = NULL; }
+<<<<<<< HEAD
 #line 1442 "parser.tab.c"
+=======
+#line 1296 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 8:
@@ -1448,187 +1570,279 @@ yyreduce:
                                     }else{
 			                              (yyval.a) = newast('L', (yyvsp[-1].a), (yyvsp[0].a));
                                     }}
+<<<<<<< HEAD
 #line 1452 "parser.tab.c"
+=======
+#line 1306 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 9:
 #line 60 "parser.y"
                           { (yyval.a) = newast('&', (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1458 "parser.tab.c"
+=======
+#line 1312 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 10:
 #line 61 "parser.y"
                           { (yyval.a) = newast('O', (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1464 "parser.tab.c"
+=======
+#line 1318 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 11:
 #line 62 "parser.y"
                           { (yyval.a) = newcmp((yyvsp[-1].fn),  (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1470 "parser.tab.c"
+=======
+#line 1324 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 12:
 #line 63 "parser.y"
                           { (yyval.a) = newast('+', (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1476 "parser.tab.c"
+=======
+#line 1330 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 13:
 #line 64 "parser.y"
                           { (yyval.a) = newast('-', (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1482 "parser.tab.c"
+=======
+#line 1336 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 14:
 #line 65 "parser.y"
                           { (yyval.a) = newast('*', (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1488 "parser.tab.c"
+=======
+#line 1342 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 15:
 #line 66 "parser.y"
                           { (yyval.a) = newast('/', (yyvsp[-2].a),(yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1494 "parser.tab.c"
+=======
+#line 1348 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 16:
 #line 67 "parser.y"
                           { (yyval.a) = newast('|', (yyvsp[-1].a), NULL); }
+<<<<<<< HEAD
 #line 1500 "parser.tab.c"
+=======
+#line 1354 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 17:
 #line 68 "parser.y"
                           { (yyval.a) = (yyvsp[-1].a); }
+<<<<<<< HEAD
 #line 1506 "parser.tab.c"
+=======
+#line 1360 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 18:
 #line 69 "parser.y"
                           { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
+<<<<<<< HEAD
 #line 1512 "parser.tab.c"
+=======
+#line 1366 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 19:
 #line 70 "parser.y"
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1518 "parser.tab.c"
+=======
+#line 1372 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 20:
 #line 71 "parser.y"
                           { (yyval.a) = newasgn((yyvsp[-2].s), (yyvsp[0].a)); }
-#line 1524 "parser.tab.c"
+#line 1378 "parser.tab.c"
     break;
 
   case 21:
 #line 72 "parser.y"
                           { (yyval.a) = newcall((yyvsp[-3].s), (yyvsp[-1].a)); }
-#line 1530 "parser.tab.c"
+#line 1384 "parser.tab.c"
     break;
 
   case 22:
 #line 73 "parser.y"
                           { (yyval.a) = (yyvsp[0].a); }
-#line 1536 "parser.tab.c"
+#line 1390 "parser.tab.c"
     break;
 
   case 23:
 #line 76 "parser.y"
                                  { (yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a)); }
-#line 1542 "parser.tab.c"
+#line 1396 "parser.tab.c"
     break;
 
   case 24:
 #line 79 "parser.y"
                                  { (yyval.a) = newref((yyvsp[0].s)); }
+<<<<<<< HEAD
 #line 1548 "parser.tab.c"
+=======
+#line 1402 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 25:
 #line 82 "parser.y"
                                   { (yyval.a) = newint((yyvsp[0].i),'-'); }
+<<<<<<< HEAD
 #line 1554 "parser.tab.c"
+=======
+#line 1408 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 26:
 #line 83 "parser.y"
                                   { (yyval.a) = newint((yyvsp[0].i),'+'); }
+<<<<<<< HEAD
 #line 1560 "parser.tab.c"
+=======
+#line 1414 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 27:
 #line 84 "parser.y"
                                   { (yyval.a) = newdouble((yyvsp[0].d),'-'); }
+<<<<<<< HEAD
 #line 1566 "parser.tab.c"
+=======
+#line 1420 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 28:
 #line 85 "parser.y"
                                   { (yyval.a) = newdouble((yyvsp[0].d),'+'); }
-#line 1572 "parser.tab.c"
+#line 1426 "parser.tab.c"
     break;
 
   case 29:
 #line 86 "parser.y"
                                   { (yyval.a) = newstring((yyvsp[0].str)); }
-#line 1578 "parser.tab.c"
+#line 1432 "parser.tab.c"
     break;
 
   case 30:
 #line 87 "parser.y"
                                   { (yyval.a) = newref((yyvsp[0].s)); }
-#line 1584 "parser.tab.c"
+#line 1438 "parser.tab.c"
     break;
 
   case 31:
 #line 90 "parser.y"
                           { (yyval.a) = newimg((yyvsp[0].str)); }
+<<<<<<< HEAD
 #line 1590 "parser.tab.c"
+=======
+#line 1444 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 32:
 #line 91 "parser.y"
                           { (yyval.a) = newfunc((yyvsp[-3].fn), (yyvsp[-1].a)); }
-#line 1596 "parser.tab.c"
+#line 1450 "parser.tab.c"
     break;
 
   case 34:
 #line 95 "parser.y"
                       { (yyval.a) = newast('L', (yyvsp[-2].a), (yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1602 "parser.tab.c"
+=======
+#line 1456 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 35:
 #line 98 "parser.y"
                       { (yyval.sl) = newsymlist((yyvsp[0].s), NULL); }
+<<<<<<< HEAD
 #line 1608 "parser.tab.c"
+=======
+#line 1462 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 36:
 #line 99 "parser.y"
                       { (yyval.sl) = newsymlist((yyvsp[-2].s), (yyvsp[0].sl)); }
+<<<<<<< HEAD
 #line 1614 "parser.tab.c"
+=======
+#line 1468 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 37:
 #line 102 "parser.y"
                          { (yyval.a) = NULL; }
+<<<<<<< HEAD
 #line 1620 "parser.tab.c"
+=======
+#line 1474 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 38:
 #line 103 "parser.y"
                          { (yyval.a) = newlist((yyvsp[0].a),NULL); }
+<<<<<<< HEAD
 #line 1626 "parser.tab.c"
+=======
+#line 1480 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 39:
 #line 104 "parser.y"
                          { (yyval.a) = newlist((yyvsp[-2].a), (yyvsp[0].a)); }
+<<<<<<< HEAD
 #line 1632 "parser.tab.c"
+=======
+#line 1486 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 41:
@@ -1640,7 +1854,11 @@ yyreduce:
    eval((yyvsp[0].a));
    treefree((yyvsp[0].a));
    }
+<<<<<<< HEAD
 #line 1644 "parser.tab.c"
+=======
+#line 1498 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 42:
@@ -1648,7 +1866,11 @@ yyreduce:
                                                    {
                        dodef((yyvsp[-6].s), (yyvsp[-4].sl), (yyvsp[-1].a));
    }
+<<<<<<< HEAD
 #line 1652 "parser.tab.c"
+=======
+#line 1506 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 43:
@@ -1656,17 +1878,29 @@ yyreduce:
                                                {
                        dolist((yyvsp[-5].s), (yyvsp[-2].a));
    }
+<<<<<<< HEAD
 #line 1660 "parser.tab.c"
+=======
+#line 1514 "parser.tab.c"
+>>>>>>> master
     break;
 
   case 44:
 #line 121 "parser.y"
                         { yyerrok; printf("> "); }
+<<<<<<< HEAD
 #line 1666 "parser.tab.c"
     break;
 
 
 #line 1670 "parser.tab.c"
+=======
+#line 1520 "parser.tab.c"
+    break;
+
+
+#line 1524 "parser.tab.c"
+>>>>>>> master
 
       default: break;
     }
@@ -1898,4 +2132,8 @@ yyreturn:
 #endif
   return yyresult;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
 #line 124 "parser.y"
