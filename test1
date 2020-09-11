@@ -1,12 +1,12 @@
-img im="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/a.jpeg";
+img im="/home/frank/Desktop/Img/image.jpg";
+wi=width(im);
+he=height(im);
+ba=bands(im);
 
+// -------------------------------------------
 
-out="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/inverted.png";
-//out="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/inverted.tif";
-//out="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/inverted.raw";
-//out="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/inverted.hdr";
+ciao=6;
 
-
-img inverted=invert(im, out);
+height(ciao);
 
 

@@ -38,6 +38,7 @@ void symlistfree(struct symlist * sl);
  *  i integer 
  *  D double
  *  S string
+ *  P image
  *  l list
  *  U unallocated
  */
