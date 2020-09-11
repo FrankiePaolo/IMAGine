@@ -22,16 +22,28 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         imageError(findNode(f, 1));
+         imageError(v);
          val=getWidth(((struct symref * ) v)); //number
          return val;
       case b_height:
-         imageError(findNode(f, 1));
+         imageError(v);
          val=getHeight(((struct symref * ) v)); //number
          return val;
       case b_bands:
-         imageError(findNode(f, 1));
+         imageError(v);
          val=getBands(((struct symref * ) v)); //number
+         return val;
+      case b_average:
+         imageError(v);
+         val=average(((struct symref * ) v));
+         return val;
+      case b_min:
+         imageError(v);
+         val=min(((struct symref * ) v));
+         return val;
+      case b_max:
+         imageError(v);
+         val=max(((struct symref * ) v));
          return val;
       case b_crop:
          imageError(findNode(f, 1));
@@ -64,18 +76,6 @@ struct utils *
       case b_copyfile:
          imageError(findNode(f, 1));
          val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
-         return val;
-      case b_average:
-         imageError(findNode(f, 1));
-         val=average(((struct symref * ) v));
-         return val;
-      case b_min:
-         imageError(findNode(f, 1));
-         val=min(((struct symref * ) v));
-         return val;
-      case b_max:
-         imageError(findNode(f, 1));
-         val=max(((struct symref * ) v));
          return val;
       case b_flip:
          imageError(findNode(f, 1));
