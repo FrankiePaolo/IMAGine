@@ -99,5 +99,5 @@
 \\\n    /* ignore line continuation */
 "\n"    
 
-.	    { yyerror("Unknown character %c\n", *yytext); }
+.	    { yyerror("Unknown character %c not allowed", *yytext); exit(0);}
 %%

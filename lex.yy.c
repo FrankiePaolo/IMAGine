@@ -1223,7 +1223,7 @@ YY_RULE_SETUP
 case 69:
 YY_RULE_SETUP
 #line 103 "lexer.l"
-{ yyerror("Unknown character %c\n", *yytext); }
+{ yyerror("Unknown character %c not allowed", *yytext); exit(0);}
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
