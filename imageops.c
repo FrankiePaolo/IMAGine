@@ -97,6 +97,38 @@ invert(struct symref * l,struct ast * v) {
    return ((struct utils *)a);
 }
 
+/* Returns the input image but moves it to differt space and saves it in "output_path" */
+struct utils * 
+toColorSpace(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
+   VipsInterpretation out_space=getSpace(s);
+   (((struct img * ) temp1) -> img)->Type=in_space;
+
+   if (vips_colourspace((((struct img * ) temp1) -> img), & out,  out_space,NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   /* If we wish to require user input from terminal, OLD
+   printf("Please enter the path of the output image :\n");
+   scanf("%s", path);
+   */
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+
 
 struct utils * 
 crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
@@ -284,35 +316,6 @@ subtract_img(struct symref * l,struct symref * r,struct ast * p){
    return ((struct utils *)a);
 }
 
-struct utils * 
-toColorSpace(struct symref * l,struct ast * v,struct ast * s){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
-   VipsInterpretation out_space=getSpace(s);
-   (((struct img * ) temp1) -> img)->Type=in_space;
-
-   if (vips_colourspace((((struct img * ) temp1) -> img), & out,  out_space,NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
 
 struct utils *
 flip(struct symref * l,struct ast * v,struct ast * s){

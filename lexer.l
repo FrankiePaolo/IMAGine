@@ -69,7 +69,7 @@
 "convertColorSpace" { yylval.fn = b_convert; return FUNC; }
 "rotate" { yylval.fn = b_rotate; return FUNC; }
 "histEq" { yylval.fn = b_histeq; return FUNC; }
-"normalise" { yylval.fn = b_histeq; return FUNC; }
+"normalise" { yylval.fn = b_norm; return FUNC; }
 "gaussianBlur" { yylval.fn = b_gaussianblur; return FUNC; }
 "canny" { yylval.fn = b_canny; return FUNC; }
 "sobel" { yylval.fn = b_sobel; return FUNC; }

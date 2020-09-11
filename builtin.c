@@ -57,6 +57,16 @@ struct utils *
          imageError(findNode(f, 1));
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
+      case b_histeq:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=histeq((struct symref *)findNode(f, 1),((struct ast *)v));
+         return val;
+      case b_norm:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=norm((struct symref *)findNode(f, 1),((struct ast *)v));
+         return val;
       case b_convert:
          argumentsCheck(f, 3);
          imageError(findNode(f, 1));
@@ -93,14 +103,6 @@ struct utils *
       case b_rotate:
          imageError(findNode(f, 1));
          val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
-         return val;
-      case b_norm:
-         imageError(findNode(f, 1));
-         val=norm((struct symref *)findNode(f, 1),((struct ast *)v));
-         return val;
-      case b_histeq:
-         imageError(findNode(f, 1));
-         val=histeq((struct symref *)findNode(f, 1),((struct ast *)v));
          return val;
       case b_gaussianblur:
          imageError(findNode(f, 1));

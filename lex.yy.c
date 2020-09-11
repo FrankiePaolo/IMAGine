@@ -1130,7 +1130,7 @@ YY_RULE_SETUP
 case 52:
 YY_RULE_SETUP
 #line 73 "lexer.l"
-{ yylval.fn = b_histeq; return FUNC; }
+{ yylval.fn = b_norm; return FUNC; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP

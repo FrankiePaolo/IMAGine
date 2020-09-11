@@ -22,12 +22,15 @@
     double max(img name_image);                         /* Returns the maximum value in an image */
     double average(img name_image);                     /* Returns the average value in an image */
     img invert(img name_image, char* output_path);      /* Returns the inverted image and saves it in "output_path" */
-    img convertColorSpace(img name_image, char* output_path, char* space); 
-                    char* space can be:     grey16      // generic 16-bit mono
-                                            hsv         // pixels are HSV
-                                            yxy         // pixels are CIE Yxy
-                                            lch         // pixels are in CIE LCh space
-                                            cmc         // a uniform colourspace based on CMC(1:1)
-                                            lab         // pixels are in CIE Lab space
+    img histEq(img name_image, char* output_path); 
+    img normalise(img name_image, char* output_path);
+    img convertColorSpace(img name_image, char* output_path, char* space);          /* Returns the input image but moves it to differt space and saves it in "output_path" */
+                            char* space can be:     grey16      // generic 16-bit mono
+                                                    hsv         // pixels are HSV
+                                                    yxy         // pixels are CIE Yxy
+                                                    lch         // pixels are in CIE LCh space
+                                                    cmc         // a uniform colourspace based on CMC(1:1)
+                                                    lab         // pixels are in CIE Lab space
+
 
 /* End Image Method */
