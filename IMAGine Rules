@@ -15,8 +15,12 @@
 /* Image Method */
     img name_variable = " /path.format "; //Declare image variable 
 
-    int width(img name_image); /* Returns the number of pixels across the image */
-    int height(img name_image); /* Returns the number of pixels down the image */
-
+    int width(img name_image);          /* Returns the number of pixels across the image */
+    int height(img name_image);         /* Returns the number of pixels down the image */
+    int bands(img name_image);          /* Returns the number of bands(channels) in the image */
+    double min(img name_image);         /* Returns the minimum value in an image */
+    double max(img name_image);         /* Returns the maximum value in an image */
+    double average(img name_image);     /* Returns the average value in an image */
+    img invert(img name_image)
 
 /* End Image Method */

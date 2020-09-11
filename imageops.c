@@ -5,9 +5,7 @@
 #  include <math.h>
 #  include <vips/vips.h>
 #  include "utils.h"
-
-
-/* methods for images */
+#  include "imageops.h"
 
 /* This sometimes causes memory issues, needs to be updated */
 void
@@ -19,16 +17,34 @@ openImg(char * path){
    system(command);
 }
 
+/* Returns the number of pixels across the image */
 struct utils *
-average(struct symref * v) {
-   double mean;
+getWidth(struct symref * v) {
+   int val;
    struct utils * temp1 = v -> s -> value;
-   if (vips_avg((((struct img * ) temp1) -> img), & mean, NULL)) {
-      vips_error_exit(NULL);
-   }
-   return ((struct utils *)newdouble(mean,'+'));
+   val=vips_image_get_width(((struct img * ) temp1) -> img);
+   return ((struct utils *)newint(val,'+'));
 }
 
+/* Returns the number of pixels down the image */
+struct utils *
+getHeight(struct symref * v) {
+   int val;
+   struct utils * temp1 = v -> s -> value;
+   val=vips_image_get_height(((struct img * ) temp1) -> img);
+   return ((struct utils *)newint(val,'+'));
+}
+
+/* Returns the number of bands(channels) in the image */
+struct utils *
+getBands(struct symref * v) {
+   int val;
+   struct utils * temp1 = v -> s -> value;
+   val=vips_image_get_bands(((struct img * ) temp1) -> img);
+   return ((struct utils *)newint(val,'+'));
+}
+
+/* Returns the minimum value in an image */
 struct utils *
 min(struct symref * v) {
    double min;
@@ -39,6 +55,7 @@ min(struct symref * v) {
    return ((struct utils *)newdouble(min,'+'));
 }
 
+/* Returns the maximum value in an image */
 struct utils *
 max(struct symref * v) {
    double max;
@@ -47,6 +64,59 @@ max(struct symref * v) {
       vips_error_exit(NULL);
    }
    return ((struct utils *)newdouble(max,'+'));
+}
+
+/* Returns the average value in an image */
+struct utils *
+average(struct symref * v) {
+   double mean;
+   struct utils * temp1 = v -> s -> value;
+   if (vips_avg((((struct img * ) temp1) -> img), & mean, NULL)) {
+      vips_error_exit(NULL);
+   }
+   return ((struct utils *)newdouble(mean,'+'));
+}
+
+/* */
+struct utils * 
+invert(struct symref * l,struct ast * v) {
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+
+struct utils * 
+crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
+   VipsImage * out;
+   char * path;
+   double left_value=getValue(left);
+   double top_value=getValue(top);
+   double width_value=getValue(width);
+   double height_value=getValue(height);
+   struct utils * temp1 = l -> s -> value;
+   if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath( ((struct ast *) r) );
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
 }
 
 void
@@ -88,23 +158,7 @@ saveImage(char * in, VipsImage * out, char * path){
    }
 }
 
-struct utils * 
-invert(struct symref * l,struct ast * v) {
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
+
 
 struct utils * 
 convert(struct symref * l,struct ast * v) {
@@ -123,27 +177,7 @@ convert(struct symref * l,struct ast * v) {
    return ((struct utils *)a);
 }
 
-struct utils * 
-crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
-   VipsImage * out;
-   char * path;
-   double left_value=getValue(left);
-   double top_value=getValue(top);
-   double width_value=getValue(width);
-   double height_value=getValue(height);
-   struct utils * temp1 = l -> s -> value;
-   if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath( ((struct ast *) r) );
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
+
 
 struct utils * 
 smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
@@ -335,32 +369,6 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    return ((struct utils *)a);
 }
 
-/* Returns the number of pixels across the image */
-struct utils *
-getWidth(struct symref * v) {
-   int val;
-   struct utils * temp1 = v -> s -> value;
-   val=vips_image_get_width(((struct img * ) temp1) -> img);
-   return ((struct utils *)newint(val,'+'));
-}
-
-/* Returns the number of pixels down the image */
-struct utils *
-getHeight(struct symref * v) {
-   int val;
-   struct utils * temp1 = v -> s -> value;
-   val=vips_image_get_height(((struct img * ) temp1) -> img);
-   return ((struct utils *)newint(val,'+'));
-}
-
-/* Returns the number of bands(channels) in the image */
-struct utils *
-getBands(struct symref * v) {
-   int val;
-   struct utils * temp1 = v -> s -> value;
-   val=vips_image_get_bands(((struct img * ) temp1) -> img);
-   return ((struct utils *)newint(val,'+'));
-}
 
 struct utils *
 histeq(struct symref * l,struct ast * v){

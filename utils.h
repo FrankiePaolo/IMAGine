@@ -200,7 +200,7 @@ int listCheck(struct symref * v);
 struct utils * getElement_li(struct list * v);
 char * getFormat(char * path);
 void unassignedError(struct utils * temp1);
-void imageError(struct utils * v);
+void imageError(struct ast * v);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */

@@ -22,91 +22,91 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=getWidth(((struct symref * ) v)); //number
          return val;
       case b_height:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=getHeight(((struct symref * ) v)); //number
          return val;
       case b_bands:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=getBands(((struct symref * ) v)); //number
          return val;
       case b_crop:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
          return val;
       case b_smartcrop:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
       case b_zoom:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=zoom(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
       case b_add:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
          return val;
       case b_subtract:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
          return val;
       case b_convert:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;
       case b_invert:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_copyfile:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_average:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=average(((struct symref * ) v));
          return val;
       case b_min:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=min(((struct symref * ) v));
          return val;
       case b_max:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=max(((struct symref * ) v));
          return val;
       case b_flip:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=flip(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;
       case b_rotate:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;
       case b_norm:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=norm((struct symref *)findNode(f, 1),((struct ast *)v));
          return val;
       case b_histeq:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=histeq((struct symref *)findNode(f, 1),((struct ast *)v));
          return val;
       case b_gaussianblur:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=gaussianBlur(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;
       case b_canny:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=canny(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_sobel:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=sobel(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_sharpen:
-         imageError(v);
+         imageError(findNode(f, 1));
          val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_get:

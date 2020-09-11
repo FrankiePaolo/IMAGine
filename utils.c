@@ -653,9 +653,9 @@ unassignedError(struct utils * temp1){
 }
 
 void
-imageError(struct utils * v){
+imageError(struct ast * v){
    if( ((struct symref * ) v)->s->value->nodetype!='P' ){
-      yyerror("Variable '%s' is not an image! This method works only with image variable!", ((struct symref *)v)->s->name);
+      yyerror("Variable '%s' is not an image! This method only works with image variables!", ((struct symref *)v)->s->name);
       exit(0);
    }
 }
