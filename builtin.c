@@ -112,10 +112,6 @@ struct utils *
          imageError(findNode(f, 1));
          val=subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
          return val;
-      case b_copyfile:
-         imageError(findNode(f, 1));
-         val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
-         return val;
       case b_flip:
          imageError(findNode(f, 1));
          val=flip(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
