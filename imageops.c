@@ -139,6 +139,7 @@ norm(struct symref * l,struct ast * v){
    return ((struct utils *)a);
 }
 
+/* Returns the edges in the input image with the Canny method and saves it in "output_path" */
 struct utils * 
 canny(struct symref * l,struct ast * v) {
    VipsImage * out;
@@ -159,6 +160,7 @@ canny(struct symref * l,struct ast * v) {
    return ((struct utils *)a);
 }
 
+/* Returns the edges in the input image with the Sobel Edge Detector method and saves it in "output_path" */
 struct utils * 
 sobel(struct symref * l,struct ast * v) {
    VipsImage * out;
@@ -180,6 +182,7 @@ sobel(struct symref * l,struct ast * v) {
    return ((struct utils *)a);
 }
 
+/* Performs a gaussian blur and subtracts it from the input image to generate a high-frequency signal, returns it and saves it in "output_path" */
 struct utils * 
 sharpen(struct symref * l,struct ast * v) {
    VipsImage * out;
@@ -200,6 +203,7 @@ sharpen(struct symref * l,struct ast * v) {
    return ((struct utils *)a);
 }
 
+/* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
 struct utils * 
 convert(struct symref * l,struct ast * v) {
    struct utils * temp1 = l -> s -> value;
@@ -232,15 +236,9 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    }
    path=getPath(v);
 
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
    saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved in '%s'\n", path);
    
-
    struct img * a = malloc(sizeof(struct img));
    a -> nodetype = 'P'; //P as in picture
    a -> path = path;

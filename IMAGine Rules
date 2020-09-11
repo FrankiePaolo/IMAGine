@@ -24,10 +24,15 @@
     img invert(img name_image, char* output_path);      /* Returns the inverted image and saves it in "output_path" */
     img histEq(img name_image, char* output_path);      /* Returns the input image with an equalized histogram and saves it in "output_path" */
     img normalise(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
-    img canny(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
-    img sobel(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
-    img sharpen(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
-    img convert(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
+    img canny(img name_image, char* output_path);       /* Returns the edge in the input image with the Canny method and saves it in "output_path" */
+    img sobel(img name_image, char* output_path);       /* Returns the edges in the input image with the Sobel edge detector method and saves it in "output_path" */
+    img sharpen(img name_image, char* output_path);     /* Performs a gaussian blur and subtracts it from the input image to generate a high-frequency signal, returns it and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+                            format allowed:         tif
+                                                    jpeg
+                                                    jpg
+                                                    hdr
+                                                    raw
     
     img convertColorSpace(img name_image, char* output_path, char* space);          /* Returns the input image but moves it to differt space and saves it in "output_path" */
                             char* space can be:     grey16      // generic 16-bit mono
