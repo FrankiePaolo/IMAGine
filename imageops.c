@@ -335,7 +335,7 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    return ((struct utils *)a);
 }
 
-/*  */
+/* Returns the number of pixels across the image */
 struct utils *
 getWidth(struct symref * v) {
    int val;
@@ -344,21 +344,21 @@ getWidth(struct symref * v) {
    return ((struct utils *)newint(val,'+'));
 }
 
+/* Returns the number of pixels down the image */
 struct utils *
 getHeight(struct symref * v) {
    int val;
    struct utils * temp1 = v -> s -> value;
    val=vips_image_get_height(((struct img * ) temp1) -> img);
-   //printf("image height = %d\n", val);
    return ((struct utils *)newint(val,'+'));
 }
 
+/* Returns the number of bands(channels) in the image */
 struct utils *
 getBands(struct symref * v) {
    int val;
    struct utils * temp1 = v -> s -> value;
    val=vips_image_get_bands(((struct img * ) temp1) -> img);
-   //printf("number of bands = %d\n", val);
    return ((struct utils *)newint(val,'+'));
 }
 

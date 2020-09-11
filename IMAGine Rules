@@ -1,9 +1,11 @@
 /* Conditional Statement */
     if ( condition ) then { action_list; };
-    if ( condition ) then { action_list; } else { action_list; }
-    while ( condition ) do { action_list; }
-    foreach ( variable_name:list_name ){ action_list; }
 
+    if ( condition ) then { action_list; } else { action_list; }
+
+    while ( condition ) do { action_list; }
+
+    foreach ( variable_name:list_name ){ action_list; }
 /* End Conditional Statement */
 
 /* Built-In Functions */
@@ -11,9 +13,10 @@
 /* End Built-In Functions */
 
 /* Image Method */
-    img name_variable = " /path.format "; //Declare image variable
+    img name_variable = " /path.format "; //Declare image variable 
 
-
+    int width(img name_image); /* Returns the number of pixels across the image */
+    int height(img name_image); /* Returns the number of pixels down the image */
 
 
 /* End Image Method */

@@ -22,69 +22,91 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
+         imageError(v);
          val=getWidth(((struct symref * ) v)); //number
          return val;
       case b_height:
+         imageError(v);
          val=getHeight(((struct symref * ) v)); //number
          return val;
       case b_bands:
+         imageError(v);
          val=getBands(((struct symref * ) v)); //number
          return val;
       case b_crop:
+         imageError(v);
          val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
          return val;
       case b_smartcrop:
+         imageError(v);
          val=smartCrop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
       case b_zoom:
+         imageError(v);
          val=zoom(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
       case b_add:
+         imageError(v);
          val=add( ((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *) v));
          return val;
       case b_subtract:
+         imageError(v);
          val=subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
          return val;
       case b_convert:
+         imageError(v);
          val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;
       case b_invert:
+         imageError(v);
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_copyfile:
+         imageError(v);
          val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_average:
+         imageError(v);
          val=average(((struct symref * ) v));
          return val;
       case b_min:
+         imageError(v);
          val=min(((struct symref * ) v));
          return val;
       case b_max:
+         imageError(v);
          val=max(((struct symref * ) v));
          return val;
       case b_flip:
+         imageError(v);
          val=flip(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;
       case b_rotate:
+         imageError(v);
          val=rotate(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v)); //image
          return val;
       case b_norm:
+         imageError(v);
          val=norm((struct symref *)findNode(f, 1),((struct ast *)v));
          return val;
       case b_histeq:
+         imageError(v);
          val=histeq((struct symref *)findNode(f, 1),((struct ast *)v));
          return val;
       case b_gaussianblur:
+         imageError(v);
          val=gaussianBlur(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;
       case b_canny:
+         imageError(v);
          val=canny(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_sobel:
+         imageError(v);
          val=sobel(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_sharpen:
+         imageError(v);
          val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_get:

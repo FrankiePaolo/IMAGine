@@ -5,14 +5,6 @@
 #include "eval.h"
 #include "operations.h"
 
-void
-unassignedError(struct utils * temp1){
-   if( (type(temp1)== 'N' && type(getElement_sym(temp1))== 'U') ){
-      yyerror("Variable %s is not assigned! Can't work with unassigned value!", ((struct symref *)temp1)->s->name);
-      exit(0);
-   }
-}
-
 struct utils *
    eval(struct ast * a) {
       struct utils * v;

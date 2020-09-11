@@ -644,6 +644,22 @@ getFormat(char * path){
    return suffix;
 }
 
+void
+unassignedError(struct utils * temp1){
+   if( (type(temp1)== 'N' && type(getElement_sym(temp1))== 'U') ){
+      yyerror("Variable '%s' is not assigned! Can't work with unassigned value!", ((struct symref *)temp1)->s->name);
+      exit(0);
+   }
+}
+
+void
+imageError(struct utils * v){
+   if( ((struct symref * ) v)->s->value->nodetype!='P' ){
+      yyerror("Variable '%s' is not an image! This method works only with image variable!", ((struct symref *)v)->s->name);
+      exit(0);
+   }
+}
+
 struct utils *
    calluser(struct ufncall * f) {
       struct symbol * fn = f -> s; /* function name */

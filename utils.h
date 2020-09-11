@@ -198,6 +198,8 @@ int asprintf(char **strp, const char *fmt, ...);
 int listCheck(struct symref * v);
 struct utils * getElement_li(struct list * v);
 char * getFormat(char * path);
+void unassignedError(struct utils * temp1);
+void imageError(struct utils * v);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */
