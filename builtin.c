@@ -82,7 +82,11 @@ struct utils *
          imageError(findNode(f, 1));
          val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
-
+      case b_copyfile:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         return val;
       case b_convert:
          argumentsCheck(f, 3);
          imageError(findNode(f, 1));

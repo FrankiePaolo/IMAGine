@@ -27,6 +27,7 @@
     img canny(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
     img sobel(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
     img sharpen(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
+    img convert(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
     
     img convertColorSpace(img name_image, char* output_path, char* space);          /* Returns the input image but moves it to differt space and saves it in "output_path" */
                             char* space can be:     grey16      // generic 16-bit mono
