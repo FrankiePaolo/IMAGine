@@ -33,7 +33,6 @@
                                                     jpg
                                                     hdr
                                                     raw
-    
     img convertColorSpace(img name_image, char* output_path, char* space);          /* Returns the input image but moves it to differt space and saves it in "output_path" */
                             char* space can be:     grey16      // generic 16-bit mono
                                                     hsv         // pixels are HSV
@@ -41,6 +40,16 @@
                                                     lch         // pixels are in CIE LCh space
                                                     cmc         // a uniform colourspace based on CMC(1:1)
                                                     lab         // pixels are in CIE Lab space
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+    img convert(img name_image, char* output_path);     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+
 
 
 /* End Image Method */
