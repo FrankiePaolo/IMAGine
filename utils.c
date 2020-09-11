@@ -57,11 +57,10 @@ getPath(struct ast * p){
       path=strdup(((struct str *)p)->str);
       return path;
    }else if(p->nodetype=='N'){
-      path=strdup(((struct str *)(((struct symref *)p)->s->value))->str);
-      return path;
+      return getPath(getElement_sym((struct utils *)p));
    }else{
-      printf("internal error: bad node %c\n", p -> nodetype);
-      return NULL;
+      yyerror("Not a string!");
+      exit(0);
    }
 }
 

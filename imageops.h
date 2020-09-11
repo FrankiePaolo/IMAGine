@@ -7,8 +7,8 @@ struct utils * min(struct symref * v);
 struct utils * max(struct symref * v);
 struct utils * average(struct symref * v);
 struct utils * invert(struct symref * l,struct ast * v);                                  //Inverts the image
-void saveImage(char * in, VipsImage * out, char * path);
 struct utils * toColorSpace(struct symref * l,struct ast * v,struct ast * s);
+void saveImage(char * in, VipsImage * out, char * path);
 struct utils * crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height);
 struct utils * smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height);
 struct utils * add(struct symref * l,struct symref * r,struct ast * p);                   //Sums 2 images

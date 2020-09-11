@@ -77,7 +77,7 @@ average(struct symref * v) {
    return ((struct utils *)newdouble(mean,'+'));
 }
 
-/* */
+/* Returns the inverted image and saves it in "output_path" */
 struct utils * 
 invert(struct symref * l,struct ast * v) {
    VipsImage * out;
@@ -87,6 +87,7 @@ invert(struct symref * l,struct ast * v) {
       vips_error_exit(NULL);
    }
    path=getPath(v);
+
    saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
