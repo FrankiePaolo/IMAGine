@@ -131,6 +131,7 @@ struct img {
 };
 
 struct list {
+   int nodetype;       /* type l */ 
    struct symbol * s;  /* element of list */
    struct list *n;     /* pointer to next element */
 };

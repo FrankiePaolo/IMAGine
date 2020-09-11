@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.5.1.  */
+/* A Bison parser, made by GNU Bison 3.6.3.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -31,8 +31,9 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* Undocumented macros, especially those whose name start with YY_,
-   are private implementation details.  Do not rely on them.  */
+/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
+   especially those whose name start with YY_ or yy_.  They are
+   private implementation details that can be changed or removed.  */
 
 #ifndef YY_YY_PARSER_TAB_H_INCLUDED
 # define YY_YY_PARSER_TAB_H_INCLUDED
@@ -44,33 +45,11 @@
 extern int yydebug;
 #endif
 
-/* Token type.  */
+/* Token kinds.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-<<<<<<< HEAD
-    INT = 258,
-    DOUBLE = 259,
-    STRING = 260,
-    NAME = 261,
-    FUNC = 262,
-    EOL = 263,
-    IF = 264,
-    THEN = 265,
-    ELSE = 266,
-    WHILE = 267,
-    DO = 268,
-    DEF = 269,
-    IMG = 270,
-    LIST = 271,
-    FOREACH = 272,
-    AND = 273,
-    OR = 274,
-    CMP = 275,
-    CND = 276,
-    UMINUS = 277
-=======
     YYEMPTY = -2,
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
@@ -95,8 +74,8 @@ extern int yydebug;
     CMP = 275,                     /* CMP  */
     CND = 276,                     /* CND  */
     UMINUS = 277                   /* UMINUS  */
->>>>>>> master
   };
+  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
@@ -113,11 +92,7 @@ union YYSTYPE
   struct symlist *sl;
   int fn;			      /* function */
 
-<<<<<<< HEAD
-#line 90 "parser.tab.h"
-=======
 #line 96 "parser.tab.h"
->>>>>>> master
 
 };
 typedef union YYSTYPE YYSTYPE;

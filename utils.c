@@ -102,7 +102,7 @@ type(struct utils * v){
   	   return v->nodetype;
 	} else {
 		yyerror("NULL value detected");
-		return 0;
+      exit(0);
 	}
 }
 
@@ -509,11 +509,13 @@ dolist(struct symbol * name, struct ast * li){
    name->li=((struct list *)li);
 }
 
+
+// Da togliere se non ci sono errori
 struct utils *
    setNodeTypeCast(struct utils * l, struct utils * r) {
       struct utils * v;
 
-     if (type(l) == 'N' && r == NULL) {
+     if (type(l) == 'N' && ( r == NULL || type(l) == 'U' ) ) {
          if (type(getElement_sym(l)) == 'i') {
             v = malloc(sizeof(struct integer));
             ((struct integer * ) v) -> nodetype = 'i';
@@ -555,7 +557,7 @@ struct utils *
             ((struct doublePrecision * ) v) -> nodetype = 'D';
          }
       } else {
-         yyerror("Unexpected type, %c %c", type(l), type(r));
+         yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
       }
       if (v == NULL) {
          yyerror("out of space");
@@ -567,18 +569,43 @@ struct utils *
 struct utils *
    setNodeType(struct utils * l, struct utils * r) {
       struct utils * v;
-      if ((type(l) == 'i' && r == NULL) || (type(l) == 'i' && type(r) == 'i')) {
+         
+      if (type(l) == 'N' &&  r == NULL) {
+         return setNodeType(getElement_sym(l), r);
+      } else if (type(l) == 'i' &&  r == NULL) {
          v = malloc(sizeof(struct integer));
          ((struct integer * ) v) -> nodetype = 'i';
-      } else if ( (type(l) == 'D' && r == NULL) || (type(l) == 'i' && type(r) == 'D') || (type(l) == 'D' && type(r) == 'i') || (type(l) == 'D' && type(r) == 'D') ) {
+      } else if (type(l) == 'D' &&  r == NULL) {
          v = malloc(sizeof(struct doublePrecision));
          ((struct doublePrecision * ) v) -> nodetype = 'D';
-      } else if ( (type(l) == 'S' &&  type(r) != 'N') || (type(l) != 'N' &&  type(r) == 'S') ) {
+      } else if ( type(l) == 'i' &&  type(r) == 'i' ) {
+         v = malloc(sizeof(struct integer));
+         ((struct integer * ) v) -> nodetype = 'i';
+      } else if ( ( type(l) == 'D' && ( type(r) == 'D' || type(r) == 0 || type(r) == 'i' )) || ( ( type(l) == 'i' || type(l) == 0 )  && type(r) == 'D' ) ) {
+         v = malloc(sizeof(struct doublePrecision));
+         ((struct doublePrecision * ) v) -> nodetype = 'D';
+      } else if ( type(l) == 'S' || type(r) == 'S' ) {
          v = malloc(sizeof(struct str));
-         ((struct str * ) v) -> nodetype = 'S';
-      }else {
+         ((struct str * ) v) -> nodetype = 'S'; 
+      } else if ( type(l) == 'N' || type(r) != 'N' ) {
+         return setNodeType(getElement_sym(l), r);
+      } else if ( type(l) != 'N' || type(r) == 'N' ) {
+         return setNodeType(l, getElement_sym(r));
+      } else if ( type(l) == 'N' || type(r) == 'N' ) {
+         return setNodeType(getElement_sym(l), getElement_sym(r));
+      } else if ( type(l) == 'l' || type(r) == 'l' ) {
+         yyerror("Cannot perform operations with list, use appropriate method!\n");
+         exit(0);
+      } else if ( type(l) == 'P' || type(r) == 'P' ) {
+         yyerror("Cannot perform operations with image, use appropriate method!\n");
+         exit(0);
+      } else {
+         yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
+         exit(0);
+      } /*else {
+         printf("SetNodeTypeCast\n", type(l), type(r));
          v = setNodeTypeCast(l, r);
-      }
+      } */
       return v;
    }
 

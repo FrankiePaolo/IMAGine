@@ -5,6 +5,14 @@
 #include "eval.h"
 #include "operations.h"
 
+void
+unassignedError(struct utils * temp1, struct utils * temp2){
+   if( (type(temp1)== 'N' && type(getElement_sym(temp1))== 'U') || (type(temp2)== 'N' && type(getElement_sym(temp2))== 'U') ){
+      yyerror("Can't work with unassigned value!");
+      exit(0);
+   }
+}
+
 struct utils *
    eval(struct ast * a) {
       struct utils * v;
@@ -16,7 +24,7 @@ struct utils *
          yyerror("internal error, null eval");
          exit(0);
       }
-
+      
       switch (a -> nodetype) {
          /* string */
       case 'S':
@@ -73,6 +81,7 @@ struct utils *
       case '+':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
+         unassignedError(temp1, temp2);
          v = setNodeType(temp1, temp2);
          sum(v, temp1, temp2);
          break;
@@ -80,7 +89,7 @@ struct utils *
       case '-':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
+         unassignedError(temp1, temp2);
          v = setNodeType(temp1, temp2);
          subtract(v, temp1, temp2);
          break;
@@ -88,7 +97,7 @@ struct utils *
       case '*':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
+         unassignedError(temp1, temp2);
          v = setNodeType(temp1, temp2);
          multiply(v, temp1, temp2);
          break;
@@ -96,14 +105,14 @@ struct utils *
       case '/':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
+         unassignedError(temp1, temp2);
          v=divide(temp1, temp2);
          break;
 
       case '|':
          temp1 = eval(a -> l);
          temp2 = NULL;
-
+         unassignedError(temp1, temp1);
          v = setNodeType(temp1, temp2);
          absoluteValue(v, temp1);
          break;
@@ -111,7 +120,7 @@ struct utils *
          
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-         
+         unassignedError(temp1, temp2);
          v=((struct utils *)newint(0,'+'));
          if(((struct integer *)temp1)->i==1 && ((struct integer *)temp2)->i==1){
             putElement_i(v,1);
@@ -122,7 +131,6 @@ struct utils *
          
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-         
          v=((struct utils *)newint(0,'+'));
          if(((struct integer *)temp1)->i==1 || ((struct integer *)temp2)->i==1){
             putElement_i(v,1);
@@ -133,7 +141,7 @@ struct utils *
       case '1':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
+         unassignedError(temp1, temp2);
          v=((struct utils *)newint(0,'+'));
          biggerThan(v, temp1, temp2);
          break;
@@ -141,40 +149,35 @@ struct utils *
       case '2':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
-         v=((struct utils *)newint(0,'+'));
+         unassignedError(temp1, temp2);v=((struct utils *)newint(0,'+'));
          smallerThan(v, temp1, temp2);
          break;
 
       case '3':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
-         v=((struct utils *)newint(0,'+'));
+         unassignedError(temp1, temp2);v=((struct utils *)newint(0,'+'));
          unequal(v, temp1, temp2);
          break;
 
       case '4':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
-         v=((struct utils *)newint(0,'+'));
+         unassignedError(temp1, temp2);v=((struct utils *)newint(0,'+'));
          equal(v, temp1, temp2);
          break;
 
       case '5':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
-         v=((struct utils *)newint(0,'+'));
+         unassignedError(temp1, temp2);v=((struct utils *)newint(0,'+'));
          biggerOrEqual(v, temp1, temp2);
          break;
 
       case '6':
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
-
-         v=((struct utils *)newint(0,'+'));
+         unassignedError(temp1, temp2);v=((struct utils *)newint(0,'+'));
          smallerOrEqual(v, temp1, temp2);
          break;
 

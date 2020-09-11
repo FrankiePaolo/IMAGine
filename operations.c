@@ -11,18 +11,14 @@ void
 sum(struct utils * v, struct utils * l, struct utils * r) {
    char temp[50];
 
-   if (type(l) == 'i' && r == NULL) {
-      putElement_i(v,getElement_i(l));
-   } else if (type(l) == 'D' && r == NULL) {
-      putElement_d(v,getElement_d(l));
+   if (type(l) == 'i' && type(r) == 'i') {
+      putElement_i(v,getElement_i(l)+getElement_i(r));
+   } else if (type(l) == 'D' && type(r) == 'D') {
+      putElement_d(v,getElement_d(l)+getElement_d(r));
    } else if (type(l) == 'i' && type(r) == 'D') {
       putElement_d(v,getElement_i(l)+getElement_d(r));
    } else if (type(l) == 'D' && type(r) == 'i') {
       sum(v, r, l);
-   } else if (type(l) == 'i' && type(r) == 'i') {
-      putElement_i(v,getElement_i(l)+getElement_i(r));
-   } else if (type(l) == 'D' && type(r) == 'D') {
-      putElement_d(v,getElement_d(l)+getElement_d(r));
    } else if ((type(l) == 'S' && type(r) == 'i')) { 
       sprintf(temp, "%d", getElement_i(r));
       strcat( getElement_s(l), strdup(temp) );
@@ -49,25 +45,22 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       sum(v, getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Unexpected type on sum, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
 void
 subtract(struct utils * v, struct utils * l, struct utils * r) {
 
-   if (type(l) == 'i' && r == NULL) {
-      putElement_i(v,getElement_i(l));
-   } else if (type(l) == 'D' && r == NULL) {
-      putElement_d(v,getElement_d(l));
-   } else if (type(l) == 'i' && type(r) == 'D') {
-      putElement_d(v,getElement_i(l) - getElement_d(r));
-   } else if (type(l) == 'D' && type(r) == 'i') {
-       putElement_d(v,getElement_d(l)-getElement_i(r));
-   } else if (type(l) == 'i' && type(r) == 'i') {
+   if (type(l) == 'i' && type(r) == 'i') {
       putElement_i(v,getElement_i(l)-getElement_i(r));
    } else if (type(l) == 'D' && type(r) == 'D') {
       putElement_d(v,getElement_d(l)-getElement_d(r));
+   } else if (type(l) == 'i' && type(r) == 'D') {
+      putElement_d(v,getElement_i(l)-getElement_d(r));
+   } else if (type(l) == 'D' && type(r) == 'i') {
+      putElement_d(v,getElement_d(l)-getElement_i(r));
    } else if (type(l) == 'N' && type(r) != 'N') {
       subtract(v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -75,25 +68,22 @@ subtract(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       subtract(v, getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Unexpected type on subtract, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
 void
 multiply(struct utils * v, struct utils * l, struct utils * r) {
 
-   if (type(l) == 'i' && r == NULL) {
-      putElement_i(v,getElement_i(l));
-   } else if (type(l) == 'D' && r == NULL) {
-      putElement_d(v,getElement_d(l));
+   if (type(l) == 'i' && type(r) == 'i') {
+      putElement_i(v,getElement_i(l)*getElement_i(r));
+   } else if (type(l) == 'D' && type(r) == 'D') {
+      putElement_d(v,getElement_d(l)*getElement_d(r));
    } else if (type(l) == 'i' && type(r) == 'D') {
       putElement_d(v,getElement_i(l)*getElement_d(r));
    } else if (type(l) == 'D' && type(r) == 'i') {
       multiply(v, r, l);
-   } else if (type(l) == 'i' && type(r) == 'i') {
-      putElement_i(v,getElement_i(l) * getElement_i(r));
-   } else if (type(l) == 'D' && type(r) == 'D') {
-      putElement_d(v,getElement_d(l)*getElement_d(r));
    } else if ((type(l) == 'S' && type(r) == 'i')) {
       if(getElement_i(r) >0 ){
          asprintf( &(((struct str * ) v)->str), "%s", getElement_s(l));
@@ -102,16 +92,10 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
          }
       }else{
          yyerror("String multiply allowed only for positive integer\n");
+         exit(0);
       }       
-   } else if ((type(l) == 'i' && type(r) == 'S')) { 
-      if(getElement_i(l) >0 ){
-         asprintf( &(((struct str * ) v)->str), "%s", getElement_s(r));
-         for(int i=0; i<getElement_i(l); i++){
-            asprintf(&(((struct str * ) v)->str), "%s%s", getElement_s(v), getElement_s(r));
-         }
-      }else{
-         yyerror("String multiply allowed only for positive integer\n");
-      }  
+   } else if ((type(l) == 'i' && type(r) == 'S')) {
+      multiply(v, r , l); 
    } else if (type(l) == 'N' && type(r) != 'N') {
       multiply(v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
@@ -119,7 +103,8 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       multiply(v, getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Unexpected type on multiplication, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
@@ -153,6 +138,7 @@ divide(struct utils * l, struct utils * r) {
       v=divide(getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
    return v;
 }
@@ -189,6 +175,7 @@ biggerThan(struct utils * v, struct utils * l, struct utils * r) {
       putElement_i(v,getElement_d(l) > getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
@@ -211,6 +198,7 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
       putElement_i(v,getElement_d(l) < getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
@@ -240,6 +228,7 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
       unequal( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
@@ -267,6 +256,7 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
       equal( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
@@ -289,6 +279,7 @@ biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
       biggerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
 }
 
@@ -311,5 +302,6 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
       smallerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Unexpected type, %c %c", type(l), type(r));
+      exit(0);
    }
 }
