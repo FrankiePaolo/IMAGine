@@ -1,5 +1,12 @@
 img im="/home/frank/Desktop/Img/image.jpg";
+wi=width(im);
+he=height(im);
+ba=bands(im);
 
-wi=width(ia);
+// -------------------------------------------
+
+ciao=6;
+
+height(ciao);
 
 
