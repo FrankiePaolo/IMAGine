@@ -57,6 +57,11 @@ struct utils *
          imageError(findNode(f, 1));
          val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
+      case b_convert:
+         argumentsCheck(f, 3);
+         imageError(findNode(f, 1));
+         val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
+         return val;
       case b_crop:
          imageError(findNode(f, 1));
          val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
@@ -76,11 +81,6 @@ struct utils *
       case b_subtract:
          imageError(findNode(f, 1));
          val=subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
-         return val;
-      case b_convert:
-         argumentsCheck(f, 3);
-         imageError(findNode(f, 1));
-         val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;
       case b_copyfile:
          imageError(findNode(f, 1));

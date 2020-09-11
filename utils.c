@@ -90,7 +90,7 @@ findNode(struct fncall * f, int index){
 
    while(counter<index){
       if(!(node->r)){
-         yyerror("Wrong arguments for the function!\n");
+         yyerror("Wrong arguments for the function!");
          exit(0);
       } 
       node=node->r;
@@ -104,7 +104,7 @@ findNode(struct fncall * f, int index){
    }
 
    if(!(node->l)){
-         yyerror("Wrong arguments for the function!\n");
+         yyerror("Wrong arguments for the function!");
          exit(0);
       } 
    node=node->l;
@@ -257,8 +257,10 @@ VipsInterpretation
          space=VIPS_INTERPRETATION_CMC;    // a uniform colourspace based on CMC(1:1)
       }else if(!strcmp(str,"lab")){
          space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
+      }else {
+         yyerror("Wrong space type, check the manual for allowed types!");
+         exit(0);
       }
-
       return space;
 }
 
