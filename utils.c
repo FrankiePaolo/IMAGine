@@ -57,7 +57,7 @@ getPath(struct ast * p){
       path=strdup(((struct str *)p)->str);
       return path;
    }else if(p->nodetype=='N'){
-      return getPath(getElement_sym((struct utils *)p));
+      return getPath(((struct ast *)getElement_sym((struct utils *)p)));
    }else{
       yyerror("Not a string!");
       exit(0);

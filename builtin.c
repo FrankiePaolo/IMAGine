@@ -78,6 +78,7 @@ struct utils *
          val=subtract_img(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), ((struct ast *)v));
          return val;
       case b_convert:
+         argumentsCheck(f, 3);
          imageError(findNode(f, 1));
          val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;

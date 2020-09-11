@@ -2,6 +2,7 @@
 
 img im="/home/frank/Desktop/Img/image.jpg";
 out="/home/frank/Desktop/Img/inverted.jpg";
+out2="/home/frank/Desktop/Img/hsv.jpg";
 img inverted=invert(im,out);
 
 wi=width(im);
@@ -13,5 +14,6 @@ avg=average(im);
 
 // -------------------------------------------
 
+ciao=6;
 
-
+img differentColor=convertColorSpace(im,out2,"hsvc");
