@@ -22,8 +22,12 @@
     double max(img name_image);                         /* Returns the maximum value in an image */
     double average(img name_image);                     /* Returns the average value in an image */
     img invert(img name_image, char* output_path);      /* Returns the inverted image and saves it in "output_path" */
-    img histEq(img name_image, char* output_path); 
-    img normalise(img name_image, char* output_path);
+    img histEq(img name_image, char* output_path);      /* Returns the input image with an equalized histogram and saves it in "output_path" */
+    img normalise(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
+    img canny(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
+    img sobel(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
+    img sharpen(img name_image, char* output_path);   /* Returns the input image with an normalized histogram and saves it in "output_path" */
+    
     img convertColorSpace(img name_image, char* output_path, char* space);          /* Returns the input image but moves it to differt space and saves it in "output_path" */
                             char* space can be:     grey16      // generic 16-bit mono
                                                     hsv         // pixels are HSV

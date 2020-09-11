@@ -67,6 +67,22 @@ struct utils *
          imageError(findNode(f, 1));
          val=norm((struct symref *)findNode(f, 1),((struct ast *)v));
          return val;
+      case b_canny:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=canny(((struct symref *)findNode(f, 1)), ((struct ast *)v));
+         return val;
+      case b_sobel:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=sobel(((struct symref *)findNode(f, 1)), ((struct ast *)v));
+         return val;
+      case b_sharpen:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
+         return val;
+
       case b_convert:
          argumentsCheck(f, 3);
          imageError(findNode(f, 1));
@@ -107,18 +123,6 @@ struct utils *
       case b_gaussianblur:
          imageError(findNode(f, 1));
          val=gaussianBlur(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
-         return val;
-      case b_canny:
-         imageError(findNode(f, 1));
-         val=canny(((struct symref *)findNode(f, 1)), ((struct ast *)v));
-         return val;
-      case b_sobel:
-         imageError(findNode(f, 1));
-         val=sobel(((struct symref *)findNode(f, 1)), ((struct ast *)v));
-         return val;
-      case b_sharpen:
-         imageError(findNode(f, 1));
-         val=sharpen(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_get:
          val=get( ((struct symref *)findNode(f, 1)),v);
