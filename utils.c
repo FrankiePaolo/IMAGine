@@ -45,8 +45,8 @@ struct symbol *
             sp = symtab; /* try the next entry */
          }
       }
-      yyerror("symbol table overflow\n");
-      abort(); /* tried them all, table is full */
+      yyerror("Symbol table overflow!");
+      exit(0); /* tried them all, table is full */
 
    }
 
@@ -148,7 +148,7 @@ putElement_d(struct utils * v,double d){
       ((struct doublePrecision * ) v) -> d=d;
    } else {
 		yyerror("NULL value detected");
-      return ;
+		exit(0);
 	}
 }
 
@@ -158,7 +158,7 @@ putElement_s(struct utils * v,char * s){
       ((struct str * ) v) -> str=strdup(s);
    } else {
 		yyerror("NULL value detected");
-      return;
+		exit(0);
 	}
 }
 
@@ -214,7 +214,7 @@ getElement_li(struct list * v){
       return v->s->value; 
    } else {
 		yyerror("NULL value detected");
-		return NULL;
+		exit(0);
 	}
 }
 
@@ -224,7 +224,7 @@ struct list *
          return ((struct symref * ) v) -> s->li; 
       } else {
          yyerror("NULL value detected");
-         return NULL;
+		   exit(0);
       }
 }
 
@@ -591,9 +591,10 @@ struct utils *
          }
       } else {
          yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
+		   exit(0);
       }
       if (v == NULL) {
-         yyerror("out of space");
+         yyerror("Out of space");
          exit(0);
       }
       return v;
@@ -635,10 +636,7 @@ struct utils *
       } else {
          yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
          exit(0);
-      } /*else {
-         printf("SetNodeTypeCast\n", type(l), type(r));
-         v = setNodeTypeCast(l, r);
-      } */
+      } 
       return v;
    }
 
@@ -707,8 +705,8 @@ struct utils *
       int i;
 
       if (!fn -> func) {
-         yyerror("call to undefined function", fn -> name);
-         return 0;
+         yyerror("Call to undefined function", fn -> name);
+		   exit(0);
       }
 
       /* count the arguments */
@@ -722,6 +720,7 @@ struct utils *
       newval = malloc(sizeof(struct utils * ) * nargs);
       if (!oldval || !newval) {
          yyerror("Out of space in %s", fn -> name);
+		   exit(0);
       }
 
       /* evaluate the arguments */
@@ -730,7 +729,7 @@ struct utils *
             yyerror("CALLUSER: Too few args in call to %s", fn -> name);
             free(oldval);
             free(newval);
-            exit(1);
+            exit(0);
          }
          if (args -> nodetype == 'L') {
             /* if this is a list node */
@@ -819,7 +818,8 @@ treefree(struct ast * a) {
       break;
 
    default:
-      printf("internal error: free bad node %c\n", a -> nodetype);
+      yyerror("Internal error: free bad node %c\n", a -> nodetype);
+      exit(0);
    }
 
    free(a); /* always free the node itself */

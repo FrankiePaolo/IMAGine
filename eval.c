@@ -148,7 +148,8 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
          unassignedError(temp1);
-         unassignedError(temp2);v=((struct utils *)newint(0,'+'));
+         unassignedError(temp2);
+         v=((struct utils *)newint(0,'+'));
          smallerThan(v, temp1, temp2);
          break;
 
@@ -156,7 +157,8 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
          unassignedError(temp1);
-         unassignedError(temp2);v=((struct utils *)newint(0,'+'));
+         unassignedError(temp2);
+         v=((struct utils *)newint(0,'+'));
          unequal(v, temp1, temp2);
          break;
 
@@ -164,7 +166,8 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
          unassignedError(temp1);
-         unassignedError(temp2);v=((struct utils *)newint(0,'+'));
+         unassignedError(temp2);
+         v=((struct utils *)newint(0,'+'));
          equal(v, temp1, temp2);
          break;
 
@@ -172,7 +175,8 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
          unassignedError(temp1);
-         unassignedError(temp2);v=((struct utils *)newint(0,'+'));
+         unassignedError(temp2);
+         v=((struct utils *)newint(0,'+'));
          biggerOrEqual(v, temp1, temp2);
          break;
 
@@ -180,7 +184,8 @@ struct utils *
          temp1 = eval(a -> l);
          temp2 = eval(a -> r);
          unassignedError(temp1);
-         unassignedError(temp2);v=((struct utils *)newint(0,'+'));
+         unassignedError(temp2);
+         v=((struct utils *)newint(0,'+'));
          smallerOrEqual(v, temp1, temp2);
          break;
 
@@ -210,6 +215,8 @@ struct utils *
          }
          break; 
       case 'E':
+         listCheck( ((struct symref *)((struct flow * ) a)->cond->r) ); //Use this
+         
          if(((struct symref *)((struct flow * ) a)->cond->r)->s->li || ((struct flow * ) a) -> tl){
             struct list * temp_li = ((struct symref *)(((struct flow * ) a)->cond)->r)->s->li;
             struct symref * temp_ref=((struct symref *)((struct flow * ) a)->cond->l);
@@ -220,8 +227,8 @@ struct utils *
                }
             }while((temp_li=temp_li->n));
          }else{
-            printf("Li is empty or is not a list\n");
-            return 0;
+            yyerror("Li is is not a list!");
+		exit(0);
          }
          break;
       case 'L':
@@ -233,7 +240,8 @@ struct utils *
          break;
 
       default:
-         printf("internal error: bad node %c\n", a -> nodetype);
+         yyerror("Internal error: bad node %c\n", a -> nodetype);
+		   exit(0);
       }
 
       return v;

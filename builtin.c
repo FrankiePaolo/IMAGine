@@ -194,8 +194,8 @@ get(struct symref * e,struct utils * v){
          printf("The index cannot be bigger than list length\n");
          return NULL;
       }else if(index<1){
-         printf("The index cannot be less than 1\n");
-         return NULL;
+         yyerror("The index cannot be less than 1\n");
+		   exit(0);
       }
    }else{
       yyerror("The index must be an integer\n");
@@ -244,7 +244,7 @@ insert(struct symref * e, struct utils * v, struct utils * s){
          return;
       }else if(index<1){
          printf("The index cannot be less than 1\n");
-         return;
+		   exit(0);
       }
    }else{
       yyerror("The index must be an integer\n");
@@ -288,7 +288,7 @@ list_remove(struct symref * e, struct utils * v){
          return;
       }else if(index<1){
          printf("The index cannot be less than 1!\n");
-         return;
+		   exit(0);
       }
    }else{
       yyerror("The index must be an integer\n");
@@ -400,6 +400,7 @@ print_B(struct utils * v) {
    } else if (type(v) == 'N') {
       print_B( getElement_sym(v) );
    } else {
-      printf("Node not found: %i\n",type(v));
+      yyerror("Node not found in function print: %i\n", type(v));
+      exit(0);
    }
 }

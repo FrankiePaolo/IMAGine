@@ -464,7 +464,7 @@ saveImage(char * in, VipsImage * out, char * path){
    }
 }
 
-/* This sometimes causes memory issues, needs to be updated */
+/* DEPRECATED: This sometimes causes memory issues, needs to be updated */
 void
 openImg(char * path){
    char * open = strdup("xdg-open ");     
