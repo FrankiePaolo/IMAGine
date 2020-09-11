@@ -1,4 +1,8 @@
+// Working methods 
+
 img im="/home/frank/Desktop/Img/image.jpg";
+out="/home/frank/Desktop/Img/inverted.jpg";
+
 wi=width(im);
 he=height(im);
 ba=bands(im);
@@ -9,9 +13,6 @@ avg=average(im);
 // -------------------------------------------
 
 
-ma=max(im,ims);
-print(ma);
 
-// out="/home/frank/Desktop/Img/inverted.jpg";
 
-// img inverted= invert(5,6,7);
+width(34);
