@@ -7,16 +7,6 @@
 #  include "utils.h"
 #  include "imageops.h"
 
-/* This sometimes causes memory issues, needs to be updated */
-void
-openImg(char * path){
-   char * open = strdup("xdg-open ");     
-   char * command; 
-
-   command=strcat(open,path);
-   system(command);
-}
-
 /* Returns the number of pixels across the image */
 struct utils *
 getWidth(struct symref * v) {
@@ -246,6 +236,171 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    return ((struct utils *)a);
 }
 
+struct utils * 
+add(struct symref * l,struct symref * r,struct ast * p){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l-> s -> value;
+   struct utils * temp2 = r-> s -> value;
+
+   if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(p);
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils * 
+subtract_img(struct symref * l,struct symref * r,struct ast * p){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l-> s -> value;
+   struct utils * temp2 = r-> s -> value;
+
+   if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(p);
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils *
+rotate(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   double angle=getValue(s);
+
+   if (vips_rotate((((struct img * ) temp1) -> img), & out, angle, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils *
+flip(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   char * str=getPath(s);
+   VipsDirection direction;
+
+   if(!strcmp(str,"hor")){
+      direction=VIPS_DIRECTION_HORIZONTAL;   
+   }else if(!strcmp(str,"ver")){
+      direction=VIPS_DIRECTION_VERTICAL;
+   }else{
+      yyerror("Third parameter error, needs to be 'hor' or 'ver'!");
+      exit(0);
+   }
+
+   if (vips_flip((((struct img * ) temp1) -> img), & out, direction, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils *
+gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = l -> s -> value;
+   double sigma=getValue(s);
+
+   if (vips_gaussblur((((struct img * ) temp1) -> img), & out, sigma, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils * 
+smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
+   VipsImage * out;
+   char * path;
+   double width_value=getValue(width);
+   double height_value=getValue(height);
+   struct utils * temp1 = l -> s -> value;
+
+   if (vips_smartcrop((((struct img * ) temp1) -> img), & out, width_value, height_value, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath( ((struct ast *) r) );
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
+struct utils * 
+zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfactor){
+   VipsImage * out;
+   char * path;
+   int x=(int) getValue(xfactor);
+   int y=(int) getValue(yfactor);
+   struct utils * temp1 = l -> s -> value;
+
+   if (vips_zoom((((struct img * ) temp1) -> img), & out, x, y, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath( ((struct ast *) r) );
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
 
 
 struct utils * 
@@ -309,195 +464,12 @@ saveImage(char * in, VipsImage * out, char * path){
    }
 }
 
+/* This sometimes causes memory issues, needs to be updated */
+void
+openImg(char * path){
+   char * open = strdup("xdg-open ");     
+   char * command; 
 
-
-
-
-
-struct utils * 
-smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
-   VipsImage * out;
-   char * path;
-   double width_value=getValue(width);
-   double height_value=getValue(height);
-   struct utils * temp1 = l -> s -> value;
-
-   if (vips_smartcrop((((struct img * ) temp1) -> img), & out, width_value, height_value, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath( ((struct ast *) r) );
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-   
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
+   command=strcat(open,path);
+   system(command);
 }
-
-
-struct utils * 
-zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfactor){
-   VipsImage * out;
-   char * path;
-   int x=(int) getValue(xfactor);
-   int y=(int) getValue(yfactor);
-   struct utils * temp1 = l -> s -> value;
-
-   if (vips_zoom((((struct img * ) temp1) -> img), & out, x, y, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath( ((struct ast *) r) );
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
-
-struct utils * 
-add(struct symref * l,struct symref * r,struct ast * p){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l-> s -> value;
-   struct utils * temp2 = r-> s -> value;
-
-   if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(p);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
-
-struct utils * 
-subtract_img(struct symref * l,struct symref * r,struct ast * p){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l-> s -> value;
-   struct utils * temp2 = r-> s -> value;
-
-   if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(p);
-
-   /* If we wish to require user input from terminal, OLD
-   printf("Please enter the path of the output image :\n");
-   scanf("%s", path);
-   */
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
-
-
-struct utils *
-flip(struct symref * l,struct ast * v,struct ast * s){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   char * str=getPath(s);
-   VipsDirection direction;
-
-   if(!strcmp(str,"hor")){
-      direction=VIPS_DIRECTION_HORIZONTAL;   
-   }else if(!strcmp(str,"ver")){
-      direction=VIPS_DIRECTION_VERTICAL;
-   }else{
-      printf("Third parameter error, need to be 'hor' or 'ver'!\n");
-      exit(0);
-   }
-
-   if (vips_flip((((struct img * ) temp1) -> img), & out, direction, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-   
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
-
-struct utils *
-rotate(struct symref * l,struct ast * v,struct ast * s){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   double angle=getValue(s);
-
-   if (vips_rotate((((struct img * ) temp1) -> img), & out, angle, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-   
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
-
-
-
-
-struct utils *
-gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
-   VipsImage * out;
-   char * path;
-   struct utils * temp1 = l -> s -> value;
-   double sigma=getValue(s);
-
-   if (vips_gaussblur((((struct img * ) temp1) -> img), & out, sigma, NULL)) {
-      vips_error_exit(NULL);
-   }
-   path=getPath(v);
-
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   
-   
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
-
