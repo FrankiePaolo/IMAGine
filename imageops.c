@@ -200,6 +200,22 @@ sharpen(struct symref * l,struct ast * v) {
    return ((struct utils *)a);
 }
 
+struct utils * 
+convert(struct symref * l,struct ast * v) {
+   struct utils * temp1 = l -> s -> value;
+   VipsImage * in = ((struct img * ) temp1) -> img;
+   VipsImage * out;
+   char * path;
+   path=getPath(v);
+   vips_copy(in, &out, NULL);
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; //P as in picture
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
 
 /* Returns the input image but moves it to differt space and saves it in "output_path" */
 struct utils * 
@@ -297,22 +313,6 @@ saveImage(char * in, VipsImage * out, char * path){
 
 
 
-struct utils * 
-convert(struct symref * l,struct ast * v) {
-   struct utils * temp1 = l -> s -> value;
-   VipsImage * in = ((struct img * ) temp1) -> img;
-   VipsImage * out;
-   char * path;
-   path=getPath(v);
-   vips_copy(in, &out, NULL);
-   saveImage(((struct img * ) temp1) ->path, out, path);
-   printf("Image saved in '%s'\n", path);
-   struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
-   a -> path = path;
-   a -> img = out;
-   return ((struct utils *)a);
-}
 
 
 
