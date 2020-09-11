@@ -22,27 +22,27 @@ struct utils *
          print_B(v);
          return v;
       case b_width:
-         imageError(v);
+         imageError(((struct ast *)v));
          val=getWidth(((struct symref * ) v)); //number
          return val;
       case b_height:
-         imageError(v);
+         imageError(((struct ast *)v));
          val=getHeight(((struct symref * ) v)); //number
          return val;
       case b_bands:
-         imageError(v);
+         imageError(((struct ast *)v));
          val=getBands(((struct symref * ) v)); //number
          return val;
       case b_average:
-         imageError(v);
+         imageError(((struct ast *)v));
          val=average(((struct symref * ) v));
          return val;
       case b_min:
-         imageError(v);
+         imageError(((struct ast *)v));
          val=min(((struct symref * ) v));
          return val;
       case b_max:
-         imageError(v);
+         imageError(((struct ast *)v));
          val=max(((struct symref * ) v));
          return val;
       case b_crop:

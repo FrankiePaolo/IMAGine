@@ -71,6 +71,10 @@ findNode(struct fncall * f, int index){
    int counter=1;
 
    while(counter<index){
+      if(!(node->r)){
+         yyerror("Wrong arguments for the function!\n");
+         exit(0);
+      } 
       node=node->r;
       counter++;
 
@@ -81,6 +85,10 @@ findNode(struct fncall * f, int index){
       }
    }
 
+   if(!(node->l)){
+         yyerror("Wrong arguments for the function!\n");
+         exit(0);
+      } 
    node=node->l;
    return node;
 }
