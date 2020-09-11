@@ -1,0 +1,19 @@
+/* Conditional Statement */
+    if ( condition ) then { action_list; };
+    if ( condition ) then { action_list; } else { action_list; }
+    while ( condition ) do { action_list; }
+    foreach ( variable_name:list_name ){ action_list; }
+
+/* End Conditional Statement */
+
+/* Built-In Functions */
+
+/* End Built-In Functions */
+
+/* Image Method */
+    img name_variable = " /path.format "; //Declare image variable
+
+
+
+
+/* End Image Method */
