@@ -2,11 +2,13 @@ img im="/home/frank/Desktop/Img/image.jpg";
 wi=width(im);
 he=height(im);
 ba=bands(im);
+mi=min(im);
+ma=max(im);
+avg=average(im);
 
 // -------------------------------------------
 
-ciao=6;
+out="/home/frank/Desktop/Img/inverted.jpg";
 
-height(ciao);
-
+//img inverted= invert(im,out);
 
