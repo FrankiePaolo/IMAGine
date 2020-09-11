@@ -2,6 +2,7 @@
 
 img im="/home/frank/Desktop/Img/image.jpg";
 out="/home/frank/Desktop/Img/inverted.jpg";
+img inverted=invert(im,out);
 
 wi=width(im);
 he=height(im);
@@ -14,5 +15,3 @@ avg=average(im);
 
 
 
-
-width(34);
