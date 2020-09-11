@@ -65,6 +65,25 @@ getPath(struct ast * p){
    }
 }
 
+void
+argumentsCheck(struct fncall * f, int index){
+   struct ast * node=f->l;
+   int counter=1;
+
+   while(node->r && node->nodetype=='L'){
+      node=node->r;
+      counter++;
+   }
+
+   if(counter<index){
+      yyerror("Too few arguments for the function! Requested: %d but given: %d!", index, counter);
+      exit(0);
+   }else if( counter>index){
+      yyerror("Too many arguments for the function! Requested: %d but given: %d!", index, counter);
+      exit(0);
+   }
+}
+
 struct ast *
 findNode(struct fncall * f, int index){
    struct ast * node=f->l;
@@ -662,7 +681,10 @@ unassignedError(struct utils * temp1){
 
 void
 imageError(struct ast * v){
-   if( ((struct symref * ) v)->s->value->nodetype!='P' ){
+   if( ((struct symref * ) v)->nodetype != 'N' ){
+      yyerror("The variable is not an image! This method only works with image variables!");
+      exit(0);
+   }else if( ((struct symref * ) v)->s->value->nodetype!='P') {
       yyerror("Variable '%s' is not an image! This method only works with image variables!", ((struct symref *)v)->s->name);
       exit(0);
    }

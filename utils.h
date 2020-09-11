@@ -201,6 +201,7 @@ struct utils * getElement_li(struct list * v);
 char * getFormat(char * path);
 void unassignedError(struct utils * temp1);
 void imageError(struct ast * v);
+void argumentsCheck(struct fncall * f, int index);
 
 /* interface to the lexer */
 extern int yylineno; /* from lexer */

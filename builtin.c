@@ -19,31 +19,43 @@ struct utils *
 
       switch (functype) {
       case b_print:
+         argumentsCheck(f, 1);
          print_B(v);
          return v;
       case b_width:
-         imageError(((struct ast *)v));
+         argumentsCheck(f, 1);
+         imageError( ((struct ast *)v) );
          val=getWidth(((struct symref * ) v)); //number
          return val;
       case b_height:
+         argumentsCheck(f, 1);
          imageError(((struct ast *)v));
          val=getHeight(((struct symref * ) v)); //number
          return val;
       case b_bands:
+         argumentsCheck(f, 1);
          imageError(((struct ast *)v));
          val=getBands(((struct symref * ) v)); //number
          return val;
       case b_average:
+         argumentsCheck(f, 1);
          imageError(((struct ast *)v));
          val=average(((struct symref * ) v));
          return val;
       case b_min:
+         argumentsCheck(f, 1);
          imageError(((struct ast *)v));
          val=min(((struct symref * ) v));
          return val;
       case b_max:
+         argumentsCheck(f, 1);
          imageError(((struct ast *)v));
          val=max(((struct symref * ) v));
+         return val;
+      case b_invert:
+         argumentsCheck(f, 2);
+         imageError(findNode(f, 1));
+         val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_crop:
          imageError(findNode(f, 1));
@@ -68,10 +80,6 @@ struct utils *
       case b_convert:
          imageError(findNode(f, 1));
          val=toColorSpace(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
-         return val;
-      case b_invert:
-         imageError(findNode(f, 1));
-         val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
          return val;
       case b_copyfile:
          imageError(findNode(f, 1));
