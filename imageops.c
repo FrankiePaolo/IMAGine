@@ -335,12 +335,12 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    return ((struct utils *)a);
 }
 
+/*  */
 struct utils *
 getWidth(struct symref * v) {
    int val;
    struct utils * temp1 = v -> s -> value;
    val=vips_image_get_width(((struct img * ) temp1) -> img);
-   //printf("image width = %d\n", val);
    return ((struct utils *)newint(val,'+'));
 }
 

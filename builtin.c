@@ -15,6 +15,7 @@ struct utils *
       struct utils * v = eval(f -> l);  
       struct utils * val;
       // Find tree node
+      unassignedError(v);
 
       switch (functype) {
       case b_print:
