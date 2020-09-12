@@ -141,16 +141,17 @@ struct utils *
       case b_push:
          argumentsCheck(f, 2);
          listError(findNode(f, 1));
-         push( ((struct symref *)findNode(f, 1)),v);
+         push(((struct symref *)findNode(f, 1)),v);
          return v;
       case b_pop:
          argumentsCheck(f, 1);
-         listError(findNode(f, 1));
+         listError(((struct ast *)v));
          pop( ((struct symref * ) v) );
          return v;
       case b_length:
          argumentsCheck(f, 1);
-         listError(findNode(f, 1));
+         listError(((struct ast *)v));
+         //imageError( ((struct ast *)v) );
          val= length( ((struct symref * ) v) );
          return val;
       case b_insert:
