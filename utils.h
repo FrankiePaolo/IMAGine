@@ -1,5 +1,40 @@
 # include <vips/vips.h>
 
+/* Built-in Functions Enum */
+enum bifs {
+   b_print = 1,
+      b_width,
+      b_height,
+      b_bands,
+      b_crop,
+      b_smartcrop,
+      b_add,
+      b_subtract,
+      b_invert,
+      b_average,
+      b_min,
+      b_max,
+      b_push,
+      b_pop,
+      b_remove,
+      b_insert,
+      b_get,
+      b_length,
+      b_convert,
+      b_rotate,
+      b_histeq,
+      b_norm,
+      b_flip,
+      b_gaussianblur,
+      b_canny,
+      b_sobel,
+      b_sharpen,
+      b_zoom,
+      b_copyfile
+};
+/* End Built-in Functions Enum */
+  
+  
    /* Node types
    *  + - * / |
    *  0-7 comparison ops, bit coded 04 equal, 02 less, 01 greater
@@ -108,39 +143,6 @@
    };
 /* End Structures */
 
-/* Built-in Functions Enum */
-enum bifs {
-   b_print = 1,
-      b_width,
-      b_height,
-      b_bands,
-      b_crop,
-      b_smartcrop,
-      b_add,
-      b_subtract,
-      b_invert,
-      b_average,
-      b_min,
-      b_max,
-      b_push,
-      b_pop,
-      b_remove,
-      b_insert,
-      b_get,
-      b_length,
-      b_convert,
-      b_rotate,
-      b_histeq,
-      b_norm,
-      b_flip,
-      b_gaussianblur,
-      b_canny,
-      b_sobel,
-      b_sharpen,
-      b_zoom,
-      b_copyfile
-};
-/* End Built-in Functions Enum */
 
 /* Simple Symtab of Fixed size */
 #define NHASH 9997

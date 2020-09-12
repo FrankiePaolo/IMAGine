@@ -393,22 +393,22 @@ static const flex_int16_t yy_accept[230] =
        61,   61,   61,   24,   61,   61,   61,   61,   61,   61,
        61,   20,   61,   61,   61,   61,   61,   61,   61,   61,
        61,   61,   61,   61,   61,   61,   61,   61,   61,   61,
-       61,   61,   30,    0,   62,   65,   64,   37,   61,   61,
+       61,   61,   30,    0,   62,   65,   64,   46,   61,   61,
 
-       61,   61,   61,   61,   26,   61,   61,   61,   61,   47,
-       61,   61,   27,   61,   61,   61,   61,   42,   41,   61,
-       44,   61,   61,   61,   61,   61,   61,   61,   61,   61,
-       61,   61,   61,   61,   61,   61,   61,   35,   61,   22,
-       56,   61,   61,   61,   61,   61,   61,   61,   28,   61,
-       61,   43,   61,   61,   61,   61,   61,   61,   21,   61,
-       61,   58,   61,   34,   54,   61,   61,   61,   61,   61,
+       61,   61,   61,   61,   26,   61,   61,   61,   61,   59,
+       61,   61,   27,   61,   61,   61,   61,   36,   35,   61,
+       58,   61,   61,   61,   61,   61,   61,   61,   61,   61,
+       61,   61,   61,   61,   61,   61,   61,   53,   61,   22,
+       49,   61,   61,   61,   61,   61,   61,   61,   28,   61,
+       61,   55,   61,   61,   61,   61,   61,   61,   21,   61,
+       61,   52,   61,   34,   41,   61,   61,   61,   61,   61,
        61,   61,   61,   61,   61,   31,   61,   61,   61,   61,
-       55,   61,   23,   32,   61,   61,   60,   61,   61,   33,
-       51,   45,   39,   48,   61,   46,   50,   61,   61,   61,
+       42,   61,   23,   32,   61,   61,   60,   61,   61,   33,
+       39,   56,   38,   54,   61,   57,   48,   61,   61,   61,
 
-       40,   59,   25,   61,   61,   57,   61,   61,   61,   61,
-       61,   61,   38,   61,   61,   52,   36,   61,   61,   61,
-       61,   61,   53,   61,   61,   61,   61,   49,    0
+       37,   44,   25,   61,   61,   43,   61,   61,   61,   61,
+       61,   61,   47,   61,   61,   40,   51,   61,   61,   61,
+       61,   61,   50,   61,   61,   61,   61,   45,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -1045,127 +1045,127 @@ YY_RULE_SETUP
 case 35:
 YY_RULE_SETUP
 #line 56 "lexer.l"
-{ yylval.fn = b_crop; return FUNC; }
+{ yylval.fn = b_min; return FUNC; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 57 "lexer.l"
-{ yylval.fn = b_smartcrop; return FUNC; }
+{ yylval.fn = b_max; return FUNC; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 58 "lexer.l"
-{ yylval.fn = b_add; return FUNC; }
+{ yylval.fn = b_average; return FUNC; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 59 "lexer.l"
-{ yylval.fn = b_subtract; return FUNC; }
+{ yylval.fn = b_invert; return FUNC; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 60 "lexer.l"
-{ yylval.fn = b_invert; return FUNC; }
+{ yylval.fn = b_histeq; return FUNC; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 61 "lexer.l"
-{ yylval.fn = b_average; return FUNC; }
+{ yylval.fn = b_norm; return FUNC; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 62 "lexer.l"
-{ yylval.fn = b_min; return FUNC; }
+{ yylval.fn = b_canny; return FUNC; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 63 "lexer.l"
-{ yylval.fn = b_max; return FUNC; }
+{ yylval.fn = b_sobel; return FUNC; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 64 "lexer.l"
-{ yylval.fn = b_push; return FUNC; }
+{ yylval.fn = b_sharpen; return FUNC; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 65 "lexer.l"
-{ yylval.fn = b_pop; return FUNC; }
+{ yylval.fn = b_copyfile; return FUNC; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 66 "lexer.l"
-{ yylval.fn = b_insert; return FUNC; }
+{ yylval.fn = b_convert; return FUNC; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 67 "lexer.l"
-{ yylval.fn = b_remove; return FUNC; }
+{ yylval.fn = b_add; return FUNC; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 68 "lexer.l"
-{ yylval.fn = b_get; return FUNC; }
+{ yylval.fn = b_subtract; return FUNC; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 69 "lexer.l"
-{ yylval.fn = b_length; return FUNC; }
+{ yylval.fn = b_rotate; return FUNC; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 70 "lexer.l"
-{ yylval.fn = b_convert; return FUNC; }
+{ yylval.fn = b_flip; return FUNC; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 71 "lexer.l"
-{ yylval.fn = b_rotate; return FUNC; }
+{ yylval.fn = b_gaussianblur; return FUNC; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 72 "lexer.l"
-{ yylval.fn = b_histeq; return FUNC; }
+{ yylval.fn = b_smartcrop; return FUNC; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 73 "lexer.l"
-{ yylval.fn = b_norm; return FUNC; }
+{ yylval.fn = b_zoom; return FUNC; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 74 "lexer.l"
-{ yylval.fn = b_gaussianblur; return FUNC; }
+{ yylval.fn = b_crop; return FUNC; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 75 "lexer.l"
-{ yylval.fn = b_canny; return FUNC; }
+{ yylval.fn = b_length; return FUNC; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 76 "lexer.l"
-{ yylval.fn = b_sobel; return FUNC; }
+{ yylval.fn = b_push; return FUNC; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 77 "lexer.l"
-{ yylval.fn = b_flip; return FUNC; }
+{ yylval.fn = b_insert; return FUNC; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 78 "lexer.l"
-{ yylval.fn = b_sharpen; return FUNC; }
+{ yylval.fn = b_remove; return FUNC; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 79 "lexer.l"
-{ yylval.fn = b_zoom; return FUNC; }
+{ yylval.fn = b_pop; return FUNC; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 80 "lexer.l"
-{ yylval.fn = b_copyfile; return FUNC; }
+{ yylval.fn = b_get; return FUNC; }
 	YY_BREAK
 /* debug hack */
 case 60:

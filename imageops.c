@@ -3,7 +3,7 @@
 #  include <stdarg.h>
 #  include <string.h>
 #  include <math.h>
-#  include <vips/vips.h>
+#  include "vips/vips.h"
 #  include "utils.h"
 #  include "imageops.h"
 
