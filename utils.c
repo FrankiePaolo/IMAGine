@@ -483,7 +483,8 @@ struct ast *
          exit(0);
       }
 
-      if(l->nodetype == 'i'){
+      li->s=setList(((struct utils *)l));
+      /*if(l->nodetype == 'i'){
          s->value=((struct utils *)newint(((struct integer *)l)->i,'+'));
          li->s=s;
       }else if(l->nodetype == 'D'){
@@ -498,7 +499,7 @@ struct ast *
          li->s=s;
       }else if(l->nodetype == 'N'){
          li->s=((struct symref *)l)->s;
-      }
+      }*/
       li->n=((struct list *)r);
       li->nodetype='l';
       return ((struct ast *)li);

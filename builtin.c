@@ -334,10 +334,6 @@ push(struct symref * e,struct utils * v){
       yyerror("The list does not exist!");
       exit(0);
    }
-   if(listCheck( ((struct symref * )v) )>=0){
-      yyerror("The element can't be a list!");
-      exit(0);
-   }
 
    if(!(temp)){
       li->s=setList(v);
