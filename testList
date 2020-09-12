@@ -1,13 +1,12 @@
 // Working list operations
 
 list check={1,2,3};
-print(check);
-len=length(check);
-print("Length of list is "+len);
+//print(check);
+//len=length(check);
+//print("Length of list is "+len);
 print("-------------------");
 
 list li={4,5,6,"string"};
-
 foreach(var:li){
 	print(var);
 }
@@ -22,18 +21,14 @@ print("-------------------");
 
 // -------------------------------------------
 
-pop(check);
+
 print(check);
 print("-------------------");
 pop(li);
 print(li);
 print("-------------------");
-<<<<<<< Updated upstream:testList
-
-
-=======
-pop(check);
-print("-------------------");
-print(check);
->>>>>>> Stashed changes:testFunc
 pop(5);
+insert(li,-5.5,3);
+remove(li,1);
+el=get(li,2);
+print(el);
