@@ -272,7 +272,7 @@ double
       }else if(v->nodetype=='D'){
          value=((struct doublePrecision *)v)->d;
       }else if(v->nodetype=='N'){
-         return getValue(getElement_sym(v));
+         return getValue( ((struct ast *)getElement_sym( ((struct utils *)v) )) );
       }else{
          yyerror("The value must be a number!");
          exit(0);
