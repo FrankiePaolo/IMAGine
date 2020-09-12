@@ -14,7 +14,6 @@ struct utils *
       enum bifs functype = f -> functype;
       struct utils * v = eval(f -> l);  
       struct utils * val;
-      // Find tree node
       unassignedError(v);
 
       switch (functype) {
@@ -25,17 +24,17 @@ struct utils *
       case b_width:
          argumentsCheck(f, 1);
          imageError( ((struct ast *)v) );
-         val=getWidth(((struct symref * ) v)); //number
+         val=getWidth(((struct symref * ) v));
          return val;
       case b_height:
          argumentsCheck(f, 1);
          imageError(((struct ast *)v));
-         val=getHeight(((struct symref * ) v)); //number
+         val=getHeight(((struct symref * ) v));
          return val;
       case b_bands:
          argumentsCheck(f, 1);
          imageError(((struct ast *)v));
-         val=getBands(((struct symref * ) v)); //number
+         val=getBands(((struct symref * ) v));
          return val;
       case b_average:
          argumentsCheck(f, 1);
@@ -55,7 +54,7 @@ struct utils *
       case b_invert:
          argumentsCheck(f, 2);
          imageError(findNode(f, 1));
-         val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         val=invert(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_histeq:
          argumentsCheck(f, 2);
@@ -85,7 +84,7 @@ struct utils *
       case b_copyfile:
          argumentsCheck(f, 2);
          imageError(findNode(f, 1));
-         val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v)); //image
+         val=convert(((struct symref *)findNode(f, 1)), ((struct ast *)v));
          return val;
       case b_convert:
          argumentsCheck(f, 3);
@@ -132,32 +131,42 @@ struct utils *
       case b_crop:
          argumentsCheck(f, 6);
          imageError(findNode(f, 1));
-         val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
+         val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
          return val;
       case b_get:
          argumentsCheck(f, 2);
+         listError(findNode(f, 1));
          val=get( ((struct symref *)findNode(f, 1)),v);
          return val;
       case b_push:
          argumentsCheck(f, 2);
+         listError(findNode(f, 1));
          push( ((struct symref *)findNode(f, 1)),v);
          return v;
       case b_pop:
          argumentsCheck(f, 1);
-         printf("pop\n");
+         listError(findNode(f, 1));
          pop( ((struct symref * ) v) );
          return v;
       case b_length:
          argumentsCheck(f, 1);
+         listError(findNode(f, 1));
          val= length( ((struct symref * ) v) );
          return val;
       case b_insert:
          argumentsCheck(f, 3);
+         listError(findNode(f, 1));
          insert(((struct symref *)findNode(f, 1)), ((struct utils *)findNode(f, 2)), v);
          return v;
       case b_remove:
          argumentsCheck(f, 2);
+         listError(findNode(f, 1));
          list_remove( ((struct symref *)findNode(f, 1)),v);
+         return v;
+      case b_show:
+         argumentsCheck(f, 1);
+         imageError( ((struct ast *)v) );
+         showImg(((struct symref * ) v));
          return v;
       default:
          yyerror("Unknown built-in function %d", functype);
@@ -165,17 +174,12 @@ struct utils *
       }
    }
 
-/* methods for lists */
+/* Returns the number of elements in the list */
 struct utils * 
 length(struct symref * e){
    struct utils * v;
    struct list * temp = e->s->li;
    int counter=1;
-
-   if(listCheck(e)==-1){
-      yyerror("The list does not exist!");
-      exit(0);
-   }
 
    if(listCheck(e)==0){
       v=((struct utils *)newint(0,'+'));
@@ -189,46 +193,35 @@ length(struct symref * e){
    return v;
 }
 
-struct utils *
-get(struct symref * e,struct utils * v){
+/* Appends the element to the list */
+void
+push(struct symref * e,struct utils * v){
    struct list * temp = e->s->li;
-   int counter = 1;
-   int index;
+   struct list * li=malloc(sizeof(struct list));
 
-   if( type(v)=='i' || (type(v)=='N' && type(getElement_sym(v))=='i') ){
-      index=getElement_i(v);
-      if( index>getElement_i(length(e))){
-         printf("The index cannot be bigger than list length\n");
-         return NULL;
-      }else if(index<1){
-         yyerror("The index cannot be less than 1\n");
-		   exit(0);
-      }
+   if (!li) {
+      yyerror("Out of space");
+      exit(0);
+   }
+   if(listCheck((struct symref *)v)!=-1 && strcmp(e->s->name, ((struct symref *)v)->s->name)==0){
+      yyerror("Can't insert the same list!");
+      exit(0);
+   }
+
+   if(!(temp)){
+      li->s=setList(v);
+      e->s->li=li;
    }else{
-      yyerror("The index must be an integer\n");
-      exit(0);
-   }
-
-   if(listCheck(e)==-1){
-      yyerror("The list does not exist!");
-      exit(0);
-   }
-
-   if(listCheck(e)==0){
-      printf("The list is empty\n");
-      return NULL;
-   }
-
-   do{
-      if(counter==index){
-         return getElement_li(temp);
-         break;
+      while((temp->n)){
+         temp=temp->n;
       }
-      counter++;
-   }while((temp=temp->n));
-   return NULL;
+      temp->n=li;
+      li->s=setList(v);
+      li->n=NULL;
+   }
 }
 
+/* Inserts element in the given position */
 void 
 insert(struct symref * e, struct utils * v, struct utils * s){
    struct list * temp = e->s->li;
@@ -238,10 +231,6 @@ insert(struct symref * e, struct utils * v, struct utils * s){
 
    if (!li) {
       yyerror("out of space");
-      exit(0);
-   }
-   if(listCheck(e)==-1){
-      yyerror("The list does not exist!");
       exit(0);
    }
    if( type(s)=='i' || (type(s)=='N' && type(getElement_sym(s))=='i') ){
@@ -282,16 +271,13 @@ insert(struct symref * e, struct utils * v, struct utils * s){
    }
 }
 
+/* Removes element from the given position */
 void 
 list_remove(struct symref * e, struct utils * v){
    struct list * temp = e->s->li;
    int index;
    int counter=1;
 
-   if(listCheck(e)==-1){
-      yyerror("The list does not exist!");
-      exit(0);
-   }
    if( type(v)=='i' || (type(v)=='N' && type(getElement_sym(v))=='i') ){
       index=getElement_i(v);
       if( index>getElement_i(length(e))){
@@ -319,8 +305,6 @@ list_remove(struct symref * e, struct utils * v){
             }else{
                print_B(temp->s->value);
             }
-            
-            //print_B(temp->s->value);
             break;
          }else if(counter==(index-1)){
             printf("Removed element: ");
@@ -330,8 +314,6 @@ list_remove(struct symref * e, struct utils * v){
             }else{
                print_B(temp->n->s->value);
             }
-
-            //print_B(temp->n->s->value);
             temp->n=temp->n->n;
             break;
          }
@@ -340,58 +322,20 @@ list_remove(struct symref * e, struct utils * v){
    }
 }
 
-void
-push(struct symref * e,struct utils * v){
-   struct list * temp = e->s->li;
-   struct list * li=malloc(sizeof(struct list));
-
-   if (!li) {
-      yyerror("Out of space");
-      exit(0);
-   }
-   if(listCheck(e)==-1){
-      yyerror("The list does not exist!");
-      exit(0);
-   }
-   if(listCheck((struct symref *)v)!=-1 && strcmp(e->s->name, ((struct symref *)v)->s->name)==0){
-      yyerror("Can't insert the same list!");
-      exit(0);
-   }
-
-   if(!(temp)){
-      li->s=setList(v);
-      e->s->li=li;
-   }else{
-      while((temp->n)){
-         temp=temp->n;
-      }
-      temp->n=li;
-      li->s=setList(v);
-      li->n=NULL;
-   }
-}
-
+/* Removes and returns the last element */
 void
 pop(struct symref * e){
-   struct list * temp = e->s->li;
-   printf("here");
-
-   if(listCheck(e)==-1){
-      yyerror("The list does not exist!");
-      exit(0);
-   }
-   
+   struct list * temp=e->s->li;
 
    if(listCheck(e)==0){
       printf("The list is empty\n");
       return;
    }
-   
 
    if(!(temp->n)){
       printf("Removed element: ");
       if(type(temp->n->s->value)=='l'){
-         printf("%s list\n", temp->n->s->name);
+         printf("%s. This is a list\n", temp->n->s->name);
       }else{
          print_B(e->s->li->s->value);
       }
@@ -403,7 +347,7 @@ pop(struct symref * e){
       }
       printf("Removed element: ");
       if(type(temp->n->s->value)=='l'){
-         printf("%s list\n", temp->n->s->name);
+         printf("%s. This is a list\n", temp->n->s->name);
       }else{
          print_B(temp->n->s->value);
       }
@@ -412,6 +356,42 @@ pop(struct symref * e){
    }
 }
 
+/* Returns the element in the given position */ 
+struct utils *
+get(struct symref * e,struct utils * v){
+   struct list * temp = e->s->li;
+   int counter = 1;
+   int index;
+
+   if( type(v)=='i' || (type(v)=='N' && type(getElement_sym(v))=='i') ){
+      index=getElement_i(v);
+      if( index>getElement_i(length(e))){
+         printf("The index cannot be bigger than list length\n");
+         return NULL;
+      }else if(index<1){
+         yyerror("The index cannot be less than 1\n");
+		   exit(0);
+      }
+   }else{
+      yyerror("The index must be an integer\n");
+      exit(0);
+   }
+   if(listCheck(e)==0){
+      printf("The list is empty\n");
+      return NULL;
+   }
+
+   do{
+      if(counter==index){
+         return getElement_li(temp);
+         break;
+      }
+      counter++;
+   }while((temp=temp->n));
+   return NULL;
+}
+
+/* Prints the elements provided */
 void
 print_B(struct utils * v) {
    struct list * li;

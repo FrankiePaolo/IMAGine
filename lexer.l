@@ -73,6 +73,7 @@
 "smartCrop"         { yylval.fn = b_smartcrop; return FUNC; }
 "zoom"              { yylval.fn = b_zoom; return FUNC; }
 "crop"              { yylval.fn = b_crop; return FUNC; }
+"showImage"         { yylval.fn = b_show; return FUNC; }        /* DEPRECATED */
 
  /* list methods */
 "length"            { yylval.fn = b_length; return FUNC; }

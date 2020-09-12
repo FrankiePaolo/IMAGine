@@ -81,12 +81,13 @@ invert(struct symref * l,struct ast * v) {
    saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the input image with an equalized histogram and saves it in "output_path" */
 struct utils *
 histeq(struct symref * l,struct ast * v){
    VipsImage * out;
@@ -101,13 +102,13 @@ histeq(struct symref * l,struct ast * v){
    printf("Image saved in '%s'\n", path);
       
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
-
+/* Returns the input image with a normalized histogram and saves it in "output_path" */
 struct utils *
 norm(struct symref * l,struct ast * v){
    VipsImage * out;
@@ -123,13 +124,13 @@ norm(struct symref * l,struct ast * v){
    
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
-/* Returns the edges in the input image with the Canny method and saves it in "output_path" */
+/* Finds the edge in the input image with the Canny method,returns it and saves it in "output_path" */
 struct utils * 
 canny(struct symref * l,struct ast * v) {
    VipsImage * out;
@@ -144,13 +145,13 @@ canny(struct symref * l,struct ast * v) {
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
-/* Returns the edges in the input image with the Sobel Edge Detector method and saves it in "output_path" */
+/* Finds the edges in the input image with the Sobel edge detector method, returns it and saves it in "output_path" */
 struct utils * 
 sobel(struct symref * l,struct ast * v) {
    VipsImage * out;
@@ -166,7 +167,7 @@ sobel(struct symref * l,struct ast * v) {
    
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
@@ -187,7 +188,7 @@ sharpen(struct symref * l,struct ast * v) {
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
@@ -205,13 +206,13 @@ convert(struct symref * l,struct ast * v) {
    saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
-/* Returns the input image but moves it to differt space and saves it in "output_path" */
+/* Returns the input image but moves it to differt color space and saves it in "output_path" */
 struct utils * 
 toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
@@ -230,12 +231,13 @@ toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the bitwise sum of the pixels of the 2 images and saves it in "output_path" */
 struct utils * 
 add(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
@@ -252,12 +254,13 @@ add(struct symref * l,struct symref * r,struct ast * p){
    printf("Image saved in '%s'\n", path);
 
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the bitwise difference of the pixels of the 2 images and saves it in "output_path" */
 struct utils * 
 subtract_img(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
@@ -274,12 +277,13 @@ subtract_img(struct symref * l,struct symref * r,struct ast * p){
    printf("Image saved in '%s'\n", path);
 
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the rotated input image by the rotate_angle and saves it in "output_path" */
 struct utils *
 rotate(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
@@ -296,12 +300,13 @@ rotate(struct symref * l,struct ast * v,struct ast * s){
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the flipped input image with the specified direction and saves it in "output_path" */
 struct utils *
 flip(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
@@ -328,12 +333,13 @@ flip(struct symref * l,struct ast * v,struct ast * s){
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the blurred input image with a gaussian mask of size mask_dim and saves it in "output_path" */
 struct utils *
 gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
@@ -350,12 +356,13 @@ gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
 struct utils * 
 smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
    VipsImage * out;
@@ -373,12 +380,13 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Returns the zoomed input image by repeating pixels. This is fast nearest-neighbour zoom. It saves it in "output_path" */
 struct utils * 
 zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfactor){
    VipsImage * out;
@@ -396,13 +404,13 @@ zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfact
    printf("Image saved in '%s'\n", path);
    
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P'; 
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
-
+/* Extract an area with coordinates left, top and of size width, height from an image ,returns it and saves it in "output_path" */
 struct utils * 
 crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height){
    VipsImage * out;
@@ -419,12 +427,13 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
    saveImage(((struct img * ) temp1) ->path, out, path);
    printf("Image saved in '%s'\n", path);
    struct img * a = malloc(sizeof(struct img));
-   a -> nodetype = 'P'; //P as in picture
+   a -> nodetype = 'P';
    a -> path = path;
    a -> img = out;
    return ((struct utils *)a);
 }
 
+/* Saves the image in the given path, if the user doesn't give the format or if it's wrong, it's deduced from the input image  */
 void
 saveImage(char * in, VipsImage * out, char * path){
    char * suffix=getFormat(strdup(path));
@@ -465,8 +474,10 @@ saveImage(char * in, VipsImage * out, char * path){
 }
 
 /* DEPRECATED: This sometimes causes memory issues, needs to be updated */
+/* Shows the given image */
 void
-openImg(char * path){
+showImg(struct symref * l){
+   char * path=strdup(((struct img *) l -> s -> value)->path);
    char * open = strdup("xdg-open ");     
    char * command; 
 

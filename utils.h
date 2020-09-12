@@ -30,7 +30,8 @@
          b_sobel,
          b_sharpen,
          b_zoom,
-         b_copyfile
+         b_copyfile,
+         b_show
    };
 /* End Built-in Functions Enum */
   
@@ -206,6 +207,7 @@ struct symbol symtab[NHASH];
    char * getFormat(char * path);
    void unassignedError(struct utils * temp1);
    void imageError(struct ast * v);
+   void listError(struct ast * v);
    void argumentsCheck(struct fncall * f, int index);
 
    /* interface to the lexer */

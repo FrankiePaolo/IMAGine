@@ -1,87 +1,131 @@
 /* Conditional Statement */
-    if ( condition ) then { action_list; };                                 /* If the condition is true then the action_list will be performed */
-
-    if ( condition ) then { action_list; } else { action_list; }            /* If the condition is true then the "then" action_list will be performed, if isn't true the "else" one will */
-
-    while ( condition ) do { action_list; }                                 /* As long as the condition is true the action_list will be performed */
-
-    foreach ( variable_name:list_name ){ action_list; }                     /* Variable_name will go through the elements of list_name in order */
+    if ( condition ) then { action_list; };                                 
+        /* If the condition is true then the action_list will be performed */
+    if ( condition ) then { action_list; } else { action_list; }            
+        /* If the condition is true then the "then" action_list will be performed, if isn't true the "else" one will */
+    while ( condition ) do { action_list; }                                 
+        /* As long as the condition is true the action_list will be performed */
+    foreach ( variable_name:list_name ){ action_list; }                     
+        /* Variable_name will go through the elements of list_name in order */
 /* End Conditional Statement */
 
-/* Define a User Function */
-    def function_name(arguments_list) { action_list }                       /* The user can define a custom function that will be called using the appropriate function_name and arguments_list */
+/* Define a User Function */        
+    /* User can define a custom function that will be called using the appropriate function_name and arguments_list */
+    def function_name(arguments_list) { action_list }                       
 /* End Define a User Function */
 
 /* Compare */
     /* The comparison operators will return 1 if the verified condition is true or 0 if it's false */
-    value == value              /* Equal */
-    value != value              /* Unequal */
-    value >  value              /* More than */
-    value >= value              /* More or equal */
-    value <  value              /* Less than */
-    value <= value              /* Less or equal */
-            Values can only be numbers, execpt for the == that can be used to check if strings are exactly the same
+    /*Values can only be numbers, execpt for the == that can be used to check if strings are exactly the same*/
+
+    value == value              
+        /* Equal */
+    value != value              
+        /* Unequal */
+    value >  value              
+        /* More than */
+    value >= value              
+        /* More or equal */
+    value <  value              
+        /* Less than */
+    value <= value              
+        /* Less or equal */
 /* End Compare */
 
 /* Logical Operators */
-    assertion && assertion              /* AND: True if both are 1 */
-    assertion || assertion              /* OR: True if either is 1 */
+    assertion && assertion              
+        /* AND: True if both are 1 */
+    assertion || assertion              
+        /* OR: True if either is 1 */
 /* End Logical Operators */
 
 /* Aritmetichal Operators */
-    value + value                       /* Returns the sum of values */
-    value - value                       /* Returns the difference of values */
-    value * value                       /* Returns the product of values */
-    value / value                       /* Returns the difference of values */
-    | value |                           /* Returns the absolute value */
-            /* Values can only be numbers, execpt for the sum and product that can be used with strings:
+    /* Values can only be numbers, execpt for the sum and product that can be used with strings:
                 The sum of a string with a different type will return a concatenated string
                 The product of a string and a number will return the string a number of times */
+    value + value                       
+        /* Returns the sum of values */
+    value - value                       
+        /* Returns the difference of values */
+    value * value                       
+        /* Returns the product of values */
+    value / value                       
+        /* Returns the difference of values */
+    | value |                           
+        /* Returns the absolute value */
+            
 /* End Aritmetichal Operators */
 
 /* Built-In Functions */
     /* Image Method */
-        img name_variable = " /path.format ";                                                               /* Declare image variable */
+        img name_variable = " /path.format ";                                                               
+            /* Declare image variable */
 
-        integer width(img name_image);                                                                          /* Returns the number of pixels across the image */
-        integer height(img name_image);                                                                         /* Returns the number of pixels down the image */
-        integer bands(img name_image);                                                                          /* Returns the number of bands(channels) in the image */
-        doublePrecision min(img name_image);                                                                         /* Returns the minimum value in an image */
-        doublePrecision max(img name_image);                                                                         /* Returns the maximum value in an image */
-        doublePrecision average(img name_image);                                                                     /* Returns the average value in an image */
-        img invert(img name_image, str output_path);                                                      /* Returns the inverted image and saves it in "output_path" */
-        img histEq(img name_image, str output_path);                                                      /* Returns the input image with an equalized histogram and saves it in "output_path" */
-        img normalise(img name_image, str output_path);                                                   /* Returns the input image with a normalized histogram and saves it in "output_path" */
-        img canny(img name_image, str output_path);                                                       /* Finds the edge in the input image with the Canny method,returns it and saves it in "output_path" */
-        img sobel(img name_image, str output_path);                                                       /* Finds the edges in the input image with the Sobel edge detector method, returns it and saves it in "output_path" */
-        img sharpen(img name_image, str output_path);                                                     /* Performs a gaussian blur and subtracts it from the input image to generate a high-frequency signal, returns it and saves it in "output_path" */
-        img convert(img name_image, str output_path);                                                     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+        integer width(img name_image);                                                                          
+            /* Returns the number of pixels across the image */
+        integer height(img name_image);                                                                         
+            /* Returns the number of pixels down the image */
+        integer bands(img name_image);                                                                          
+           /* Returns the number of bands(channels) in the image */
+        doublePrecision min(img name_image);                                                                         
+           /* Returns the minimum value in an image */
+        doublePrecision max(img name_image);                                                                         
+           /* Returns the maximum value in an image */
+        doublePrecision average(img name_image);                                                                     
+           /* Returns the average value in an image */
+        img invert(img name_image, str output_path);                                                      
+           /* Returns the inverted image and saves it in "output_path" */
+        img histEq(img name_image, str output_path);                                                      
+           /* Returns the input image with an equalized histogram and saves it in "output_path" */
+        img normalise(img name_image, str output_path);                                                   
+           /* Returns the input image with a normalized histogram and saves it in "output_path" */
+        img canny(img name_image, str output_path);                                                       
+           /* Finds the edge in the input image with the Canny method,returns it and saves it in "output_path" */
+        img sobel(img name_image, str output_path);                                                       
+           /* Finds the edges in the input image with the Sobel edge detector method, returns it and saves it in "output_path" */
+        img sharpen(img name_image, str output_path);                                                     
+           /* Performs a gaussian blur and subtracts it from the input image to generate a high-frequency signal, returns it and saves it in "output_path" */
+        img convert(img name_image, str output_path);                                                     
+           /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
                                 format allowed:         tif
                                                         jpeg
                                                         jpg
                                                         hdr
                                                         raw
-        img convertColorSpace(img name_image, str output_path, str space);                              /* Returns the input image but moves it to differt color space and saves it in "output_path" */
+        img convertColorSpace(img name_image, str output_path, str space);                              
+           /* Returns the input image but moves it to differt color space and saves it in "output_path" */
                                 str space can be:     grey16              // generic 16-bit mono
                                                         hsv                 // pixels are HSV
                                                         yxy                 // pixels are CIE Yxy
                                                         lch                 // pixels are in CIE LCh space
                                                         cmc                 // a uniform colourspace based on CMC(1:1)
                                                         lab                 // pixels are in CIE Lab space
-        img add(img name_image1, img name_image2, str output_path);                                       /* Returns the bitwise sum of the pixels of the 2 images and saves it in "output_path" */
-        img subtract(img name_image1, img name_image2, str output_path);                                  /* Returns the bitwise difference of the pixels of the 2 images and saves it in "output_path" */
-        img rotate(img name_image, str output_path, doublePrecision rotate_angle);                                 /* Returns the rotated input image by the rotate_angle and saves it in "output_path" */
-        img flip(img name_image, str output_path, str direction);                                       /* Returns the flipped input image with the specified direction and saves it in "output_path" */
+        img add(img name_image1, img name_image2, str output_path);                                       
+           /* Returns the bitwise sum of the pixels of the 2 images and saves it in "output_path" */
+        img subtract(img name_image1, img name_image2, str output_path);                                                                    
+           /* Returns the bitwise difference of the pixels of the 2 images and saves it in "output_path" */
+        img rotate(img name_image, str output_path, doublePrecision rotate_angle);                                                              
+           /* Returns the rotated input image by the rotate_angle and saves it in "output_path" */
+        img flip(img name_image, str output_path, str direction);                                                                               
+           /* Returns the flipped input image with the specified direction and saves it in "output_path" */
                                 direction allowed:      hor                 //Horizontal flip
                                                         ver                 //Vertical flip
-        img gaussianBlur(img name_image, str output_path, doublePrecision mask_dim);                               /* Returns the blurred input image with a gaussian mask of size mask_dim and saves it in "output_path" */
-        img smartCrop(img name_image, str output_path, doublePrecision width, doublePrecision height);                      /* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
-        img zoom(img name_image, str output_path, integer xfactor, integer xfactor);                              /* Returns the zoomed input image by repeating pixels. This is fast nearest-neighbour zoom. It saves it in "output_path" */
-        img crop(img name_image, str output_path, doublePrecision left, doublePrecision top, doublePrecision width, doublePrecision height);  /* Extract an area with coordinates left, top and of size width, height from an image ,returns it and saves it in "output_path" */
+        img gaussianBlur(img name_image, str output_path, doublePrecision mask_dim);                                                            
+           /* Returns the blurred input image with a gaussian mask of size mask_dim and saves it in "output_path" */
+        img smartCrop(img name_image, str output_path, doublePrecision width, doublePrecision height);                                          
+           /* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
+        img zoom(img name_image, str output_path, integer xfactor, integer xfactor);                                                            
+           /* Returns the zoomed input image by repeating pixels. This is fast nearest-neighbour zoom. It saves it in "output_path" */
+        img crop(img name_image, str output_path, doublePrecision left, doublePrecision top, doublePrecision width, doublePrecision height);    
+           /* Extract an area with coordinates left, top and of size width, height from an image ,returns it and saves it in "output_path" */
+        void showImage(img name_image);
+            /* DEPRECATED: This sometimes causes memory issues, needs to be updated */
+            /* Shows the given image */
     /* End Image Method */
 
     /* List Method */
-        list list_name={element_1, element_2,..., element_n};                                               /* Declares list. Users can also define empty lists by simply not providing elements */
+        list list_name={element_1, element_2,..., element_n};                                               
+           /* Declares list. Users can also define empty lists by simply not providing elements */
                     list accept miscellanus type so element can be:
                                                         integer
                                                         doublePrecision
@@ -89,11 +133,17 @@
                                                         image
                                                         variable
 
-        integer length(list list_name);                                                                         /* Returns the number of elements in the list */
-        void push(list list_name, element);                                                                 /* Appends the element to the list */
-        void insert(list list_name, element, integer position);                                                 /* Inserts element in the given position */
-        void remove(list list_name, integer position);                                                          /* Removes element from the given position */
-        element pop(list list_name);                                                                        /* Removes and returns the last element */
-        element get(list list_name, integer position);                                                          /* Returns the element in the given position */ 
+        integer length(list list_name);                                                                         
+           /* Returns the number of elements in the list */
+        void push(list list_name, element);                                                                     
+           /* Appends the element to the list */
+        void insert(list list_name, element, integer position);                                                 
+           /* Inserts element in the given position */
+        void remove(list list_name, integer position);                                                          
+           /* Removes element from the given position */
+        element pop(list list_name);                                                                            
+           /* Removes and returns the last element */
+        element get(list list_name, integer position);                                                          
+           /* Returns the element in the given position */ 
     /* End List Method */
 /* End Built-In Functions */

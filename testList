@@ -28,6 +28,12 @@ print("-------------------");
 pop(li);
 print(li);
 print("-------------------");
+<<<<<<< Updated upstream:testList
 
 
+=======
+pop(check);
+print("-------------------");
+print(check);
+>>>>>>> Stashed changes:testFunc
 pop(5);

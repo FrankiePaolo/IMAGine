@@ -687,6 +687,14 @@ imageError(struct ast * v){
    }
 }
 
+void
+listError(struct ast * v){
+   if(listCheck((struct symref * ) v)==-1){
+      yyerror("The variable is not a list! This method only works with list variables!");
+      exit(0);
+   }
+}
+
 struct utils *
    calluser(struct ufncall * f) {
       struct symbol * fn = f -> s; /* function name */
