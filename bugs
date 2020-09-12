@@ -15,10 +15,10 @@ print("---------");
 def mySum(a,b,c){
 	print(get(b,1));
 	push(b,"myList");
-	insert(b,"inserted",4);
+	remove(b,1);
 }
 
 //string="ciao";
-mySum(im,li,3);
+mySum(6,6,3);
 print("---------");
 print(li);
