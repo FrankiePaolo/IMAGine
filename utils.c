@@ -633,7 +633,7 @@ struct utils *
 struct symbol *
    setList(struct utils * v){ 
       struct symbol * s=malloc(sizeof(struct symbol));
-
+      unassignedError(v);
       if(type(v) == 'i'){
          s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
       }else if(type(v) == 'D'){
