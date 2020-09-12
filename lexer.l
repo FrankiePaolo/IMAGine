@@ -49,6 +49,8 @@
  
  /* built in functions */
 "print"             { yylval.fn = b_print; return FUNC; }
+
+ /* image methods */
 "width"             { yylval.fn = b_width; return FUNC; }
 "height"            { yylval.fn = b_height; return FUNC; }
 "bands"             { yylval.fn = b_bands; return FUNC; }
@@ -71,6 +73,8 @@
 "smartCrop"         { yylval.fn = b_smartcrop; return FUNC; }
 "zoom"              { yylval.fn = b_zoom; return FUNC; }
 "crop"              { yylval.fn = b_crop; return FUNC; }
+
+ /* list methods */
 "length"            { yylval.fn = b_length; return FUNC; }
 "push"              { yylval.fn = b_push; return FUNC; }
 "insert"            { yylval.fn = b_insert; return FUNC; }
@@ -85,7 +89,7 @@
 [a-zA-Z][a-zA-Z0-9]*  { yylval.s = lookup(yytext); return NAME; }
 
  /* string */
-\"{1}.[^"]*\"{1}      { yytext++;yylval.str=(yytext);return STRING; } 
+\"{1}.[^"]*\"{1}      { yytext++; yylval.str=(yytext);return STRING; } 
 
  /* int */
 [0-9]+                { yylval.i = atoi(yytext); return INT; }
