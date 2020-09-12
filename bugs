@@ -15,7 +15,11 @@ print("---------");
 def mySum(a,b,c){
 	print(get(b,1));
 	push(b,"myList");
+<<<<<<< HEAD
 	remove(b,1);
+=======
+	remove(b,3);
+>>>>>>> master
 }
 
 //string="ciao";

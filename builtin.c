@@ -253,7 +253,7 @@ insert(struct symref * e, struct utils * v, struct utils * s){
             li->n=temp;
             li->s=setList(v);
             if(type((struct utils *)e)=='N' && type(getElement_sym((struct utils *)e))=='N'){
-               ((struct symref *)(getElement_sym((struct utils *)v)))->s->li=li;
+               ((struct symref *)(getElement_sym((struct utils *)e)))->s->li=li;
             } else{
                e->s->li=li;
             }
@@ -293,7 +293,11 @@ list_remove(struct symref * e, struct utils * v){
    }else{
       do{
          if(index==1){
-            e->s->li=temp->n;
+            if(type((struct utils *)e)=='N' && type(getElement_sym((struct utils *)e))=='N'){
+               ((struct symref *)(getElement_sym((struct utils *)e)))->s->li=temp->n;
+            } else{
+               e->s->li=temp->n;
+            }
             printf("Removed element: ");
 
             if(type(temp->s->value)=='l'){
