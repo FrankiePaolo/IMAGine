@@ -727,7 +727,7 @@ struct utils *
       /* evaluate the arguments */
       for (i = 0; i < nargs; i++) {
          if (!args) {
-            yyerror("CALLUSER: Too few args in call to %s", fn -> name);
+            yyerror("Too few arguments provided in call to %s", fn -> name);
             free(oldval);
             free(newval);
             exit(0);

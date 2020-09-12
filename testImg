@@ -42,6 +42,7 @@ mi=min(im);
 ma=max(im);
 avg=average(im);
 
+//showImage(im);
 // -------------------------------------------
 
 

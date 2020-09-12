@@ -302,7 +302,7 @@ list_remove(struct symref * e, struct utils * v){
             printf("Removed element: ");
 
             if(type(temp->s->value)=='l'){
-               printf("%s. This is a list\n", temp->s->name);
+               printf("%s. This is a list.\n", temp->s->name);
             }else{
                print_B(temp->s->value);
             }
@@ -311,7 +311,7 @@ list_remove(struct symref * e, struct utils * v){
             printf("Removed element: ");
 
             if(type(temp->n->s->value)=='l'){
-               printf("%s. This is a list\n", temp->n->s->name);
+               printf("%s. This is a list.\n", temp->n->s->name);
             }else{
                print_B(temp->n->s->value);
             }

@@ -48,6 +48,14 @@ foreach(tempLi:imgLi){
 	counterLi=counterLi+1;
 }
 
+
+def mySum(a,b,c){
+	d=a+b+c;
+	print(d);
+}
+
+mySum(1,-1,2.2,2.2);
+
 // -------------------------------------------
 
 
