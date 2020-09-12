@@ -476,7 +476,6 @@ struct symlist *
 struct ast *
    newlist(struct ast * l,struct ast * r){
       struct list * li=malloc(sizeof(struct list));
-      //struct symbol * s=malloc(sizeof(struct symbol));
 
       if (!li) {
          yyerror("out of space");
@@ -484,22 +483,6 @@ struct ast *
       }
 
       li->s=setList(((struct utils *)l));
-      /*if(l->nodetype == 'i'){
-         s->value=((struct utils *)newint(((struct integer *)l)->i,'+'));
-         li->s=s;
-      }else if(l->nodetype == 'D'){
-         s->value=((struct utils *)newdouble(((struct doublePrecision *)l)->d,'+'));
-         li->s=s;
-      }else if(l->nodetype == 'S'){
-         struct str * a = malloc(sizeof(struct str));
-         char * temp=(((struct str *)l)->str);
-         a -> nodetype = 'S';
-         a -> str = strndup(temp,(strlen(temp)));
-         s ->value=((struct utils *)a);
-         li->s=s;
-      }else if(l->nodetype == 'N'){
-         li->s=((struct symref *)l)->s;
-      }*/
       li->n=((struct list *)r);
       li->nodetype='l';
       return ((struct ast *)li);

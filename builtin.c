@@ -385,7 +385,7 @@ print_B(struct utils * v) {
    if(!v){
       yyerror("NULL pointer can't be printed!");
       exit(0);
-   }else if (type(v) == 'i') {
+   } else if (type(v) == 'i') {
       printf("%d\n", getElement_i(v));
    } else if (type(v) == 'D') {
       printf("%.6g\n", getElement_d(v));
@@ -395,7 +395,7 @@ print_B(struct utils * v) {
       printf("This variable is not allocated!\n");
    } else if(type(v) == 'P'){
       printf("This element is an image\n");
-   } else if(listCheck( ((struct symref * )v))==1) {
+   } else if(listCheck(((struct symref * )v))==1) {
       li=((struct symref * ) v)->s->li;
       do{
          print_B( getElement_li(li) );
@@ -404,6 +404,8 @@ print_B(struct utils * v) {
       printf("The list is empty\n");
    } else if (type(v) == 'N') {
       print_B( getElement_sym(v) );
+   } else if (type(v) == 'l') {
+      print_B( getElement_sym(v));
    } else {
       yyerror("Node not found in function print: %i", type(v));
       exit(0);
