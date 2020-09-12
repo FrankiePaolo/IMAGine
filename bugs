@@ -1,11 +1,13 @@
-img im="/home/frank/Desktop/Img/image.jpg";
-img im2="/home/frank/Desktop/Img/image.jpg";
+//img im="/home/frank/Desktop/Img/image.jpg";
+//img im2="/home/frank/Desktop/Img/image.jpg";
 
-out="/home/frank/Desktop/Img/myImg.jpg";
-print(width(im));
+//out="/home/frank/Desktop/Img/myImg.jpg";
+//print(width(im));
 
-list li={1,2};
+list li={"ciao","suca"};
 
+//print(get(li,1));
+print("---------");
 
 def mySum(a,b,c){
 	print(get(b,1));

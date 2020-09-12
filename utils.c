@@ -212,8 +212,10 @@ getElement_li(struct list * v){
 
 struct list *
    getList(struct utils * v){
-      if(v){
+      if(v && type(getElement_sym(v))=='l'){
          return ((struct symref * ) v) -> s->li; 
+      } else if( type(getElement_sym(v))=='N'){
+         return getList(getElement_sym(v));
       } else {
          yyerror("NULL value detected");
          exit(0);
@@ -225,6 +227,10 @@ int
       if(type((struct utils *)v)=='N' && v->s->li && type( getElement_sym( (struct utils *)v ) ) =='l'){
          return 1;
       } else if(type((struct utils *)v)=='N' && type( getElement_sym( (struct utils *)v ) ) =='l'){
+         return 0;
+      } else if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='N' && type(getElement_sym(getElement_sym((struct utils *)v)))=='l' && ((struct symref *)(getElement_sym((struct utils *)v)))->s->li){
+         return 1;
+      } else if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='N' && type(getElement_sym(getElement_sym((struct utils *)v)))=='l'){
          return 0;
       } else {
          return -1;

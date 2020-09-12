@@ -151,7 +151,6 @@ struct utils *
       case b_length:
          argumentsCheck(f, 1);
          listError(((struct ast *)v));
-         //imageError( ((struct ast *)v) );
          val= length( ((struct symref * ) v) );
          return val;
       case b_insert:
@@ -179,7 +178,7 @@ struct utils *
 struct utils * 
 length(struct symref * e){
    struct utils * v;
-   struct list * temp = e->s->li;
+   struct list * temp = getList((struct utils *)e);
    int counter=1;
 
    if(listCheck(e)==0){
@@ -197,7 +196,7 @@ length(struct symref * e){
 /* Appends the element to the list */
 void
 push(struct symref * e,struct utils * v){
-   struct list * temp = e->s->li;
+   struct list * temp = getList((struct utils *)e);
    struct list * li=malloc(sizeof(struct list));
 
    if (!li) {
@@ -223,7 +222,7 @@ push(struct symref * e,struct utils * v){
 /* Inserts element in the given position */
 void 
 insert(struct symref * e, struct utils * v, struct utils * s){
-   struct list * temp = e->s->li;
+   struct list * temp = getList((struct utils *)e);
    struct list * li=malloc(sizeof(struct list));
    int index;
    int counter=1;
@@ -269,7 +268,7 @@ insert(struct symref * e, struct utils * v, struct utils * s){
 /* Removes element from the given position */
 void 
 list_remove(struct symref * e, struct utils * v){
-   struct list * temp = e->s->li;
+   struct list * temp = getList((struct utils *)e);
    int index;
    int counter=1;
 
@@ -318,7 +317,7 @@ list_remove(struct symref * e, struct utils * v){
 /* Removes and returns the last element */
 void
 pop(struct symref * e){
-   struct list * temp=e->s->li;
+   struct list * temp = getList((struct utils *)e);
 
    if(listCheck(e)==0){
       printf("The list is empty\n");
@@ -352,7 +351,7 @@ pop(struct symref * e){
 /* Returns the element in the given position */ 
 struct utils *
 get(struct symref * e,struct utils * v){
-   struct list * temp = e->s->li;
+   struct list * temp = getList((struct utils *)e);
    int counter = 1;
    int index;
 
@@ -367,6 +366,7 @@ get(struct symref * e,struct utils * v){
    }else{
       yyerror("The index must be an integer\n");
    }
+
    if(listCheck(e)==0){
       printf("The list is empty\n");
       return NULL;
