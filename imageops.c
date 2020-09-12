@@ -11,7 +11,7 @@
 struct utils *
 getWidth(struct symref * v) {
    int val;
-   struct utils * temp1 = v -> s -> value;
+   struct utils * temp1 = takeImage(v);
    val=vips_image_get_width(((struct img * ) temp1) -> img);
    return ((struct utils *)newint(val,'+'));
 }
@@ -20,7 +20,7 @@ getWidth(struct symref * v) {
 struct utils *
 getHeight(struct symref * v) {
    int val;
-   struct utils * temp1 = v -> s -> value;
+   struct utils * temp1 = takeImage(v);
    val=vips_image_get_height(((struct img * ) temp1) -> img);
    return ((struct utils *)newint(val,'+'));
 }
@@ -29,7 +29,7 @@ getHeight(struct symref * v) {
 struct utils *
 getBands(struct symref * v) {
    int val;
-   struct utils * temp1 = v -> s -> value;
+   struct utils * temp1 = takeImage(v);
    val=vips_image_get_bands(((struct img * ) temp1) -> img);
    return ((struct utils *)newint(val,'+'));
 }
@@ -38,7 +38,7 @@ getBands(struct symref * v) {
 struct utils *
 min(struct symref * v) {
    double min;
-   struct utils * temp1 = v -> s -> value;
+   struct utils * temp1 = takeImage(v);
    if (vips_min((((struct img * ) temp1) -> img), & min, NULL)) {
       vips_error_exit(NULL);
    }
@@ -49,7 +49,7 @@ min(struct symref * v) {
 struct utils *
 max(struct symref * v) {
    double max;
-   struct utils * temp1 = v -> s -> value;
+   struct utils * temp1 = takeImage(v);
    if (vips_max((((struct img * ) temp1) -> img), & max, NULL)) {
       vips_error_exit(NULL);
    }
@@ -60,7 +60,7 @@ max(struct symref * v) {
 struct utils *
 average(struct symref * v) {
    double mean;
-   struct utils * temp1 = v -> s -> value;
+   struct utils * temp1 = takeImage(v);
    if (vips_avg((((struct img * ) temp1) -> img), & mean, NULL)) {
       vips_error_exit(NULL);
    }
@@ -72,7 +72,7 @@ struct utils *
 invert(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_invert((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
@@ -92,7 +92,7 @@ struct utils *
 histeq(struct symref * l,struct ast * v){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_hist_equal((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
@@ -113,7 +113,7 @@ struct utils *
 norm(struct symref * l,struct ast * v){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_hist_norm((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
@@ -135,7 +135,7 @@ struct utils *
 canny(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_canny((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
@@ -156,7 +156,7 @@ struct utils *
 sobel(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_sobel((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
@@ -178,7 +178,7 @@ struct utils *
 sharpen(struct symref * l,struct ast * v) {
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_sharpen((((struct img * ) temp1) -> img), & out, NULL)) {
       vips_error_exit(NULL);
    }
@@ -197,7 +197,7 @@ sharpen(struct symref * l,struct ast * v) {
 /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
 struct utils * 
 convert(struct symref * l,struct ast * v) {
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    VipsImage * in = ((struct img * ) temp1) -> img;
    VipsImage * out;
    char * path;
@@ -217,7 +217,7 @@ struct utils *
 toColorSpace(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    VipsInterpretation in_space=vips_image_guess_interpretation(((struct img * ) temp1) -> img);
    VipsInterpretation out_space=getSpace(s);
    (((struct img * ) temp1) -> img)->Type=in_space;
@@ -288,7 +288,7 @@ struct utils *
 rotate(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    double angle=getValue(s);
 
    if (vips_rotate((((struct img * ) temp1) -> img), & out, angle, NULL)) {
@@ -311,7 +311,7 @@ struct utils *
 flip(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    char * str=getPath(s);
    VipsDirection direction;
 
@@ -320,7 +320,7 @@ flip(struct symref * l,struct ast * v,struct ast * s){
    }else if(!strcmp(str,"ver")){
       direction=VIPS_DIRECTION_VERTICAL;
    }else{
-      yyerror("Third parameter error, needs to be 'hor' or 'ver'!")
+      yyerror("Third parameter error, needs to be 'hor' or 'ver'!");
    }
 
    if (vips_flip((((struct img * ) temp1) -> img), & out, direction, NULL)) {
@@ -343,7 +343,7 @@ struct utils *
 gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    double sigma=getValue(s);
 
    if (vips_gaussblur((((struct img * ) temp1) -> img), & out, sigma, NULL)) {
@@ -368,7 +368,7 @@ smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * he
    char * path;
    double width_value=getValue(width);
    double height_value=getValue(height);
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
 
    if (vips_smartcrop((((struct img * ) temp1) -> img), & out, width_value, height_value, NULL)) {
       vips_error_exit(NULL);
@@ -392,7 +392,7 @@ zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfact
    char * path;
    int x=(int) getValue(xfactor);
    int y=(int) getValue(yfactor);
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
 
    if (vips_zoom((((struct img * ) temp1) -> img), & out, x, y, NULL)) {
       vips_error_exit(NULL);
@@ -418,7 +418,7 @@ crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,stru
    double top_value=getValue(top);
    double width_value=getValue(width);
    double height_value=getValue(height);
-   struct utils * temp1 = l -> s -> value;
+   struct utils * temp1 = takeImage(l);
    if (vips_crop((((struct img * ) temp1) -> img), & out,left_value,top_value,width_value,height_value, NULL)) {
       vips_error_exit(NULL);
    }
@@ -445,7 +445,7 @@ saveImage(char * in, VipsImage * out, char * path){
       saveImage(in, out, path);
    } else{
       if((strcmp(suffix, "png"))==0){
-         yyerror("PNG is unfortunatly not supported by our lib! See you soon!")
+         yyerror("PNG is unfortunatly not supported by our lib! See you soon!");
       } else if((strcmp(suffix, "tif"))==0){
          if (vips_tiffsave(out, path, NULL)) {
             vips_error_exit(NULL);

@@ -1,2 +1,17 @@
-img im="/home/frank/Desktop/Img/image.jpg";
-print(im+2);
+img im="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/a.jpg";
+
+out3="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/b.jpg";
+print(width(im));
+
+def mySum(a,b,c){
+	d=b+c;
+	print(a);
+
+	if(3>2)then{
+		print(width(a));
+	};
+	print(d);
+}
+
+//string="ciao";
+mySum(im,2,3);

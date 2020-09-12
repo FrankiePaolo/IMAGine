@@ -209,6 +209,7 @@ struct symbol symtab[NHASH];
    void imageError(struct ast * v);
    void listError(struct ast * v);
    void argumentsCheck(struct fncall * f, int index);
+   struct utils * takeImage(struct symref * v);
 
    /* interface to the lexer */
    extern int yylineno; /* from lexer */

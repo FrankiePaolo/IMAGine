@@ -46,7 +46,7 @@ struct symbol *
          }
       }
       yyerror("Symbol table overflow!"); /* tried them all, table is full */
-
+      exit(0);
    }
 
 char *
@@ -59,6 +59,7 @@ getPath(struct ast * p){
       return getPath(((struct ast *)getElement_sym((struct utils *)p)));
    }else{
       yyerror("Not a string!");
+      exit(0);
    }
 }
 
@@ -121,6 +122,7 @@ type(struct utils * v){
   	   return v->nodetype;
 	} else {
 		yyerror("NULL value detected");
+      exit(0);
 	}
 }
 
@@ -160,6 +162,7 @@ getElement_i(struct utils * v){
       return getElement_i(getElement_sym(v));
    } else{
 		yyerror("NULL value detected");
+      exit(0);
 	}
 }
 
@@ -171,6 +174,7 @@ getElement_d(struct utils * v){
       return getElement_d(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
+      exit(0);
 	}
 }
 
@@ -182,6 +186,7 @@ getElement_s(struct utils * v){
       return getElement_s(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
+      exit(0);
    }
 }
 
@@ -191,7 +196,7 @@ getElement_sym(struct utils * v){
       return ((struct symref * ) v) -> s -> value ;
    } else {
 		yyerror("NULL value detected");
-		return NULL;
+		exit(0);
 	}
 }
 
@@ -201,6 +206,7 @@ getElement_li(struct list * v){
       return v->s->value; 
    } else {
 		yyerror("NULL value detected");
+      exit(0);
 	}
 }
 
@@ -210,6 +216,7 @@ struct list *
          return ((struct symref * ) v) -> s->li; 
       } else {
          yyerror("NULL value detected");
+         exit(0);
       }
 }
 
@@ -244,6 +251,7 @@ VipsInterpretation
          space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
       }else {
          yyerror("Wrong space type, check the manual for allowed types!");
+         exit(0);
       }
       return space;
 }
@@ -259,6 +267,7 @@ double
          return getValue( ((struct ast *)getElement_sym( ((struct utils *)v) )) );
       }else{
          yyerror("The value must be a number!");
+         exit(0);
       }
       return value;
 }
@@ -642,10 +651,22 @@ void
 imageError(struct ast * v){
    if( type((struct utils *)v) != 'N' ){
       yyerror("The variable is not an image! This method only works with image variables!");
-   }else if( ((struct symref * ) v)->s->value->nodetype!='P') {
+   }else if( type(getElement_sym((struct utils *)v))!='P' && type(getElement_sym((struct utils *)v))=='N'  &&  type(getElement_sym(getElement_sym((struct utils *)v)))!='P' ){
       yyerror("Variable '%s' is not an image! This method only works with image variables!", ((struct symref *)v)->s->name);
    }
 }
+
+struct utils *
+   takeImage(struct symref * v){
+      if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='P'){
+         return ((struct symref *)getElement_sym((struct utils *)v));
+      } else if (type(getElement_sym((struct utils *)v))=='N'){
+         return takeImage(getElement_sym((struct utils *)v));
+      } else{
+         yyerror("The variable is not an image!");
+         exit(0);
+      }
+   }
 
 void
 listError(struct ast * v){
@@ -793,7 +814,7 @@ yyerror(char * s, ...) {
    fprintf(stderr, "%d: error: ", yylineno);
    vfprintf(stderr, s, ap);
    fprintf(stderr, "\n");
-   /exit(0);
+   exit(0);
 }
 
 int
