@@ -144,6 +144,7 @@ struct utils *
          return v;
       case b_pop:
          argumentsCheck(f, 1);
+         printf("pop\n");
          pop( ((struct symref * ) v) );
          return v;
       case b_length:
@@ -364,11 +365,13 @@ pop(struct symref * e){
       yyerror("The list does not exist!");
       exit(0);
    }
+   
 
    if(listCheck(e)==0){
       printf("The list is empty\n");
       return;
    }
+   
 
    if(!(temp->n)){
       printf("Removed element: ");

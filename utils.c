@@ -482,11 +482,6 @@ struct ast *
          exit(0);
       }
 
-      if(listCheck((struct symref *) l)!=-1){
-         yyerror("Can't add list in declaration, use insert or push!");
-         exit(0);
-      }
-
       li->s=setList(((struct utils *)l));
       li->n=((struct list *)r);
       li->nodetype='l';
@@ -633,7 +628,7 @@ struct utils *
 struct symbol *
    setList(struct utils * v){ 
       struct symbol * s=malloc(sizeof(struct symbol));
-      unassignedError(v);
+
       if(type(v) == 'i'){
          s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
       }else if(type(v) == 'D'){
