@@ -1,0 +1,26 @@
+// Working comparison operators
+
+if(5>3)then{
+	print(">");
+};
+
+if(3<5)then{
+	print("<");
+};
+
+if(5>=5)then{
+	print(">=");
+};
+
+if(5<=5)then{
+	print("<=");
+};
+
+if(5==5)then{
+	print("==");
+};
+
+val=(5>3);
+print(val);
+
+// -------------------------------------------

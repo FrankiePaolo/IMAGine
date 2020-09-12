@@ -1,35 +1,33 @@
-// Working flows
+// Working list operations
+
 list check={1,2,3};
 print(check);
 len=length(check);
-print("length is "+len);
+print("Length of list is "+len);
 print("-------------------");
 
-list li={1,2,3,"string"};
+list li={4,5,6,"string"};
 
 foreach(var:li){
 	print(var);
 }
 
 print("-------------------");
-list li2={-4.5,-5.6,"other"};
+list li2={-4.5,-4.6,"other string"};
 push(li,li2);
-push(li, 5);
 print(li);
 lenli=length(li);
-print("length is "+lenli);
+print("Length of list is "+lenli);
 print("-------------------");
 
 // -------------------------------------------
 
-//pop(li);
-remove(li,5 );
-print("-------------------");
-print(li);
-lenli=length(li);
-print("length is "+lenli);
-print("-------------------");
 pop(check);
-print("-------------------");
 print(check);
+print("-------------------");
+pop(li);
+print(li);
+print("-------------------");
+
+
 pop(5);
