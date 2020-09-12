@@ -10,12 +10,13 @@ print("-------------------");
 
 list li2={-4.5,-5.6,"other"};
 list li3={"has to", "work"};
-list li4={"list of list",li3};
+list li4={"list of list"};
 
+insert(li4, li4, 2);
 push(li,li2);
-push(li2, li3);
-print(li);
-pop(li);
 
+push(li2, li3);
+print(li4);
+//pop(li);
 
 // -------------------------------------------

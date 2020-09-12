@@ -482,6 +482,11 @@ struct ast *
          exit(0);
       }
 
+      if(listCheck((struct symref *) l)!=-1){
+         yyerror("Can't add list in declaration, use insert or push!");
+         exit(0);
+      }
+
       li->s=setList(((struct utils *)l));
       li->n=((struct list *)r);
       li->nodetype='l';

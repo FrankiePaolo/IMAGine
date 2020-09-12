@@ -245,7 +245,7 @@ insert(struct symref * e, struct utils * v, struct utils * s){
    }
    if( type(s)=='i' || (type(s)=='N' && type(getElement_sym(s))=='i') ){
       index=getElement_i(s);
-      if( index>getElement_i(length(e))){
+      if( index>(getElement_i(length(e))+1)){
          printf("The index cannot be bigger than list length\n");
          return;
       }else if(index<1){
@@ -254,6 +254,10 @@ insert(struct symref * e, struct utils * v, struct utils * s){
       }
    }else{
       yyerror("The index must be an integer\n");
+      exit(0);
+   }
+   if(listCheck((struct symref *)v)!=-1 && strcmp(e->s->name, ((struct symref *)v)->s->name)==0){
+      yyerror("Can't insert the same list!");
       exit(0);
    }
 
@@ -334,7 +338,7 @@ push(struct symref * e,struct utils * v){
       yyerror("The list does not exist!");
       exit(0);
    }
-   if(e==v){
+   if(listCheck((struct symref *)v)!=-1 && strcmp(e->s->name, ((struct symref *)v)->s->name)==0){
       yyerror("Can't insert the same list!");
       exit(0);
    }
