@@ -374,6 +374,7 @@ push(struct symref * e,struct utils * v){
 void
 pop(struct symref * e){
    struct list * temp = e->s->li;
+   printf("here");
 
    if(listCheck(e)==-1){
       yyerror("The list does not exist!");
