@@ -30,5 +30,4 @@ print("-------------------");
 pop(check);
 print("-------------------");
 print(check);
-img im="/home/frank/Desktop/Img/image.jpg";
-pop(im);
+pop(im,5,34);

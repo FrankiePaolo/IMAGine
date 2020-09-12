@@ -79,12 +79,6 @@ argumentsCheck(struct fncall * f, int index){
       }while(node->r && node->nodetype=='L');
    }
 
-   /*
-   while(node->r && node->nodetype=='L'){
-      node=node->r;
-      counter++;
-   }*/
-
    if(counter<index){
       yyerror("Too few arguments for the function! Requested: %d but given: %d!", index, counter);
       exit(0);
