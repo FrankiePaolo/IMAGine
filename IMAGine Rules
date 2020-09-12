@@ -43,57 +43,57 @@
     /* Image Method */
         img name_variable = " /path.format ";                                                               /* Declare image variable */
 
-        int width(img name_image);                                                                          /* Returns the number of pixels across the image */
-        int height(img name_image);                                                                         /* Returns the number of pixels down the image */
-        int bands(img name_image);                                                                          /* Returns the number of bands(channels) in the image */
-        double min(img name_image);                                                                         /* Returns the minimum value in an image */
-        double max(img name_image);                                                                         /* Returns the maximum value in an image */
-        double average(img name_image);                                                                     /* Returns the average value in an image */
-        img invert(img name_image, char* output_path);                                                      /* Returns the inverted image and saves it in "output_path" */
-        img histEq(img name_image, char* output_path);                                                      /* Returns the input image with an equalized histogram and saves it in "output_path" */
-        img normalise(img name_image, char* output_path);                                                   /* Returns the input image with a normalized histogram and saves it in "output_path" */
-        img canny(img name_image, char* output_path);                                                       /* Finds the edge in the input image with the Canny method,returns it and saves it in "output_path" */
-        img sobel(img name_image, char* output_path);                                                       /* Finds the edges in the input image with the Sobel edge detector method, returns it and saves it in "output_path" */
-        img sharpen(img name_image, char* output_path);                                                     /* Performs a gaussian blur and subtracts it from the input image to generate a high-frequency signal, returns it and saves it in "output_path" */
-        img convert(img name_image, char* output_path);                                                     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
+        integer width(img name_image);                                                                          /* Returns the number of pixels across the image */
+        integer height(img name_image);                                                                         /* Returns the number of pixels down the image */
+        integer bands(img name_image);                                                                          /* Returns the number of bands(channels) in the image */
+        doublePrecision min(img name_image);                                                                         /* Returns the minimum value in an image */
+        doublePrecision max(img name_image);                                                                         /* Returns the maximum value in an image */
+        doublePrecision average(img name_image);                                                                     /* Returns the average value in an image */
+        img invert(img name_image, str output_path);                                                      /* Returns the inverted image and saves it in "output_path" */
+        img histEq(img name_image, str output_path);                                                      /* Returns the input image with an equalized histogram and saves it in "output_path" */
+        img normalise(img name_image, str output_path);                                                   /* Returns the input image with a normalized histogram and saves it in "output_path" */
+        img canny(img name_image, str output_path);                                                       /* Finds the edge in the input image with the Canny method,returns it and saves it in "output_path" */
+        img sobel(img name_image, str output_path);                                                       /* Finds the edges in the input image with the Sobel edge detector method, returns it and saves it in "output_path" */
+        img sharpen(img name_image, str output_path);                                                     /* Performs a gaussian blur and subtracts it from the input image to generate a high-frequency signal, returns it and saves it in "output_path" */
+        img convert(img name_image, str output_path);                                                     /* Returns the converted input image with the specified format in "output_path" and saves it in "output_path" */
                                 format allowed:         tif
                                                         jpeg
                                                         jpg
                                                         hdr
                                                         raw
-        img convertColorSpace(img name_image, char* output_path, char* space);                              /* Returns the input image but moves it to differt color space and saves it in "output_path" */
-                                char* space can be:     grey16              // generic 16-bit mono
+        img convertColorSpace(img name_image, str output_path, str space);                              /* Returns the input image but moves it to differt color space and saves it in "output_path" */
+                                str space can be:     grey16              // generic 16-bit mono
                                                         hsv                 // pixels are HSV
                                                         yxy                 // pixels are CIE Yxy
                                                         lch                 // pixels are in CIE LCh space
                                                         cmc                 // a uniform colourspace based on CMC(1:1)
                                                         lab                 // pixels are in CIE Lab space
-        img add(img name_image1, img name_image2, char* output_path);                                       /* Returns the bitwise sum of the pixels of the 2 images and saves it in "output_path" */
-        img subtract(img name_image1, img name_image2, char* output_path);                                  /* Returns the bitwise difference of the pixels of the 2 images and saves it in "output_path" */
-        img rotate(img name_image, char* output_path, double rotate_angle);                                 /* Returns the rotated input image by the rotate_angle and saves it in "output_path" */
-        img flip(img name_image, char* output_path, char* direction);                                       /* Returns the flipped input image with the specified direction and saves it in "output_path" */
+        img add(img name_image1, img name_image2, str output_path);                                       /* Returns the bitwise sum of the pixels of the 2 images and saves it in "output_path" */
+        img subtract(img name_image1, img name_image2, str output_path);                                  /* Returns the bitwise difference of the pixels of the 2 images and saves it in "output_path" */
+        img rotate(img name_image, str output_path, doublePrecision rotate_angle);                                 /* Returns the rotated input image by the rotate_angle and saves it in "output_path" */
+        img flip(img name_image, str output_path, str direction);                                       /* Returns the flipped input image with the specified direction and saves it in "output_path" */
                                 direction allowed:      hor                 //Horizontal flip
                                                         ver                 //Vertical flip
-        img gaussianBlur(img name_image, char* output_path, double mask_dim);                               /* Returns the blurred input image with a gaussian mask of size mask_dim and saves it in "output_path" */
-        img smartCrop(img name_image, char* output_path, double width, double height);                      /* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
-        img zoom(img name_image, char* output_path, int xfactor, int xfactor);                              /* Returns the zoomed input image by repeating pixels. This is fast nearest-neighbour zoom. It saves it in "output_path" */
-        img crop(img name_image, char* output_path, double left, double top, double width, double height);  /* Extract an area with coordinates left, top and of size width, height from an image ,returns it and saves it in "output_path" */
+        img gaussianBlur(img name_image, str output_path, doublePrecision mask_dim);                               /* Returns the blurred input image with a gaussian mask of size mask_dim and saves it in "output_path" */
+        img smartCrop(img name_image, str output_path, doublePrecision width, doublePrecision height);                      /* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
+        img zoom(img name_image, str output_path, integer xfactor, integer xfactor);                              /* Returns the zoomed input image by repeating pixels. This is fast nearest-neighbour zoom. It saves it in "output_path" */
+        img crop(img name_image, str output_path, doublePrecision left, doublePrecision top, doublePrecision width, doublePrecision height);  /* Extract an area with coordinates left, top and of size width, height from an image ,returns it and saves it in "output_path" */
     /* End Image Method */
 
     /* List Method */
         list list_name={element_1, element_2,..., element_n};                                               /* Declares list. Users can also define empty lists by simply not providing elements */
                     list accept miscellanus type so element can be:
-                                                        int
-                                                        double
+                                                        integer
+                                                        doublePrecision
                                                         string
                                                         image
                                                         variable
 
-        int length(list list_name);                                                                         /* Returns the number of elements in the list */
+        integer length(list list_name);                                                                         /* Returns the number of elements in the list */
         void push(list list_name, element);                                                                 /* Appends the element to the list */
-        void insert(list list_name, element, int position);                                                 /* Inserts element in the given position */
-        void remove(list list_name, int position);                                                          /* Removes element from the given position */
+        void insert(list list_name, element, integer position);                                                 /* Inserts element in the given position */
+        void remove(list list_name, integer position);                                                          /* Removes element from the given position */
         element pop(list list_name);                                                                        /* Removes and returns the last element */
-        element get(list list_name, int position);                                                          /* Returns the element in the given position */ 
+        element get(list list_name, integer position);                                                          /* Returns the element in the given position */ 
     /* End List Method */
 /* End Built-In Functions */
