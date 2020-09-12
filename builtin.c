@@ -135,21 +135,27 @@ struct utils *
          val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v)); //image
          return val;
       case b_get:
+         argumentsCheck(f, 2);
          val=get( ((struct symref *)findNode(f, 1)),v);
          return val;
       case b_push:
+         argumentsCheck(f, 2);
          push( ((struct symref *)findNode(f, 1)),v);
          return v;
       case b_pop:
+         argumentsCheck(f, 1);
          pop( ((struct symref * ) v) );
          return v;
       case b_length:
+         argumentsCheck(f, 1);
          val= length( ((struct symref * ) v) );
          return val;
       case b_insert:
+         argumentsCheck(f, 3);
          insert(((struct symref *)findNode(f, 1)), ((struct utils *)findNode(f, 2)), v);
          return v;
       case b_remove:
+         argumentsCheck(f, );
          list_remove( ((struct symref *)findNode(f, 1)),v);
          return v;
       default:

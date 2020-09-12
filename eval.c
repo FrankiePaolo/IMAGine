@@ -228,7 +228,7 @@ struct utils *
             }while((temp_li=temp_li->n));
          }else{
             yyerror("Li is is not a list!");
-		exit(0);
+		      exit(0);
          }
          break;
       case 'L':
