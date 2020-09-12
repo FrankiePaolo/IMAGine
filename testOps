@@ -2,11 +2,11 @@
 
 list temp={};
 
-if(5>3.3)then{
+if(5>3.3 && 1==1 && (5>20 || 1==1))then{
 	print(">");
 };
 
-if(3<6)then{
+if(3<3)then{
 	print("<");
 };
 

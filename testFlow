@@ -31,6 +31,23 @@ foreach(temp:li){
 print("------");
 print(li);
 
+print("------");
+img im="/home/frank/Desktop/Img/image.jpg";
+img rotated="/home/frank/Desktop/Img/rotated.jpg";
+
+out1="/home/frank/Desktop/Img/image.tif";
+out2="/home/frank/Desktop/Img/rotated.tif";
+
+
+list imgLi={im,rotated};
+list outLi={out1,out2};
+
+counterLi=1;
+foreach(tempLi:imgLi){
+	convert(tempLi,get(outLi,counterLi));
+	counterLi=counterLi+1;
+}
+
 // -------------------------------------------
 
 
