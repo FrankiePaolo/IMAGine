@@ -703,7 +703,7 @@ struct utils *
       struct utils ** oldval, ** newval; /* saved arg values */
       struct utils * v;
       int nargs;
-      int i;
+      int i, counter=0;
 
       if (!fn -> func) {
          yyerror("Call to undefined function", fn -> name);
@@ -720,7 +720,7 @@ struct utils *
       oldval = malloc(sizeof(struct utils * ) * nargs);
       newval = malloc(sizeof(struct utils * ) * nargs);
       if (!oldval || !newval) {
-         yyerror("Out of space in %s", fn -> name);
+         yyerror("Out of space in %s.", fn -> name);
 		   exit(0);
       }
 
@@ -732,6 +732,7 @@ struct utils *
             free(newval);
             exit(0);
          }
+         counter++;
          if (args -> nodetype == 'L') {
             /* if this is a list node */
             newval[i] = eval(args -> l);
@@ -741,6 +742,9 @@ struct utils *
             newval[i] = eval(args);
             args = NULL;
          }
+      }
+      if (args -> r){
+         printf("WARNING: Too many args in call to %s, the function will still work properly.\n", fn -> name);
       }
 
       /* save old values of dummies, assign new ones */
