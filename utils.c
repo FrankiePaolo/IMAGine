@@ -230,9 +230,9 @@ struct list *
 
 int
    listCheck(struct symref * v){
-      if(v->s->li && type( getElement_sym( (struct utils *)v ) ) =='l'){
+      if(type((struct utils *)v)=='N' && v->s->li && type( getElement_sym( (struct utils *)v ) ) =='l'){
          return 1;
-      } else if( type( getElement_sym( (struct utils *)v ) ) =='l' ){
+      } else if(type((struct utils *)v)=='N' && type( getElement_sym( (struct utils *)v ) ) =='l'){
          return 0;
       } else {
          return -1;

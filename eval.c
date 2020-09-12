@@ -215,9 +215,7 @@ struct utils *
          }
          break; 
       case 'E':
-         listCheck( ((struct symref *)((struct flow * ) a)->cond->r) ); //Use this
-         
-         if(((struct symref *)((struct flow * ) a)->cond->r)->s->li || ((struct flow * ) a) -> tl){
+         if(listCheck( ((struct symref *)((struct flow * ) a)->cond->r) )==1){
             struct list * temp_li = ((struct symref *)(((struct flow * ) a)->cond)->r)->s->li;
             struct symref * temp_ref=((struct symref *)((struct flow * ) a)->cond->l);
             do{
@@ -226,9 +224,11 @@ struct utils *
                   v = eval(((struct flow * ) a) -> tl);
                }
             }while((temp_li=temp_li->n));
+         }else if(listCheck( ((struct symref *)((struct flow * ) a)->cond->r) )==0){
+            printf("Cannot go through an empty list!\n");
          }else{
-            yyerror("Li is is not a list!");
-		exit(0);
+            yyerror("Please iterate through a list!");
+		      exit(0);
          }
          break;
       case 'L':
