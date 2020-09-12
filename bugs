@@ -15,7 +15,7 @@ print("---------");
 def mySum(a,b,c){
 	print(get(b,1));
 	push(b,"myList");
-	insert(b,"inserted",4);
+	remove(b,3);
 }
 
 //string="ciao";
