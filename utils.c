@@ -69,9 +69,14 @@ argumentsCheck(struct fncall * f, int index){
    struct ast * node=f->l;
    int counter=1;
 
-   while(node->r && node->nodetype=='L'){
-      node=node->r;
-      counter++;
+   if(type(node) =='i' || type(node) =='D'){
+      yyerror("The argument provided is not a list!");
+      exit(0);
+   }else if(node->r && node->nodetype=='L'){
+      do{
+         node=node->r;
+         counter++;
+      }while(node->r && node->nodetype=='L');
    }
 
    if(counter<index){
