@@ -252,7 +252,11 @@ insert(struct symref * e, struct utils * v, struct utils * s){
          if(index==1){
             li->n=temp;
             li->s=setList(v);
-            e->s->li=li;
+            if(type((struct utils *)e)=='N' && type(getElement_sym((struct utils *)e))=='N'){
+               ((struct symref *)(getElement_sym((struct utils *)v)))->s->li=li;
+            } else{
+               e->s->li=li;
+            }
             break;
          }else if(counter==(index-1)){
             li->n=temp->n;
