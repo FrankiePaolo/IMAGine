@@ -8,10 +8,17 @@ list li={"ciao","suca"};
 
 //print(get(li,1));
 print("---------");
+//insert(li,"inserted",1);
+print(li);
+print("---------");
 
 def mySum(a,b,c){
 	print(get(b,1));
+	push(b,"myList");
+	insert(b,"inserted",4);
 }
 
 //string="ciao";
 mySum(im,li,3);
+print("---------");
+print(li);
