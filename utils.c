@@ -45,8 +45,7 @@ struct symbol *
             sp = symtab; /* try the next entry */
          }
       }
-      yyerror("Symbol table overflow!");
-      exit(0); /* tried them all, table is full */
+      yyerror("Symbol table overflow!"); /* tried them all, table is full */
 
    }
 
@@ -60,7 +59,6 @@ getPath(struct ast * p){
       return getPath(((struct ast *)getElement_sym((struct utils *)p)));
    }else{
       yyerror("Not a string!");
-      exit(0);
    }
 }
 
@@ -76,10 +74,8 @@ argumentsCheck(struct fncall * f, int index){
 
    if(counter<index){
       yyerror("Too few arguments for the function! Requested: %d but given: %d!", index, counter);
-      exit(0);
    }else if( counter>index){
       yyerror("Too many arguments for the function! Requested: %d but given: %d!", index, counter);
-      exit(0);
    }
 }
 
@@ -91,7 +87,6 @@ findNode(struct fncall * f, int index){
    while(counter<index){
       if(!(node->r)){
          yyerror("Wrong arguments for the function!");
-         exit(0);
       } 
       node=node->r;
       counter++;
@@ -99,13 +94,11 @@ findNode(struct fncall * f, int index){
       if(!node){
          free(node);
          yyerror("Node does not exist!\n");
-         exit(0);
       }
    }
 
    if(!(node->l)){
          yyerror("Wrong arguments for the function!");
-         exit(0);
       } 
    node=node->l;
    return node;
@@ -128,7 +121,6 @@ type(struct utils * v){
   	   return v->nodetype;
 	} else {
 		yyerror("NULL value detected");
-      exit(0);
 	}
 }
 
@@ -148,7 +140,6 @@ putElement_d(struct utils * v,double d){
       ((struct doublePrecision * ) v) -> d=d;
    } else {
 		yyerror("NULL value detected");
-		exit(0);
 	}
 }
 
@@ -158,7 +149,6 @@ putElement_s(struct utils * v,char * s){
       ((struct str * ) v) -> str=strdup(s);
    } else {
 		yyerror("NULL value detected");
-		exit(0);
 	}
 }
 
@@ -170,7 +160,6 @@ getElement_i(struct utils * v){
       return getElement_i(getElement_sym(v));
    } else{
 		yyerror("NULL value detected");
-		exit(0);
 	}
 }
 
@@ -182,7 +171,6 @@ getElement_d(struct utils * v){
       return getElement_d(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
-		exit(0);
 	}
 }
 
@@ -194,7 +182,6 @@ getElement_s(struct utils * v){
       return getElement_s(getElement_sym(v));
    } else {
 		yyerror("NULL value detected");
-		exit(0);
    }
 }
 
@@ -214,7 +201,6 @@ getElement_li(struct list * v){
       return v->s->value; 
    } else {
 		yyerror("NULL value detected");
-		exit(0);
 	}
 }
 
@@ -224,7 +210,6 @@ struct list *
          return ((struct symref * ) v) -> s->li; 
       } else {
          yyerror("NULL value detected");
-		   exit(0);
       }
 }
 
@@ -259,7 +244,6 @@ VipsInterpretation
          space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
       }else {
          yyerror("Wrong space type, check the manual for allowed types!");
-         exit(0);
       }
       return space;
 }
@@ -275,7 +259,6 @@ double
          return getValue( ((struct ast *)getElement_sym( ((struct utils *)v) )) );
       }else{
          yyerror("The value must be a number!");
-         exit(0);
       }
       return value;
 }
@@ -286,7 +269,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = nodetype;
       a -> l = l;
@@ -301,7 +283,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
 
       a -> nodetype = 'P'; //P as in picture
@@ -322,7 +303,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
 
       a -> nodetype = 'S';
@@ -336,7 +316,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
 
       a -> nodetype = 'i';
@@ -356,7 +335,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
 
       a -> nodetype = 'D';
@@ -377,7 +355,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = '0' + cmptype;
       a -> l = l;
@@ -391,7 +368,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = 'F';
       a -> l = l;
@@ -405,7 +381,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = 'C';
       a -> l = l;
@@ -419,7 +394,6 @@ struct ast *
       
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = 'N';
       a -> s = s;
@@ -436,7 +410,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = '=';
       a -> s = s;
@@ -450,7 +423,6 @@ struct ast *
 
       if (!a) {
          yyerror("out of space");
-         exit(0);
       }
       a -> nodetype = nodetype;
       a -> cond = cond;
@@ -465,7 +437,6 @@ struct symlist *
 
       if (!sl) {
          yyerror("out of space");
-         exit(0);
       }
       sl -> sym = sym;
       sl -> next = next;
@@ -479,7 +450,6 @@ struct ast *
 
       if (!li) {
          yyerror("out of space");
-         exit(0);
       }
 
       li->s=setList(((struct utils *)l));
@@ -575,11 +545,9 @@ struct utils *
          }
       } else {
          yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
-		   exit(0);
       }
       if (v == NULL) {
          yyerror("Out of space");
-         exit(0);
       }
       return v;
    }
@@ -613,13 +581,10 @@ struct utils *
          return setNodeType(getElement_sym(l), getElement_sym(r));
       } else if ( type(l) == 'l' || type(r) == 'l' ) {
          yyerror("Cannot perform operations with list, use appropriate method!\n");
-         exit(0);
       } else if ( type(l) == 'P' || type(r) == 'P' ) {
          yyerror("Cannot perform operations with image, use appropriate method!\n");
-         exit(0);
       } else {
          yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
-         exit(0);
       } 
       return v;
    }
@@ -637,7 +602,6 @@ struct symbol *
          struct str * a = malloc(sizeof(struct str));
          if (!a) {
             yyerror("out of space");
-            exit(0);
          }
          a -> nodetype = 'S';
          a -> str = strndup(  ((struct str *)v)->str,strlen(((struct str *)v)->str)  );
@@ -646,7 +610,6 @@ struct symbol *
          s=((struct symref *)v)->s;
       }else{
         yyerror("Nodetype not found");
-        exit(0);
       }
       return s;
    }
@@ -672,7 +635,6 @@ void
 unassignedError(struct utils * temp1){
    if( (type(temp1)== 'N' && type(getElement_sym(temp1))== 'U') ){
       yyerror("Variable '%s' is not assigned! Can't work with unassigned value!", ((struct symref *)temp1)->s->name);
-      exit(0);
    }
 }
 
@@ -680,10 +642,8 @@ void
 imageError(struct ast * v){
    if( ((struct symref * ) v)->nodetype != 'N' ){
       yyerror("The variable is not an image! This method only works with image variables!");
-      exit(0);
    }else if( ((struct symref * ) v)->s->value->nodetype!='P') {
       yyerror("Variable '%s' is not an image! This method only works with image variables!", ((struct symref *)v)->s->name);
-      exit(0);
    }
 }
 
@@ -691,7 +651,6 @@ void
 listError(struct ast * v){
    if(listCheck((struct symref * ) v)==-1){
       yyerror("The variable is not a list! This method only works with list variables!");
-      exit(0);
    }
 }
 
@@ -707,7 +666,6 @@ struct utils *
 
       if (!fn -> func) {
          yyerror("Call to undefined function", fn -> name);
-		   exit(0);
       }
 
       /* count the arguments */
@@ -721,7 +679,6 @@ struct utils *
       newval = malloc(sizeof(struct utils * ) * nargs);
       if (!oldval || !newval) {
          yyerror("Out of space in %s.", fn -> name);
-		   exit(0);
       }
 
       /* evaluate the arguments */
@@ -730,7 +687,6 @@ struct utils *
             yyerror("Too few arguments provided in call to %s", fn -> name);
             free(oldval);
             free(newval);
-            exit(0);
          }
          if (args -> nodetype == 'L') {
             /* if this is a list node */
@@ -823,7 +779,6 @@ treefree(struct ast * a) {
 
    default:
       yyerror("Internal error: free bad node %c\n", a -> nodetype);
-      exit(0);
    }
 
    free(a); /* always free the node itself */
@@ -838,6 +793,7 @@ yyerror(char * s, ...) {
    fprintf(stderr, "%d: error: ", yylineno);
    vfprintf(stderr, s, ap);
    fprintf(stderr, "\n");
+   /exit(0);
 }
 
 int

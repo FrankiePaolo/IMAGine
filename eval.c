@@ -14,7 +14,6 @@ struct utils *
 
       if (!a) {
          yyerror("internal error, null eval");
-         exit(0);
       }
       
       switch (a -> nodetype) {
@@ -228,7 +227,6 @@ struct utils *
             printf("Cannot go through an empty list!\n");
          }else{
             yyerror("Please iterate through a list!");
-		      exit(0);
          }
          break;
       case 'L':
@@ -241,7 +239,6 @@ struct utils *
 
       default:
          yyerror("Internal error: bad node %c\n", a -> nodetype);
-		   exit(0);
       }
 
       return v;
