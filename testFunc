@@ -1,15 +1,13 @@
 // Working flows 
 
-list li={1,2,3};
+list li={1,2,3,"string"};
 
 foreach(var:li){
 	print(var);
 }
 
-gatto="gatto";
-push(li,"gatto");
-print("-----------");
-foreach(var:li){
-	print(var);
-}
+print("-------------------");
+list li2={-3.5,-3.6,"other"};
 
+push(li,li2);
+print(li);
