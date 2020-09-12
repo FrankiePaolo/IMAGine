@@ -1,10 +1,12 @@
 // Working comparison operators
 
-if(5>3)then{
+list temp={};
+
+if(5>3.3)then{
 	print(">");
 };
 
-if(3<5)then{
+if(3<6)then{
 	print("<");
 };
 

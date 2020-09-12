@@ -45,7 +45,7 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       sum(v, getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type on sum, %c %c", type(l), type(r));
+      yyerror("Cannot perform the sum operation on given values");
       exit(0);
    }
 }
@@ -68,7 +68,7 @@ subtract(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       subtract(v, getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type on subtract, %c %c", type(l), type(r));
+      yyerror("Cannot perform the subtract operation on given values");
       exit(0);
    }
 }
@@ -103,7 +103,7 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       multiply(v, getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type on multiplication, %c %c", type(l), type(r));
+      yyerror("Cannot perform the multipy operation on given values");
       exit(0);
    }
 }
@@ -137,7 +137,7 @@ divide(struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       v=divide(getElement_sym(l), getElement_sym(r));
    } else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the division operation on given values");
       exit(0);
    }
    return v;
@@ -152,7 +152,7 @@ absoluteValue(struct utils * v, struct utils * l) {
    } else if (type(v) == 'D') {
       putElement_d(v,fabs(getElement_d(l)));
    } else {
-      yyerror("Unexpected type, %c %c", type(l));
+      yyerror("Cannot perform the absolute value operation on given values");
    }
 }
 
@@ -174,7 +174,7 @@ biggerThan(struct utils * v, struct utils * l, struct utils * r) {
    } else if(type(l) == 'D' && type(r) == 'D'){
       putElement_i(v,getElement_d(l) > getElement_d(r) ? 1 : 0);
    }else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the comparison operation (>) on given values");
       exit(0);
    }
 }
@@ -197,7 +197,7 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
    }else if(type(l) == 'D' && type(r) == 'D'){
       putElement_i(v,getElement_d(l) < getElement_d(r) ? 1 : 0);
    }else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the comparison operation (<) on given values");
       exit(0);
    }
 }
@@ -227,7 +227,7 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       unequal( v, getElement_sym(l), getElement_sym(r));
    }else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the comparison operation (!=) on given values");
       exit(0);
    }
 }
@@ -255,7 +255,7 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       equal( v, getElement_sym(l), getElement_sym(r));
    }else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the comparison operation (==) on given values");
       exit(0);
    }
 }
@@ -278,7 +278,7 @@ biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       biggerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the comparison operation (>=) on given values");
       exit(0);
    }
 }
@@ -301,7 +301,7 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'N' && type(r) == 'N') {
       smallerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
-      yyerror("Unexpected type, %c %c", type(l), type(r));
+      yyerror("Cannot perform the comparison operation (<=) on given values");
       exit(0);
    }
 }
