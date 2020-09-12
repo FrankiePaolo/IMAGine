@@ -37,7 +37,7 @@ img rotated="/home/frank/Desktop/Img/rotated.jpg";
 
 out1="/home/frank/Desktop/Img/image.tif";
 out2="/home/frank/Desktop/Img/rotated.tif";
-
+out3="/home/frank/Desktop/Img/myInverted.tif";
 
 list imgLi={im,rotated};
 list outLi={out1,out2};
@@ -47,14 +47,19 @@ foreach(tempLi:imgLi){
 	convert(tempLi,get(outLi,counterLi));
 	counterLi=counterLi+1;
 }
-
-
+invert(im,out3);
 def mySum(a,b,c){
-	d=a+b+c;
+	d=b+c;
+	print(a);
+
+	if(3>2)then{
+		invert(a,out3);
+	};
 	print(d);
 }
 
-mySum(asc,asd,asd);
+string="ciao";
+mySum(im,2,3);
 
 // -------------------------------------------
 

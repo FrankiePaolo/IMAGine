@@ -46,7 +46,6 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
       sum(v, getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Cannot perform the sum operation on given values");
-      exit(0);
    }
 }
 
@@ -69,7 +68,6 @@ subtract(struct utils * v, struct utils * l, struct utils * r) {
       subtract(v, getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Cannot perform the subtract operation on given values");
-      exit(0);
    }
 }
 
@@ -91,8 +89,7 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
             asprintf(&(((struct str * ) v)->str), "%s%s", getElement_s(v), getElement_s(l));
          }
       }else{
-         yyerror("String multiply allowed only for positive integer\n");
-         exit(0);
+         yyerror("String multiply allowed only for positive integer");
       }       
    } else if ((type(l) == 'i' && type(r) == 'S')) {
       multiply(v, r , l); 
@@ -104,7 +101,6 @@ multiply(struct utils * v, struct utils * l, struct utils * r) {
       multiply(v, getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Cannot perform the multipy operation on given values");
-      exit(0);
    }
 }
 
@@ -138,7 +134,6 @@ divide(struct utils * l, struct utils * r) {
       v=divide(getElement_sym(l), getElement_sym(r));
    } else {
       yyerror("Cannot perform the division operation on given values");
-      exit(0);
    }
    return v;
 }
@@ -175,7 +170,6 @@ biggerThan(struct utils * v, struct utils * l, struct utils * r) {
       putElement_i(v,getElement_d(l) > getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Cannot perform the comparison operation (>) on given values");
-      exit(0);
    }
 }
 
@@ -198,7 +192,6 @@ smallerThan(struct utils * v, struct utils * l, struct utils * r) {
       putElement_i(v,getElement_d(l) < getElement_d(r) ? 1 : 0);
    }else {
       yyerror("Cannot perform the comparison operation (<) on given values");
-      exit(0);
    }
 }
 
@@ -228,7 +221,6 @@ unequal(struct utils * v, struct utils * l, struct utils * r) {
       unequal( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Cannot perform the comparison operation (!=) on given values");
-      exit(0);
    }
 }
 
@@ -256,7 +248,6 @@ equal(struct utils * v, struct utils * l, struct utils * r) {
       equal( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Cannot perform the comparison operation (==) on given values");
-      exit(0);
    }
 }
 
@@ -279,7 +270,6 @@ biggerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
       biggerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Cannot perform the comparison operation (>=) on given values");
-      exit(0);
    }
 }
 
@@ -302,6 +292,5 @@ smallerOrEqual(struct utils * v, struct utils * l, struct utils * r) {
       smallerOrEqual( v, getElement_sym(l), getElement_sym(r));
    }else {
       yyerror("Cannot perform the comparison operation (<=) on given values");
-      exit(0);
    }
 }

@@ -202,11 +202,9 @@ push(struct symref * e,struct utils * v){
 
    if (!li) {
       yyerror("Out of space");
-      exit(0);
    }
    if(listCheck((struct symref *)v)!=-1 && strcmp(e->s->name, ((struct symref *)v)->s->name)==0){
       yyerror("Can't insert the same list!");
-      exit(0);
    }
 
    if(!(temp)){
@@ -232,7 +230,6 @@ insert(struct symref * e, struct utils * v, struct utils * s){
 
    if (!li) {
       yyerror("out of space");
-      exit(0);
    }
    if( type(s)=='i' || (type(s)=='N' && type(getElement_sym(s))=='i') ){
       index=getElement_i(s);
@@ -241,15 +238,12 @@ insert(struct symref * e, struct utils * v, struct utils * s){
          return;
       }else if(index<1){
          printf("The index cannot be less than 1\n");
-		   exit(0);
       }
    }else{
       yyerror("The index must be an integer\n");
-      exit(0);
    }
    if(listCheck((struct symref *)v)!=-1 && strcmp(e->s->name, ((struct symref *)v)->s->name)==0){
       yyerror("Can't insert the same list!");
-      exit(0);
    }
 
    if( index==(getElement_i(length(e))+1) ){
@@ -286,11 +280,9 @@ list_remove(struct symref * e, struct utils * v){
          return;
       }else if(index<1){
          printf("The index cannot be less than 1!\n");
-		   exit(0);
       }
    }else{
       yyerror("The index must be an integer\n");
-      exit(0);
    }
    
    if( index==getElement_i(length(e)) ){
@@ -371,11 +363,9 @@ get(struct symref * e,struct utils * v){
          return NULL;
       }else if(index<1){
          yyerror("The index cannot be less than 1\n");
-		   exit(0);
       }
    }else{
       yyerror("The index must be an integer\n");
-      exit(0);
    }
    if(listCheck(e)==0){
       printf("The list is empty\n");
@@ -399,7 +389,6 @@ print_B(struct utils * v) {
 
    if(!v){
       yyerror("NULL pointer can't be printed!");
-      exit(0);
    } else if (type(v) == 'i') {
       printf("%d\n", getElement_i(v));
    } else if (type(v) == 'D') {
@@ -434,6 +423,5 @@ print_B(struct utils * v) {
       } while((li=li->n));
    } else {
       yyerror("Node not found in function print: %i", type(v));
-      exit(0);
    }
 }

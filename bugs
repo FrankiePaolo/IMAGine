@@ -1,0 +1,2 @@
+img im="/home/frank/Desktop/Img/image.jpg";
+print(im+2);

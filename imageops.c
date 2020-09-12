@@ -320,8 +320,7 @@ flip(struct symref * l,struct ast * v,struct ast * s){
    }else if(!strcmp(str,"ver")){
       direction=VIPS_DIRECTION_VERTICAL;
    }else{
-      yyerror("Third parameter error, needs to be 'hor' or 'ver'!");
-      exit(0);
+      yyerror("Third parameter error, needs to be 'hor' or 'ver'!")
    }
 
    if (vips_flip((((struct img * ) temp1) -> img), & out, direction, NULL)) {
@@ -446,8 +445,7 @@ saveImage(char * in, VipsImage * out, char * path){
       saveImage(in, out, path);
    } else{
       if((strcmp(suffix, "png"))==0){
-         yyerror("PNG is unfortunatly not supported by our lib! See you soon!");
-         exit(0);
+         yyerror("PNG is unfortunatly not supported by our lib! See you soon!")
       } else if((strcmp(suffix, "tif"))==0){
          if (vips_tiffsave(out, path, NULL)) {
             vips_error_exit(NULL);
