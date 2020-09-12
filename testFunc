@@ -1,0 +1,11 @@
+// Working flows 
+
+list li={1,2,3};
+
+foreach(var:li){
+	print(var);
+}
+
+push(li,li);
+print("-----------");
+print(li);
