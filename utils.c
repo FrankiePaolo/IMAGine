@@ -649,11 +649,13 @@ struct symbol *
          s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
       }else if(type(v) == 'D'){
          s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
+      }else if(type(v) == 'S'){
+         s->value=((struct utils *)newstring( ((struct str *)v)->str ));
       }else if(type(v) == 'N'){
          s=((struct symref *)v)->s;
       }else{
-        printf("Nodetype not found\n");
-        return NULL;
+        yyerror("Nodetype not found");
+        exit(0);
       }
       return s;
    }

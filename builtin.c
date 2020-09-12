@@ -155,7 +155,7 @@ struct utils *
          insert(((struct symref *)findNode(f, 1)), ((struct utils *)findNode(f, 2)), v);
          return v;
       case b_remove:
-         argumentsCheck(f, );
+         argumentsCheck(f, 2);
          list_remove( ((struct symref *)findNode(f, 1)),v);
          return v;
       default:
@@ -330,9 +330,12 @@ push(struct symref * e,struct utils * v){
       yyerror("Out of space");
       exit(0);
    }
-
    if(listCheck(e)==-1){
       yyerror("The list does not exist!");
+      exit(0);
+   }
+   if(listCheck( ((struct symref * )v) )>=0){
+      yyerror("The element can't be a list!");
       exit(0);
    }
 
@@ -406,7 +409,7 @@ print_B(struct utils * v) {
    } else if (type(v) == 'N') {
       print_B( getElement_sym(v) );
    } else {
-      yyerror("Node not found in function print: %i\n", type(v));
+      yyerror("Node not found in function print: %i", type(v));
       exit(0);
    }
 }
