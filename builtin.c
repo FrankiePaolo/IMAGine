@@ -313,11 +313,25 @@ list_remove(struct symref * e, struct utils * v){
          if(index==1){
             e->s->li=temp->n;
             printf("Removed element: ");
-            print_B(temp->s->value);
+
+            if(type(temp->s->value)=='l'){
+               printf("%s. This is a list\n", temp->s->name);
+            }else{
+               print_B(temp->s->value);
+            }
+            
+            //print_B(temp->s->value);
             break;
          }else if(counter==(index-1)){
             printf("Removed element: ");
-            print_B(temp->n->s->value);
+
+            if(type(temp->n->s->value)=='l'){
+               printf("%s. This is a list\n", temp->n->s->name);
+            }else{
+               print_B(temp->n->s->value);
+            }
+
+            //print_B(temp->n->s->value);
             temp->n=temp->n->n;
             break;
          }
@@ -375,7 +389,11 @@ pop(struct symref * e){
 
    if(!(temp->n)){
       printf("Removed element: ");
-      print_B(e->s->li->s->value);
+      if(type(temp->n->s->value)=='l'){
+         printf("%s list\n", temp->n->s->name);
+      }else{
+         print_B(e->s->li->s->value);
+      }
       free(e->s->li);
       e->s->li=NULL;
    }else{
@@ -383,7 +401,11 @@ pop(struct symref * e){
          temp=temp->n;
       }
       printf("Removed element: ");
-      print_B(temp->n->s->value);
+      if(type(temp->n->s->value)=='l'){
+         printf("%s list\n", temp->n->s->name);
+      }else{
+         print_B(temp->n->s->value);
+      }
       free(temp->n);
       temp->n=NULL;
    }

@@ -14,6 +14,7 @@ foreach(var:li){
 print("-------------------");
 list li2={-4.5,-5.6,"other"};
 push(li,li2);
+push(li, 5);
 print(li);
 lenli=length(li);
 print("length is "+lenli);
@@ -22,6 +23,7 @@ print("-------------------");
 // -------------------------------------------
 
 //pop(li);
+remove(li,5 );
 print("-------------------");
 print(li);
 lenli=length(li);
@@ -30,4 +32,4 @@ print("-------------------");
 pop(check);
 print("-------------------");
 print(check);
-pop(5);
+//pop(5);
