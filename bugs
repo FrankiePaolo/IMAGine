@@ -1,17 +1,15 @@
-img im="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/a.jpg";
+img im="/home/frank/Desktop/Img/image.jpg";
+img im2="/home/frank/Desktop/Img/image.jpg";
 
-out3="/home/kali/Desktop/Ingegneria/Linguaggi/Immagini/b.jpg";
+out="/home/frank/Desktop/Img/myImg.jpg";
 print(width(im));
 
-def mySum(a,b,c){
-	d=b+c;
-	print(a);
+list li={1,2};
 
-	if(3>2)then{
-		print(width(a));
-	};
-	print(d);
+
+def mySum(a,b,c){
+	print(get(b,1));
 }
 
 //string="ciao";
-mySum(im,2,3);
+mySum(im,li,3);
