@@ -242,8 +242,8 @@ struct utils *
 add(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l-> s -> value;
-   struct utils * temp2 = r-> s -> value;
+   struct utils * temp1 = takeImage(l);
+   struct utils * temp2 = takeImage(r);
 
    if (vips_add((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
       vips_error_exit(NULL);
@@ -265,8 +265,8 @@ struct utils *
 subtract_img(struct symref * l,struct symref * r,struct ast * p){
    VipsImage * out;
    char * path;
-   struct utils * temp1 = l-> s -> value;
-   struct utils * temp2 = r-> s -> value;
+   struct utils * temp1 = takeImage(l);
+   struct utils * temp2 = takeImage(r);
 
    if (vips_subtract((((struct img * ) temp1) -> img),(((struct img * ) temp2) -> img), & out, NULL)) {
       vips_error_exit(NULL);
