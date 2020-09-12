@@ -1,6 +1,6 @@
-// Working flows 
+// Working flows
 
-list li={1,2,3,"string"};
+list li={5,2,3,"string"};
 
 foreach(var:li){
 	print(var);
@@ -8,6 +8,8 @@ foreach(var:li){
 
 print("-------------------");
 list li2={-3.5,-3.6,"other"};
+list li3={"ciao", "nonfunzionerà"};
 
 push(li,li2);
+push(li2, li3);
 print(li);

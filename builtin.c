@@ -380,7 +380,7 @@ pop(struct symref * e){
 
 void
 print_B(struct utils * v) {
-   struct list * li;
+   struct list * li, * li2;
 
    if(!v){
       yyerror("NULL pointer can't be printed!");
@@ -398,14 +398,25 @@ print_B(struct utils * v) {
    } else if(listCheck(((struct symref * )v))==1) {
       li=((struct symref * ) v)->s->li;
       do{
-         print_B( getElement_li(li) );
+         if(type(getElement_li(li))!='l'){
+            print_B( getElement_li(li));
+         }else{
+            print_B(li->s->li);
+         }
       } while((li=li->n));
    } else if(listCheck(((struct symref * )v))==0){
       printf("The list is empty\n");
    } else if (type(v) == 'N') {
       print_B( getElement_sym(v) );
    } else if (type(v) == 'l') {
-      print_B( getElement_sym(v));
+      li=(struct list *) v;
+      do{
+         if(type(getElement_li(li))!='l'){
+            print_B( getElement_li(li));
+         }else{
+            print_B(li->s->li);
+         }
+      } while((li=li->n));
    } else {
       yyerror("Node not found in function print: %i", type(v));
       exit(0);

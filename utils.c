@@ -728,7 +728,6 @@ struct utils *
             /* if this is a list node */
             newval[i] = eval(args -> l);
             args = args -> r;
-            //printf("%s\n",fn->func->nodetype);
          } else {
             /* if it's the end of the list */
             newval[i] = eval(args);
