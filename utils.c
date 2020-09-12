@@ -665,9 +665,9 @@ imageError(struct ast * v){
 struct utils *
    takeImage(struct symref * v){
       if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='P'){
-         return ((struct symref *)getElement_sym((struct utils *)v));
+         return getElement_sym((struct utils *)v);
       } else if (type(getElement_sym((struct utils *)v))=='N'){
-         return takeImage(getElement_sym((struct utils *)v));
+         return takeImage((struct symref *)getElement_sym((struct utils *)v));
       } else{
          yyerror("The variable is not an image!");
          exit(0);
