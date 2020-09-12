@@ -6,6 +6,10 @@ foreach(var:li){
 	print(var);
 }
 
-push(li,li);
+gatto="gatto";
+push(li,"gatto");
 print("-----------");
-print(li);
+foreach(var:li){
+	print(var);
+}
+

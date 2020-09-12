@@ -650,7 +650,14 @@ struct symbol *
       }else if(type(v) == 'D'){
          s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
       }else if(type(v) == 'S'){
-         s->value=((struct utils *)newstring( ((struct str *)v)->str ));
+         struct str * a = malloc(sizeof(struct str));
+         if (!a) {
+            yyerror("out of space");
+            exit(0);
+         }
+         a -> nodetype = 'S';
+         a -> str = strndup(  ((struct str *)v)->str,strlen(((struct str *)v)->str)  );
+         s->value=((struct utils *)a);
       }else if(type(v) == 'N'){
          s=((struct symref *)v)->s;
       }else{
