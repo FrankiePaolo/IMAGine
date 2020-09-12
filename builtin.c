@@ -334,6 +334,10 @@ push(struct symref * e,struct utils * v){
       yyerror("The list does not exist!");
       exit(0);
    }
+   if(e==v){
+      yyerror("Can't insert the same list!");
+      exit(0);
+   }
 
    if(!(temp)){
       li->s=setList(v);
@@ -380,7 +384,7 @@ pop(struct symref * e){
 
 void
 print_B(struct utils * v) {
-   struct list * li, * li2;
+   struct list * li;
 
    if(!v){
       yyerror("NULL pointer can't be printed!");
@@ -401,7 +405,7 @@ print_B(struct utils * v) {
          if(type(getElement_li(li))!='l'){
             print_B( getElement_li(li));
          }else{
-            print_B(li->s->li);
+            print_B((struct utils *) li->s->li);
          }
       } while((li=li->n));
    } else if(listCheck(((struct symref * )v))==0){
@@ -414,7 +418,7 @@ print_B(struct utils * v) {
          if(type(getElement_li(li))!='l'){
             print_B( getElement_li(li));
          }else{
-            print_B(li->s->li);
+            print_B((struct utils *) li->s->li);
          }
       } while((li=li->n));
    } else {
