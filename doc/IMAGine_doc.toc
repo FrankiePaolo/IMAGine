@@ -23,3 +23,4 @@
 \contentsline {subsection}{\numberline {6.1}Fattoriale}{18}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Pi greco}{20}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Restauro}{22}{subsection.6.3}%
+\contentsline {section}{Appendice}{24}{section*.2}%
