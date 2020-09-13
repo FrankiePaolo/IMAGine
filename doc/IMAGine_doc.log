@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  13 SEP 2020 19:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  13 SEP 2020 19:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -652,7 +652,7 @@ pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.60
 m1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 
-Output written on IMAGine_doc.pdf (23 pages, 439251 bytes).
+Output written on IMAGine_doc.pdf (23 pages, 439703 bytes).
 PDF statistics:
  897 PDF objects out of 1000 (max. 8388607)
  502 compressed objects within 6 object streams
