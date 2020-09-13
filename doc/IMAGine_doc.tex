@@ -27,12 +27,58 @@ Per lo sviluppo del progetto ci siamo principalmente basati sullo stato dell’a
 Come linguaggio da adoperare per produrre il progetto sono stati individuati linguaggi dalla sintassi concisa ed efficace quali C, C++, Java e Python. Ognuno di detti linguaggi ha pro e contro ma tutti richiedono l’utilizzo di librerie esterne per l’implementazione delle modifiche e operazioni su immagini. C e Python sono attualmente i più veloci. C presenta una sintassi più complessa per l’utilizzo delle relative librerie mentre Python possiede numerose librerie con una sintassi di facile utilizzo ma alcune di esse, o meglio quasi tutte, non ottengono un buon risultato performando alcune operazioni più complicate come edge detection. Va sottolineato come il package “skimage” per Python sia uno dei migliori in termini di prestazioni e risultati. Per C e C++ la libreria migliore in termini di prestazioni è “LibVips” adoperata anche in questo progetto, nonostante possieda una sintassi di difficile utilizzo per via dei lunghi nomi dei metodi. L’ultima analisi si basa su Matlab, ampiamente usato, specialmente in ambito accademico. Si tratta del linguaggio per immagini per eccellenza. Alcune operazioni, come media adattiva, mediano adattivo, etc, richiedono che il programmatore abbia una conoscenza approfondita del linguaggio ed ambiente di sviluppo MATLAB, mentre per operazioni più semplici, quale applicazione di filtri di media e mediano, è sufficiente utilizzare funzioni built-in.
 Dallo stato dell’arte vengono dunque individuati i passaggi chiave per la creazione del linguaggio: sintassi semplici e prestazioni d’alto livello.\newpage
 
-\section{Descrizione del progetto}In questa sezione vengono introdotti i requisiti individuati dal team e le motivazioni che hanno portato alla scelta della libreria LibVips.
+\section{Descrizione del progetto}In questa sezione vengono illustrate le scelte progettuali e le motivazioni che hanno portato alla scelta della libreria LibVips.
 \subsection{Scelte progettuali}
-Dal punto di vista sintattico il team si è ispirato a linguaggi intuitivi quali Javascript, Python e C\#. Le variabili vengono dichiarate senza specificare un tipo esplicito. Il valore viene semplicemente assegnato alla variabile in fase di inizializzazione della stessa o successivamente. Le immagini vengono dichiarate fornendo il path, rendendo cosi' più manegevole l'elaborazione delle immagini. Il tipo ricorsivo lista può contenere qualunque elemento, compreso un tipo lista.
+Dal punto di vista sintattico il team si è ispirato a linguaggi dalla sintassi intuitiva quali \textit{Javascript} , \textit{Python} e \textit{C\#}. Le variabili vengono dichiarate senza specificare un tipo esplicito. Il valore viene semplicemente assegnato alla variabile in fase di inizializzazione della stessa o successivamente. Le immagini vengono dichiarate fornendo il path, rendendo cosi' più manegevole l'elaborazione delle immagini. Il tipo ricorsivo lista può contenere qualunque elemento, compreso un tipo lista.\\
+Particolare attenzione è stata prestata alla \textit{leggibilità} del codice IMAGine ed alla \textit{semplicità d'uso} nel dominio scelto, ovvero l'elaborazione delle immagini. Il linguaggio si presta all'utilizzo da parte di utenti occasionali e presenta una veloce curva di apprendimento.
 
 \subsection{LibVips}
+l team in fase di analisi ricercato al fine di individuare una libreria che fosse veloce e che allo stesso tempo non usasse una alta quantità di memoria per le operazioni effettuate sulle immagini. A tal proposito il team ha valutato i risultati dei benchmarks sulle librerie. Da tale analisi è apparso chiaro che LibVips si classivica per 0.04 secondi come seconda libreria più veloce utilizzando in media ben 100 mb di memoria in meno rispetto alla prima classificata per la stessa operazione. In figura \ref{fig:benchmark1} viene riportata una tabella contenente delle informazioni sui benchmarks risultato dell'operazione di copia di un' immagine di 5000x5000 pixel 8-bit RGB in formato TIFF non compressa.\\
+Si può facilmente notare che LibVips lanciato in modalità one thread o in modalità command-line rimane comunque una delle librerie più affidabili. Inoltre nella lunga lista di alternative non sono presenti esclusivamente librerie di image processing per C/C++ ma anche librerie per Python come la famosa SciPy basata su NumPy. In figura \ref{fig:benchmark0} vengono riportati i relativi dati.\\
+Analizzando meglio le varie implementazioni ci si è resi conto che VipLips in modalità command-line genera un grosso traffico di dati sul disco. In figura \ref{fig:benchmark2} è possibile notare come LibVips (ultimo nella legenda) sia quello che utilizza meno memoria e meno tempo e quindi la miglior libreria utilizzabile.\\
+Un’altra serie di benchmarks, illustrati in figura \ref{fig:benchmark3}  è stata effettuata prendendo un’immagine di 10000x10000 pixel scattata da una macchina digitale sulla quale sono successivamente state applicate le seguenti operazioni : sottoposta a cambio di spazio di colori, ridimensionata, tagliata (cropping) e sottoposta ad operazione di sharpening. Tale operazione è stata effettuata su diversi processi, alcuni di livello server ad altri di uso domestico.\\
+Si può notare che perfino su dispositivi completamente diversi come Raspberry Pi 2 il tempo per l’operazione non sia altissimo, considerando che  l’utilizzo di questa libreria rimane una delle poche opzioni a disposizione dell’utente in quanto sicuramente le suite di software con interfaccia grafica, ad esempio Adobe Creative, non possono essere utilizzate agevolmente su alcuni degli ultimi processori/dispositivi in figura \ref{fig:benchmark3} .
 
+
+
+
+
+
+\begin{figure}
+	\centering
+	\resizebox{\columnwidth}{!}{
+		\includegraphics{sources/bench0.png}}
+	\caption{Risultato benchmark SciPy}
+	\label{fig:benchmark0}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\resizebox{\columnwidth}{!}{
+		\includegraphics{sources/bench1.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmark1}
+\end{figure}
+
+\begin{figure}
+\centering
+\resizebox{\columnwidth}{!}{
+	\includegraphics{sources/bench2.png}}
+\caption{Risultato benchmark uso memoria}
+\label{fig:benchmark2}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\resizebox{12cm}{!}{
+		\includegraphics{sources/bench3.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmark3}
+\end{figure}
+
+
+
+\newpage
 \subsection{Guida all'uso}
 
 \section{Caratteristiche del linguaggio} 
