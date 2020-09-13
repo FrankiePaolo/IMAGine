@@ -776,6 +776,8 @@ treefree(struct ast * a) {
    case '5':
    case '6':
    case 'L':
+   case 'O':
+   case '&':
       treefree(a -> r);
 
       /* one subtree */
