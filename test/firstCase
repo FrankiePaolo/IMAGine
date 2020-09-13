@@ -1,16 +1,21 @@
 img lena="./../test/Images/lena.tif";
 
-img pencils="./../test/Images/pencils.tif";
+img pencils="./../test/Images/pencils.jpg";
 
 out1="./../test/Images/Result/lena.tif";
 out2="./../test/Images/Result/pencils.jpg";
+out3="./../test/Images/Result/croplena.tif";
+out4="./../test/Images/Result/croppencils.jpg";
 
 list imgLi={lena,pencils};
-list outLi={out1,out2};
+list outLi={out1,out2,out3,out4};
+
+
+img smart=smartCrop(lena, get(outLi,3), width(lena), height(lena));
 
 counterLi=1;
 foreach(tempLi:imgLi){
-	sobel(tempLi,get(outLi,counterLi));
-	counterLi=counterLi+1;
+    img sobelout=sobel(tempLi,get(outLi,counterLi));
+    img smart=smartCrop(sobelout, get(outLi,counterLi+2), width(tempLi)*0.5, 5);
+    counterLi=counterLi+1;
 }
-

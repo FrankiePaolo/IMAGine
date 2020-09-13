@@ -93,16 +93,15 @@ findNode(struct fncall * f, int index){
       counter++;
 
       if(!node){
-         free(node);
          yyerror("Node does not exist!\n");
       }
    }
 
    if(!(node->l)){
          yyerror("Wrong arguments for the function!");
-      } 
-   node=node->l;
-   return node;
+   }
+
+   return eval(node->l);
 }
 
 int
