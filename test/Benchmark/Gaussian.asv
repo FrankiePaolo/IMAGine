@@ -1,0 +1,36 @@
+%Rif=im2double(imread("2Appello/e4/Rif.bmp"));
+im=im2double(imread("2Appello/e4/Im.bmp"));
+[m,n]=size(Rif);
+
+patch=imcrop(im);
+var_noise=var(patch(:));
+psnr_rumorosa=psnr(im,Rif);
+
+%dimensione del filtro
+filter_size=5;
+
+%media
+filtro_media=fspecial('average', filter_size);
+im_avg=imfilter(im, filtro_media, 'conv', 'circular');
+psnr_media=psnr(im_avg, Rif);
+
+psnr_media_adapt=psnr(im_avg_adapt, Rif);
+
+%Rappresento in subplot
+subplot(4,2,1), imshow(Rif), title('Originale');
+subplot(4,2,2), imhist(Rif);
+subplot(4,2,3), imshow(im), title("Con Gaussiano "+psnr_rumorosa);
+subplot(4,2,4), imhist(im);
+subplot(4,2,5), imshow(im_avg), title("Restauro media"+psnr_media);
+subplot(4,2,6), imhist(im_avg);
+subplot(4,2,7), imshow(im_avg_adapt), title("Restauro media adattiva "+psnr_media_adapt);
+subplot(4,2,8), imhist(im_avg_adapt);
+
+
+function avg=average_adaptive(x,var_noise)
+    center=ceil(size(x,1)/2);
+    g_xy=x(center, center);
+    m_l=mean(x(:));
+    weight=min(1,var_noise/var(x(:)));
+    avg=g_xy - weight * (g_xy - m_l);
+end
