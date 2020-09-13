@@ -39,11 +39,6 @@ Analizzando meglio le varie implementazioni ci si è resi conto che VipLips in m
 Un’altra serie di benchmarks, illustrati in figura \ref{fig:benchmark3}  è stata effettuata prendendo un’immagine di 10000x10000 pixel scattata da una macchina digitale sulla quale sono successivamente state applicate le seguenti operazioni : sottoposta a cambio di spazio di colori, ridimensionata, tagliata (cropping) e sottoposta ad operazione di sharpening. Tale operazione è stata effettuata su diversi processi, alcuni di livello server ad altri di uso domestico.\\
 Si può notare che perfino su dispositivi completamente diversi come Raspberry Pi 2 il tempo per l’operazione non sia altissimo, considerando che  l’utilizzo di questa libreria rimane una delle poche opzioni a disposizione dell’utente in quanto sicuramente le suite di software con interfaccia grafica, ad esempio Adobe Creative, non possono essere utilizzate agevolmente su alcuni degli ultimi processori/dispositivi in figura \ref{fig:benchmark3} .
 
-
-
-
-
-
 \begin{figure}
 	\centering
 	\resizebox{\columnwidth}{!}{
@@ -76,10 +71,19 @@ Si può notare che perfino su dispositivi completamente diversi come Raspberry P
 	\label{fig:benchmark3}
 \end{figure}
 
-
-
 \newpage
 \subsection{Guida all'uso}
+Per poter utilizzare il linguaggio in esame è necessario installare LibVips, a tal proposito è consigliato scaricare il .tar dal seguente link : \url{https://github.com/libvips/libvips/releases}\\
+Prima di installare la libreria è necessario installare le seguenti dependencies: \\
+\texttt{build-essential, pkg-config, glib2.0-dev, libexpat1-dev, expat}
+\\ Per ognuna di esse scrivere su terminale Unix \texttt{“sudo apt-get install XXX”}. Dopo aver fatto ciò si può installare Libvips tramite:\\\\
+\texttt{tar xf vips-x.y.z.tar.gz}\\
+\texttt{cd vips-x.y.z}\\
+\texttt{./configure}\\\\
+Sul terminale, dopo l’ultimo comando verranno specificate eventuali dependencies da installare. E' consigliato l'utilizzo del comando \texttt{sudo apt-get update}. Per concludere, quando il comando \texttt{./configure} non crea problemi:\\\\
+\texttt{make}\\
+\texttt{sudo make install}\\
+\texttt{sudo ldconfig}\\
 
 \section{Caratteristiche del linguaggio} 
 \subsection{Grammatica}
