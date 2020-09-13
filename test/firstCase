@@ -9,13 +9,26 @@ out4="./../test/Images/Result/croppencils.jpg";
 
 list imgLi={lena,pencils};
 list outLi={out1,out2,out3,out4};
+list outIm={};
 
-
-img smart=smartCrop(lena, get(outLi,3), width(lena), height(lena));
+//img smart=smartCrop(lena, get(outLi,3), width(lena), height(lena));
 
 counterLi=1;
+//foreach(tempLi:imgLi){
+   // img sobelout=sobel(tempLi,get(outLi,counterLi));
+    //img smart=smartCrop(sobelout, get(outLi,counterLi+2), width(tempLi)*0.5, 5);
+    //counterLi=counterLi+1;
+//}
+//img sobelout=sobel(lena,get(outLi,counterLi));
+//push(outIm, sobelout);
+//print(get(imgLi, counterLi));
+//print("-------");
+//smartCrop(get(imgLi, counterLi), get(outLi,counterLi+2), width(lena)*0.5, height(lena)*0.5);
+
 foreach(tempLi:imgLi){
     img sobelout=sobel(tempLi,get(outLi,counterLi));
-    img smart=smartCrop(sobelout, get(outLi,counterLi+2), width(tempLi)*0.5, 5);
+
+    push(outIm, sobelout);
+    smartCrop(get(outIm, counterLi), get(outLi,counterLi+2), width(tempLi)*0.5, height(tempLi)*0.5);
     counterLi=counterLi+1;
 }

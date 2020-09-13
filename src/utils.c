@@ -623,7 +623,7 @@ struct symbol *
       }else if(type(v) == 'N'){
          s=((struct symref *)v)->s;
       }else{
-        yyerror("Nodetype not found");
+        yyerror("Nodetype not found %c", type(v));
       }
       return s;
    }
@@ -654,16 +654,29 @@ unassignedError(struct utils * temp1){
 
 void
 imageError(struct ast * v){
-   if( type((struct utils *)v) != 'N' ){
+   /* Other Version, must be tryied*/
+   if(type((struct utils *)v) == 'P'){ 
+   }else if( type((struct utils *)v) == 'N'){
+      imageError(getElement_sym((struct utils *)v));
+   }else{
+      yyerror("The variable is not an image! This method only works with image variables!");
+
+   }
+   /*if(type((struct utils *)v) == 'P'){ 
+   }else */
+   
+   /*if( type((struct utils *)v) != 'N' && type((struct utils *)v) !='P'){
       yyerror("The variable is not an image! This method only works with image variables!");
    }else if( type(getElement_sym((struct utils *)v))!='P' && type(getElement_sym((struct utils *)v))=='N'  &&  type(getElement_sym(getElement_sym((struct utils *)v)))!='P' ){
       yyerror("Variable '%s' is not an image! This method only works with image variables!", ((struct symref *)v)->s->name);
-   }
+   }*/
 }
 
 struct utils *
    takeImage(struct symref * v){
-      if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='P'){
+      if(type((struct utils *)v)=='P'){
+         return ((struct utils *)v);
+      } else if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='P'){
          return getElement_sym((struct utils *)v);
       } else if (type(getElement_sym((struct utils *)v))=='N'){
          return takeImage((struct symref *)getElement_sym((struct utils *)v));
