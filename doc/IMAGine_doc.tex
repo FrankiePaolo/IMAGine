@@ -158,6 +158,54 @@ Nell'espressione \texttt{while} si itera indefinitivamente finché la condizione
 \subsubsection{Funzioni}
 Il linguaggio presenta una ricca selezione di funzioni built-in. All'utente viene inoltre fornita la possibilità di definire la propria funzione custom, con sintassi:\\\\ ``\texttt{def nome\_funzione ( parametri\_formali ) \{ istruzioni \}}''.
 
+\subsection{Parser}
+Il linguaggio è stato progettato con i tools Bison e Flex, due strumenti per costruire programmi che gestiscano input strutturati. Flex si occupa dell'analisi lessicale (lexing) mentre Bison si occupa dell'analisi sintattica (parsing). L'output dei due tools è un parser di tipo LALR(1) che effettua un parsing bottom-up, con cui è possibile gestire  produzioni left-recursive, utilizzando Bison per generare il parser e Flex per riconoscere i token nella fase di lexing.
+
+Riportiamo di seguito le regole di produzione in formato BNF del linguaggio proposto:
+
+\begin{lstlisting}
 
 
+\end{lstlisting}
+
+Si possono eliminare le ambiguità della grammatica attraverso strumenti che permettono di specificare la precedenza degli operatori eliminando le possibili ambiguità e scartando automaticamente gli alberi di parsing non validi, consentendo l'utilizzo di una grammatica più semplice e compatta. A tal proposito sono utilizzati gli operatori di precedenza %left %right.
+
+\subsection{Lexer}
+Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le stringe,i numeri interi,i numeri in virgola mobile, l'inserimento di commenti, i simboli per i confronti, operazioni consentite sui tipi, i simboli consentiti, le funzioni built-in del linguaggio e le strutture di controllo. \\\\
+
+\textbf{Tipi}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+/* string */
+\"{1}.[^"]*\"{1}      
+
+/* int */
+[0-9]+                
+
+/* double */
+[0-9]+\.{1}[0-9]+    
+
+\end{lstlisting}
+
+\textbf{Nome variabili}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+/* names */
+[a-zA-Z][a-zA-Z0-9]*  
+\end{lstlisting}
+
+\textbf{Simboli}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+"+" 
+"-" 
+"*" 
+"/" 
+"=" 
+"|" 
+"," 
+";" 
+"(" 
+"{" 
+"}" 
+":" 
+")"     
+\end{lstlisting}
 \end{document}
