@@ -3,6 +3,7 @@
 \usepackage{color, soul}
 \newcommand{\hlc}[2][yellow]{ {\sethlcolor{#1} \hl{#2}} }
 \usepackage[T1]{fontenc}
+\usepackage{float}
 \usepackage[utf8]{inputenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{listings}
@@ -28,7 +29,7 @@ Come linguaggio da adoperare per produrre il progetto sono stati individuati lin
 Dallo stato dell’arte vengono dunque individuati i passaggi chiave per la creazione del linguaggio: sintassi semplici e prestazioni d’alto livello.
 \clearpage
 \section{Descrizione del progetto}In questa sezione vengono illustrate le scelte progettuali e le motivazioni che hanno portato alla scelta della libreria LibVips.\\
-Lanciando da riga di comando IMAGine e indicando come secondo argomento \texttt{help} verrà presentata una lista di tutte le funzionalità incluse. E' anche possibile richiamare l'helper attraverso il comando \texttt{\#help?}
+IMAGine, volendo emulare Python, ha un funzionamento da interprete interattivo, quindi lanciando l'eseguibile è possibile "programmare  live". E' viceversa possibile indicare come secondo argomento un file da mandare in pasto all'interprete il quale leggerà e valuterà man mano le espressioni inserite. E' stato creato un helper per aiutare gli utenti nell'utilizzo del linguaggio. Esso è utilizzabile dal terminale, richiamando l'eseguibile inserendo come secondo argomento la stringa \texttt{help}, o durante l'esecuzione con attraverso il comando \texttt{\#help?}.
 \subsection{Scelte progettuali}
 Dal punto di vista sintattico il team si è ispirato a linguaggi dalla sintassi intuitiva quali \textit{Javascript} , \textit{Python} e \textit{C\#}. Le variabili vengono dichiarate senza specificare un tipo esplicito. Il valore viene semplicemente assegnato alla variabile in fase di inizializzazione della stessa o successivamente. Le immagini vengono dichiarate fornendo il path, rendendo cosi' più manegevole l'elaborazione delle immagini. Il tipo ricorsivo lista può contenere qualunque elemento, compreso un tipo lista.\\
 Particolare attenzione è stata prestata alla \textit{leggibilità} del codice IMAGine ed alla \textit{semplicità d'uso} nel dominio scelto, ovvero l'elaborazione delle immagini. Il linguaggio si presta all'utilizzo da parte di utenti occasionali e presenta una veloce curva di apprendimento.
@@ -135,7 +136,7 @@ Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabel
 	\caption{Operazioni consentite dal linguaggio, sono da intendersi come V1 <operatore> V2. Con CMP si indicano le operazioni di comparazione}
 	\label{table:operatori}
 \end{table}
-\clearpage
+\newpage
 \subsubsection{Strutture di controllo}
 Il linguaggio fornisce la possibilità di usare sia comandi condizionali che comandi iterativi. I comandi condizionali sono i seguenti:
 \begin{itemize}
@@ -151,7 +152,7 @@ Nell'espressione \texttt{while} si itera indefinitivamente finché la condizione
 
 \subsubsection{Funzioni}
 Il linguaggio presenta una ricca selezione di funzioni built-in. All'utente viene inoltre fornita la possibilità di definire la propria funzione custom, con sintassi:\\\\ ``\texttt{def nome\_funzione ( parametri\_formali ) \{ istruzioni \}}''.
-
+\clearpage
 \subsection{Parser}
 Il linguaggio è stato progettato con i tools Bison e Flex, due strumenti per costruire programmi che gestiscano input strutturati. Flex si occupa dell'analisi lessicale (lexing) mentre Bison si occupa dell'analisi sintattica (parsing). L'output dei due tools è un parser di tipo LALR(1) che effettua un parsing bottom-up, con cui è possibile gestire  produzioni left-recursive, utilizzando Bison per generare il parser e Flex per riconoscere i token nella fase di lexing.
 
@@ -417,7 +418,83 @@ Di seguito vi sono tutte le operazioni delle immagini con una breve descrizione 
 \section{Casi d'uso}
 Here
 \clearpage
-\section{Benchmarks}
-Here
+\section{Risultati}
+Al fine di testare la performance di IMAGine sono stati effettuati dei test su alcuni fra i più noti problemi calcolo quali il fattoriale e il pi greco. Infine viene effettuato un paragone con MATLAB al fine di testare operazioni nel dominio applicativo del linguaggio, ovvero l'elaborazione delle immagini.
+
+\subsection{Fattoriale}
+
+\lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente factorial}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
+]{../test/Benchmark/factorial}
+
+\lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente factorial.py}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
+]{../test/Benchmark/factorial.py}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{6cm}{!}{
+		\includegraphics{sources/bench5-Fact.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmarkFact2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{\columnwidth}{!}{
+		\includegraphics{sources/bench4-Fact.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmarkFact1}
+\end{figure}
+\clearpage
+\subsection{Pi greco}
+
+\lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente pigreco}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
+]{../test/Benchmark/pigreco}
+
+\lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente pigreco.py}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
+]{../test/Benchmark/pigreco.py}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{6cm}{!}{
+		\includegraphics{sources/bench7-Pi.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmarkFact2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{\columnwidth}{!}{
+		\includegraphics{sources/bench6-Pi.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmarkFact1}
+\end{figure}
+
+\clearpage
+
+\subsection{Restauro}
+
+\lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente gaussianrestore}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
+]{../test/Benchmark/gaussianrestore}
+
+\lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente Gaussian.m}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
+]{../test/Benchmark/Gaussian.m}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{6cm}{!}{
+		\includegraphics{sources/bench8-Gaussian.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmarkFact2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{\columnwidth}{!}{
+		\includegraphics{sources/bench9-Gaussian.png}}
+	\caption{Risultato benchmark}
+	\label{fig:benchmarkFact1}
+\end{figure}
+
+\clearpage
 
 \end{document}
