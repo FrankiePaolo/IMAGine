@@ -20,18 +20,18 @@
 
 \section{Introduzione}IMAGine (IMAge-enGINE) è un linguaggio ideato per l’elaborazione delle immagini a trecentosessanta gradi. Il linguaggio consente le elaborazioni più comuni attraverso un processo immediato ed intuitivo.
 E’ stato pensato e sviluppato tenendo conto di alcuni fattori chiavi quali semplicità d’uso e rapidità di apprendimento, basandosi anche su altri linguaggi già esistenti quali MATLAB, Python o software per la modifica di immagini.\newline
-Il resto della relazione è strutturato come segue: la sezione 2 illustra il contesto in cui si colloca il linguaggio proposto, nella sezione 3 vengono analizzati i dettagli implementativi, nella sezione 4 si illustrano le caratteristiche di IMAGine e degli esempi di applicazioni, infine nella sezione 5 vengono riepilogati i punti principali del lavoro svolto.\newpage
-
+Il resto della relazione è strutturato come segue: la sezione 2 illustra il contesto in cui si colloca il linguaggio proposto, nella sezione 3 vengono analizzati i dettagli implementativi, nella sezione 4 si illustrano le caratteristiche di IMAGine e degli esempi di applicazioni, infine nella sezione 5 vengono riepilogati i punti principali del lavoro svolto.
+\clearpage
 \section{Stato dell'arte}Attualmente l’Image Processing avviene principalmente per mezzo di software già pronti quali Photoshop, Gimp, etc. Questi software sono stati pensati per un utilizzo da parte di amanti delle immagini e per professionisti in campo fotografico. Alcuni di questi, come il già citato Adobe Photoshop vengono proposti in una suite software chiamata “Adobe Creative 2020”, la quale, nella sua ultima edizione, comprende altri applicativi per l’Image Processing di livello sempre più alto.
 Per lo sviluppo del progetto ci siamo principalmente basati sullo stato dell’arte dei linguaggi che permettono operazioni su immagini e sulle operazioni che permettono: da semplici  rotazioni, zooming e shrinking alle più complicate operazioni di edge detection, cambio dello spazio di colori, etc;\newline
 Come linguaggio da adoperare per produrre il progetto sono stati individuati linguaggi dalla sintassi concisa ed efficace quali C, C++, Java e Python. Ognuno di detti linguaggi ha pro e contro ma tutti richiedono l’utilizzo di librerie esterne per l’implementazione delle modifiche e operazioni su immagini. C e Python sono attualmente i più veloci. C presenta una sintassi più complessa per l’utilizzo delle relative librerie mentre Python possiede numerose librerie con una sintassi di facile utilizzo ma alcune di esse, o meglio quasi tutte, non ottengono un buon risultato performando alcune operazioni più complicate come edge detection. Va sottolineato come il package “skimage” per Python sia uno dei migliori in termini di prestazioni e risultati. Per C e C++ la libreria migliore in termini di prestazioni è “LibVips” adoperata anche in questo progetto, nonostante possieda una sintassi di difficile utilizzo per via dei lunghi nomi dei metodi. L’ultima analisi si basa su Matlab, ampiamente usato, specialmente in ambito accademico. Si tratta del linguaggio per immagini per eccellenza. Alcune operazioni, come media adattiva, mediano adattivo, etc, richiedono che il programmatore abbia una conoscenza approfondita del linguaggio ed ambiente di sviluppo MATLAB, mentre per operazioni più semplici, quale applicazione di filtri di media e mediano, è sufficiente utilizzare funzioni built-in.
-Dallo stato dell’arte vengono dunque individuati i passaggi chiave per la creazione del linguaggio: sintassi semplici e prestazioni d’alto livello.\newpage
+Dallo stato dell’arte vengono dunque individuati i passaggi chiave per la creazione del linguaggio: sintassi semplici e prestazioni d’alto livello.
 
 \section{Descrizione del progetto}In questa sezione vengono illustrate le scelte progettuali e le motivazioni che hanno portato alla scelta della libreria LibVips.
 \subsection{Scelte progettuali}
 Dal punto di vista sintattico il team si è ispirato a linguaggi dalla sintassi intuitiva quali \textit{Javascript} , \textit{Python} e \textit{C\#}. Le variabili vengono dichiarate senza specificare un tipo esplicito. Il valore viene semplicemente assegnato alla variabile in fase di inizializzazione della stessa o successivamente. Le immagini vengono dichiarate fornendo il path, rendendo cosi' più manegevole l'elaborazione delle immagini. Il tipo ricorsivo lista può contenere qualunque elemento, compreso un tipo lista.\\
 Particolare attenzione è stata prestata alla \textit{leggibilità} del codice IMAGine ed alla \textit{semplicità d'uso} nel dominio scelto, ovvero l'elaborazione delle immagini. Il linguaggio si presta all'utilizzo da parte di utenti occasionali e presenta una veloce curva di apprendimento.
-
+\clearpage
 \subsection{LibVips}
 l team in fase di analisi ricercato al fine di individuare una libreria che fosse veloce e che allo stesso tempo non usasse una alta quantità di memoria per le operazioni effettuate sulle immagini. A tal proposito il team ha valutato i risultati dei benchmarks sulle librerie. Da tale analisi è apparso chiaro che LibVips si classivica per 0.04 secondi come seconda libreria più veloce utilizzando in media ben 100 mb di memoria in meno rispetto alla prima classificata per la stessa operazione. In figura \ref{fig:benchmark1} viene riportata una tabella contenente delle informazioni sui benchmarks risultato dell'operazione di copia di un' immagine di 5000x5000 pixel 8-bit RGB in formato TIFF non compressa.\\
 Si può facilmente notare che LibVips lanciato in modalità one thread o in modalità command-line rimane comunque una delle librerie più affidabili. Inoltre nella lunga lista di alternative non sono presenti esclusivamente librerie di image processing per C/C++ ma anche librerie per Python come la famosa SciPy basata su NumPy. In figura \ref{fig:benchmark0} vengono riportati i relativi dati.\\
@@ -71,7 +71,7 @@ Si può notare che perfino su dispositivi completamente diversi come Raspberry P
 	\label{fig:benchmark3}
 \end{figure}
 
-\newpage
+\clearpage
 \subsection{Guida all'uso}
 Per poter utilizzare il linguaggio in esame è necessario installare LibVips, a tal proposito è consigliato scaricare il .tar dal seguente link : \url{https://github.com/libvips/libvips/releases}\\
 Prima di installare la libreria è necessario installare le seguenti dependencies: \\
@@ -84,7 +84,7 @@ Sul terminale, dopo l’ultimo comando verranno specificate eventuali dependenci
 \texttt{make}\\
 \texttt{sudo make install}\\
 \texttt{sudo ldconfig}\\
-
+\clearpage
 \section{Caratteristiche del linguaggio} 
 \subsection{Grammatica}
 \subsubsection{Tipi}
@@ -106,7 +106,7 @@ Le variabili di tipo \textit{int}, \textit{doublePrecision} e \textit{str} vengo
 \textbf{doubleVariable=5.5;}\\
 \textbf{img imageVariable="/path/img.png";}\\
 \textbf{list li=\{1,2,"element"\};}\\
-\newpage
+
 \subsubsection{Operazioni}
 Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazione, divisione, and e or logici, e paragoni ( ==, !=, >, >=, <, <=).
 
@@ -135,7 +135,7 @@ Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabel
 	\caption{Operazioni consentite dal linguaggio, sono da intendersi come V1 <operatore> V2. Con CMP si indicano le operazioni di comparazione}
 	\label{table:operatori}
 \end{table}
-
+\clearpage
 \subsubsection{Strutture di controllo}
 Il linguaggio fornisce la possibilità di usare sia comandi condizionali che comandi iterativi. I comandi condizionali sono i seguenti:
 \begin{itemize}
@@ -215,7 +215,7 @@ Riportiamo di seguito le regole di produzione in formato BNF del linguaggio prop
 \end{lstlisting}
 
 Si possono eliminare le ambiguità della grammatica attraverso strumenti che permettono di specificare la precedenza degli operatori eliminando le possibili ambiguità e scartando automaticamente gli alberi di parsing non validi, consentendo l'utilizzo di una grammatica più semplice e compatta. A tal proposito sono utilizzati gli operatori di precedenza %left %right.
-
+\clearpage
 \subsection{Lexer}
 Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le stringe,i numeri interi,i numeri in virgola mobile, l'inserimento di commenti, i simboli per i confronti, operazioni consentite sui tipi, i simboli consentiti, le funzioni built-in del linguaggio e le strutture di controllo. \\\\
 
@@ -235,6 +235,7 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
 "img"   
 "list" 
+"def"   
 \end{lstlisting}
 
 \textbf{Nome variabili}
@@ -242,8 +243,6 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 /* names */
 [a-zA-Z][a-zA-Z0-9]*  
 \end{lstlisting}
-
-\newpage
 
 \textbf{Simboli}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
@@ -277,8 +276,8 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 "&&"    
 "||"   
 \end{lstlisting}
-
-\textbf{Strutture di controllo e keywords}
+\clearpage
+\textbf{Strutture di controllo ed iterative}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
  "if"   
  "then"  
@@ -286,7 +285,6 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
  "while" 
  "do"    
  "foreach" 
- "def"   
 \end{lstlisting}
 
 \textbf{Funzioni built-in}
@@ -321,7 +319,6 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 "showImage"               
 \end{lstlisting}
 
-\newpage
 
 \textbf{Funzioni built-in per liste}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
@@ -367,12 +364,53 @@ Di seguito vi sono tutte le operazioni delle immagini con una breve descrizione 
 
 
 \begin{itemize}
-	\item \texttt{int length(list list\_name)} restituisce la lunghezza della lista ;
-	\item \texttt{void push(list list\_name, element)} inserisce un elemento nella lista(all'ultimo posto) ;
-	\item \texttt{void insert(list list\_name, element, int position)} inserisce un elemento nella posizione desiderata ;
-	\item \texttt{void remove(list list\_name, int position);} rimuove l’elemento dalla posizione desiderata ;
-	\item \texttt{element pop(list list\_name)} rimuove e restituisce l’ultimo elemento ;	
-	\item \texttt{element get(list list\_name, int position)} restituisce l‘elemento nella posizione desiderata ;
+\item \texttt{int width(img name\_image)} restituisce la larghezza dell’immagine in pixel ;
+\item \texttt{int height(img name\_image)} restituisce l'altezza dell’immagine in pixel ;
+\item \texttt{int bands(img name\_image)} restituisce il numero di canali presenti nell’immagine ;
+\item \texttt{double min(img name\_image)} restituisce il minimo valore dei pixel nell’immagine ;
+\item \texttt{double max(img name\_image)} restituisce il massimo valore dei pixel dell’immagine ;	
+\item \texttt{double average(img name\_image)} restituisce il valore medio dei pixel dell’immagine ;
+\item \texttt{img invert(img name\_image, char* output\_path)} restituisce e salva l'immagine invertita ;
+\item \texttt{img histEq (img name\_image, char* output\_path)} restituisce e salva un’immagine sottoposta a equalizzazione dell’istogramma ;
+\item \texttt{img normalise(img name\_image, char* output\_path)} restituisce e salva un’immagine sottoposta a normalizzazione ;
+\item \texttt{img canny(img name\_image, char* output\_path)} individua gli edge con il metodo di Canny, salva e restituisce l’immagine ;
+\item \texttt{img sobel(img name\_image, char* output\_path)} individua gli edge con il metodo di Sobel, salva e restituisce l’immagine ;
+\item \texttt{img sharpen(img name\_image, char* output\_path)} esegue un blur gaussiano e lo sottrae all’immagine originale per generare un segnale d’alta frequenza. Ritorna e salva l’immagine risultante ;
+\item \texttt{img convert(img name\_image, char* output\_path)} ritorna e salva l’immagine con un output specifico* ;
+\item \texttt{img convertColorSpace(img name\_image, char* output\_path, char* space)} sposta l'immagine nello spazio dei colori indicato, salva e restituisce l’immagine** ;
+\item \texttt{img add (img name\_image, img name\_image2, char* output\_path)} restituisce e salva la somma bit a bit di due immagini ;
+\item \texttt{img subtract (img name\_image, img name\_image2, char* output\_path)} restituisce e salva la differenza bit a bit di due immagini ;
+\item \texttt{img rotate(img name\_image, char* output\_path, double rotate\_angle)} restituisce e salva l’immagine di input rotata di un certo angolo ;
+\item \texttt{img flip(img name\_image, char* output\_path, char* direction)} restituisce e salva l’immagine di input capovolta in una certa direzione (verticale/orizzontale) ;
+\item \texttt{img gaussianBlur(img name\_image, char* output\_path, double mask\_dim)} restituisce e salva l’immagine di input sottoposta a blur gaussiano con maschera di dimensioni specificate in input ;
+\item \texttt{img smartCrop (img name\_image, char* output\_path, double width, double height)} ritaglia un’immagine,la salva e la restituisce. La selezione delle parti da ritagliare avviene con un algoritmo che cerca di individuare le caratteristiche di maggiore interesse per gli esseri umani ;
+\item \texttt{img zoom(img name\_image, char* output\_path, int xfactor, int yfactor)} restituisce e salva l’immagine ingrandita in base a due fattori di zoom x e y ;
+\item \texttt{img crop(img name\_image, char* output\_path, double left, double top, double width, double height)} itaglia un’immagine,la salva e la restituisce. Le dimensioni della porzione da ritagliare sono fornite in input (rispettivamente distanza in pixel dal margine sinistro,distanza in pixel dal margine in alto, larghezza ed altezza);
 \end{itemize}
+
+*Formati ammessi:
+\begin{itemize}
+	\item tif
+	\item jpeg or jpg
+	\item hdr
+	\item raw
+	\label{itm:formats}
+\end{itemize}
+
+**Spazi dei colori ammessi:
+\begin{itemize}
+	\item grey16
+	\item hsv
+	\item yxy
+	\item lch
+	\item cmc
+	\item lab
+\end{itemize}
+
+\section{Casi d'uso}
+Here
+
+\section{Benchmarks}
+Here
 
 \end{document}
