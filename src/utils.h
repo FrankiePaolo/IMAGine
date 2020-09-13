@@ -211,6 +211,7 @@ struct symbol symtab[NHASH];
    void argumentsCheck(struct fncall * f, int index);
    struct utils * takeImage(struct symref * v);
    struct list * getList(struct utils * v);
+   void printHelp();
 
    /* interface to the lexer */
    extern int yylineno; /* from lexer */

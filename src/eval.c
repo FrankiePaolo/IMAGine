@@ -23,7 +23,6 @@ struct utils *
          v -> nodetype = 'S';
          ((struct str * ) v) -> str = strdup(((struct str * ) a) -> str);
          break;
-      
 
          /* int */
       case 'i':

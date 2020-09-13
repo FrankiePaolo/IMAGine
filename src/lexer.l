@@ -10,6 +10,9 @@
 %}
 
 %%
+ /* shows helper */
+"#help?"              { return HELP; }
+
  /* single character ops */
 "+" |
 "-" |

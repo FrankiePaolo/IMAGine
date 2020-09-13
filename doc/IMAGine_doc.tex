@@ -159,6 +159,7 @@ Riportiamo di seguito le regole di produzione in formato BNF del linguaggio prop
 
 \begin{lstlisting}
 <program>::=
+| HELP
 | <program> <stmt>    
 | <program> DEF NAME '(' <symlist> ')' '{' <list> '}' 
 | <program> LIST NAME '=''{' elements '}' ';' 
@@ -219,6 +220,12 @@ Si possono eliminare le ambiguità della grammatica attraverso strumenti che per
 \subsection{Lexer}
 Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le stringe,i numeri interi,i numeri in virgola mobile, l'inserimento di commenti, i simboli per i confronti, operazioni consentite sui tipi, i simboli consentiti, le funzioni built-in del linguaggio e le strutture di controllo. \\\\
 
+\textbf{Help method}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+/* shows helper */
+"#help?"             
+\end{lstlisting}
+
 \textbf{Valori}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
 /* string */
@@ -270,13 +277,13 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 ">="    
 "<="    
 \end{lstlisting}
-
+\clearpage
 \textbf{Operatori logici}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}] 
 "&&"    
 "||"   
 \end{lstlisting}
-\clearpage
+
 \textbf{Strutture di controllo ed iterative}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
  "if"   

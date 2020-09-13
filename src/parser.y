@@ -26,7 +26,7 @@
 %token <fn> FUNC
 %token EOL
 
-%token IF THEN ELSE WHILE DO DEF IMG LIST FOREACH
+%token IF THEN ELSE WHILE DO DEF IMG LIST FOREACH HELP
 
 %left AND OR
 %nonassoc <fn> CMP CND 
@@ -105,6 +105,7 @@ elements:                { $$ = NULL; }
 ;
 
 program: /* nothing */
+   | HELP                { printHelp(); }
    | program stmt {
    if(debug){
       dumpast($2, 0);

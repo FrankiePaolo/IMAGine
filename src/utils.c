@@ -825,6 +825,28 @@ yyerror(char * s, ...) {
    exit(0);
 }
 
+void
+printHelp(){
+   FILE *fptr; 
+   char c; 
+  
+   // Open file 
+   fptr = fopen("../IMAGine Rules","r"); 
+   if (fptr == NULL) 
+   { 
+      printf("Cannot open file \n"); 
+      exit(0); 
+   } 
+    // Read contents from file 
+   c = fgetc(fptr); 
+   while (c != EOF) 
+   { 
+      printf ("%c", c); 
+      c = fgetc(fptr); 
+   } 
+   fclose(fptr); 
+}
+
 int
 main(int argc, char * argv[]) {
    if (VIPS_INIT(argv[0])) {
@@ -832,9 +854,14 @@ main(int argc, char * argv[]) {
       vips_error_exit("unable to start VIPS");
    }
    if(argc>1){
+      if(strcmp(argv[1],"help")==0){
+         printHelp();
+         return 1;
+      }
+
       if(!(yyin=fopen(argv[1],"r"))){
          perror(argv[1]);
-         return (1);
+         return 1;
       }
    }
    yyparse();
