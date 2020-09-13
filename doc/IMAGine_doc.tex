@@ -116,14 +116,8 @@ Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazi
 	\item Il risultato di somme, prodotti e differenze fra tipi uguali mantiene il tipo degli elementi iniziali
 \end{itemize}
 
-\textbf{In generale}, \textit{print(var + string)} stamperà su schermo la concatenazione delle due variabili, indipendentemente dal tipo di \textit{var} (che verrà convertita a stringa)\\ 
-
 \textbf{String1 == String2 valuta il contenuto delle stringhe}\\
 \textbf{String1 != String2 valuta il contenuto delle stringhe}\\
-\textbf{print(3*string) stamperà per tre volte il contenuto di string}\\
-\textbf{print(3+string) stamperà la concatenazione fra la 3 e il contenuto di string}\\
-\textbf{print(string1+string2) stamperà la concatenazione fra le due stringhe}\\
-
 
 Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabella~\ref{table:operatori}. I paragoni e gli operatori logici restituiscono sempre degli int, tutti gli altri operatori restituiscono un valore del tipo della colonna, tranne la moltiplicazione \texttt{int * string} equivalente a \texttt{string * int}. Le operazioni illustrate non sono ammesse per il tipo immagine e per il tipo lista.\\
 
@@ -164,7 +158,59 @@ Il linguaggio è stato progettato con i tools Bison e Flex, due strumenti per co
 Riportiamo di seguito le regole di produzione in formato BNF del linguaggio proposto:
 
 \begin{lstlisting}
+<program>::=
+| <program> <stmt>    
+| <program> DEF NAME '(' <symlist> ')' '{' <list> '}' 
+| <program> LIST NAME '=''{' elements '}' ';' 
+| <program> error '\n'
 
+<stmt>::= IF '(' <exp> ')' THEN '{' <list> '}' ';'                
+| IF '(' <exp> ')' THEN '{' list '}' ELSE '{' <list> '}'   
+| WHILE '('<exp> ')' DO '{' <list> '}'                    
+| FOREACH '(' <foreach> ')' '{' <list> '}'                 
+| exp ';'
+
+<list>::=                               
+| <stmt>  <list>                    
+
+<exp>::= <exp> AND <exp>          
+|<exp> OR <exp>           
+| <exp> CMP <exp>          
+| <exp> '+' <exp>          
+| <exp> '-' <exp>       
+| <exp> '*' <exp>        
+| <exp> '/' <exp>       
+| '|' <exp> '|'          
+| '(' <exp> ')'          
+| FUNC '(' <explist> ')' 
+| NAME '=' <exp>         
+| IMG NAME '=' <img>     
+| NAME '(' <explist> ')' 
+| <value>                
+
+<foreach>::=    <name> ':' <name>        
+
+<name>::= NAME                       
+
+<value>::=  '-' INT %prec UMINUS      
+| INT                          
+| '-' DOUBLE %prec UMINUS      
+| DOUBLE                       
+| STRING                       
+| NAME                         
+
+<img>::=  STRING              
+| FUNC '(' <explist> ')' 
+
+<explist>::= <exp>          
+| <exp> ',' <explist>  
+
+<symlist>::= NAME         
+| NAME ',' <symlist> 
+
+<elements>::=                
+| <value>               
+| <value> ',' <elements>  
 
 \end{lstlisting}
 
@@ -173,7 +219,7 @@ Si possono eliminare le ambiguità della grammatica attraverso strumenti che per
 \subsection{Lexer}
 Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le stringe,i numeri interi,i numeri in virgola mobile, l'inserimento di commenti, i simboli per i confronti, operazioni consentite sui tipi, i simboli consentiti, le funzioni built-in del linguaggio e le strutture di controllo. \\\\
 
-\textbf{Tipi}
+\textbf{Valori}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
 /* string */
 \"{1}.[^"]*\"{1}      
@@ -183,7 +229,12 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 
 /* double */
 [0-9]+\.{1}[0-9]+    
+\end{lstlisting}
 
+\textbf{Tipi espliciti}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+"img"   
+"list" 
 \end{lstlisting}
 
 \textbf{Nome variabili}
@@ -191,6 +242,8 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 /* names */
 [a-zA-Z][a-zA-Z0-9]*  
 \end{lstlisting}
+
+\newpage
 
 \textbf{Simboli}
 \begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
@@ -208,4 +261,118 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 ":" 
 ")"     
 \end{lstlisting}
+
+\textbf{Paragoni}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+">"     
+"<"    
+"!="    
+"=="   
+">="    
+"<="    
+\end{lstlisting}
+
+\textbf{Operatori logici}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}] 
+"&&"    
+"||"   
+\end{lstlisting}
+
+\textbf{Strutture di controllo e keywords}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+ "if"   
+ "then"  
+ "else" 
+ "while" 
+ "do"    
+ "foreach" 
+ "def"   
+\end{lstlisting}
+
+\textbf{Funzioni built-in}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+"print"     
+\end{lstlisting}
+
+\textbf{Funzioni built-in per elaborazione immagini}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+"width"             
+"height"            
+"bands"             
+"min"               
+"max"               
+"average"           
+"invert"            
+"histEq"            
+"normalise"         
+"canny"             
+"sobel"             
+"sharpen"          
+"convert"           
+"convertColorSpace" 
+"add"               
+"subtract"        
+"rotate"           
+"flip"          
+"gaussianBlur"    
+"smartCrop"        
+"zoom"             
+"crop"             
+"showImage"               
+\end{lstlisting}
+
+\newpage
+
+\textbf{Funzioni built-in per liste}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+"length"           
+"push"             
+"insert"           
+"remove"            
+"pop"               
+"get"               
+\end{lstlisting}
+
+\textbf{Commenti}
+\begin{lstlisting}[breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}]
+"//".*  
+[ \t]   /* ignore white space */ 
+\\\n    /* ignore line continuation */
+"\n"  
+\end{lstlisting}
+
+\subsection{Funzionalità del linguaggio}
+\subsubsection{Metodo print}
+Il metodo \textbf{print(var)} stampa su terminale il contenuto di \textbf{var}. Accetta qualunque tipo come argomento. 
+\textbf{In generale}, \textit{print(var + string)} stamperà su schermo la concatenazione delle due variabili, indipendentemente dal tipo di \textit{var} (che verrà convertita a stringa).\\ 
+E' anche possibile ripetere una stringa \textbf{n} volte utilizzando all'interno del metodo l'operatore \textbf{*}\\\\
+\textbf{print(3*string) stamperà per tre volte il contenuto di string}\\
+\textbf{print(3+string) stamperà la concatenazione fra la 3 e il contenuto di string}\\
+\textbf{print(string1+string2) stamperà la concatenazione fra le due stringhe}\\
+
+\subsubsection{Metodi per le liste}
+Vengono qui elencati i metodi per le liste. \textit{Element} può essere un tipo qualunque, perfino una lista, in quanto le liste di liste sono permesse.\\
+
+\begin{itemize}
+\item \texttt{int length(list list\_name)} restituisce la lunghezza della lista ;
+\item \texttt{void push(list list\_name, element)} inserisce un elemento nella lista(all'ultimo posto) ;
+\item \texttt{void insert(list list\_name, element, int position)} inserisce un elemento nella posizione desiderata ;
+\item \texttt{void remove(list list\_name, int position);} rimuove l’elemento dalla posizione desiderata ;
+\item \texttt{element pop(list list\_name)} rimuove e restituisce l’ultimo elemento ;	
+\item \texttt{element get(list list\_name, int position)} restituisce l‘elemento nella posizione desiderata ;
+\end{itemize}
+
+\subsubsection{Metodi per le immagini}
+Di seguito vi sono tutte le operazioni delle immagini con una breve descrizione delle loro operazioni.\\
+
+
+\begin{itemize}
+	\item \texttt{int length(list list\_name)} restituisce la lunghezza della lista ;
+	\item \texttt{void push(list list\_name, element)} inserisce un elemento nella lista(all'ultimo posto) ;
+	\item \texttt{void insert(list list\_name, element, int position)} inserisce un elemento nella posizione desiderata ;
+	\item \texttt{void remove(list list\_name, int position);} rimuove l’elemento dalla posizione desiderata ;
+	\item \texttt{element pop(list list\_name)} rimuove e restituisce l’ultimo elemento ;	
+	\item \texttt{element get(list list\_name, int position)} restituisce l‘elemento nella posizione desiderata ;
+\end{itemize}
+
 \end{document}
