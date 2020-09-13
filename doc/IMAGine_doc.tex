@@ -1,10 +1,17 @@
 % !TeX spellcheck = it_IT
 \documentclass[10pt]{article}
-\usepackage{geometry}
-\geometry{margin=1in}
+\usepackage{color, soul}
+\newcommand{\hlc}[2][yellow]{ {\sethlcolor{#1} \hl{#2}} }
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage[italian]{babel}
+\usepackage[hidelinks]{hyperref}
 \title{IMAGine}
 \author{Francesco Paolo Castiglione, Davide Iraci, Andrea Montemaggiore}
-\date{September 2020}
+\date{Settembre 2020}
 
 \begin{document}
 	\maketitle
@@ -21,7 +28,50 @@ Come linguaggio da adoperare per produrre il progetto sono stati individuati lin
 Dallo stato dell’arte vengono dunque individuati i passaggi chiave per la creazione del linguaggio: sintassi semplici e prestazioni d’alto livello.\newpage
 
 \section{Descrizione del progetto}In questa sezione vengono introdotti i requisiti individuati dal team e le motivazioni che hanno portato alla scelta della libreria LibVips.
-\subsection{Analisi dei requisiti}
+\subsection{Scelte progettuali}
+Dal punto di vista sintattico il team si è ispirato a linguaggi intuitivi quali Javascript, Python e C\#. Le variabili vengono dichiarate senza specificare un tipo esplicito. Il valore viene semplicemente assegnato alla variabile in fase di inizializzazione della stessa o successivamente. Le immagini vengono dichiarate fornendo il path, rendendo cosi' più manegevole l'elaborazione delle immagini. Il tipo ricorsivo lista può contenere qualunque elemento, compreso un tipo lista.
+
+\subsection{LibVips}
+
+\subsection{Guida all'uso}
+
+\section{Caratteristiche del linguaggio} 
+\subsection{Grammatica}
+\subsubsection{Tipi}
+In seguito ad analisi relative ai possibili usi del linguaggio proposto, sono stati individuati i seguenti tipi primitivi:
+\begin{itemize}
+	\item \texttt{integer}, utilizzato per rappresentare i numeri interi
+	\item \texttt{doublePrecision}, utilizzato per rappresentare i numeri in virgola mobile
+	\item \texttt{str}, utilizzato per rappresentare le stringhe di caratteri
+	\item \texttt{img}, utilizzato per rappresentare le immagini
+\end{itemize}
+E' stato inoltre individuato il tipo composto:
+\begin{itemize}
+	\item \texttt{list}, tipo ricorsivo
+\end{itemize}
+Le variabili vengono dichiarate senza specificare un tipo esplicito.\\\\
+\textit{\textbf{Esempio di dichiarazione ed assegnazione:}}\\\\
+\textbf{stringVariable="this is a string";}\\
+\textbf{intVariable=5;}\\
+\textbf{doubleVariable=5.5;}\\
+
+\subsubsection{Operazioni}
+Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazione, divisione, and e or logici, e paragoni ( ==, !=, >, >=, <, <=). Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabella~\ref{table:operatori}. I paragoni e gli operatori logici restituiscono sempre degli int, tutti gli altri operatori restituiscono un valore del tipo della colonna, tranne la moltiplicazione \texttt{int * string} equivalente a \texttt{string * int}. Le operazioni illustrate non sono ammesse per il tipo immagine e per il tipo lista.\\
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|}
+		\hline
+		V1\textbackslash V2   &        int            &    double             &  string       \\ \hline
+		int                    &  + - * / or and CMP   &  + - * / or and CMP   &    *          \\ \hline
+		double       			& + - * / or and CMP    & + - / * CMP   		&     +         \\ \hline
+		string        		     &        + *             &         +      	     & +    CMP      \\ \hline
+	\end{tabular}
+	\caption{Operazioni consentite dal linguaggio, sono da intendersi come V1 <operatore> V2. Con CMP si indicano le operazioni di comparazione}
+	\label{table:operatori}
+\end{table}
+
+
 
 
 

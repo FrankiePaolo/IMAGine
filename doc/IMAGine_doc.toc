@@ -1,4 +1,12 @@
-\contentsline {section}{\numberline {1}Introduzione}{2}%
-\contentsline {section}{\numberline {2}Stato dell'arte}{3}%
-\contentsline {section}{\numberline {3}Descrizione del progetto}{4}%
-\contentsline {subsection}{\numberline {3.1}Analisi dei requisiti}{4}%
+\babel@toc {italian}{}
+\babel@toc {italian}{}
+\contentsline {section}{\numberline {1}Introduzione}{2}{section.1}%
+\contentsline {section}{\numberline {2}Stato dell'arte}{3}{section.2}%
+\contentsline {section}{\numberline {3}Descrizione del progetto}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Scelte progettuali}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}LibVips}{4}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Guida all'uso}{4}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Caratteristiche del linguaggio}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Grammatica}{4}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Tipi}{4}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Operazioni}{4}{subsubsection.4.1.2}%
