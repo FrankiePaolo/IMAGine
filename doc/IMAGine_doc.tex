@@ -49,14 +49,28 @@ E' stato inoltre individuato il tipo composto:
 \begin{itemize}
 	\item \texttt{list}, tipo ricorsivo
 \end{itemize}
-Le variabili vengono dichiarate senza specificare un tipo esplicito.\\\\
+Le variabili di tipo int, doublePrecision e str vengono dichiarate senza specificare un tipo esplicito.\\\\
 \textit{\textbf{Esempio di dichiarazione ed assegnazione:}}\\\\
 \textbf{stringVariable="this is a string";}\\
 \textbf{intVariable=5;}\\
 \textbf{doubleVariable=5.5;}\\
+\textbf{img imageVariable="/path/img.png";}\\
+\textbf{list li=\{1,2,"element"\};}\\
 
 \subsubsection{Operazioni}
-Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazione, divisione, and e or logici, e paragoni ( ==, !=, >, >=, <, <=). Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabella~\ref{table:operatori}. I paragoni e gli operatori logici restituiscono sempre degli int, tutti gli altri operatori restituiscono un valore del tipo della colonna, tranne la moltiplicazione \texttt{int * string} equivalente a \texttt{string * int}. Le operazioni illustrate non sono ammesse per il tipo immagine e per il tipo lista.\\
+Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazione, divisione, and e or logici, e paragoni ( ==, !=, >, >=, <, <=).\\
+Il risultato di somme fra \textit{integer}
+\\
+\textbf{String1 == String2 valuta il contenuto delle stringhe}\\
+\textbf{String1 != String2 valuta il contenuto delle stringhe}\\
+\textbf{print(3*string) stamperà per tre volte il contenuto di string}\\
+\textbf{print(3+string) stamperà la concatenazione fra la 3 e il contenuto di string}\\
+\textbf{print(string1+string2) stamperà la concatenazione fra le due stringhe}\\
+
+\newpage
+Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabella~\ref{table:operatori}. I paragoni e gli operatori logici restituiscono sempre degli int, tutti gli altri operatori restituiscono un valore del tipo della colonna, tranne la moltiplicazione \texttt{int * string} equivalente a \texttt{string * int}. Le operazioni illustrate non sono ammesse per il tipo immagine e per il tipo lista.\\
+
+
 
 \begin{table}
 	\centering
@@ -71,8 +85,21 @@ Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazi
 	\label{table:operatori}
 \end{table}
 
+\subsubsection{Strutture di controllo}
+Il linguaggio fornisce la possibilità di usare sia comandi condizionali che comandi iterativi. I comandi condizionali sono i seguenti:
+\begin{itemize}
+	\item \texttt{if ( condition ) then \{ instructions \};}
+	\item \texttt{if ( condition ) then \{ instructions \} else \{ instructions \}}
+\end{itemize}
+I comandi iterativi sono qui elencati :
+\begin{itemize}
+	\item \texttt{while ( condition ) do \{ instructions \}}
+	\item \texttt{foreach ( tempElement : list ) \{ instructions \} }
+\end{itemize}
+Nell'espressione \texttt{while} si itera indefinitivamente finché la condizione non è più verificata. Nle costrutto \texttt{foreach} si itera invece per ogni elemento contenuto nella lista. E' possibile effettuare operazioni sull'elemento della lista tempElement, anche nel caso in cui si tratti di un'immagine. Questo rende possibile l'elaborazione di una lista di immagini.\\
 
-
+\subsubsection{Funzioni}
+Il linguaggio presenta una ricca selezione di funzioni built-in. All'utente viene inoltre fornita la possibilità di definire la propria funzione custom, con sintassi:\\\\ ``\texttt{def nome\_funzione ( parametri\_formali ) \{ istruzioni \}}''.
 
 
 
