@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  13 SEP 2020 14:36
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  13 SEP 2020 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -390,7 +390,9 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+
+] [3]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
 3.
 
@@ -411,45 +413,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 52--59
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--69
-
- []
-
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 71--72
+Underfull \hbox (badness 10000) in paragraph at lines 69--70
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 99--100
+Underfull \hbox (badness 10000) in paragraph at lines 71--76
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 102--103
+Underfull \hbox (badness 10000) in paragraph at lines 78--79
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 106.
+
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 109--110
+
+ []
+
 [5]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 106.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 113.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 113.
  (./IMAGine_doc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 106.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 106.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 113.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 113.
 Package rerunfilecheck Info: File `IMAGine_doc.out' has not changed.
 (rerunfilecheck)             Checksum: C1C2661A489D963A57A75AF9210281B9;748.
  ) 
 Here is how much of TeX's memory you used:
- 8418 strings out of 482593
- 124098 string characters out of 5949629
- 405692 words of memory out of 5000000
+ 8419 strings out of 482593
+ 124104 string characters out of 5949629
+ 407692 words of memory out of 5000000
  23316 multiletter control sequences out of 15000+600000
  542499 words of font info for 44 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  34i,8n,36p,1462b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.600
-pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.60
+ </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600
+pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.60
 0pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.6
 00pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.
 600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200
@@ -459,10 +467,10 @@ pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.60
 440.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
 1200.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecr
 m1728.600pk>
-Output written on IMAGine_doc.pdf (5 pages, 85683 bytes).
+Output written on IMAGine_doc.pdf (6 pages, 91081 bytes).
 PDF statistics:
- 397 PDF objects out of 1000 (max. 8388607)
- 129 compressed objects within 2 object streams
- 20 named destinations out of 1000 (max. 500000)
+ 417 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
+ 21 named destinations out of 1000 (max. 500000)
  97 words of extra memory for PDF output out of 10000 (max. 10000000)
 

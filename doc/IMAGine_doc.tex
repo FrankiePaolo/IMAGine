@@ -16,7 +16,7 @@
 \begin{document}
 	\maketitle
 	\tableofcontents
-	\newpage
+	\clearpage
 
 \section{Introduzione}IMAGine (IMAge-enGINE) è un linguaggio ideato per l’elaborazione delle immagini a trecentosessanta gradi. Il linguaggio consente le elaborazioni più comuni attraverso un processo immediato ed intuitivo.
 E’ stato pensato e sviluppato tenendo conto di alcuni fattori chiavi quali semplicità d’uso e rapidità di apprendimento, basandosi anche su altri linguaggi già esistenti quali MATLAB, Python o software per la modifica di immagini.\newline
@@ -49,25 +49,32 @@ E' stato inoltre individuato il tipo composto:
 \begin{itemize}
 	\item \texttt{list}, tipo ricorsivo
 \end{itemize}
-Le variabili di tipo int, doublePrecision e str vengono dichiarate senza specificare un tipo esplicito.\\\\
+Le variabili di tipo \textit{int}, \textit{doublePrecision} e \textit{str} vengono dichiarate senza specificare un tipo esplicito.\\\\
 \textit{\textbf{Esempio di dichiarazione ed assegnazione:}}\\\\
 \textbf{stringVariable="this is a string";}\\
 \textbf{intVariable=5;}\\
 \textbf{doubleVariable=5.5;}\\
 \textbf{img imageVariable="/path/img.png";}\\
 \textbf{list li=\{1,2,"element"\};}\\
-
+\newpage
 \subsubsection{Operazioni}
-Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazione, divisione, and e or logici, e paragoni ( ==, !=, >, >=, <, <=).\\
-Il risultato di somme fra \textit{integer}
-\\
+Il linguaggio consente le seguenti operazioni : somma, sottrazione, moltiplicazione, divisione, and e or logici, e paragoni ( ==, !=, >, >=, <, <=).
+
+\begin{itemize}
+	\item Il risultato di divisioni, prodotti, somme e differenze fra \textit{integer} e \textit{doublePrecision} è sempre un \textit{doublePrecision}.
+	\item Il risultato di divisioni fra \textit{integer} è un \textit{doublePrecision}
+	\item Il risultato di somme, prodotti e differenze fra tipi uguali mantiene il tipo degli elementi iniziali
+\end{itemize}
+
+\textbf{In generale}, \textit{print(var + string)} stamperà su schermo la concatenazione delle due variabili, indipendentemente dal tipo di \textit{var} (che verrà convertita a stringa)\\ 
+
 \textbf{String1 == String2 valuta il contenuto delle stringhe}\\
 \textbf{String1 != String2 valuta il contenuto delle stringhe}\\
 \textbf{print(3*string) stamperà per tre volte il contenuto di string}\\
 \textbf{print(3+string) stamperà la concatenazione fra la 3 e il contenuto di string}\\
 \textbf{print(string1+string2) stamperà la concatenazione fra le due stringhe}\\
 
-\newpage
+
 Le combinazioni di tipi consentite per ogni operatore sono riassunte nella tabella~\ref{table:operatori}. I paragoni e gli operatori logici restituiscono sempre degli int, tutti gli altri operatori restituiscono un valore del tipo della colonna, tranne la moltiplicazione \texttt{int * string} equivalente a \texttt{string * int}. Le operazioni illustrate non sono ammesse per il tipo immagine e per il tipo lista.\\
 
 

@@ -9,6 +9,6 @@
 \contentsline {section}{\numberline {4}Caratteristiche del linguaggio}{4}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Grammatica}{4}{subsection.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.1}Tipi}{4}{subsubsection.4.1.1}%
-\contentsline {subsubsection}{\numberline {4.1.2}Operazioni}{4}{subsubsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.2}Operazioni}{5}{subsubsection.4.1.2}%
 \contentsline {subsubsection}{\numberline {4.1.3}Strutture di controllo}{5}{subsubsection.4.1.3}%
-\contentsline {subsubsection}{\numberline {4.1.4}Funzioni}{5}{subsubsection.4.1.4}%
+\contentsline {subsubsection}{\numberline {4.1.4}Funzioni}{6}{subsubsection.4.1.4}%
