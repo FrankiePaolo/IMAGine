@@ -129,7 +129,9 @@ struct utils *
          val=zoom(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)),findNode(f, 3), ((struct ast *)v));
          return val;
       case b_crop:
+         printf("Before\n");
          argumentsCheck(f, 6);
+         printf("After\n");
          imageError(findNode(f, 1));
          val=crop(((struct symref *)findNode(f, 1)), ((struct symref *)findNode(f, 2)), findNode(f, 3) , findNode(f, 4), findNode(f, 5) ,((struct ast *)v));
          return val;
@@ -362,7 +364,6 @@ get(struct symref * e,struct utils * v){
    struct list * temp = getList((struct utils *)e);
    int counter = 1;
    int index;
-
    if( type(v)=='i' || (type(v)=='N' && type(getElement_sym(v))=='i') ){
       index=getElement_i(v);
       if( index>getElement_i(length(e))){
