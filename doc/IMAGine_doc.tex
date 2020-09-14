@@ -20,11 +20,11 @@
 	\clearpage
 
 \section{Introduzione}IMAGine (IMAge-enGINE) è un linguaggio ideato per l’elaborazione delle immagini a trecentosessanta gradi. Il linguaggio consente le elaborazioni più comuni attraverso un processo immediato ed intuitivo.
-E’ stato pensato e sviluppato tenendo conto di alcuni fattori chiavi quali semplicità d’uso e rapidità di apprendimento, basandosi anche su altri linguaggi già esistenti quali MATLAB, Python o software per la modifica di immagini.\newline
-Il resto della relazione è strutturato come segue: la sezione 2 illustra il contesto in cui si colloca il linguaggio proposto, nella sezione 3 vengono analizzati i dettagli implementativi, nella sezione 4 si illustrano le caratteristiche di IMAGine e degli esempi di applicazioni, infine nella sezione 5 vengono riepilogati i punti principali del lavoro svolto.
+E’ stato pensato e sviluppato tenendo conto di alcuni fattori chiavi quali semplicità d’uso e rapidità di apprendimento, basandosi anche su altri linguaggi già esistenti quali \textit{Python}, \textit{MATLAB} o software per la modifica di immagini.\newline
+Il resto della relazione è strutturato come segue: la \texttt{sezione 2} illustra il contesto in cui si colloca il linguaggio proposto, nella \texttt{sezione 3} vengono descritte le scelte progettuali, nella \texttt{sezione 4} si illustrano le caratteristiche di \textit{IMAGine},  nella \texttt{sezione 5} vengono esposti i possibili casi d'uso, nella \texttt{sezione 6} sono mostrati i risultati dei confronti fra \texttt{IMAGine}, \textit{Python} e \textit{MATLAB} nell'esecuzione di classici calcoli per effettuare benchmark quali il calcolo del pi greco, del fattoriale ed inoltre il caso del restauro, fondamentale nel dominio applicativo in esame. Nella \texttt{sezione 7} vengono riepilogati i punti principali del lavoro svolto e tratte le conclusioni.
 \clearpage
-\section{Stato dell'arte}Attualmente l’Image Processing avviene principalmente per mezzo di software già pronti quali Photoshop, Gimp, etc. Questi software sono stati pensati per un utilizzo da parte di amanti delle immagini e per professionisti in campo fotografico. Alcuni di questi, come il già citato Adobe Photoshop vengono proposti in una suite software chiamata “Adobe Creative 2020”, la quale, nella sua ultima edizione, comprende altri applicativi per l’Image Processing di livello sempre più alto.
-Per lo sviluppo del progetto ci siamo principalmente basati sullo stato dell’arte dei linguaggi che permettono operazioni su immagini e sulle operazioni che permettono: da semplici  rotazioni, zooming e shrinking alle più complicate operazioni di edge detection, cambio dello spazio di colori, etc;\newline
+\section{Stato dell'arte}Attualmente l’Image Processing avviene principalmente per mezzo di software suites già pronte quali Photoshop, Gimp, etc. Questi software sono stati pensati per un utilizzo da parte di amanti delle immagini e per professionisti in campo fotografico. Alcuni di questi, come il già citato Adobe Photoshop, vengono proposti in una suite software chiamata “Adobe Creative 2020”, la quale, nella sua ultima edizione, comprende altri applicativi per l’Image Processing di livello sempre più alto.
+Per lo sviluppo del progetto ci siamo principalmente basati sullo stato dell’arte dei linguaggi che permettono operazioni su immagini e sulle operazioni che permettono da semplici  rotazioni, zooming e shrinking alle più complicate operazioni di edge detection, cambio dello spazio di colori, etc;\newline
 Come linguaggio da adoperare per produrre il progetto sono stati individuati linguaggi dalla sintassi concisa ed efficace quali C, C++, Java e Python. Ognuno di detti linguaggi ha pro e contro ma tutti richiedono l’utilizzo di librerie esterne per l’implementazione delle modifiche e operazioni su immagini. C e Python sono attualmente i più veloci. C presenta una sintassi più complessa per l’utilizzo delle relative librerie mentre Python possiede numerose librerie con una sintassi di facile utilizzo ma alcune di esse, o meglio quasi tutte, non ottengono un buon risultato performando alcune operazioni più complicate come edge detection. Va sottolineato come il package “skimage” per Python sia uno dei migliori in termini di prestazioni e risultati. Per C e C++ la libreria migliore in termini di prestazioni è “LibVips” adoperata anche in questo progetto, nonostante possieda una sintassi di difficile utilizzo per via dei lunghi nomi dei metodi. L’ultima analisi si basa su Matlab, ampiamente usato, specialmente in ambito accademico. Si tratta del linguaggio per immagini per eccellenza. Alcune operazioni, come media adattiva, mediano adattivo, etc, richiedono che il programmatore abbia una conoscenza approfondita del linguaggio ed ambiente di sviluppo MATLAB, mentre per operazioni più semplici, quale applicazione di filtri di media e mediano, è sufficiente utilizzare funzioni built-in.
 Dallo stato dell’arte vengono dunque individuati i passaggi chiave per la creazione del linguaggio: sintassi semplici e prestazioni d’alto livello.
 \clearpage
@@ -34,7 +34,7 @@ IMAGine, volendo emulare Python, ha un funzionamento da interprete interattivo, 
 Dal punto di vista sintattico il team si è ispirato a linguaggi dalla sintassi intuitiva quali \textit{Javascript} , \textit{Python} e \textit{C\#}. Le variabili vengono dichiarate senza specificare un tipo esplicito. Il valore viene semplicemente assegnato alla variabile in fase di inizializzazione della stessa o successivamente. Le immagini vengono dichiarate fornendo il path, rendendo cosi' più manegevole l'elaborazione delle immagini. Il tipo ricorsivo lista può contenere qualunque elemento, compreso un tipo lista.\\
 Particolare attenzione è stata prestata alla \textit{leggibilità} del codice IMAGine ed alla \textit{semplicità d'uso} nel dominio scelto, ovvero l'elaborazione delle immagini. Il linguaggio si presta all'utilizzo da parte di utenti occasionali e presenta una veloce curva di apprendimento.
 \subsection{LibVips}
-l team in fase di analisi ricercato al fine di individuare una libreria che fosse veloce e che allo stesso tempo non usasse una alta quantità di memoria per le operazioni effettuate sulle immagini. A tal proposito il team ha valutato i risultati dei benchmarks sulle librerie. Da tale analisi è apparso chiaro che LibVips si classivica per 0.04 secondi come seconda libreria più veloce utilizzando in media ben 100 mb di memoria in meno rispetto alla prima classificata per la stessa operazione. In figura \ref{fig:benchmark1} viene riportata una tabella contenente delle informazioni sui benchmarks risultato dell'operazione di copia di un' immagine di 5000x5000 pixel 8-bit RGB in formato TIFF non compressa.\\
+l team in fase di analisi ricercato al fine di individuare una libreria che fosse veloce e che allo stesso tempo non usasse una alta quantità di memoria per le operazioni effettuate sulle immagini. A tal proposito il team ha valutato i risultati dei benchmarks sulle librerie. Da tale analisi è apparso chiaro che LibVips si classifica per 0.04 secondi come seconda libreria più veloce utilizzando in media ben 100 mb di memoria in meno rispetto alla prima classificata per la stessa operazione. In figura \ref{fig:benchmark1} viene riportata una tabella contenente delle informazioni sui benchmarks risultato dell'operazione di copia di un' immagine di 5000x5000 pixel 8-bit RGB in formato TIFF non compressa.\\
 Si può facilmente notare che LibVips lanciato in modalità one thread o in modalità command-line rimane comunque una delle librerie più affidabili. Inoltre nella lunga lista di alternative non sono presenti esclusivamente librerie di image processing per C/C++ ma anche librerie per Python come la famosa SciPy basata su NumPy. In figura \ref{fig:benchmark0} vengono riportati i relativi dati.\\
 Analizzando meglio le varie implementazioni ci si è resi conto che VipLips in modalità command-line genera un grosso traffico di dati sul disco. In figura \ref{fig:benchmark2} è possibile notare come LibVips (ultimo nella legenda) sia quello che utilizza meno memoria e meno tempo e quindi la miglior libreria utilizzabile.\\
 Un’altra serie di benchmarks, illustrati in figura \ref{fig:benchmark3}  è stata effettuata prendendo un’immagine di 10000x10000 pixel scattata da una macchina digitale sulla quale sono successivamente state applicate le seguenti operazioni : sottoposta a cambio di spazio di colori, ridimensionata, tagliata (cropping) e sottoposta ad operazione di sharpening. Tale operazione è stata effettuata su diversi processi, alcuni di livello server ad altri di uso domestico.\\
@@ -322,6 +322,7 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 "flip"          
 "gaussianBlur"    
 "smartCrop"        
+"extractBand"
 "zoom"             
 "crop"             
 "showImage"               
@@ -349,7 +350,7 @@ Nel lexer vengono adoperate delle regex per matchare i nomi delle variabili,le s
 \subsection{Funzionalità del linguaggio}
 \subsubsection{Metodo print}
 Il metodo \textbf{print(var)} stampa su terminale il contenuto di \textbf{var}. Accetta qualunque tipo come argomento. 
-\textbf{In generale}, \textit{print(var + string)} stamperà su schermo la concatenazione delle due variabili, indipendentemente dal tipo di \textit{var} (che verrà convertita a stringa).\\ 
+\textbf{In generale}, \textit{print(var + string)} stamperà su schermo la concatenazione delle due variabili, indipendentemente dal tipo di \textit{var} .\\ 
 E' anche possibile ripetere una stringa \textbf{n} volte utilizzando all'interno del metodo l'operatore \textbf{*}\\\\
 \textbf{print(3*string) stamperà per tre volte il contenuto di string}\\
 \textbf{print(3+string) stamperà la concatenazione fra la 3 e il contenuto di string}\\
@@ -391,9 +392,11 @@ Di seguito vi sono tutte le operazioni delle immagini con una breve descrizione 
 \item \texttt{img rotate(img name\_image, char* output\_path, double rotate\_angle)} restituisce e salva l’immagine di input rotata di un certo angolo ;
 \item \texttt{img flip(img name\_image, char* output\_path, char* direction)} restituisce e salva l’immagine di input capovolta in una certa direzione (verticale/orizzontale) ;
 \item \texttt{img gaussianBlur(img name\_image, char* output\_path, double mask\_dim)} restituisce e salva l’immagine di input sottoposta a blur gaussiano con maschera di dimensioni specificate in input ;
+\item \texttt{img extractBand(strimg name\_image, str output\_path, integer band\_n);} estrae la band\_n banda dall'immagine di input e la salva in output\_path ;
 \item \texttt{img smartCrop (img name\_image, char* output\_path, double width, double height)} ritaglia un’immagine,la salva e la restituisce. La selezione delle parti da ritagliare avviene con un algoritmo che cerca di individuare le caratteristiche di maggiore interesse per gli esseri umani ;
 \item \texttt{img zoom(img name\_image, char* output\_path, int xfactor, int yfactor)} restituisce e salva l’immagine ingrandita in base a due fattori di zoom x e y ;
-\item \texttt{img crop(img name\_image, char* output\_path, double left, double top, double width, double height)} itaglia un’immagine,la salva e la restituisce. Le dimensioni della porzione da ritagliare sono fornite in input (rispettivamente distanza in pixel dal margine sinistro,distanza in pixel dal margine in alto, larghezza ed altezza);
+\item \texttt{img crop(img name\_image, char* output\_path, double left, double top, double width, double height)} ritaglia un’immagine,la salva e la restituisce. Le dimensioni della porzione da ritagliare sono fornite in input (rispettivamente distanza in pixel dal margine sinistro,distanza in pixel dal margine in alto, larghezza ed altezza);
+\item \texttt{void showImage(img name\_image);} mostra l'immagine fornita su schermo ;
 \end{itemize}
 
 *Formati ammessi:
@@ -422,19 +425,23 @@ Vengono qui mostrati dei possibili casi d'uso del linguaggio. L'obbiettivo è di
 
 \subsection{Primo caso}
 Dall'esempio in esame si evince la semplicità ed efficacia del linguaggio.
-Viene inizialmente definito un metodo per trovare le dimensioni da ritagliare dell'immagine. Viene successivamente convertita l'immagine da formato \texttt{tif} a \texttt{jpg}. Dopo ciò viene generata iterativamente una lista che contiene i path di uscita che verranno successivamente utilizzati. In seguito si procede all'estrazione di una banda dalle due immagini a colori (3 canali). Utilizzando il costrutto \texttt{foreach} si applicano gli operatori di \textit{Sobel} e \textit{Canny} ad entrambe le immagini ad una banda. Successivamente si esegue uno \texttt{smartcrop}, che ritaglia le immagini con le dimensioni appropriate(fornite attraverso l'appropriata funzione definita dall'utente \texttt{getDim()}). Il risultato viene mostrato a schermo attraverso il metodo \texttt{showImage()}.
+Viene inizialmente definito un metodo per trovare le dimensioni da ritagliare dell'immagine. Viene successivamente convertita l'immagine da formato \texttt{tif} a \texttt{jpg}. Dopo ciò viene generata iterativamente una lista che contiene i path di uscita che verranno successivamente utilizzati. In seguito si procede all'estrazione di una banda dalle due immagini a colori (3 canali). Utilizzando il costrutto \texttt{foreach} si applicano gli operatori di \textit{Sobel} e \textit{Canny} ad entrambe le immagini ad una banda. Successivamente si esegue uno \texttt{smartcrop}, che ritaglia le immagini con le dimensioni appropriate(fornite attraverso l'appropriata funzione definita dall'utente \texttt{getDim()}). Il risultato viene mostrato a schermo attraverso il metodo \texttt{showImage()}. Dalle immagini ottenute si noti come gli edge ottenuti con il filtro di \textit{Sobel} forniscano ottimi risultati.
 \lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente firstCase.ig}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
 ]{../program/UseCases/firstCase.ig}
 \clearpage
 
 
 \subsection{Secondo caso}
+Viene inizialmente definita una funzione per ottenere le dimensioni appropriate della maschera utilizzata per effettuare un \texttt{blur gaussiano}.Vengono successivamente caricate due immagini in una lista,sulle quali viene effettuato il \texttt{blur gaussiano} e vengono mostrate a video. Si possono evincere dalle immagini le differenze fra maschere di dimensioni diverse.
+
 \lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente secondCase.ig}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
 ]{../program/UseCases/secondCase.ig}
 \clearpage
 
 
 \subsection{Terzo caso}
+Il terzo caso mostra tutte le operazioni che si possono effettuare sulle immagini. Vengono inizialmente mostrate tutte le caratteristiche di un'immagine su schermo. Successivamente viene creata iterativamente, grazie alle comode caratteristiche che permettono di concatenare con facilità stringhe e variabili, la lista di path di uscita delle immagini. Vengono infine effettuate le operazioni sulle immagini.
+
 \lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente thirdCase.ig}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
 ]{../program/UseCases/thirdCase.ig}
 
@@ -515,9 +522,9 @@ Al fine di testare la performance di IMAGine sono stati effettuati dei test su a
 	\caption{Risultato benchmark}
 	\label{fig:benchmarkFact1}
 \end{figure}
-
+\clearpage
 \section{Conclusioni}
-Durante lo sviluppo del linguaggio sono state affrontate numerose tematiche trattate durante il corso di \textit{Linguaggi e traduttori} . L'esperienza di sviluppo ha permesso al team di apprezzare l'importanza di solide fondamenta teoriche unite a una significativa esperienza pratica. Nonostante le tempistiche, le funzionalità ottenute risultano soddisfacenti .
+Durante lo sviluppo del linguaggio sono state affrontate numerose tematiche trattate durante il corso di \textit{Linguaggi e traduttori} . L'esperienza di sviluppo ha permesso al team di apprezzare l'importanza di solide fondamenta teoriche unite a una significativa esperienza pratica. Nonostante le tempistiche, le funzionalità ottenute risultano soddisfacenti . Le caratteristiche del linguaggio lo rendono fruibile come general-purpose senza compromettere la sua utilità nel dominio applicativo scelto, ovvero l'elaborazione delle immagini.
 \clearpage
 
 %% BIBLIOGRAFIA

@@ -112,8 +112,8 @@
                                                         ver                 //Vertical flip
         img gaussianBlur(img name_image, str output_path, doublePrecision mask_dim);                                                            
            /* Returns the blurred input image with a gaussian mask of size mask_dim and saves it in "output_path" */
-        img * extractBand(strimg name_image, str output_path, integer band_n);                         
-           /* Extract a band from the input image, counts from 0 to 2 and saves it in "output_path" */
+        img extractBand(strimg name_image, str output_path, integer band_n);                         
+           /* Extract the band_n (0,1 or 2) from the input image and saves it in "output_path" */
         img smartCrop(img name_image, str output_path, doublePrecision width, doublePrecision height);                                          
            /* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
         img zoom(img name_image, str output_path, integer xfactor, integer xfactor);                                                            

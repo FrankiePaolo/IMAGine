@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 19:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 20:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -434,17 +434,17 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
-
-] [3
-
-]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
-2.
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 2
+4.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [4
+) [2
+
+] [3
+
+] [4
 
 ]
 <sources/bench0.png, id=180, 906.38625pt x 47.17625pt>
@@ -543,122 +543,130 @@ Underfull \hbox (badness 10000) in paragraph at lines 222--223
 [13
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 351--357
+Underfull \hbox (badness 10000) in paragraph at lines 352--358
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 351--357
+Underfull \hbox (badness 10000) in paragraph at lines 352--358
 
  []
 
 [14
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 359--360
+Underfull \hbox (badness 10000) in paragraph at lines 360--361
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 371--372
+Underfull \hbox (badness 10000) in paragraph at lines 372--373
 
  []
 
 [15]
-Overfull \hbox (0.44185pt too wide) in paragraph at lines 391--392
+Overfull \hbox (0.44185pt too wide) in paragraph at lines 392--393
 []\T1/cmtt/m/n/10 img rotate(img name_image, char* output_path, double rotate_a
 ngle) \T1/cmr/m/n/10 re-sti-tui-sce e sal-va l'im-
  []
 
 
-Overfull \hbox (10.93929pt too wide) in paragraph at lines 393--394
+Overfull \hbox (10.93929pt too wide) in paragraph at lines 394--395
 []\T1/cmtt/m/n/10 img gaussianBlur(img name_image, char* output_path, double ma
 sk_dim) \T1/cmr/m/n/10 re-sti-tui-sce e sal-va l'im-
  []
 
 
-Overfull \hbox (22.38094pt too wide) in paragraph at lines 396--397
+Overfull \hbox (9.25452pt too wide) in paragraph at lines 395--396
+[]\T1/cmtt/m/n/10 img extractBand(strimg name_image, str output_path, integer b
+and_n); \T1/cmr/m/n/10 estrae la band_n ban-
+ []
+
+
+Overfull \hbox (22.38094pt too wide) in paragraph at lines 398--399
 []\T1/cmtt/m/n/10 img crop(img name_image, char* output_path, double left, doub
 le top, double width, double
  []
 
-[16] (../program/UseCases/firstCase.ig [17
+[16] [17] (../program/UseCases/firstCase.ig [18
 
-]) [18]
-(../program/UseCases/secondCase.ig) [19
+]) [19]
+(../program/UseCases/secondCase.ig) [20
 
 ] (../program/UseCases/thirdCase.ig)
-[20
-
-] (../program/Benchmark/factorial.ig) (../program/Benchmark/factorial.py)
-<sources/bench5-Fact.png, id=537, 354.57469pt x 447.92343pt>
-File: sources/bench5-Fact.png Graphic file (type png)
-<use sources/bench5-Fact.png>
-Package pdftex.def Info: sources/bench5-Fact.png  used on input line 456.
-(pdftex.def)             Requested size: 354.57382pt x 447.92233pt.
-<sources/bench4-Fact.png, id=538, 610.28pt x 377.41pt>
-File: sources/bench4-Fact.png Graphic file (type png)
-<use sources/bench4-Fact.png>
-Package pdftex.def Info: sources/bench4-Fact.png  used on input line 464.
-(pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
-
 [21
 
- <./sources/bench5-Fact.png>] [22 <./sources/bench4-Fact.png>]
+] (../program/Benchmark/factorial.ig) (../program/Benchmark/factorial.py)
+<sources/bench5-Fact.png, id=538, 354.57469pt x 447.92343pt>
+File: sources/bench5-Fact.png Graphic file (type png)
+<use sources/bench5-Fact.png>
+Package pdftex.def Info: sources/bench5-Fact.png  used on input line 463.
+(pdftex.def)             Requested size: 354.57382pt x 447.92233pt.
+<sources/bench4-Fact.png, id=539, 610.28pt x 377.41pt>
+File: sources/bench4-Fact.png Graphic file (type png)
+<use sources/bench4-Fact.png>
+Package pdftex.def Info: sources/bench4-Fact.png  used on input line 471.
+(pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
+
+[22
+
+ <./sources/bench5-Fact.png>] [23 <./sources/bench4-Fact.png>]
 (../program/Benchmark/pigreco.ig) (../program/Benchmark/pigreco.py)
-<sources/bench7-Pi.png, id=565, 380.17032pt x 481.04718pt>
+<sources/bench7-Pi.png, id=566, 380.17032pt x 481.04718pt>
 File: sources/bench7-Pi.png Graphic file (type png)
 <use sources/bench7-Pi.png>
-Package pdftex.def Info: sources/bench7-Pi.png  used on input line 480.
+Package pdftex.def Info: sources/bench7-Pi.png  used on input line 487.
 (pdftex.def)             Requested size: 380.16939pt x 481.046pt.
-<sources/bench6-Pi.png, id=566, 610.28pt x 377.41pt>
+<sources/bench6-Pi.png, id=567, 610.28pt x 377.41pt>
 File: sources/bench6-Pi.png Graphic file (type png)
 <use sources/bench6-Pi.png>
-Package pdftex.def Info: sources/bench6-Pi.png  used on input line 488.
+Package pdftex.def Info: sources/bench6-Pi.png  used on input line 495.
 (pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [23
+ [24
 
- <./sources/bench7-Pi.png>] [24 <./sources/bench6-Pi.png>]
+ <./sources/bench7-Pi.png>] [25 <./sources/bench6-Pi.png>]
 (../program/Benchmark/gaussianrestore.ig)
 (../program/Benchmark/gaussianrestore.m)
-<sources/bench8-Gaussian.png, id=595, 371.88937pt x 460.72125pt>
+<sources/bench8-Gaussian.png, id=597, 371.88937pt x 460.72125pt>
 File: sources/bench8-Gaussian.png Graphic file (type png)
 <use sources/bench8-Gaussian.png>
-Package pdftex.def Info: sources/bench8-Gaussian.png  used on input line 506.
+Package pdftex.def Info: sources/bench8-Gaussian.png  used on input line 513.
 (pdftex.def)             Requested size: 371.88846pt x 460.72012pt.
-<sources/bench9-Gaussian.png, id=596, 610.28pt x 377.41pt>
+<sources/bench9-Gaussian.png, id=598, 610.28pt x 377.41pt>
 File: sources/bench9-Gaussian.png Graphic file (type png)
 <use sources/bench9-Gaussian.png>
-Package pdftex.def Info: sources/bench9-Gaussian.png  used on input line 514.
+Package pdftex.def Info: sources/bench9-Gaussian.png  used on input line 521.
 (pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [25
+ [26
 
  <./sources/bench8-Gaussian.png>]
-[26 <./sources/bench9-Gaussian.png>]
+[27 <./sources/bench9-Gaussian.png>] [28
+
+]
 No file IMAGine_doc.bbl.
 
-Underfull \hbox (badness 10000) in paragraph at lines 529--530
+Underfull \hbox (badness 10000) in paragraph at lines 536--537
 []\T1/cmr/m/n/10 Libvips API do-cu-men-ta-tion []$\T1/cmtt/m/n/10 http : / / we
 b . archive . org / web / 20080207010024 / http : / / www .
  []
 
-[27
+[29
 
 
 ]
-<sources/parser.pdf, id=633, 9195.35374pt x 7928.62125pt>
+<sources/parser.pdf, id=638, 9195.35374pt x 7928.62125pt>
 File: sources/parser.pdf Graphic file (type pdf)
 <use sources/parser.pdf>
-Package pdftex.def Info: sources/parser.pdf  used on input line 541.
+Package pdftex.def Info: sources/parser.pdf  used on input line 548.
 (pdftex.def)             Requested size: 9195.33145pt x 7928.60202pt.
- [28
+ [30
 
  <./sources/parser.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 546.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 546.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 553.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 553.
  (./IMAGine_doc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 546.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 546.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 553.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 553.
 Package rerunfilecheck Info: File `IMAGine_doc.out' has not changed.
 (rerunfilecheck)             Checksum: 07C69789A47190AB909BD8708692D4AF;1714.
 
@@ -667,18 +675,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9238 strings out of 482593
- 134720 string characters out of 5949629
- 594638 words of memory out of 5000000
+ 9237 strings out of 482593
+ 134694 string characters out of 5949629
+ 593638 words of memory out of 5000000
  23718 multiletter control sequences out of 15000+600000
  542499 words of font info for 44 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  34i,8n,36p,1462b,1870s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600
 pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.60
-0pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.6
-00pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.
-600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000
+0pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.6
+00pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.
+600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000
 .600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm100
 0.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx10
 00.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1
@@ -687,10 +695,10 @@ pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.60
 m1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 
-Output written on IMAGine_doc.pdf (28 pages, 582644 bytes).
+Output written on IMAGine_doc.pdf (30 pages, 586545 bytes).
 PDF statistics:
- 1145 PDF objects out of 1200 (max. 8388607)
- 712 compressed objects within 8 object streams
- 391 named destinations out of 1000 (max. 500000)
+ 1156 PDF objects out of 1200 (max. 8388607)
+ 714 compressed objects within 8 object streams
+ 390 named destinations out of 1000 (max. 500000)
  280 words of extra memory for PDF output out of 10000 (max. 10000000)
 

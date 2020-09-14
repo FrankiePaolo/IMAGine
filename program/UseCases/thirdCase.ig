@@ -9,17 +9,14 @@ ba=bands(im);
 mi=min(im);
 ma=max(im);
 avg=average(im);
-
 print("Image 'im' details:");
 print("Width: " + wi + " Height: " + he + " Bands: " + ba + " Min: " + mi + " Max: " + ma + " Avg: " + avg);
 pageLine(2);
-
 list outNames=
 {"inverted","hsv","equalized","normalised",
 "canny","sobel","sharpen","converted","added",
 "subtracted","rotated","flipped","gaussianBlu",
 "smartCrop","zoomed","cropped"};
-
 i=1;
 while(i<=length(outNames))do{
 	insert(outNames, "../program/Images/Case3/"+get(outNames, i)+".jpg", i+1);
@@ -27,7 +24,6 @@ while(i<=length(outNames))do{
 	i=i+1;
 }
 pageLine(3);
-
 img inverted=invert(im,get(outNames,1));
 img differentColor=convertColorSpace(im,get(outNames,2),"hsv");
 img equalized=histEq(im,get(outNames,3));
