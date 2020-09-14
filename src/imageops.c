@@ -447,8 +447,8 @@ saveImage(char * in, VipsImage * out, char * path){
    char * temp=strdup(".");
 
    if(suffix==NULL){
-      path=strcat(path, temp);
-      path=strcat(path, getFormat(in));
+      path=strcat(strdup(path), temp);
+      path=strcat(strdup(path), getFormat(in));
 
       saveImage(in, out, path);
    } else{
@@ -471,8 +471,8 @@ saveImage(char * in, VipsImage * out, char * path){
             vips_error_exit(NULL);
          }
       } else{         
-         path=strcat(path, temp);
-         path=strcat(path, getFormat(in));
+         path=strcat(strdup(path), temp);
+         path=strcat(strdup(path), getFormat(in));
 
          saveImage(in, out, path);
       }      

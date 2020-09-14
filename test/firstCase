@@ -9,10 +9,6 @@ def getDim(a){
 	}
 }
 
-cane="Dio";
-print(cane+"cane");
-print(cane);
-
 img lena="./../test/Images/lena.tif";
 img pencils="./../test/Images/pencils.jpg";
 
