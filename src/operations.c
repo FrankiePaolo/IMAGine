@@ -9,7 +9,7 @@
 
 void
 sum(struct utils * v, struct utils * l, struct utils * r) {
-   char temp[50];
+   char temp[100];
 
    if (type(l) == 'i' && type(r) == 'i') {
       putElement_i(v,getElement_i(l)+getElement_i(r));
