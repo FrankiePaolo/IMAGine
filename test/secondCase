@@ -16,6 +16,7 @@ def getBlur(a){
 		print("Blur di dimensioni: " + blur);
 		blur;
 	}else{
+		print("Blur di dimensioni: " + blur);
 		blur;
 	}
 }

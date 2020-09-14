@@ -208,9 +208,10 @@ push(struct symref * e,struct utils * v){
 
    if(!(temp)){
       li->s=setList(v);
+      li->n=NULL;
       e->s->li=li;
    }else{
-      while((temp->n)){
+      while( (temp->n) ){
          temp=temp->n;
       }
       temp->n=li;

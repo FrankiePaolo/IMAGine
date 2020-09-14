@@ -563,6 +563,8 @@ struct symbol *
          s->value=((struct utils *)a);
       }else if(type(v) == 'N'){
          s=((struct symref *)v)->s;
+      }else if(type(v) == 'P'){
+         s->value=(v);
       }else{
         yyerror("Nodetype not found %c", type(v));
       }

@@ -9,8 +9,9 @@ mi=min(im);
 ma=max(im);
 avg=average(im);
 
+print("Image 'im' details:");
 print("Width: " + wi + " Height: " + he + " Bands: " + ba + " Min: " + mi + " Max: " + ma + " Avg: " + avg);
-
+print("--------------------");
 
 list outNames=
 {"inverted","hsv","equalized","normalised",
@@ -20,18 +21,8 @@ list outNames=
 
 list outLi={};
 foreach(element:outNames){
-	//temp="./../test/Images/Result/"+element +".jpg";
-	//print(element);
-	//push(outLi,"./../test/Images/Result/" + element + ".jpg");
-	//push(outLi,temp);
+	push(outLi,"./../test/Images/Result/" + element + ".jpg");
 }
-//print(outLi);
-
-//i=0;
-//while(i<20)do{
-	//push(outLi,"./../test/Images/Result/" + i + ".jpg");
-	//i=i+1;
-//}
 //print(outLi);
 
 
