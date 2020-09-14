@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 20:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 21:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -588,85 +588,121 @@ Overfull \hbox (22.38094pt too wide) in paragraph at lines 398--399
 le top, double width, double
  []
 
-[16] [17] (../program/UseCases/firstCase.ig [18
+[16] [17]
+<sources/input.png, id=397, 791.95876pt x 400.49625pt>
+File: sources/input.png Graphic file (type png)
+<use sources/input.png>
+Package pdftex.def Info: sources/input.png  used on input line 428.
+(pdftex.def)             Requested size: 791.95683pt x 400.49527pt.
+ [18
 
-]) [19]
-(../program/UseCases/secondCase.ig) [20
+ <./sources/input.png>] (../program/UseCases/firstCase.ig [19
 
-] (../program/UseCases/thirdCase.ig)
+])
+<sources/case1out.png, id=450, 1185.67969pt x 694.84593pt>
+File: sources/case1out.png Graphic file (type png)
+<use sources/case1out.png>
+Package pdftex.def Info: sources/case1out.png  used on input line 442.
+(pdftex.def)             Requested size: 1185.6768pt x 694.84422pt.
+
+[20 <./sources/case1out.png>] (../program/UseCases/secondCase.ig)
+<sources/case2out.png, id=465, 854.44218pt x 398.99063pt>
+File: sources/case2out.png Graphic file (type png)
+<use sources/case2out.png>
+Package pdftex.def Info: sources/case2out.png  used on input line 457.
+(pdftex.def)             Requested size: 854.4401pt x 398.98965pt.
+
+Overfull \hbox (42.40077pt too wide) in paragraph at lines 456--458
+ [][] 
+ []
+
 [21
 
-] (../program/Benchmark/factorial.ig) (../program/Benchmark/factorial.py)
-<sources/bench5-Fact.png, id=540, 354.57469pt x 447.92343pt>
+] [22 <./sources/case2out.png>] (../program/UseCases/thirdCase.ig)
+<sources/case3out.png, id=508, 1231.60126pt x 778.40813pt>
+File: sources/case3out.png Graphic file (type png)
+<use sources/case3out.png>
+Package pdftex.def Info: sources/case3out.png  used on input line 472.
+(pdftex.def)             Requested size: 1231.59825pt x 778.40623pt.
+
+Overfull \hbox (42.41261pt too wide) in paragraph at lines 471--473
+ [][] 
+ []
+
+[23
+
+] [24 <./sources/case3out.png>] (../program/Benchmark/factorial.ig)
+(../program/Benchmark/factorial.py)
+<sources/bench5-Fact.png, id=561, 354.57469pt x 447.92343pt>
 File: sources/bench5-Fact.png Graphic file (type png)
 <use sources/bench5-Fact.png>
-Package pdftex.def Info: sources/bench5-Fact.png  used on input line 463.
+Package pdftex.def Info: sources/bench5-Fact.png  used on input line 492.
 (pdftex.def)             Requested size: 354.57382pt x 447.92233pt.
-<sources/bench4-Fact.png, id=541, 610.28pt x 377.41pt>
+<sources/bench4-Fact.png, id=562, 610.28pt x 377.41pt>
 File: sources/bench4-Fact.png Graphic file (type png)
 <use sources/bench4-Fact.png>
-Package pdftex.def Info: sources/bench4-Fact.png  used on input line 471.
+Package pdftex.def Info: sources/bench4-Fact.png  used on input line 500.
 (pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
+ [25
 
-[22
-
- <./sources/bench5-Fact.png>] [23 <./sources/bench4-Fact.png>]
-(../program/Benchmark/pigreco.ig) (../program/Benchmark/pigreco.py)
-<sources/bench7-Pi.png, id=568, 380.17032pt x 481.04718pt>
+ <./sources/bench5-Fact.png>] [26 <./sources/bench4-Fact.png>] (../program/Benc
+hmark/pigreco.ig)
+(../program/Benchmark/pigreco.py)
+<sources/bench7-Pi.png, id=590, 380.17032pt x 481.04718pt>
 File: sources/bench7-Pi.png Graphic file (type png)
 <use sources/bench7-Pi.png>
-Package pdftex.def Info: sources/bench7-Pi.png  used on input line 487.
+Package pdftex.def Info: sources/bench7-Pi.png  used on input line 516.
 (pdftex.def)             Requested size: 380.16939pt x 481.046pt.
-<sources/bench6-Pi.png, id=569, 610.28pt x 377.41pt>
+<sources/bench6-Pi.png, id=591, 610.28pt x 377.41pt>
 File: sources/bench6-Pi.png Graphic file (type png)
 <use sources/bench6-Pi.png>
-Package pdftex.def Info: sources/bench6-Pi.png  used on input line 495.
+Package pdftex.def Info: sources/bench6-Pi.png  used on input line 524.
 (pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [24
+ [27
 
- <./sources/bench7-Pi.png>] [25 <./sources/bench6-Pi.png>]
-(../program/Benchmark/gaussianrestore.ig)
+ <./sources/bench7-Pi.png>] [28 <./sources/bench6-Pi.png>] (../program/Benchmar
+k/gaussianrestore.ig)
 (../program/Benchmark/gaussianrestore.m)
-<sources/bench8-Gaussian.png, id=599, 371.88937pt x 460.72125pt>
+<sources/bench8-Gaussian.png, id=620, 371.88937pt x 460.72125pt>
 File: sources/bench8-Gaussian.png Graphic file (type png)
 <use sources/bench8-Gaussian.png>
-Package pdftex.def Info: sources/bench8-Gaussian.png  used on input line 513.
+Package pdftex.def Info: sources/bench8-Gaussian.png  used on input line 542.
 (pdftex.def)             Requested size: 371.88846pt x 460.72012pt.
-<sources/bench9-Gaussian.png, id=600, 610.28pt x 377.41pt>
+<sources/bench9-Gaussian.png, id=621, 610.28pt x 377.41pt>
 File: sources/bench9-Gaussian.png Graphic file (type png)
 <use sources/bench9-Gaussian.png>
-Package pdftex.def Info: sources/bench9-Gaussian.png  used on input line 521.
+Package pdftex.def Info: sources/bench9-Gaussian.png  used on input line 550.
 (pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [26
+ [29
 
  <./sources/bench8-Gaussian.png>]
-[27 <./sources/bench9-Gaussian.png>] [28
+[30 <./sources/bench9-Gaussian.png>] [31
 
 ]
 No file IMAGine_doc.bbl.
 
-Underfull \hbox (badness 10000) in paragraph at lines 536--537
+Underfull \hbox (badness 10000) in paragraph at lines 565--566
 []\T1/cmr/m/n/10 Libvips API do-cu-men-ta-tion []$\T1/cmtt/m/n/10 http : / / we
 b . archive . org / web / 20080207010024 / http : / / www .
  []
 
-[29
+[32
 
 
 ]
-<sources/parser.pdf, id=639, 9195.35374pt x 7928.62125pt>
+<sources/parser.pdf, id=661, 9195.35374pt x 7928.62125pt>
 File: sources/parser.pdf Graphic file (type pdf)
 <use sources/parser.pdf>
-Package pdftex.def Info: sources/parser.pdf  used on input line 548.
+Package pdftex.def Info: sources/parser.pdf  used on input line 577.
 (pdftex.def)             Requested size: 9195.33145pt x 7928.60202pt.
- [30
+ [33
 
  <./sources/parser.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 553.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 553.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 582.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 582.
  (./IMAGine_doc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 553.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 553.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 582.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 582.
 Package rerunfilecheck Info: File `IMAGine_doc.out' has not changed.
 (rerunfilecheck)             Checksum: 07C69789A47190AB909BD8708692D4AF;1714.
 
@@ -675,10 +711,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 9237 strings out of 482593
- 134694 string characters out of 5949629
- 593638 words of memory out of 5000000
- 23718 multiletter control sequences out of 15000+600000
+ 9271 strings out of 482593
+ 135321 string characters out of 5949629
+ 594903 words of memory out of 5000000
+ 23742 multiletter control sequences out of 15000+600000
  542499 words of font info for 44 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
  34i,8n,36p,1462b,1870s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -695,10 +731,10 @@ pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.60
 m1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 
-Output written on IMAGine_doc.pdf (30 pages, 586595 bytes).
+Output written on IMAGine_doc.pdf (33 pages, 4551873 bytes).
 PDF statistics:
- 1157 PDF objects out of 1200 (max. 8388607)
- 715 compressed objects within 8 object streams
- 390 named destinations out of 1000 (max. 500000)
- 280 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1181 PDF objects out of 1200 (max. 8388607)
+ 733 compressed objects within 8 object streams
+ 397 named destinations out of 1000 (max. 500000)
+ 300 words of extra memory for PDF output out of 10000 (max. 10000000)
 

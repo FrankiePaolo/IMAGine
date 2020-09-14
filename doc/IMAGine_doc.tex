@@ -419,31 +419,60 @@ Di seguito vi sono tutte le operazioni delle immagini con una breve descrizione 
 \end{itemize}
 \clearpage
 \section{Casi d'uso}
-Vengono qui mostrati dei possibili casi d'uso del linguaggio. L'obbiettivo è di mostrare le funzionalità e la semplicità d'uso di \textit{IMAGine}.
+Vengono qui mostrati dei possibili casi d'uso del linguaggio. L'obbiettivo è di mostrare le funzionalità e la semplicità d'uso di \textit{IMAGine}.\\
+Le immagini in \ref{fig:input.png} sono utilizzate per effettuare le elaborazioni presentate nel tre casi d'uso.
 
-
-
+\begin{figure}[H]
+	\centering
+	\resizebox{16cm}{!}{
+		\includegraphics{sources/input.png}}
+	\caption{Immagini di input}
+	\label{fig:input.png}
+\end{figure}
+\clearpage
 \subsection{Primo caso}
 Dall'esempio in esame si evince la semplicità ed efficacia del linguaggio.
 Viene inizialmente definito un metodo per trovare le dimensioni da ritagliare dell'immagine. Viene successivamente convertita l'immagine da formato \texttt{tif} a \texttt{jpg}. Dopo ciò viene generata iterativamente una lista che contiene i path di uscita che verranno successivamente utilizzati. In seguito si procede all'estrazione di una banda dalle due immagini a colori (3 canali). Utilizzando il costrutto \texttt{foreach} si applicano gli operatori di \textit{Sobel} e \textit{Canny} ad entrambe le immagini ad una banda. Successivamente si esegue uno \texttt{smartcrop}, che ritaglia le immagini con le dimensioni appropriate(fornite attraverso l'appropriata funzione definita dall'utente \texttt{getDim()}). Il risultato viene mostrato a schermo attraverso il metodo \texttt{showImage()}. Dalle immagini ottenute si noti come gli edge ottenuti con il filtro di \textit{Sobel} forniscano ottimi risultati.
 \lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente firstCase.ig}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
 ]{../program/UseCases/firstCase.ig}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{16cm}{!}{
+		\includegraphics{sources/case1out.png}}
+	\caption{Immagini di output, i risultati di Canny con queste dimensioni sono difficilmente apprezzabili}
+	\label{fig:case1out.png}
+\end{figure}
+
 \clearpage
-
-
 \subsection{Secondo caso}
 Viene inizialmente definita una funzione per ottenere le dimensioni appropriate della maschera utilizzata per effettuare un \texttt{blur gaussiano}.Vengono successivamente caricate due immagini in una lista,sulle quali viene effettuato il \texttt{blur gaussiano} e vengono mostrate a video. Si possono evincere dalle immagini le differenze fra maschere di dimensioni diverse.
 
 \lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente secondCase.ig}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
 ]{../program/UseCases/secondCase.ig}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{18cm}{!}{
+		\includegraphics{sources/case2out.png}}
+	\caption{Immagini di output secondo caso}
+	\label{fig:case2out.png}
+\end{figure}
+
 \clearpage
-
-
 \subsection{Terzo caso}
 Il terzo caso mostra tutte le operazioni che si possono effettuare sulle immagini. Vengono inizialmente mostrate tutte le caratteristiche di un'immagine su schermo. Successivamente viene creata iterativamente, grazie alle comode caratteristiche che permettono di concatenare con facilità stringhe e variabili, la lista di path di uscita delle immagini. Vengono infine effettuate le operazioni sulle immagini.
 
 \lstinputlisting[firstline=1, lastline=62, frame=single, numbers=left, stepnumber=1, captionpos=b, caption={Sorgente thirdCase.ig}, label={listing:sub}, breaklines=true, postbreak=\mbox{{$\hookrightarrow$}\space}
 ]{../program/UseCases/thirdCase.ig}
+
+\begin{figure}[H]
+	\centering
+	\resizebox{18cm}{!}{
+		\includegraphics{sources/case3out.png}}
+	\caption{Immagini di output terzo caso}
+	\label{fig:case3out.png}
+\end{figure}
 
 \clearpage
 \section{Risultati}
