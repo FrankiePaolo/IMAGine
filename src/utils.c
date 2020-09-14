@@ -1,24 +1,24 @@
-#  include <stdio.h>
-#  include <stdlib.h>
-#  include <stdarg.h>
-#  include <string.h>
-#  include <math.h>
-#  include <vips/vips.h>
-#  include "utils.h"
-#  include "builtin.h"
-#  include "eval.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <string.h>
+#include <math.h>
+#include <vips/vips.h>
+#include "utils.h"
+#include "builtin.h"
+#include "eval.h"
 extern FILE *yyin;
 
 /* hash a symbol */
 static unsigned
-   symhash(char * sym) {
-      unsigned int hash = 0;
-      unsigned c;
+symhash(char * sym) {
+   unsigned int hash = 0;
+   unsigned c;
 
-      while ((c = * sym++)){
-         hash = hash * 9 ^ c;
-      }
-      return hash;
+   while ((c = * sym++)) {
+      hash = hash * 9 ^ c;
+   }
+   return hash;
 }
 
 struct symbol *
@@ -50,228 +50,228 @@ struct symbol *
    }
 
 char *
-getPath(struct ast * p){
-   char * path;
-   if(p->nodetype=='S'){
-      path=strdup(((struct str *)p)->str);
-      return path;
-   }else if(p->nodetype=='N'){
-      return getPath(((struct ast *)getElement_sym((struct utils *)p)));
-   }else{
-      yyerror("Not a string!");
-      exit(0);
+   getPath(struct ast * p) {
+      char * path;
+      if (p -> nodetype == 'S') {
+         path = strdup(((struct str * ) p) -> str);
+         return path;
+      } else if (p -> nodetype == 'N') {
+         return getPath(((struct ast * ) getElement_sym((struct utils * ) p)));
+      } else {
+         yyerror("Not a string!");
+         exit(0);
+      }
    }
-}
 
 void
-argumentsCheck(struct fncall * f, int index){
-   struct ast * node=f->l;
-   int counter=1;
+argumentsCheck(struct fncall * f, int index) {
+   struct ast * node = f -> l;
+   int counter = 1;
 
-   while(node->r && node->nodetype=='L'){
-      node=node->r;
+   while (node -> r && node -> nodetype == 'L') {
+      node = node -> r;
       counter++;
    }
 
-   if(counter<index){
+   if (counter < index) {
       yyerror("Too few arguments for the function! Requested: %d but given: %d!", index, counter);
-   }else if( counter>index){
+   } else if (counter > index) {
       yyerror("Too many arguments for the function! Requested: %d but given: %d!", index, counter);
    }
 }
 
 struct ast *
-findNode(struct fncall * f, int index){
-   struct ast * node=f->l;
-   int counter=1;
+   findNode(struct fncall * f, int index) {
+      struct ast * node = f -> l;
+      int counter = 1;
 
-   while(counter<index){
-      if(!(node->r)){
-         yyerror("Wrong arguments for the function!");
-      } 
-      node=node->r;
-      counter++;
+      while (counter < index) {
+         if (!(node -> r)) {
+            yyerror("Wrong arguments for the function!");
+         }
+         node = node -> r;
+         counter++;
 
-      if(!node){
-         yyerror("Node does not exist!\n");
+         if (!node) {
+            yyerror("Node does not exist!\n");
+         }
       }
-   }
 
-   if(!(node->l)){
+      if (!(node -> l)) {
          yyerror("Wrong arguments for the function!");
-   }
+      }
 
-   return ((struct ast *)eval(node->l));
-}
+      return ((struct ast * ) eval(node -> l));
+   }
 
 int
-getTruth(int temp){
-   if(temp==0){
+getTruth(int temp) {
+   if (temp == 0) {
       return 1;
-   }else{
+   } else {
       return 0;
    }
 }
 
 int
-type(struct utils * v){
+type(struct utils * v) {
 
-	if(v && v->nodetype){
-  	   return v->nodetype;
-	} else {
-		yyerror("NULL value detected");
-      exit(0);
-	}
-}
-
-void
-putElement_i(struct utils * v,int i){
-   if(type(v)=='i'){
-      ((struct integer * ) v) -> i=i;
+   if (v && v -> nodetype) {
+      return v -> nodetype;
    } else {
-		yyerror("NULL value detected");
-		return;
-	}
-}
-
-void
-putElement_d(struct utils * v,double d){
-   if(type(v)=='D'){
-      ((struct doublePrecision * ) v) -> d=d;
-   } else {
-		yyerror("NULL value detected");
-	}
-}
-
-void
-putElement_s(struct utils * v,char * s){
-   if(type(v)=='S'){
-      ((struct str * ) v) -> str=strdup(s);
-   } else {
-		yyerror("NULL value detected");
-	}
-}
-
-int
-getElement_i(struct utils * v){
-   if(type(v)=='i'){
-      return ((struct integer * ) v) -> i ;
-   } else if(type(v)=='N') {
-      return getElement_i(getElement_sym(v));
-   } else{
-		yyerror("NULL value detected");
-      exit(0);
-	}
-}
-
-double
-getElement_d(struct utils * v){
-   if(type(v)=='D'){
-      return ((struct doublePrecision * ) v) -> d ;
-   } else if(type(v)=='N') {
-      return getElement_d(getElement_sym(v));
-   } else {
-		yyerror("NULL value detected");
-      exit(0);
-	}
-}
-
-char *
-getElement_s(struct utils * v){
-   if(type(v)=='S'){
-      return ((struct str * ) v) -> str ;
-   } else if(type(v)=='N') {
-      return getElement_s(getElement_sym(v));
-   } else {
-		yyerror("NULL value detected");
+      yyerror("NULL value detected");
       exit(0);
    }
 }
 
-struct utils *
-getElement_sym(struct utils * v){
-   if(v){
-      return ((struct symref * ) v) -> s -> value ;
+void
+putElement_i(struct utils * v, int i) {
+   if (type(v) == 'i') {
+      ((struct integer * ) v) -> i = i;
    } else {
-		yyerror("NULL value detected");
-		exit(0);
-	}
+      yyerror("NULL value detected");
+      return;
+   }
 }
 
-struct utils *
-getElement_li(struct list * v){
-   if(v){
-      return v->s->value; 
+void
+putElement_d(struct utils * v, double d) {
+   if (type(v) == 'D') {
+      ((struct doublePrecision * ) v) -> d = d;
    } else {
-		yyerror("NULL value detected");
-      exit(0);
-	}
+      yyerror("NULL value detected");
+   }
 }
+
+void
+putElement_s(struct utils * v, char * s) {
+   if (type(v) == 'S') {
+      ((struct str * ) v) -> str = strdup(s);
+   } else {
+      yyerror("NULL value detected");
+   }
+}
+
+int
+getElement_i(struct utils * v) {
+   if (type(v) == 'i') {
+      return ((struct integer * ) v) -> i;
+   } else if (type(v) == 'N') {
+      return getElement_i(getElement_sym(v));
+   } else {
+      yyerror("NULL value detected");
+      exit(0);
+   }
+}
+
+double
+getElement_d(struct utils * v) {
+   if (type(v) == 'D') {
+      return ((struct doublePrecision * ) v) -> d;
+   } else if (type(v) == 'N') {
+      return getElement_d(getElement_sym(v));
+   } else {
+      yyerror("NULL value detected");
+      exit(0);
+   }
+}
+
+char *
+   getElement_s(struct utils * v) {
+      if (type(v) == 'S') {
+         return ((struct str * ) v) -> str;
+      } else if (type(v) == 'N') {
+         return getElement_s(getElement_sym(v));
+      } else {
+         yyerror("NULL value detected");
+         exit(0);
+      }
+   }
+
+struct utils *
+   getElement_sym(struct utils * v) {
+      if (v) {
+         return ((struct symref * ) v) -> s -> value;
+      } else {
+         yyerror("NULL value detected");
+         exit(0);
+      }
+   }
+
+struct utils *
+   getElement_li(struct list * v) {
+      if (v) {
+         return v -> s -> value;
+      } else {
+         yyerror("NULL value detected");
+         exit(0);
+      }
+   }
 
 struct list *
-   getList(struct utils * v){
-      if(v && type(getElement_sym(v))=='l'){
-         return ((struct symref * ) v) -> s->li; 
-      } else if( type(getElement_sym(v))=='N'){
+   getList(struct utils * v) {
+      if (v && type(getElement_sym(v)) == 'l') {
+         return ((struct symref * ) v) -> s -> li;
+      } else if (type(getElement_sym(v)) == 'N') {
          return getList(getElement_sym(v));
       } else {
          yyerror("NULL value detected");
          exit(0);
       }
-}
+   }
 
 int
-   listCheck(struct symref * v){
-      if(type((struct utils *)v)=='N' && v->s->li && type( getElement_sym( (struct utils *)v ) ) =='l'){
-         return 1;
-      } else if(type((struct utils *)v)=='N' && type( getElement_sym( (struct utils *)v ) ) =='l'){
-         return 0;
-      } else if(type((struct utils *)v)=='N'){ 
-         return listCheck( ((struct symref *)getElement_sym((struct utils *)v)) );
-      } else {
-         return -1;
-      }
+listCheck(struct symref * v) {
+   if (type((struct utils * ) v) == 'N' && v -> s -> li && type(getElement_sym((struct utils * ) v)) == 'l') {
+      return 1;
+   } else if (type((struct utils * ) v) == 'N' && type(getElement_sym((struct utils * ) v)) == 'l') {
+      return 0;
+   } else if (type((struct utils * ) v) == 'N') {
+      return listCheck(((struct symref * ) getElement_sym((struct utils * ) v)));
+   } else {
+      return -1;
+   }
 }
 
 VipsInterpretation
-   getSpace(struct ast * s){
-      VipsInterpretation space;
-      char * str;
-      str=getPath(s);
+getSpace(struct ast * s) {
+   VipsInterpretation space;
+   char * str;
+   str = getPath(s);
 
-      if(!strcmp(str,"grey16")){
-         space=VIPS_INTERPRETATION_GREY16;   // generic 16-bit mono
-      }else if(!strcmp(str,"hsv")){
-         space=VIPS_INTERPRETATION_HSV;    // pixels are HSV
-      }else if(!strcmp(str,"yxy")){
-         space=VIPS_INTERPRETATION_YXY;    // pixels are CIE Yxy
-      }else if(!strcmp(str,"lch")){       
-         space=VIPS_INTERPRETATION_LCH;    // pixels are in CIE LCh space
-      }else if(!strcmp(str,"cmc")){
-         space=VIPS_INTERPRETATION_CMC;    // a uniform colourspace based on CMC(1:1)
-      }else if(!strcmp(str,"lab")){
-         space=VIPS_INTERPRETATION_LAB;    // pixels are in CIE Lab space
-      }else {
-         yyerror("Wrong space type, check the manual for allowed types!");
-         exit(0);
-      }
-      return space;
+   if (!strcmp(str, "grey16")) {
+      space = VIPS_INTERPRETATION_GREY16;    // generic 16-bit mono
+   } else if (!strcmp(str, "hsv")) {
+      space = VIPS_INTERPRETATION_HSV;       // pixels are HSV
+   } else if (!strcmp(str, "yxy")) {
+      space = VIPS_INTERPRETATION_YXY;       // pixels are CIE Yxy
+   } else if (!strcmp(str, "lch")) {
+      space = VIPS_INTERPRETATION_LCH;       // pixels are in CIE LCh space
+   } else if (!strcmp(str, "cmc")) {
+      space = VIPS_INTERPRETATION_CMC;       // a uniform colourspace based on CMC(1:1)
+   } else if (!strcmp(str, "lab")) {
+      space = VIPS_INTERPRETATION_LAB;       // pixels are in CIE Lab space
+   } else {
+      yyerror("Wrong space type, check the manual for allowed types!");
+      exit(0);
+   }
+   return space;
 }
 
 double
-   getValue(struct ast * v){
-      double value;
-      if(v->nodetype=='i'){
-         value=(double)((struct integer *)v)->i;
-      }else if(v->nodetype=='D'){
-         value=((struct doublePrecision *)v)->d;
-      }else if(v->nodetype=='N'){
-         return getValue( ((struct ast *)getElement_sym( ((struct utils *)v) )) );
-      }else{
-         yyerror("The value must be a number!");
-         exit(0);
-      }
-      return value;
+getValue(struct ast * v) {
+   double value;
+   if (v -> nodetype == 'i') {
+      value = (double)((struct integer * ) v) -> i;
+   } else if (v -> nodetype == 'D') {
+      value = ((struct doublePrecision * ) v) -> d;
+   } else if (v -> nodetype == 'N') {
+      return getValue(((struct ast * ) getElement_sym(((struct utils * ) v))));
+   } else {
+      yyerror("The value must be a number!");
+      exit(0);
+   }
+   return value;
 }
 
 struct ast *
@@ -296,10 +296,10 @@ struct ast *
          yyerror("out of space");
       }
 
-      a -> nodetype = 'P'; //P as in picture
-      a -> path = strndup(path,(strlen(path)-1));
+      a -> nodetype = 'P';                //P as in picture
+      a -> path = strndup(path, (strlen(path) - 1));
 
-      if (!( in = vips_image_new_from_file(a->path, NULL))) {
+      if (!( in = vips_image_new_from_file(a -> path, NULL))) {
          vips_error_exit(NULL);
       }
 
@@ -317,12 +317,12 @@ struct ast *
       }
 
       a -> nodetype = 'S';
-      a -> str = strndup(str,(strlen(str)-1));
+      a -> str = strndup(str, (strlen(str) - 1));
       return (struct ast * ) a;
    }
 
 struct ast *
-   newint(int i,char f) {
+   newint(int i, char f) {
       struct integer * a = malloc(sizeof(struct integer));
 
       if (!a) {
@@ -330,18 +330,18 @@ struct ast *
       }
 
       a -> nodetype = 'i';
-      if(f=='-'){
-         a -> i = - i;
-      }else if(f=='+'){
+      if (f == '-') {
+         a -> i = -i;
+      } else if (f == '+') {
          a -> i = i;
-      }else{
+      } else {
          exit(0);
       }
       return (struct ast * ) a;
    }
 
 struct ast *
-   newdouble(double d,char f) {
+   newdouble(double d, char f) {
       struct doublePrecision * a = malloc(sizeof(struct doublePrecision));
 
       if (!a) {
@@ -349,11 +349,11 @@ struct ast *
       }
 
       a -> nodetype = 'D';
-      if(f=='-'){
-         a -> d = - d;
-      }else if(f=='+'){
+      if (f == '-') {
+         a -> d = -d;
+      } else if (f == '+') {
          a -> d = d;
-      }else{
+      } else {
          exit(0);
       }
 
@@ -402,14 +402,14 @@ struct ast *
 struct ast *
    newref(struct symbol * s) {
       struct symref * a = malloc(sizeof(struct symref));
-      
+
       if (!a) {
          yyerror("out of space");
       }
       a -> nodetype = 'N';
       a -> s = s;
-      if(s->value==NULL){
-         a -> s -> value = malloc(sizeof(struct utils *));
+      if (s -> value == NULL) {
+         a -> s -> value = malloc(sizeof(struct utils * ));
          a -> s -> value -> nodetype = 'U';
       }
       return (struct ast * ) a;
@@ -452,22 +452,22 @@ struct symlist *
       sl -> sym = sym;
       sl -> next = next;
       return sl;
-      
+
    }
 
 struct ast *
-   newlist(struct ast * l,struct ast * r){
-      struct list * li=malloc(sizeof(struct list));
+   newlist(struct ast * l, struct ast * r) {
+      struct list * li = malloc(sizeof(struct list));
 
       if (!li) {
          yyerror("out of space");
       }
 
-      li->s=setList(((struct utils *)l));
-      li->n=((struct list *)r);
-      li->nodetype='l';
-      return ((struct ast *)li);
-}
+      li -> s = setList(((struct utils * ) l));
+      li -> n = ((struct list * ) r);
+      li -> nodetype = 'l';
+      return ((struct ast * ) li);
+   }
 
 void
 symlistfree(struct symlist * sl) {
@@ -483,153 +483,143 @@ symlistfree(struct symlist * sl) {
 /* define a function */
 void
 dodef(struct symbol * name, struct symlist * syms, struct ast * func) {
-
    if (name -> syms) {
       symlistfree(name -> syms);
    }
-
-   /*
-   if(name->func){ 
-   treefree(name->func);
-   }
-   */
 
    name -> syms = syms;
    name -> func = func;
 }
 
-void 
-dolist(struct symbol * name, struct ast * li){
-   struct utils * temp=malloc(sizeof(struct utils ));
-   temp->nodetype='l';
-   name->value=temp;
+void
+dolist(struct symbol * name, struct ast * li) {
+   struct utils * temp = malloc(sizeof(struct utils));
+   temp -> nodetype = 'l';
+   name -> value = temp;
 
-   name->li=((struct list *)li);
+   name -> li = ((struct list * ) li);
 }
 
 struct utils *
    setNodeType(struct utils * l, struct utils * r) {
       struct utils * v;
 
-      if (type(l) == 'N' &&  r == NULL) {
+      if (type(l) == 'N' && r == NULL) {
          return setNodeType(getElement_sym(l), r);
-      } else if (type(l) == 'i' &&  r == NULL) {
+      } else if (type(l) == 'i' && r == NULL) {
          v = malloc(sizeof(struct integer));
          ((struct integer * ) v) -> nodetype = 'i';
-      } else if (type(l) == 'D' &&  r == NULL) {
+      } else if (type(l) == 'D' && r == NULL) {
          v = malloc(sizeof(struct doublePrecision));
          ((struct doublePrecision * ) v) -> nodetype = 'D';
-      } else if ( type(l) == 'i' &&  type(r) == 'i' ) {
+      } else if (type(l) == 'i' && type(r) == 'i') {
          v = malloc(sizeof(struct integer));
          ((struct integer * ) v) -> nodetype = 'i';
-      } else if ( ( type(l) == 'D' && ( type(r) == 'D' || type(r) == 0 || type(r) == 'i' )) || ( ( type(l) == 'i' || type(l) == 0 )  && type(r) == 'D' ) ) {
+      } else if ((type(l) == 'D' && (type(r) == 'D' || type(r) == 0 || type(r) == 'i')) || ((type(l) == 'i' || type(l) == 0) && type(r) == 'D')) {
          v = malloc(sizeof(struct doublePrecision));
          ((struct doublePrecision * ) v) -> nodetype = 'D';
-      } else if ( type(l) == 'S' || type(r) == 'S' ) {
+      } else if (type(l) == 'S' || type(r) == 'S') {
          v = malloc(sizeof(struct str));
-         ((struct str * ) v) -> nodetype = 'S'; 
-      } else if ( type(l) == 'N' && type(r) != 'N' ) {
+         ((struct str * ) v) -> nodetype = 'S';
+      } else if (type(l) == 'N' && type(r) != 'N') {
          return setNodeType(getElement_sym(l), r);
-      } else if ( type(l) != 'N' && type(r) == 'N' ) {
+      } else if (type(l) != 'N' && type(r) == 'N') {
          return setNodeType(l, getElement_sym(r));
-      } else if ( type(l) == 'N' && type(r) == 'N' ) {
+      } else if (type(l) == 'N' && type(r) == 'N') {
          return setNodeType(getElement_sym(l), getElement_sym(r));
-      } else if ( type(l) == 'l' || type(r) == 'l' ) {
+      } else if (type(l) == 'l' || type(r) == 'l') {
          yyerror("Cannot perform operations with list, use appropriate method!\n");
-      } else if ( type(l) == 'P' || type(r) == 'P' ) {
+      } else if (type(l) == 'P' || type(r) == 'P') {
          yyerror("Cannot perform operations with image, use appropriate method!\n");
       } else {
          yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
-      } 
+      }
       return v;
    }
 
 /* This method allocates a struct symbol with the new value */
 struct symbol *
-   setList(struct utils * v){ 
-      struct symbol * s=malloc(sizeof(struct symbol));
+   setList(struct utils * v) {
+      struct symbol * s = malloc(sizeof(struct symbol));
 
-      if(type(v) == 'i'){
-         s->value=((struct utils *)newint(((struct integer *)v)->i ,'+'));
-      }else if(type(v) == 'D'){
-         s->value=((struct utils *)newdouble(((struct doublePrecision *)v)->d,'+'));
-      }else if(type(v) == 'S'){
+      if (type(v) == 'i') {
+         s -> value = ((struct utils * ) newint(((struct integer * ) v) -> i, '+'));
+      } else if (type(v) == 'D') {
+         s -> value = ((struct utils * ) newdouble(((struct doublePrecision * ) v) -> d, '+'));
+      } else if (type(v) == 'S') {
          struct str * a = malloc(sizeof(struct str));
          if (!a) {
             yyerror("out of space");
          }
          a -> nodetype = 'S';
-         a -> str = strndup(  ((struct str *)v)->str,strlen(((struct str *)v)->str)  );
-         s->value=((struct utils *)a);
-      }else if(type(v) == 'N'){
-         s=((struct symref *)v)->s;
-      }else if(type(v) == 'P'){
-         s->value=(v);
-      }else{
-        yyerror("Nodetype not found %c", type(v));
+         a -> str = strndup(((struct str * ) v) -> str, strlen(((struct str * ) v) -> str));
+         s -> value = ((struct utils * ) a);
+      } else if (type(v) == 'N') {
+         s = ((struct symref * ) v) -> s;
+      } else if (type(v) == 'P') {
+         s -> value = (v);
+      } else {
+         yyerror("Nodetype not found %c", type(v));
       }
       return s;
    }
 
-
 char *
-getFormat(char * path){
-   const char delimiters[] = ".";
-   char * suffix=NULL;
-   char *token = strtok(path, delimiters);
-   token = strtok(NULL, delimiters);
-
-   while (token != NULL)
-   {
-      suffix=strndup(token,(strlen(token)));
+   getFormat(char * path) {
+      const char delimiters[] = ".";
+      char * suffix = NULL;
+      char * token = strtok(path, delimiters);
       token = strtok(NULL, delimiters);
+
+      while (token != NULL) {
+         suffix = strndup(token, (strlen(token)));
+         token = strtok(NULL, delimiters);
+      }
+
+      return suffix;
    }
 
-   return suffix;
+void
+unassignedError(struct utils * temp1) {
+   if ((type(temp1) == 'N' && type(getElement_sym(temp1)) == 'U')) {
+      yyerror("Variable '%s' is not assigned! Can't work with unassigned value!", ((struct symref * ) temp1) -> s -> name);
+   }
 }
 
 void
-unassignedError(struct utils * temp1){
-   if( (type(temp1)== 'N' && type(getElement_sym(temp1))== 'U') ){
-      yyerror("Variable '%s' is not assigned! Can't work with unassigned value!", ((struct symref *)temp1)->s->name);
-   }
-}
-
-void
-imageError(struct ast * v){
-   if(type((struct utils *)v) == 'P'){ 
-   }else if( type((struct utils *)v) == 'N'){
-      imageError( ((struct ast *)getElement_sym((struct utils *)v)) );
-   }else{
+imageError(struct ast * v) {
+   if (type((struct utils * ) v) == 'P') {} else if (type((struct utils * ) v) == 'N') {
+      imageError(((struct ast * ) getElement_sym((struct utils * ) v)));
+   } else {
       yyerror("The variable is not an image! This method only works with image variables!");
    }
 }
 
 struct utils *
-   takeImage(struct symref * v){
-      if(type((struct utils *)v)=='P'){
-         return ((struct utils *)v);
-      } else if (type((struct utils *)v)=='N'){
-         return takeImage((struct symref *)getElement_sym((struct utils *)v));
-      } else{
+   takeImage(struct symref * v) {
+      if (type((struct utils * ) v) == 'P') {
+         return ((struct utils * ) v);
+      } else if (type((struct utils * ) v) == 'N') {
+         return takeImage((struct symref * ) getElement_sym((struct utils * ) v));
+      } else {
          yyerror("The variable is not an image!");
          exit(0);
       }
    }
 
 void
-listError(struct ast * v){
-   if(listCheck((struct symref * ) v)==-1){
+listError(struct ast * v) {
+   if (listCheck((struct symref * ) v) == -1) {
       yyerror("The variable is not a list! This method only works with list variables!");
    }
 }
 
 struct utils *
    calluser(struct ufncall * f) {
-      struct symbol * fn = f -> s; /* function name */
-      struct symlist * sl; /* dummy arguments */
-      struct ast * args = f -> l; /* actual arguments */
-      struct utils ** oldval, ** newval; /* saved arg values */
+      struct symbol * fn = f -> s;        /* function name */
+      struct symlist * sl;                /* dummy arguments */
+      struct ast * args = f -> l;         /* actual arguments */
+      struct utils ** oldval, ** newval;  /* saved arg values */
       struct utils * v;
       int nargs;
       int i;
@@ -668,7 +658,7 @@ struct utils *
             args = NULL;
          }
       }
-      if(args){
+      if (args) {
          printf("WARNING:Too many arguments provided in call to %s, the function will still work properly.\n", fn -> name);
       }
 
@@ -751,7 +741,7 @@ treefree(struct ast * a) {
       yyerror("Internal error: free bad node %c\n", a -> nodetype);
    }
 
-   free(a); /* always free the node itself */
+   free(a);                /* always free the node itself */
 
 }
 
@@ -767,52 +757,50 @@ yyerror(char * s, ...) {
 }
 
 void
-printHelp(){
-   FILE *fptr; 
-   char c; 
-  
+printHelp() {
+   FILE * fptr;
+   char c;
+
    // Open file 
-   fptr = fopen("../IMAGine Rules","r"); 
-   if (fptr == NULL) 
-   { 
-      printf("Cannot open file \n"); 
-      exit(0); 
-   } 
-    // Read contents from file 
-   c = fgetc(fptr); 
-   while (c != EOF) 
-   { 
-      printf ("%c", c); 
-      c = fgetc(fptr); 
-   } 
-   fclose(fptr); 
+   fptr = fopen("../IMAGine Rules", "r");
+   if (fptr == NULL) {
+      printf("Cannot open file \n");
+      exit(0);
+   }
+   // Read contents from file 
+   c = fgetc(fptr);
+   while (c != EOF) {
+      printf("%c", c);
+      c = fgetc(fptr);
+   }
+   fclose(fptr);
 }
 
 int
 main(int argc, char * argv[]) {
-   char extension[]=".ig";
+   char extension[] = ".ig";
    if (VIPS_INIT(argv[0])) {
       //This shows the vips error buffer and quits with a fail exit code.
       vips_error_exit("unable to start VIPS");
    }
-   if(argc>1){
-      if(strcmp(argv[1],"help")==0){
+   if (argc > 1) {
+      if (strcmp(argv[1], "help") == 0) {
          printHelp();
          return 1;
       }
-      if(strlen(argv[1])<(strlen(extension)+1)){
+      if (strlen(argv[1]) < (strlen(extension) + 1)) {
          yyerror("Path/File sbagliato!");
-      }else{
-         if (strcmp( argv[1]+(strlen(argv[1])-strlen(extension)), extension)==0){
-            if(!(yyin=fopen(argv[1],"r"))){
+      } else {
+         if (strcmp(argv[1] + (strlen(argv[1]) - strlen(extension)), extension) == 0) {
+            if (!(yyin = fopen(argv[1], "r"))) {
                perror(argv[1]);
                return 1;
             }
-         }else{
+         } else {
             yyerror("Extension not specified or wrong! Pleas only use 'ig' files.");
          }
       }
-      if(!(yyin=fopen(argv[1],"r"))){
+      if (!(yyin = fopen(argv[1], "r"))) {
          perror(argv[1]);
          return 1;
       }
@@ -827,7 +815,7 @@ int debug = 0;
 void
 dumpast(struct ast * a, int level) {
 
-   printf("%*s", 2 * level, ""); /* indent to this level */
+   printf("%*s", 2 * level, "");          /* indent to this level */
    level++;
 
    if (!a) {
@@ -889,8 +877,8 @@ dumpast(struct ast * a, int level) {
       return;
 
    case 'F':
-      printf("builtin %d\n", ((struct fncall *)a)->functype);
-      dumpast(a->l, level);
+      printf("builtin %d\n", ((struct fncall * ) a) -> functype);
+      dumpast(a -> l, level);
       return;
 
    case 'C':

@@ -36,7 +36,6 @@
    };
 /* End Built-in Functions Enum */
   
-  
 /* Node types
 *  + - * / |
 *  0-7 comparison ops, bit coded 04 equal, 02 less, 01 greater
@@ -147,8 +146,8 @@
 
 
 /* Simple Symtab of Fixed size */
-#define NHASH 9997
-struct symbol symtab[NHASH];
+   #define NHASH 9997
+   struct symbol symtab[NHASH];
 
 /* Function Signature */
    struct symbol * lookup(char * );
