@@ -26,6 +26,7 @@
          b_norm,
          b_flip,
          b_gaussianblur,
+         b_extBand,
          b_canny,
          b_sobel,
          b_sharpen,

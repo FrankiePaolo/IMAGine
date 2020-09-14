@@ -369,6 +369,33 @@ gaussianBlur(struct symref * l,struct ast * v,struct ast * s){
    return ((struct utils *)a);
 }
 
+/* Extract a band from the input image, counts from 0 to 2 and saves it in "output_path" */
+struct utils *
+extractBand(struct symref * l,struct ast * v,struct ast * s){
+   VipsImage * out;
+   char * path;
+   struct utils * temp1 = takeImage(l);
+   int band=(int) getValue(s);
+
+   if(band<0 || band >2){
+      yyerror("Need to insert a band value from 0 to 2!");
+   }
+
+   if (vips_extract_band((((struct img * ) temp1) -> img), & out, band, NULL)) {
+      vips_error_exit(NULL);
+   }
+   path=getPath(v);
+
+   saveImage(((struct img * ) temp1) ->path, out, path);
+   printf("Image saved in '%s'\n", path);
+   
+   struct img * a = malloc(sizeof(struct img));
+   a -> nodetype = 'P'; 
+   a -> path = path;
+   a -> img = out;
+   return ((struct utils *)a);
+}
+
 /* Crops an image down to specified width and height by removing the boring parts(it looks for features likely to draw human attention), returns it and saves it in "output_path" */
 struct utils * 
 smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height){
@@ -479,6 +506,7 @@ saveImage(char * in, VipsImage * out, char * path){
    }
 }
 
+/* Shows the given image */
 void 
 showImg(struct symref * l ){
    char * command;

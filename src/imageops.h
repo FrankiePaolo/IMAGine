@@ -19,6 +19,7 @@ struct utils * subtract_img(struct symref * l,struct symref * r,struct ast * p);
 struct utils * rotate(struct symref * l,struct ast * v,struct ast * s);
 struct utils * flip(struct symref * l,struct ast * v,struct ast * s);
 struct utils * gaussianBlur(struct symref * l,struct ast * v,struct ast * s);
+struct utils * extractBand(struct symref * l,struct ast * v,struct ast * s);
 struct utils * smartCrop(struct symref * l,struct symref * r,struct ast * width,struct ast * height);
 struct utils * zoom(struct symref * l,struct symref * r,struct ast * xfactor,struct ast * yfactor);
 struct utils * crop(struct symref * l,struct symref * r,struct ast * left,struct ast * top,struct ast * width,struct ast * height);
