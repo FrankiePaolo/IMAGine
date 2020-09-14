@@ -9,17 +9,13 @@ def getDim(a){
 	}
 }
 
-cane="Dio";
-print(cane+"cane");
-print(cane);
-
 img lena="./../test/Images/lena.tif";
 img pencils="./../test/Images/pencils.jpg";
 
 convert(lena,"./../test/Images/lena.jpg");
 
-out1="./../test/Images/Result/lenasobel.jpg";
-out2="./../test/Images/Result/lenacanny.jpg";
+out1="./../test/Images/Result/lenasobel";
+out2="./../test/Images/Result/lenacanny";
 out3="./../test/Images/Result/lenacrop.jpg";
 out4="./../test/Images/Result/lenacannycrop.jpg";
 
@@ -28,19 +24,20 @@ out6="./../test/Images/Result/pencilscanny.jpg";
 out7="./../test/Images/Result/pencilscropped.jpg";
 out8="./../test/Images/Result/pencilscannycrop.jpg";
 
-list imgLi={lena,pencils};
-list outLi={out1,out2,out3,out4,out5,out6,out7,out8};
-list sobelImgLi={};
-list cannyImgLi={};
+list outLi={};
+i=1;
+while(i<9)do{
+	push(outLi,"./../test/Images/Result/outImg"+i+".jpg");
+	i=i+1;
+}
 
+list imgLi={lena,pencils};
 counterLi=1;
 foreach(tempLi:imgLi){
     img sobelout=sobel(tempLi,get(outLi,counterLi));
     img cannyout=canny(tempLi,get(outLi,counterLi+1));
-    push(sobelImgLi, sobelout);
-    push(cannyImgLi, cannyout);
-    smartCrop(get(sobelImgLi, 1), get(outLi,counterLi+2), getDim(tempLi), getDim(tempLi));
-    smartCrop(get(cannyImgLi, 1), get(outLi,counterLi+3), getDim(tempLi), getDim(tempLi));
+    smartCrop(sobelout, get(outLi,counterLi+2), getDim(tempLi), getDim(tempLi));
+    smartCrop(cannyout, get(outLi,counterLi+3), getDim(tempLi), getDim(tempLi));
     counterLi=counterLi+4;
 }
 
