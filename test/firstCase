@@ -9,8 +9,8 @@ def getDim(a){
 	}
 }
 
-cane="cane";
-print(cane+cane);
+cane="Dio";
+print(cane+"cane");
 print(cane);
 
 img lena="./../test/Images/lena.tif";
@@ -32,7 +32,6 @@ list imgLi={lena,pencils};
 list outLi={out1,out2,out3,out4,out5,out6,out7,out8};
 list sobelImgLi={};
 list cannyImgLi={};
-
 
 counterLi=1;
 foreach(tempLi:imgLi){

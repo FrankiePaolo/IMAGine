@@ -607,7 +607,7 @@ struct utils *
    takeImage(struct symref * v){
       if(type((struct utils *)v)=='P'){
          return ((struct utils *)v);
-      } else if (type(getElement_sym((struct utils *)v))=='N'){
+      } else if (type((struct utils *)v)=='N'){
          return takeImage((struct symref *)getElement_sym((struct utils *)v));
       } else{
          yyerror("The variable is not an image!");
