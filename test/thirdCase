@@ -20,10 +20,20 @@ list outNames=
 
 list outLi={};
 foreach(element:outNames){
-	print(element);
-	print("./../test/Images/Result/" + element + ".jpg");
-	//push(outLi,"./../test/Images/Result/"+element +".jpg");
+	//temp="./../test/Images/Result/"+element +".jpg";
+	//print(element);
+	//push(outLi,"./../test/Images/Result/" + element + ".jpg");
+	//push(outLi,temp);
 }
+//print(outLi);
+
+i=0;
+while(i<20)do{
+	push(outLi,i);
+	i=i+1;
+}
+
+
 
 img inverted=invert(im,get(outLi,1));
 img differentColor=convertColorSpace(im,get(outLi,2),"hsv");
