@@ -1,5 +1,4 @@
 img lena="./../test/Images/lena.tif";
-
 img pencils="./../test/Images/pencils.jpg";
 
 out1="./../test/Images/Result/lena.tif";
@@ -11,24 +10,22 @@ list imgLi={lena,pencils};
 list outLi={out1,out2,out3,out4};
 list outIm={};
 
-//img smart=smartCrop(lena, get(outLi,3), width(lena), height(lena));
+
+def myFun(a){
+	wi=width(a);
+	if(wi>200)then{
+		width(a)*0.5;
+	}else{
+		wi;
+	}
+}
 
 counterLi=1;
-//foreach(tempLi:imgLi){
-   // img sobelout=sobel(tempLi,get(outLi,counterLi));
-    //img smart=smartCrop(sobelout, get(outLi,counterLi+2), width(tempLi)*0.5, 5);
-    //counterLi=counterLi+1;
-//}
-//img sobelout=sobel(lena,get(outLi,counterLi));
-//push(outIm, sobelout);
-//print(get(imgLi, counterLi));
-//print("-------");
-//smartCrop(get(imgLi, counterLi), get(outLi,counterLi+2), width(lena)*0.5, height(lena)*0.5);
-
 foreach(tempLi:imgLi){
     img sobelout=sobel(tempLi,get(outLi,counterLi));
-
     push(outIm, sobelout);
-    smartCrop(get(outIm, counterLi), get(outLi,counterLi+2), width(tempLi)*0.5, height(tempLi)*0.5);
+    smartCrop(get(outIm, counterLi), get(outLi,counterLi+2), myFun(tempLi), myFun(tempLi));
     counterLi=counterLi+1;
 }
+
+

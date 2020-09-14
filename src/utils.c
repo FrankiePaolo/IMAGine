@@ -510,62 +510,6 @@ dolist(struct symbol * name, struct ast * li){
    name->li=((struct list *)li);
 }
 
-
-// Da togliere se non ci sono errori
-struct utils *
-   setNodeTypeCast(struct utils * l, struct utils * r) {
-      struct utils * v;
-
-     if (type(l) == 'N' && ( r == NULL || type(l) == 'U' ) ) {
-         if (type(getElement_sym(l)) == 'i') {
-            v = malloc(sizeof(struct integer));
-            ((struct integer * ) v) -> nodetype = 'i';
-         } else if (type(getElement_sym(l)) == 'D') {
-            v = malloc(sizeof(struct doublePrecision));
-            ((struct doublePrecision * ) v) -> nodetype = 'D';
-         }
-      } else if ( (type(l) == 'N' && type(getElement_sym(l)) == 'S') || (type(r) == 'N' && type(getElement_sym(r)) == 'S') ) {
-         v = malloc(sizeof(struct str));
-         ((struct str * ) v) -> nodetype = 'S';
-      } else if ((type(l) == 'i' && type(r) == 'N')) {
-         if (type(getElement_sym(r)) == 'i') {
-            v = malloc(sizeof(struct integer));
-            ((struct integer * ) v) -> nodetype = 'i';
-         } else if (type(getElement_sym(r)) == 'D') {
-            v = malloc(sizeof(struct doublePrecision));
-            ((struct doublePrecision * ) v) -> nodetype = 'D';
-         }
-      } else if ((type(l) == 'D' && type(r) == 'N')) {
-         v = malloc(sizeof(struct doublePrecision));
-         ((struct doublePrecision * ) v) -> nodetype = 'D';
-      } else if (type(l) == 'N' && type(r) == 'i') {
-         if (type(getElement_sym(l)) == 'i') {
-            v = malloc(sizeof(struct integer));
-            ((struct integer * ) v) -> nodetype = 'i';
-         } else if (type(getElement_sym(l)) == 'D') {
-            v = malloc(sizeof(struct doublePrecision));
-            ((struct doublePrecision * ) v) -> nodetype = 'D';
-         }
-      } else if ((type(l) == 'N' && type(r) == 'D')) {
-         v = malloc(sizeof(struct doublePrecision));
-         ((struct doublePrecision * ) v) -> nodetype = 'D';
-      } else if ((type(l) == 'N' && type(r) == 'N')) {
-         if (type(getElement_sym(l)) == 'i' && type(getElement_sym(r)) == 'i') {
-            v = malloc(sizeof(struct integer));
-            ((struct integer * ) v) -> nodetype = 'i';
-         } else {
-            v = malloc(sizeof(struct doublePrecision));
-            ((struct doublePrecision * ) v) -> nodetype = 'D';
-         }
-      } else {
-         yyerror("Unexpected type SetNodeType, %c %c", type(l), type(r));
-      }
-      if (v == NULL) {
-         yyerror("Out of space");
-      }
-      return v;
-   }
-
 struct utils *
    setNodeType(struct utils * l, struct utils * r) {
       struct utils * v;
