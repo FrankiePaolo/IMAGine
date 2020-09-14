@@ -74,7 +74,7 @@ Si può notare che perfino su dispositivi completamente diversi come Raspberry P
 
 \clearpage
 \subsection{Guida all'uso}
-Per poter utilizzare il linguaggio in esame è necessario installare LibVips, a tal proposito è consigliato scaricare il .tar dal seguente link : \url{https://github.com/libvips/libvips/releases}\\
+Per poter utilizzare il linguaggio in esame è necessario installare LibVips \cite{lipvips}, a tal proposito è consigliato scaricare il .tar dal seguente link : \url{https://github.com/libvips/libvips/releases}\\
 Prima di installare la libreria è necessario installare le seguenti dependencies: \\
 \texttt{build-essential, pkg-config, glib2.0-dev, libexpat1-dev, expat}
 \\ Per ognuna di esse scrivere su terminale Unix \texttt{“sudo apt-get install XXX”}. Dopo aver fatto ciò si può installare Libvips tramite:\\\\
@@ -510,6 +510,21 @@ Al fine di testare la performance di IMAGine sono stati effettuati dei test su a
 	\label{fig:benchmarkFact1}
 \end{figure}
 
+\section{Conclusioni}
+Durante lo sviluppo del linguaggio sono state affrontate numerose tematiche trattate durante il corso di \textit{Linguaggi e traduttori} . L'esperienza di sviluppo ha permesso al team di apprezzare l'importanza di solide fondamenta teoriche unite a una significativa esperienza pratica. Nonostante le tempistiche, le funzionalità ottenute risultano soddisfacenti .
+\clearpage
+
+%% BIBLIOGRAFIA
+\clearpage
+\bibliographystyle{unsrt}
+\bibliography{tesina}
+\begin{thebibliography}{toc}
+	
+	\bibitem[1]{lipvips}Libvips API documentation{ {\url{http://web.archive.org/web/20080207010024/http://www.808multimedia.com/winnt/kernel.htm}}}
+
+	\bibitem[2]{book} John Levine.\textit{ Flex \& Bison: Text Processing Tools}. " O’Reilly Media, Inc.", 2009
+\end{thebibliography}
+
 \clearpage
 \section*{Appendice}\label{section:appendix}
 \addcontentsline{toc}{section}{Appendice}
@@ -521,9 +536,5 @@ Al fine di testare la performance di IMAGine sono stati effettuati dei test su a
 	Grafico del FSA generato utilizzando GNU Bison 3.5.4 XML Automaton Report. L'immagine è in formato vettoriale, quindi è possibile ingrandire a piacere.
 \end{center}
 \clearpage
-\section{Conclusioni}
-La progettazione del linguaggio PASTEL ha permesso di affrontare le tematiche trattate nel corso di \textit{Linguaggi e traduttori} e di applicare molti dei concetti teorici discussi durante le lezioni. Nonostante i tempi di sviluppo ridotti, i test effettuati mostrano performance soddisfacenti.
-Gli strumenti Flex e Bison hanno agevolato la realizzazione di un linguaggio relativamente complesso e completo, riducendo la mole di codice da dovere sviluppare.
-Visti i tempi di realizzazione limitati, PASTEL non possiede tutte le funzionalità che ci si aspetta da un linguaggio di programmazione general purpose, e sono presenti molte direzioni verso cui si potrebbe potenziare il linguaggio. In conclusione segue una breve disamina di alcune features che potrebbero arricchire il linguaggio. 
 
 \end{document}
