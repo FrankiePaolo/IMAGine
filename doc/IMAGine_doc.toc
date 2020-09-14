@@ -27,3 +27,4 @@
 \contentsline {subsection}{\numberline {6.2}Pi greco}{22}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Restauro}{24}{subsection.6.3}%
 \contentsline {section}{Appendice}{26}{section*.2}%
+\contentsline {section}{\numberline {7}Conclusioni}{27}{section.7}%
