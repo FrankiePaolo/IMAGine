@@ -1,4 +1,7 @@
-img im="./../test/Images/pencils.jpg";
+def pageLine(a){
+	print("---------"*a);
+}
+img im="../program/Images/pencils.jpg";
 
 wi=width(im);
 he=height(im);
@@ -9,7 +12,7 @@ avg=average(im);
 
 print("Image 'im' details:");
 print("Width: " + wi + " Height: " + he + " Bands: " + ba + " Min: " + mi + " Max: " + ma + " Avg: " + avg);
-print("--------------------");
+pageLine(2);
 
 list outNames=
 {"inverted","hsv","equalized","normalised",
@@ -19,13 +22,11 @@ list outNames=
 
 i=1;
 while(i<=length(outNames))do{
-	insert(outNames, "../test/Images/Result/Case3/"+get(outNames, i)+".jpg", i+1);
+	insert(outNames, "../program/Images/Case3/"+get(outNames, i)+".jpg", i+1);
 	remove(outNames, i);
 	i=i+1;
 }
-print("---------");
-
-
+pageLine(3);
 
 img inverted=invert(im,get(outNames,1));
 img differentColor=convertColorSpace(im,get(outNames,2),"hsv");

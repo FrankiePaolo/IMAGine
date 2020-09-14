@@ -9,12 +9,15 @@ def getBlur(a){
 		blur;
 	}
 }
+def pageLine(a){
+	print("---------"*a);
+}
 
-img lena="./../test/Images/lena.tif";
-img pencils="./../test/Images/pencils.jpg";
+img lena="../program/Images/lena.tif";
+img pencils="../program/Images/pencils.jpg";
 
-out1="./../test/Images/Result/Case2/blurredLena.tif";
-out2="./../test/Images/Result/Case2/blurredPencils.jpg";
+out1="../program/Images/Case2/blurredLena.tif";
+out2="../program/Images/Case2/blurredPencils.jpg";
 
 list imgLi={lena,pencils};
 list outLi={out1,out2};
@@ -23,5 +26,6 @@ index=1;
 while(index<=length(imgLi))do{
 	img tempIm=get(imgLi,index);
 	showImage(gaussianBlur(tempIm,get(outLi,index),getBlur(tempIm)));
+	pageLine(6);
 	index=index+1;
 }

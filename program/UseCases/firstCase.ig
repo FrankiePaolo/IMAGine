@@ -8,30 +8,33 @@ def getDim(a){
 		wi*hi;
 	}
 }
+def pageLine(a){
+	print("---------"*a);
+}
 
-img lena="./../test/Images/lena.tif";
-img pencils="./../test/Images/pencils.jpg";
+img lena="../program/Images/lena.tif";
+img pencils="../program/Images/pencils.jpg";
 
-convert(lena,"./../test/Images/Result/lena.jpg");
+convert(lena,"../program/Images/lena.jpg");
+pageLine(1);
 
 list outLi={};
 i=1;
 while(i<9)do{
-	push(outLi,"./../test/Images/Result/Case1/outImg"+i+".jpg");
+	push(outLi,"../program/Images/Case1/outImg"+i+".jpg");
 	i=i+1;
 }
 
 list imgLi={lena,pencils};
-
-push(imgLi, extractBand(get(imgLi, 1), "./../test/Images/Result/Case1/band"+1+".jpg", 0));
+push(imgLi, extractBand(get(imgLi, 1), "../program/Images/Case1/band"+1+".jpg", 0));
 remove(imgLi, 1);
-push(imgLi, extractBand(get(imgLi, 1), "./../test/Images/Result/Case1/band"+2+".jpg", 0));
+push(imgLi, extractBand(get(imgLi, 1), "../program/Images/Case1/band"+2+".jpg", 0));
 remove(imgLi, 1);
+pageLine(3);
 
 list imgOut={};
 counterLi=1;
 counter=1;
-
 foreach(tempLi:imgLi){
 		push(imgOut, sobel(tempLi,get(outLi,counterLi)));
 		push(imgOut, canny(tempLi,get(outLi,counterLi+1)));
