@@ -790,6 +790,7 @@ printHelp(){
 
 int
 main(int argc, char * argv[]) {
+   char extension[]=".ig";
    if (VIPS_INIT(argv[0])) {
       //This shows the vips error buffer and quits with a fail exit code.
       vips_error_exit("unable to start VIPS");
@@ -799,9 +800,18 @@ main(int argc, char * argv[]) {
          printHelp();
          return 1;
       }
-
-      
-
+      if(strlen(argv[1])<(strlen(extension)+1)){
+         yyerror("Path/File sbagliato!");
+      }else{
+         if (strcmp( argv[1]+(strlen(argv[1])-strlen(extension)), extension)==0){
+            if(!(yyin=fopen(argv[1],"r"))){
+               perror(argv[1]);
+               return 1;
+            }
+         }else{
+            yyerror("Extension not specified or wrong! Pleas only use 'ig' files.");
+         }
+      }
       if(!(yyin=fopen(argv[1],"r"))){
          perror(argv[1]);
          return 1;
