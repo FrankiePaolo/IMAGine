@@ -484,7 +484,7 @@ showImg(struct symref * l ){
    char * command;
    switch(OS){
       case 1:
-         asprintf(&command, "mimeopen %s",  ((struct img *)takeImage(l))->path );
+         asprintf(&command, "open %s",  ((struct img *)takeImage(l))->path );
          break;
       case 2:
          asprintf(&command, "mimeopen %s",  ((struct img *)takeImage(l))->path );
