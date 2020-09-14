@@ -107,12 +107,12 @@ elements:                { $$ = NULL; }
 program: /* nothing */
    | HELP                { printHelp(); }
    | program stmt {
-   if(debug){
-      dumpast($2, 0);
-   }
-   eval($2);
-   treefree($2);
-   }
+         if(debug){
+            dumpast($2, 0);
+         }
+         eval($2);
+         treefree($2);
+      }
    | program DEF NAME '(' symlist ')' '{' list '}' {
                        dodef($3, $5, $8);
    }
