@@ -9,7 +9,6 @@
 
 void
 sum(struct utils * v, struct utils * l, struct utils * r) {
-   char temp[100];
 
    if (type(l) == 'i' && type(r) == 'i') {
       putElement_i(v,getElement_i(l)+getElement_i(r));
@@ -21,21 +20,14 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
       sum(v, r, l);
    } else if ((type(l) == 'S' && type(r) == 'i')) { 
       asprintf( &(((struct str *)v)->str), "%s%d", getElement_s(l), getElement_i(r) );
-      //sprintf(temp, "%d", getElement_i(r));
-      //putElement_s(v,strcat( strdup(getElement_s(l)), strdup(temp) ));
    } else if ((type(l) == 'i' && type(r) == 'S')) { 
-      sprintf(temp, "%d", getElement_i(l));
-      strcat( temp, getElement_s(r) );
-      putElement_s(v,temp);
+      asprintf( &(((struct str *)v)->str), "%d%s", getElement_i(l), getElement_s(r) );
    } else if ((type(l) == 'S' && type(r) == 'D')) { 
-      sprintf(temp, "%.6g", getElement_d(r));
-      putElement_s(v,strcat( strdup(getElement_s(l)), strdup(temp) ));
+      asprintf( &(((struct str *)v)->str), "%s%.6g", getElement_s(l), getElement_d(r) );
    } else if ((type(l) == 'D' && type(r) == 'S')) { 
-      sprintf(temp, "%.6g", getElement_d(l));
-      strcat( temp, getElement_s(r) );
-      putElement_s(v,temp);
+      asprintf( &(((struct str *)v)->str), "%.6g%s", getElement_d(l), getElement_s(r) );
    } else if ((type(l) == 'S' && type(r) == 'S')) { 
-      putElement_s(v,strcat(strdup(getElement_s(l)),strdup(getElement_s(r))));
+      asprintf( &(((struct str *)v)->str), "%s%s", getElement_s(l), getElement_s(r) );
    } else if (type(l) == 'N' && type(r) != 'N') {
       sum(v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
