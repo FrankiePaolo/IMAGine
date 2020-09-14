@@ -20,25 +20,21 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'D' && type(r) == 'i') {
       sum(v, r, l);
    } else if ((type(l) == 'S' && type(r) == 'i')) { 
-      char * tempString=getElement_s(l);
       sprintf(temp, "%d", getElement_i(r));
-      strcat( tempString, strdup(temp) );
-      putElement_s(v,tempString);
+      putElement_s(v,strcat( strdup(getElement_s(l)), strdup(temp) ));
    } else if ((type(l) == 'i' && type(r) == 'S')) { 
       sprintf(temp, "%d", getElement_i(l));
       strcat( temp, getElement_s(r) );
       putElement_s(v,temp);
    } else if ((type(l) == 'S' && type(r) == 'D')) { 
       sprintf(temp, "%.6g", getElement_d(r));
-      strcat( getElement_s(l), strdup(temp) );
-      putElement_s(v,getElement_s(l));
+      putElement_s(v,strcat( strdup(getElement_s(l)), strdup(temp) ));
    } else if ((type(l) == 'D' && type(r) == 'S')) { 
       sprintf(temp, "%.6g", getElement_d(l));
       strcat( temp, getElement_s(r) );
       putElement_s(v,temp);
    } else if ((type(l) == 'S' && type(r) == 'S')) { 
-      strcat(getElement_s(l),getElement_s(r));
-      putElement_s(v,getElement_s(l));
+      putElement_s(v,strcat(strdup(getElement_s(l)),strdup(getElement_s(r))));
    } else if (type(l) == 'N' && type(r) != 'N') {
       sum(v, getElement_sym(l), r);
    } else if (type(l) != 'N' && type(r) == 'N') {
