@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 20:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 20:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -597,12 +597,12 @@ le top, double width, double
 [21
 
 ] (../program/Benchmark/factorial.ig) (../program/Benchmark/factorial.py)
-<sources/bench5-Fact.png, id=538, 354.57469pt x 447.92343pt>
+<sources/bench5-Fact.png, id=540, 354.57469pt x 447.92343pt>
 File: sources/bench5-Fact.png Graphic file (type png)
 <use sources/bench5-Fact.png>
 Package pdftex.def Info: sources/bench5-Fact.png  used on input line 463.
 (pdftex.def)             Requested size: 354.57382pt x 447.92233pt.
-<sources/bench4-Fact.png, id=539, 610.28pt x 377.41pt>
+<sources/bench4-Fact.png, id=541, 610.28pt x 377.41pt>
 File: sources/bench4-Fact.png Graphic file (type png)
 <use sources/bench4-Fact.png>
 Package pdftex.def Info: sources/bench4-Fact.png  used on input line 471.
@@ -612,12 +612,12 @@ Package pdftex.def Info: sources/bench4-Fact.png  used on input line 471.
 
  <./sources/bench5-Fact.png>] [23 <./sources/bench4-Fact.png>]
 (../program/Benchmark/pigreco.ig) (../program/Benchmark/pigreco.py)
-<sources/bench7-Pi.png, id=566, 380.17032pt x 481.04718pt>
+<sources/bench7-Pi.png, id=568, 380.17032pt x 481.04718pt>
 File: sources/bench7-Pi.png Graphic file (type png)
 <use sources/bench7-Pi.png>
 Package pdftex.def Info: sources/bench7-Pi.png  used on input line 487.
 (pdftex.def)             Requested size: 380.16939pt x 481.046pt.
-<sources/bench6-Pi.png, id=567, 610.28pt x 377.41pt>
+<sources/bench6-Pi.png, id=569, 610.28pt x 377.41pt>
 File: sources/bench6-Pi.png Graphic file (type png)
 <use sources/bench6-Pi.png>
 Package pdftex.def Info: sources/bench6-Pi.png  used on input line 495.
@@ -627,12 +627,12 @@ Package pdftex.def Info: sources/bench6-Pi.png  used on input line 495.
  <./sources/bench7-Pi.png>] [25 <./sources/bench6-Pi.png>]
 (../program/Benchmark/gaussianrestore.ig)
 (../program/Benchmark/gaussianrestore.m)
-<sources/bench8-Gaussian.png, id=597, 371.88937pt x 460.72125pt>
+<sources/bench8-Gaussian.png, id=599, 371.88937pt x 460.72125pt>
 File: sources/bench8-Gaussian.png Graphic file (type png)
 <use sources/bench8-Gaussian.png>
 Package pdftex.def Info: sources/bench8-Gaussian.png  used on input line 513.
 (pdftex.def)             Requested size: 371.88846pt x 460.72012pt.
-<sources/bench9-Gaussian.png, id=598, 610.28pt x 377.41pt>
+<sources/bench9-Gaussian.png, id=600, 610.28pt x 377.41pt>
 File: sources/bench9-Gaussian.png Graphic file (type png)
 <use sources/bench9-Gaussian.png>
 Package pdftex.def Info: sources/bench9-Gaussian.png  used on input line 521.
@@ -654,7 +654,7 @@ b . archive . org / web / 20080207010024 / http : / / www .
 
 
 ]
-<sources/parser.pdf, id=638, 9195.35374pt x 7928.62125pt>
+<sources/parser.pdf, id=639, 9195.35374pt x 7928.62125pt>
 File: sources/parser.pdf Graphic file (type pdf)
 <use sources/parser.pdf>
 Package pdftex.def Info: sources/parser.pdf  used on input line 548.
@@ -695,10 +695,10 @@ pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.60
 m1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
 0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 
-Output written on IMAGine_doc.pdf (30 pages, 586545 bytes).
+Output written on IMAGine_doc.pdf (30 pages, 586595 bytes).
 PDF statistics:
- 1156 PDF objects out of 1200 (max. 8388607)
- 714 compressed objects within 8 object streams
+ 1157 PDF objects out of 1200 (max. 8388607)
+ 715 compressed objects within 8 object streams
  390 named destinations out of 1000 (max. 500000)
  280 words of extra memory for PDF output out of 10000 (max. 10000000)
 
