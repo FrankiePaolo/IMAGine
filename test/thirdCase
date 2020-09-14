@@ -1,6 +1,6 @@
 
 
-img im="/home/frank/Desktop/Img/image.jpg";
+img im="./../test/Images/pencils.jpg";
 
 wi=width(im);
 he=height(im);
@@ -27,11 +27,12 @@ foreach(element:outNames){
 }
 //print(outLi);
 
-i=0;
-while(i<20)do{
-	push(outLi,i);
-	i=i+1;
-}
+//i=0;
+//while(i<20)do{
+	//push(outLi,"./../test/Images/Result/" + i + ".jpg");
+	//i=i+1;
+//}
+//print(outLi);
 
 
 
@@ -51,5 +52,3 @@ img gaussianBlurred=gaussianBlur(im,get(outLi,13),1);
 img smartCropped=smartCrop(im,get(outLi,14),200,200);
 img zommed=zoom(im,get(outLi,15),5,5);
 img cropped=crop(im,get(outLi,16),50,50,50,50);
-
-

@@ -119,7 +119,6 @@
         img crop(img name_image, str output_path, doublePrecision left, doublePrecision top, doublePrecision width, doublePrecision height);    
            /* Extract an area with coordinates left, top and of size width, height from an image ,returns it and saves it in "output_path" */
         void showImage(img name_image);
-            /* DEPRECATED: This sometimes causes memory issues, needs to be updated */
             /* Shows the given image */
     /* End Image Method */
 
