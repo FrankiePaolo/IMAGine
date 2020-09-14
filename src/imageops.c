@@ -7,6 +7,14 @@
 #  include "utils.h"
 #  include "imageops.h"
 
+#if defined(__linux__)
+    #define OS 2
+#elif defined(__APPLE__) && defined(__MACH__)
+    #define OS 1
+#else
+    #define OS 0
+#endif
+
 /* Returns the number of pixels across the image */
 struct utils *
 getWidth(struct symref * v) {
@@ -471,14 +479,20 @@ saveImage(char * in, VipsImage * out, char * path){
    }
 }
 
-/* DEPRECATED: This sometimes causes memory issues, needs to be updated */
-/* Shows the given image */
-void
-showImg(struct symref * l){
-   char * path=strdup(((struct img *) l -> s -> value)->path);
-   char * open = strdup("xdg-open ");     
-   char * command; 
-
-   command=strcat(open,path);
-   system(command);
+void 
+showImg(struct symref * l ){
+   char * command;
+   switch(OS){
+      case 1:
+         asprintf(&command, "mimeopen %s",  ((struct img *)takeImage(l))->path );
+         break;
+      case 2:
+         asprintf(&command, "mimeopen %s",  ((struct img *)takeImage(l))->path );
+         break;
+      default:
+         printf("Function not supported in this OS\n");
+         return;
+  }
+  system(command);
+  free(command);
 }

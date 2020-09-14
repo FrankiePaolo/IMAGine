@@ -15,6 +15,7 @@ print("-------------------");
 list li2={-4.5,-4.6,"other string"};
 push(li,li2);
 print(li);
+
 lenli=length(li);
 print("Length of list is "+lenli);
 print("-------------------");

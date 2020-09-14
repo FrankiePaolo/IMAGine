@@ -101,23 +101,22 @@ findNode(struct fncall * f, int index){
          yyerror("Wrong arguments for the function!");
    }
 
-   return eval(node->l);
+   return ((struct ast *)eval(node->l));
 }
 
 int
 getTruth(int temp){
    if(temp==0){
-      temp=1;
+      return 1;
    }else{
-      temp=0;
+      return 0;
    }
-   return temp;
 }
 
 int
 type(struct utils * v){
 
-	if(v){
+	if(v && v->nodetype){
   	   return v->nodetype;
 	} else {
 		yyerror("NULL value detected");
@@ -227,10 +226,8 @@ int
          return 1;
       } else if(type((struct utils *)v)=='N' && type( getElement_sym( (struct utils *)v ) ) =='l'){
          return 0;
-      } else if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='N' && type(getElement_sym(getElement_sym((struct utils *)v)))=='l' && ((struct symref *)(getElement_sym((struct utils *)v)))->s->li){
-         return 1;
-      } else if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='N' && type(getElement_sym(getElement_sym((struct utils *)v)))=='l'){
-         return 0;
+      } else if(type((struct utils *)v)=='N'){ 
+         return listCheck( ((struct symref *)getElement_sym((struct utils *)v)) );
       } else {
          return -1;
       }
@@ -598,30 +595,18 @@ unassignedError(struct utils * temp1){
 
 void
 imageError(struct ast * v){
-   /* Other Version, must be tryied*/
    if(type((struct utils *)v) == 'P'){ 
    }else if( type((struct utils *)v) == 'N'){
-      imageError(getElement_sym((struct utils *)v));
+      imageError( ((struct ast *)getElement_sym((struct utils *)v)) );
    }else{
       yyerror("The variable is not an image! This method only works with image variables!");
-
    }
-   /*if(type((struct utils *)v) == 'P'){ 
-   }else */
-   
-   /*if( type((struct utils *)v) != 'N' && type((struct utils *)v) !='P'){
-      yyerror("The variable is not an image! This method only works with image variables!");
-   }else if( type(getElement_sym((struct utils *)v))!='P' && type(getElement_sym((struct utils *)v))=='N'  &&  type(getElement_sym(getElement_sym((struct utils *)v)))!='P' ){
-      yyerror("Variable '%s' is not an image! This method only works with image variables!", ((struct symref *)v)->s->name);
-   }*/
 }
 
 struct utils *
    takeImage(struct symref * v){
       if(type((struct utils *)v)=='P'){
          return ((struct utils *)v);
-      } else if(type((struct utils *)v)=='N' && type(getElement_sym((struct utils *)v))=='P'){
-         return getElement_sym((struct utils *)v);
       } else if (type(getElement_sym((struct utils *)v))=='N'){
          return takeImage((struct symref *)getElement_sym((struct utils *)v));
       } else{
@@ -681,7 +666,6 @@ struct utils *
             args = NULL;
          }
       }
-
       if(args){
          printf("WARNING:Too many arguments provided in call to %s, the function will still work properly.\n", fn -> name);
       }
@@ -712,7 +696,6 @@ struct utils *
       }
 
       free(oldval);
-
       return v;
    }
 
