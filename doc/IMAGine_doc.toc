@@ -21,8 +21,9 @@
 \contentsline {section}{\numberline {5}Casi d'uso}{17}{section.5}%
 \contentsline {subsection}{\numberline {5.1}Primo caso}{17}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Secondo caso}{18}{subsection.5.2}%
-\contentsline {section}{\numberline {6}Risultati}{19}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Fattoriale}{19}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Pi greco}{21}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Restauro}{23}{subsection.6.3}%
-\contentsline {section}{Appendice}{25}{section*.2}%
+\contentsline {subsection}{\numberline {5.3}Terzo caso}{19}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Risultati}{20}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Fattoriale}{20}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Pi greco}{22}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Restauro}{24}{subsection.6.3}%
+\contentsline {section}{Appendice}{26}{section*.2}%
