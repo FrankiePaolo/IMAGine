@@ -118,6 +118,11 @@ struct utils *
          imageError(findNode(f, 1));
          val=gaussianBlur(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
          return val;
+      case b_extBand:
+         argumentsCheck(f, 3);
+         imageError(findNode(f, 1));
+         val=extractBand(((struct symref *)findNode(f, 1)), findNode(f, 2), ((struct ast *)v));
+         return val;
       case b_smartcrop:
          argumentsCheck(f, 4);
          imageError(findNode(f, 1));

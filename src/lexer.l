@@ -73,6 +73,7 @@
 "rotate"            { yylval.fn = b_rotate; return FUNC; }
 "flip"              { yylval.fn = b_flip; return FUNC; }
 "gaussianBlur"      { yylval.fn = b_gaussianblur; return FUNC; }
+"extractBand"       { yylval.fn = b_extBand; return FUNC; }
 "smartCrop"         { yylval.fn = b_smartcrop; return FUNC; }
 "zoom"              { yylval.fn = b_zoom; return FUNC; }
 "crop"              { yylval.fn = b_crop; return FUNC; }
