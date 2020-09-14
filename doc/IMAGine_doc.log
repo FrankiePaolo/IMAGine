@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 18:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2020.9.13)  14 SEP 2020 18:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -294,30 +294,6 @@ LaTeX Warning: Label `listing:sub' multiply defined.
 
 LaTeX Warning: Label `listing:sub' multiply defined.
 
-
-LaTeX Warning: Label `listing:sub' multiply defined.
-
-
-LaTeX Warning: Label `listing:sub' multiply defined.
-
-
-LaTeX Warning: Label `fig:benchmarkFact2' multiply defined.
-
-
-LaTeX Warning: Label `fig:benchmarkFact1' multiply defined.
-
-
-LaTeX Warning: Label `listing:sub' multiply defined.
-
-
-LaTeX Warning: Label `listing:sub' multiply defined.
-
-
-LaTeX Warning: Label `fig:benchmarkFact2' multiply defined.
-
-
-LaTeX Warning: Label `fig:benchmarkFact1' multiply defined.
-
 )
 \openout1 = `IMAGine_doc.aux'.
 
@@ -423,12 +399,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <8> on input line 19.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6> on input line 19.
- (./IMAGine_doc.toc
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 6.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 6.
-)
+ (./IMAGine_doc.toc)
 \tf@toc=\write4
 \openout4 = `IMAGine_doc.toc'.
 
@@ -447,28 +418,36 @@ File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [4
 
 ]
-<sources/bench0.png, id=180, 906.38625pt x 47.17625pt>
+<sources/bench0.png, id=134, 906.38625pt x 47.17625pt>
 File: sources/bench0.png Graphic file (type png)
 <use sources/bench0.png>
 Package pdftex.def Info: sources/bench0.png  used on input line 46.
 (pdftex.def)             Requested size: 906.38403pt x 47.17612pt.
-<sources/bench1.png, id=181, 923.45pt x 862.22125pt>
+<sources/bench1.png, id=135, 923.45pt x 862.22125pt>
 File: sources/bench1.png Graphic file (type png)
 <use sources/bench1.png>
 Package pdftex.def Info: sources/bench1.png  used on input line 54.
 (pdftex.def)             Requested size: 923.44774pt x 862.21915pt.
-<sources/bench2.png, id=182, 800.9925pt x 409.53pt>
+<sources/bench2.png, id=136, 800.9925pt x 409.53pt>
 File: sources/bench2.png Graphic file (type png)
 <use sources/bench2.png>
 Package pdftex.def Info: sources/bench2.png  used on input line 62.
 (pdftex.def)             Requested size: 800.99054pt x 409.52899pt.
-<sources/bench3.png, id=183, 410.53375pt x 707.64375pt>
+<sources/bench3.png, id=137, 410.53375pt x 707.64375pt>
 File: sources/bench3.png Graphic file (type png)
 <use sources/bench3.png>
 Package pdftex.def Info: sources/bench3.png  used on input line 70.
 (pdftex.def)             Requested size: 410.53275pt x 707.64203pt.
  [5 <./sources/bench0.png> <./sources/bench1.png>] [6 <./sources/bench2.png>] [
 7 <./sources/bench3.png>]
+
+LaTeX Warning: Citation `lipvips' on page 8 undefined on input line 77.
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 77.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 77.
+
 Underfull \hbox (badness 10000) in paragraph at lines 77--88
 
  []
@@ -582,113 +561,37 @@ Overfull \hbox (22.38094pt too wide) in paragraph at lines 396--397
 le top, double width, double
  []
 
-[16] (../test/firstCase) [17
+[16] (../program/UseCases/firstCase.ig [17
 
-] (../test/secondCase) [18
+]) [18]
+(../program/UseCases/secondCase.ig) [19
 
-] (../test/thirdCase)
-[19
-
-] (../test/Benchmark/factorial) (../test/Benchmark/factorial.py)
-<sources/bench5-Fact.png, id=519, 354.57469pt x 447.92343pt>
-File: sources/bench5-Fact.png Graphic file (type png)
-<use sources/bench5-Fact.png>
-Package pdftex.def Info: sources/bench5-Fact.png  used on input line 450.
-(pdftex.def)             Requested size: 354.57382pt x 447.92233pt.
-<sources/bench4-Fact.png, id=520, 610.28pt x 377.41pt>
-File: sources/bench4-Fact.png Graphic file (type png)
-<use sources/bench4-Fact.png>
-Package pdftex.def Info: sources/bench4-Fact.png  used on input line 458.
-(pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [20
-
- <./sources/bench5-Fact.png>] [21 <./sources/bench4-Fact.png>]
-(../test/Benchmark/pigreco) (../test/Benchmark/pigreco.py)
-<sources/bench7-Pi.png, id=547, 380.17032pt x 481.04718pt>
-File: sources/bench7-Pi.png Graphic file (type png)
-<use sources/bench7-Pi.png>
-Package pdftex.def Info: sources/bench7-Pi.png  used on input line 474.
-(pdftex.def)             Requested size: 380.16939pt x 481.046pt.
-<sources/bench6-Pi.png, id=548, 610.28pt x 377.41pt>
-File: sources/bench6-Pi.png Graphic file (type png)
-<use sources/bench6-Pi.png>
-Package pdftex.def Info: sources/bench6-Pi.png  used on input line 482.
-(pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [22
-
- <./sources/bench7-Pi.png>] [23 <./sources/bench6-Pi.png>] (../test/Benchmark/g
-aussianrestore)
-(../test/Benchmark/gaussianrestore.m)
-<sources/bench8-Gaussian.png, id=576, 371.88937pt x 460.72125pt>
-File: sources/bench8-Gaussian.png Graphic file (type png)
-<use sources/bench8-Gaussian.png>
-Package pdftex.def Info: sources/bench8-Gaussian.png  used on input line 500.
-(pdftex.def)             Requested size: 371.88846pt x 460.72012pt.
-<sources/bench9-Gaussian.png, id=577, 610.28pt x 377.41pt>
-File: sources/bench9-Gaussian.png Graphic file (type png)
-<use sources/bench9-Gaussian.png>
-Package pdftex.def Info: sources/bench9-Gaussian.png  used on input line 508.
-(pdftex.def)             Requested size: 610.2785pt x 377.40907pt.
- [24
-
- <./sources/bench8-Gaussian.png>]
-[25 <./sources/bench9-Gaussian.png>]
-No file IMAGine_doc.bbl.
-
-Underfull \hbox (badness 10000) in paragraph at lines 523--524
-[]\T1/cmr/m/n/10 Libvips API do-cu-men-ta-tion []$\T1/cmtt/m/n/10 http : / / we
-b . archive . org / web / 20080207010024 / http : / / www .
- []
-
-[26
-
+] (../program/UseCases/thirdCase.ig)
+[20
 
 ]
-<sources/parser.pdf, id=615, 9195.35374pt x 7928.62125pt>
-File: sources/parser.pdf Graphic file (type pdf)
-<use sources/parser.pdf>
-Package pdftex.def Info: sources/parser.pdf  used on input line 535.
-(pdftex.def)             Requested size: 9195.33145pt x 7928.60202pt.
- [27
 
- <./sources/parser.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 540.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 540.
- (./IMAGine_doc.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 540.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 540.
-Package rerunfilecheck Info: File `IMAGine_doc.out' has not changed.
-(rerunfilecheck)             Checksum: 07C69789A47190AB909BD8708692D4AF;1714.
+! Package Listings Error: File `../program/Benchmark/factorial(.ig)' not found.
 
 
-LaTeX Warning: There were multiply-defined labels.
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: ig)
 
- ) 
+Enter file name: 
+! Emergency stop.
+<read *> 
+         
+l.440 ]{../program/Benchmark/factorial.ig}
+                                          ^^M
+*** (cannot \read from terminal in nonstop modes)
+
+ 
 Here is how much of TeX's memory you used:
- 9222 strings out of 482593
- 134283 string characters out of 5949629
- 584638 words of memory out of 5000000
- 23718 multiletter control sequences out of 15000+600000
+ 9095 strings out of 482593
+ 132112 string characters out of 5949629
+ 595542 words of memory out of 5000000
+ 23669 multiletter control sequences out of 15000+600000
  542499 words of font info for 44 fonts, out of 8000000 for 9000
  350 hyphenation exceptions out of 8191
- 34i,8n,36p,1462b,1743s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbi1000.600
-pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.60
-0pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1000.6
-00pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.
-600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000
-.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm100
-0.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx10
-00.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1
-440.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
-1200.600pk> </home/frank/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecr
-m1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi1
-0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-
-Output written on IMAGine_doc.pdf (27 pages, 577225 bytes).
-PDF statistics:
- 1115 PDF objects out of 1200 (max. 8388607)
- 692 compressed objects within 7 object streams
- 376 named destinations out of 1000 (max. 500000)
- 280 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+ 34i,8n,36p,1462b,1870s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!
