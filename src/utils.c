@@ -500,7 +500,7 @@ dodef(struct symbol * name, struct symlist * syms, struct ast * func) {
 
 void 
 dolist(struct symbol * name, struct ast * li){
-   struct utils * temp=malloc(sizeof(struct utils *));
+   struct utils * temp=malloc(sizeof(struct utils ));
    temp->nodetype='l';
    name->value=temp;
 

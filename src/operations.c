@@ -20,8 +20,9 @@ sum(struct utils * v, struct utils * l, struct utils * r) {
    } else if (type(l) == 'D' && type(r) == 'i') {
       sum(v, r, l);
    } else if ((type(l) == 'S' && type(r) == 'i')) { 
-      sprintf(temp, "%d", getElement_i(r));
-      putElement_s(v,strcat( strdup(getElement_s(l)), strdup(temp) ));
+      asprintf( &(((struct str *)v)->str), "%s%d", getElement_s(l), getElement_i(r) );
+      //sprintf(temp, "%d", getElement_i(r));
+      //putElement_s(v,strcat( strdup(getElement_s(l)), strdup(temp) ));
    } else if ((type(l) == 'i' && type(r) == 'S')) { 
       sprintf(temp, "%d", getElement_i(l));
       strcat( temp, getElement_s(r) );
