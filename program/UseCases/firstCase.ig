@@ -36,14 +36,16 @@ list imgOut={};
 counterLi=1;
 counter=1;
 foreach(tempLi:imgLi){
-		push(imgOut, sobel(tempLi,get(outLi,counterLi)));
-		push(imgOut, canny(tempLi,get(outLi,counterLi+1)));
+	push(imgOut, sobel(tempLi,get(outLi,counterLi)));
+	push(imgOut, canny(tempLi,get(outLi,counterLi+1)));
     smartCrop(get(imgOut, counter), get(outLi,counterLi+2), getDim(tempLi), getDim(tempLi));
     smartCrop(get(imgOut, counter+1), get(outLi,counterLi+3), getDim(tempLi), getDim(tempLi));
-		counter=counter+1;
-		counterLi=counterLi+4;
+	counter=counter+1;
+	counterLi=counterLi+4;
 }
 
 foreach(elaborate:imgOut){
-		showImage(elaborate);
+	showImage(elaborate);
 }
+
+
